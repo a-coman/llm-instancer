@@ -1,0 +1,23 @@
+!new Bank('bank2')
+!bank2.country := 'Germany'
+!bank2.name := 'Deutsche Bank'
+!bank2.bic := 'DEUTDEFFXXX'
+
+!new Account('account2')
+!account2.iban := 'DE89 3704 0044 0532 0130 00'
+!account2.balance := 2500
+
+!new Person('person2')
+!person2.age := 30
+!person2.firstName := 'Michael'
+!person2.lastName := 'Schmidt'
+
+!new Person('person3')
+!person3.age := 25
+!person3.firstName := 'Anna'
+!person3.lastName := 'Bauer'
+
+!insert (person2, account2) into Ownership
+!insert (person2, account2) into Use
+!insert (person3, account2) into Use
+!insert (bank2, account2) into AccountOfBanks
