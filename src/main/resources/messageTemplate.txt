@@ -6,4 +6,3 @@ and this is example instantiation of it:
 "
 {example}
 "
-Create another instance that is different

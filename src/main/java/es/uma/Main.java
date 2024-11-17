@@ -1,5 +1,6 @@
 package es.uma;
 
+import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -16,19 +17,33 @@ public class Main {
         try {
             return new String(Files.readAllBytes(Paths.get(filePath)));
         } catch (IOException e) {
-            System.err.println("Error reading file: " + filePath);
+            System.err.println("Error reading file: " + filePath + " - " + e.getMessage());
             return "";
         }
     }
 
-    private static String loadTemplate() {
+    private static String loadTemplate(String promptPath) {
+
         String messageTemplate = readFileToString("./src/main/resources/messageTemplate.txt");
-        String diagram = readFileToString("./src/main/resources/diagram.use");
-        String example = readFileToString("./src/main/resources/example.soil");
+        String diagram = readFileToString(promptPath + "diagram.use"); 
+        messageTemplate = messageTemplate.replace("{diagram}", diagram);
+
+        String examplePath = promptPath + "examples/";
+        File[] filesList = new File(examplePath).listFiles();
+        if (filesList != null) {
+            for (int i = 0; i < filesList.length; i++) {
+                File file = filesList[i];
+                if (file.isFile()) {
+                    String example = readFileToString(examplePath + file.getName());
+                    messageTemplate = messageTemplate.replace("{example}", example);        
+                    if (i < filesList.length - 1) {
+                        messageTemplate = messageTemplate + "another example:\n \"\n{example}\n\" ";
+                    }
+                }
+            }
+        }
         
         // Consider StringBuilder if multiple replaces //
-        messageTemplate = messageTemplate.replace("{diagram}", diagram);
-        messageTemplate = messageTemplate.replace("{example}", example);
 
         return messageTemplate;
     }
@@ -55,7 +70,7 @@ public class Main {
         .modelName("gemini-1.5-flash")
         .build();
 
-        String userMessage = loadTemplate();
+        String userMessage = loadTemplate("./src/main/resources/prompts/bank/");
 
         ModelInstantiator modelInstantiator = AiServices.create(ModelInstantiator.class, gemini);
         String response = modelInstantiator.chat(userMessage);
