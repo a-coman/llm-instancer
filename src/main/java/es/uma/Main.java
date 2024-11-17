@@ -12,7 +12,7 @@ import dev.langchain4j.service.SystemMessage;
 
 public class Main {
 
-    private static String loadToString(String filePath) {
+    private static String readFileToString(String filePath) {
         try {
             return new String(Files.readAllBytes(Paths.get(filePath)));
         } catch (IOException e) {
@@ -22,9 +22,9 @@ public class Main {
     }
 
     private static String loadTemplate() {
-        String messageTemplate = loadToString(".\\src\\main\\resources\\messageTemplate.txt");
-        String diagram = loadToString(".\\src\\main\\resources\\diagram.use");
-        String example = loadToString(".\\src\\main\\resources\\example.soil");
+        String messageTemplate = readFileToString("./src/main/resources/messageTemplate.txt");
+        String diagram = readFileToString("./src/main/resources/diagram.use");
+        String example = readFileToString("./src/main/resources/example.soil");
         
         // Consider StringBuilder if multiple replaces //
         messageTemplate = messageTemplate.replace("{diagram}", diagram);
@@ -33,10 +33,11 @@ public class Main {
         return messageTemplate;
     }
 
-    private static void saveInstance(String response) {
-        try (FileWriter writer = new FileWriter(".\\src\\main\\resources\\instance.soil")){
+    private static void saveInstance(String response, String model, String number) {
+        String filePath = "./src/main/resources/instances/" + model + "_" + number + ".soil";
+        try (FileWriter writer = new FileWriter(filePath)) { 
             writer.write(response);
-            System.out.println("Response saved to instance.soil");
+            System.out.println("Response saved at " + filePath);
         } catch (Exception e) {
             System.err.println("Error writing to file: " + e.getMessage());
         }
@@ -61,7 +62,7 @@ public class Main {
 
         System.out.println("Response:");
         System.out.println(response);
-        saveInstance(response);
+        saveInstance(response, "gemini", "1");
 
     }
 

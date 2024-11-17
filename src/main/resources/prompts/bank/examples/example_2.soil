@@ -1,7 +1,7 @@
 !new Bank('bank1')
 !bank1.country := 'France'
-!bank1.name := 'BNP Paribas'
-!bank1.bic := 'BNPAFRPPXXX'
+!bank1.name := 'Societe Generale'
+!bank1.bic := 'SOGEFRPPXXX'
 
 !new Account('account1')
 !account1.iban := 'FR14 2004 1010 0505 0001 3M02 606'
