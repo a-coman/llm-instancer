@@ -1,0 +1,31 @@
+!new Bank('bank3')
+!bank3.country := 'Spain'
+!bank3.name := 'Banco Santander'
+!bank3.bic := 'BSCHESMMXXX'
+
+!new Account('account3')
+!account3.iban := 'ES66 0049 1517 1212 1234 5678'
+!account3.balance := 5000
+
+!new Person('person4')
+!person4.age := 40
+!person4.firstName := 'Maria'
+!person4.lastName := 'Garcia'
+
+!new Person('person5')
+!person5.age := 22
+!person5.firstName := 'David'
+!person5.lastName := 'Rodriguez'
+
+!insert (person4, account3) into Ownership
+!insert (person4, account3) into Use
+!insert (person5, account3) into Use
+!insert (bank3, account3) into AccountOfBanks
+
+!new Account('account4')
+!account4.iban := 'ES91 2100 0418 4502 0012 3456'
+!account4.balance := 100
+
+!insert (person5, account4) into Ownership
+!insert (person5, account4) into Use
+!insert (bank3, account4) into AccountOfBanks

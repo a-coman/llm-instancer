@@ -48,10 +48,10 @@ public class Main {
         return messageTemplate;
     }
 
-    private static void saveInstance(String response, String model, String number) {
-        String filePath = "./src/main/resources/instances/" + model + "_" + number + ".soil";
+    private static void saveInstance(String instance, String model, String number) {
+        String filePath = "./src/main/resources/instances/bank/" + model + "_" + number + ".soil";
         try (FileWriter writer = new FileWriter(filePath)) { 
-            writer.write(response);
+            writer.write(instance);
             System.out.println("Response saved at " + filePath);
         } catch (Exception e) {
             System.err.println("Error writing to file: " + e.getMessage());
@@ -70,14 +70,23 @@ public class Main {
         .modelName("gemini-1.5-flash")
         .build();
 
-        String userMessage = loadTemplate("./src/main/resources/prompts/bank/");
+        String messageTemplate = loadTemplate("./src/main/resources/prompts/bank/");
+        String prompt = messageTemplate + "\n Create instances of the conceptual model.";
 
         ModelInstantiator modelInstantiator = AiServices.create(ModelInstantiator.class, gemini);
-        String response = modelInstantiator.chat(userMessage);
+        String instance = modelInstantiator.chat(prompt);
+        System.out.println("Instance 1:");
+        System.out.println(instance);
+        saveInstance(instance, "gemini", "1");
 
-        System.out.println("Response:");
-        System.out.println(response);
-        saveInstance(response, "gemini", "1");
+        for (int i = 2; i <= 5; i++) {
+            prompt = messageTemplate + "\n Create more instances of the conceptual model.";
+            instance = modelInstantiator.chat(prompt);
+            System.out.println("Instance " + i + ":");
+            System.out.println(instance);
+            saveInstance(instance, "gemini", String.valueOf(i));
+        }
+ 
 
     }
 

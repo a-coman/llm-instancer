@@ -1,0 +1,17 @@
+!new Bank('bank3')
+!bank3.country := 'USA'
+!bank3.name := 'Bank of America'
+!bank3.bic := 'BOFAUS3NXXX'
+
+!new Account('account3')
+!account3.iban := 'US1234567890'
+!account3.balance := 5000
+
+!new Person('person4')
+!person4.age := 40
+!person4.firstName := 'John'
+!person4.lastName := 'Doe'
+
+!insert (person4, account3) into Ownership
+!insert (person4, account3) into Use
+!insert (bank3, account3) into AccountOfBanks
