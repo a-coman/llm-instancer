@@ -1,0 +1,24 @@
+!new Bank('bank3')
+!bank3.country := 'United Kingdom'
+!bank3.name := 'Barclays'
+!bank3.bic := 'BARCGB22XXX'
+
+!new Account('account3')
+!account3.iban := 'GB29 NWBK 6016 1331 9268 19'
+!account3.balance := 5000
+
+!new Person('person4')
+!person4.age := 45
+!person4.firstName := 'Elizabeth'
+!person4.lastName := 'Brown'
+
+!new Person('person5')
+!person5.age := 17
+!person5.firstName := 'William'
+!person5.lastName := 'Jones'
+
+
+!insert (person4, account3) into Ownership
+!insert (person4, account3) into Use
+!insert (person5, account3) into Use
+!insert (bank3, account3) into AccountOfBanks

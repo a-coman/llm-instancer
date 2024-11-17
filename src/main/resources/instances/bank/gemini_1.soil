@@ -12,6 +12,12 @@
 !person4.firstName := 'John'
 !person4.lastName := 'Doe'
 
+!new Person('person5')
+!person5.age := 22
+!person5.firstName := 'Jane'
+!person5.lastName := 'Smith'
+
 !insert (person4, account3) into Ownership
 !insert (person4, account3) into Use
+!insert (person5, account3) into Use
 !insert (bank3, account3) into AccountOfBanks
