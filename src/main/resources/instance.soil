@@ -4,20 +4,14 @@
 !bank1.bic := 'BNPAFRPPXXX'
 
 !new Account('account1')
-!account1.iban := 'FR76 3000 4000 0100 0000 0000 000'
+!account1.iban := 'FR14 2004 1010 0505 0001 3M02 606'
 !account1.balance := 1000
 
 !new Person('person1')
-!person1.age := 22
-!person1.firstName := 'Alice'
+!person1.age := 20
+!person1.firstName := 'Jean'
 !person1.lastName := 'Dupont'
-
-!new Person('person4')
-!person4.age := 40
-!person4.firstName := 'Bob'
-!person4.lastName := 'Martin'
 
 !insert (person1, account1) into Ownership
 !insert (person1, account1) into Use
-!insert (person4, account1) into Use
-!insert (bank1, account1) into AccountOfBanks 
+!insert (bank1, account1) into AccountOfBanks
