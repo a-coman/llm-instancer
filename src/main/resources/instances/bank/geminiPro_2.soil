@@ -1,22 +1,41 @@
-!new Bank('bank3')
-!bank3.country := 'United Kingdom'
-!bank3.name := 'Barclays'
-!bank3.bic := 'BARCGB22'
+!new Bank('bank5')
+!bank5.country := 'Canada'
+!bank5.name := 'Royal Bank of Canada'
+!bank5.bic := 'ROYCCAT2'
 
-!new Account('account3')
-!account3.iban := 'GB29 NWBK 6016 1331 9268 19'
-!account3.balance := 5000
+!new Account('account5')
+!account5.iban := 'CA7800031065478910234567'
+!account5.balance := 2200
 
-!new Person('person4')
-!person4.firstName := 'Emily'
-!person4.lastName := 'Brown'
-!person4.age := 28
+!new Person('person7')
+!person7.firstName := 'David'
+!person7.lastName := 'Lee'
+!person7.age := 31
 
-!new Person('person5')
-!person5.firstName := 'David'
-!person5.lastName := 'Wilson'
-!person5.age := 35
+!new Person('person8')
+!person8.firstName := 'Sophia'
+!person8.lastName := 'Brown'
+!person8.age := 27
 
-!insert (person4, account3) into Ownership
-!insert (person5, account3) into Use
-!insert (bank3, account3) into AccountOfBanks
+!insert (person7, account5) into Ownership
+!insert (person7, account5) into Use
+!insert (person8, account5) into Use
+!insert (bank5, account5) into AccountOfBanks
+
+!new Bank('bank6')
+!bank6.country := 'Japan'
+!bank6.name := 'Mizuho Bank'
+!bank6.bic := 'MHCBJPJT'
+
+!new Account('account6')
+!account6.iban := 'JP7410000001234567890123'
+!account6.balance := 3000
+
+!new Person('person9')
+!person9.firstName := 'Ken'
+!person9.lastName := 'Tanaka'
+!person9.age := 50
+
+!insert (person9, account6) into Ownership
+!insert (person9, account6) into Use
+!insert (bank6, account6) into AccountOfBanks

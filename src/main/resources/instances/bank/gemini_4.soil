@@ -1,31 +1,29 @@
-!new Bank('bank3')
-!bank3.country := 'Spain'
-!bank3.name := 'Banco Santander'
-!bank3.bic := 'BSCHESMMXXX'
+!new Bank('bank6')
+!bank6.country := 'Japan'
+!bank6.name := 'Mizuho Bank'
+!bank6.bic := 'MHCBJPJT'
 
-!new Account('account3')
-!account3.iban := 'ES66 0049 1517 1212 1234 5678'
-!account3.balance := 5000
+!new Account('account7')
+!account7.iban := 'JP1234567890'
+!account7.balance := 8000
 
-!new Person('person4')
-!person4.age := 40
-!person4.firstName := 'Maria'
-!person4.lastName := 'Garcia'
+!new Person('person8')
+!person8.age := 50
+!person8.firstName := 'Ken'
+!person8.lastName := 'Tanaka'
 
-!new Person('person5')
-!person5.age := 22
-!person5.firstName := 'David'
-!person5.lastName := 'Rodriguez'
+!insert (person8, account7) into Ownership
+!insert (person8, account7) into Use
+!insert (bank6, account7) into AccountOfBanks
 
-!insert (person4, account3) into Ownership
-!insert (person4, account3) into Use
-!insert (person5, account3) into Use
-!insert (bank3, account3) into AccountOfBanks
+!new Account('account8')
+!account8.iban := 'JP9876543210'
+!account8.balance := 1500
 
-!new Account('account4')
-!account4.iban := 'ES91 2100 0418 4502 0012 3456'
-!account4.balance := 100
+!new Person('person9')
+!person9.age := 22
+!person9.firstName := 'Akiko'
+!person9.lastName := 'Suzuki'
 
-!insert (person5, account4) into Ownership
-!insert (person5, account4) into Use
-!insert (bank3, account4) into AccountOfBanks
+!insert (person9, account8) into Use
+!insert (bank6, account8) into AccountOfBanks

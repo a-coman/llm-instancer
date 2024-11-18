@@ -1,37 +1,25 @@
-!new Bank('bank3')
-!bank3.country := 'Spain'
-!bank3.name := 'Banco Santander'
-!bank3.bic := 'BSCHESMMXXX'
-
-!new Account('account3')
-!account3.iban := 'ES66 0049 1517 14 2110010005'
-!account3.balance := 5000
-
-!new Person('person4')
-!person4.age := 40
-!person4.firstName := 'Maria'
-!person4.lastName := 'Garcia'
-
-!new Person('person5')
-!person5.age := 22
-!person5.firstName := 'David'
-!person5.lastName := 'Rodriguez'
-
-
-!insert (person4, account3) into Ownership
-!insert (person4, account3) into Use
-!insert (person5, account3) into Use
-!insert (bank3, account3) into AccountOfBanks
+!new Bank('bank4')
+!bank4.country := 'UK'
+!bank4.name := 'HSBC Bank'
+!bank4.bic := 'HSBCGB2LXXX'
 
 !new Account('account4')
-!account4.iban := 'ES12 0081 0426 8200 0111 2345'
-!account4.balance := 100
+!account4.iban := 'GB1234567890'
+!account4.balance := 10000
 
 !new Person('person6')
-!person6.age := 60
-!person6.firstName := 'Carlos'
-!person6.lastName := 'Lopez'
+!person6.age := 35
+!person6.firstName := 'David'
+!person6.lastName := 'Smith'
 
 !insert (person6, account4) into Ownership
 !insert (person6, account4) into Use
-!insert (bank3, account4) into AccountOfBanks
+!insert (bank4, account4) into AccountOfBanks
+
+!new Account('account5')
+!account5.iban := 'GB9876543210'
+!account5.balance := 500
+
+!insert (person6, account5) into Use
+!insert (bank4, account5) into AccountOfBanks
+

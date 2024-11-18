@@ -1,24 +1,43 @@
-!new Bank('bank3')
-!bank3.country := 'United Kingdom'
-!bank3.name := 'Barclays'
-!bank3.bic := 'BARCGB22XXX'
+!new Bank('bank9')
+!bank9.country := 'Switzerland'
+!bank9.name := 'UBS'
+!bank9.bic := 'UBSSCHZH'
 
-!new Account('account3')
-!account3.iban := 'GB29 NWBK 6016 1331 9268 19'
-!account3.balance := 5000
+!new Account('account9')
+!account9.iban := 'CH93007001150027528749'
+!account9.balance := 9000
 
-!new Person('person4')
-!person4.age := 45
-!person4.firstName := 'Elizabeth'
-!person4.lastName := 'Brown'
-
-!new Person('person5')
-!person5.age := 17
-!person5.firstName := 'William'
-!person5.lastName := 'Jones'
+!new Person('person13')
+!person13.firstName := 'Olivia'
+!person13.lastName := 'Müller'
+!person13.age := 55
 
 
-!insert (person4, account3) into Ownership
-!insert (person4, account3) into Use
-!insert (person5, account3) into Use
-!insert (bank3, account3) into AccountOfBanks
+!insert (person13, account9) into Ownership
+!insert (person13, account9) into Use
+!insert (bank9, account9) into AccountOfBanks
+
+
+!new Bank('bank10')
+!bank10.country := 'India'
+!bank10.name := 'State Bank of India'
+!bank10.bic := 'SBININBB'
+
+!new Account('account10')
+!account10.iban := 'IN55SBIN000123456789012'
+!account10.balance := 1800
+
+!new Person('person14')
+!person14.firstName := 'Anika'
+!person14.lastName := 'Sharma'
+!person14.age := 29
+
+!new Person('person15')
+!person15.firstName := 'Rohan'
+!person15.lastName := 'Patel'
+!person15.age := 33
+
+!insert (person14, account10) into Ownership
+!insert (person14, account10) into Use
+!insert (person15, account10) into Use
+!insert (bank10, account10) into AccountOfBanks

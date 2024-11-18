@@ -1,36 +1,17 @@
-!new Bank('bank3')
-!bank3.country := 'Spain'
-!bank3.name := 'Banco Santander'
-!bank3.bic := 'BSCHESMMXXX'
+!new Bank('bank7')
+!bank7.country := 'Australia'
+!bank7.name := 'Commonwealth Bank of Australia'
+!bank7.bic := 'CTBAAU2SXXX'
 
-!new Account('account3')
-!account3.iban := 'ES66 0049 1517 1212 1234 5678'
-!account3.balance := 5000
+!new Account('account9')
+!account9.iban := 'AU1234567890'
+!account9.balance := 3000
 
-!new Person('person4')
-!person4.age := 40
-!person4.firstName := 'Maria'
-!person4.lastName := 'Garcia'
+!new Person('person10')
+!person10.age := 45
+!person10.firstName := 'David'
+!person10.lastName := 'Lee'
 
-!new Person('person5')
-!person5.age := 22
-!person5.firstName := 'David'
-!person5.lastName := 'Rodriguez'
-
-!insert (person4, account3) into Ownership
-!insert (person4, account3) into Use
-!insert (person5, account3) into Use
-!insert (bank3, account3) into AccountOfBanks
-
-!new Account('account4')
-!account4.iban := 'ES12 0081 0000 0000 0000 0000'
-!account4.balance := 100
-
-!new Person('person6')
-!person6.age := 17
-!person6.firstName := 'Sofia'
-!person6.lastName := 'Martinez'
-
-!insert (person6, account4) into Use
-!insert (bank3, account4) into AccountOfBanks
-
+!insert (person10, account9) into Ownership
+!insert (person10, account9) into Use
+!insert (bank7, account9) into AccountOfBanks

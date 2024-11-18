@@ -1,24 +1,41 @@
-!new Bank('bank3')
-!bank3.country := 'United Kingdom'
-!bank3.name := 'Barclays'
-!bank3.bic := 'BARCGB22'
+!new Bank('bank11')
+!bank11.country := 'South Africa'
+!bank11.name := 'Standard Bank'
+!bank11.bic := 'SBZAZAJJ'
 
-!new Account('account3')
-!account3.iban := 'GB29 NWBK 6016 1331 9268 19'
-!account3.balance := 5000
+!new Account('account11')
+!account11.iban := 'ZA76SBZA0001234567890123'
+!account11.balance := 1200
 
-!new Person('person4')
-!person4.age := 45
-!person4.firstName := 'Elizabeth'
-!person4.lastName := 'Brown'
+!new Person('person16')
+!person16.firstName := 'Nomusa'
+!person16.lastName := 'Dlamini'
+!person16.age := 41
 
-!new Person('person5')
-!person5.age := 17
-!person5.firstName := 'James'
-!person5.lastName := 'Wilson'
+!insert (person16, account11) into Ownership
+!insert (person16, account11) into Use
+!insert (bank11, account11) into AccountOfBanks
 
+!new Bank('bank12')
+!bank12.country := 'China'
+!bank12.name := 'Bank of China'
+!bank12.bic := 'BKCHCNBJ'
 
-!insert (person4, account3) into Ownership
-!insert (person4, account3) into Use
-!insert (person5, account3) into Use
-!insert (bank3, account3) into AccountOfBanks
+!new Account('account12')
+!account12.iban := 'CN12BKCH0001234567890123'
+!account12.balance := 6000
+
+!new Person('person17')
+!person17.firstName := 'Lin'
+!person17.lastName := 'Wei'
+!person17.age := 58
+
+!new Person('person18')
+!person18.firstName := 'Chen'
+!person18.lastName := 'Yang'
+!person18.age := 26
+
+!insert (person17, account12) into Ownership
+!insert (person17, account12) into Use
+!insert (person18, account12) into Use
+!insert (bank12, account12) into AccountOfBanks

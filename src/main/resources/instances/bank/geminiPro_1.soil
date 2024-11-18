@@ -1,30 +1,41 @@
 !new Bank('bank3')
 !bank3.country := 'United Kingdom'
-!bank3.name := 'HSBC Bank plc'
-!bank3.bic := 'MIDLGB22XXX'
+!bank3.name := 'Barclays'
+!bank3.bic := 'BARCGB22'
 
 !new Account('account3')
 !account3.iban := 'GB29NWBK60161331926819'
-!account3.balance := 5000
+!account3.balance := 1500
 
 !new Person('person4')
-!person4.firstName := 'Emily'
-!person4.lastName := 'Brown'
+!person4.firstName := 'Alice'
+!person4.lastName := 'Smith'
 !person4.age := 28
 
 !new Person('person5')
-!person5.firstName := 'David'
-!person5.lastName := 'Wilson'
+!person5.firstName := 'Bob'
+!person5.lastName := 'Johnson'
 !person5.age := 35
+
 
 !insert (person4, account3) into Ownership
 !insert (person5, account3) into Use
 !insert (bank3, account3) into AccountOfBanks
 
-!new Account('account4')
-!account4.iban := 'GB98MIDL20050987654321'
-!account4.balance := 10000
+!new Bank('bank4')
+!bank4.country := 'USA'
+!bank4.name := 'Bank of America'
+!bank4.bic := 'BOFAUS3N'
 
-!insert (person5, account4) into Ownership
-!insert (person4, account4) into Use
-!insert (bank3, account4) into AccountOfBanks
+!new Account('account4')
+!account4.iban := 'US64SVBKUS6S300097611299'
+!account4.balance := 5000
+
+!new Person('person6')
+!person6.firstName := 'Eva'
+!person6.lastName := 'Garcia'
+!person6.age := 42
+
+!insert (person6, account4) into Ownership
+!insert (person6, account4) into Use
+!insert (bank4, account4) into AccountOfBanks

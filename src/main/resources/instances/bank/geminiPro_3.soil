@@ -1,23 +1,41 @@
-!new Bank('bank3')
-!bank3.country := 'United Kingdom'
-!bank3.name := 'Barclays'
-!bank3.bic := 'BARCGB22'
+!new Bank('bank7')
+!bank7.country := 'Australia'
+!bank7.name := 'Commonwealth Bank'
+!bank7.bic := 'CTBAAU2S'
 
-!new Account('account3')
-!account3.iban := 'GB29 NWBK 6083 7199 3094 76'
-!account3.balance := 5000
+!new Account('account7')
+!account7.iban := 'AU2408492712837465219037'
+!account7.balance := 750
 
-!new Person('person4')
-!person4.firstName := 'Elizabeth'
-!person4.lastName := 'Brown'
-!person4.age := 45
+!new Person('person10')
+!person10.firstName := 'Emily'
+!person10.lastName := 'Wilson'
+!person10.age := 23
 
-!new Person('person5')
-!person5.firstName := 'David'
-!person5.lastName := 'Wilson'
-!person5.age := 28
+!insert (person10, account7) into Ownership
+!insert (person10, account7) into Use
+!insert (bank7, account7) into AccountOfBanks
 
-!insert (person4, account3) into Ownership
-!insert (person4, account3) into Use
-!insert (person5, account3) into Use
-!insert (bank3, account3) into AccountOfBanks
+!new Bank('bank8')
+!bank8.country := 'Brazil'
+!bank8.name := 'Itaú Unibanco'
+!bank8.bic := 'ITUBBRSP'
+
+!new Account('account8')
+!account8.iban := 'BR9765432109876543210987'
+!account8.balance := 4000
+
+!new Person('person11')
+!person11.firstName := 'Maria'
+!person11.lastName := 'Silva'
+!person11.age := 38
+
+!new Person('person12')
+!person12.firstName := 'José'
+!person12.lastName := 'Santos'
+!person12.age := 45
+
+!insert (person11, account8) into Ownership
+!insert (person11, account8) into Use
+!insert (person12, account8) into Use
+!insert (bank8, account8) into AccountOfBanks

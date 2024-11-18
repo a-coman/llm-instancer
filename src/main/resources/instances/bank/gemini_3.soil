@@ -1,31 +1,17 @@
-!new Bank('bank3')
-!bank3.country := 'USA'
-!bank3.name := 'Bank of America'
-!bank3.bic := 'BOFAUS3NXXX'
+!new Bank('bank5')
+!bank5.country := 'Canada'
+!bank5.name := 'Royal Bank of Canada'
+!bank5.bic := 'RYCBCA6X'
 
-!new Account('account3')
-!account3.iban := 'US1234567890'
-!account3.balance := 5000
+!new Account('account6')
+!account6.iban := 'CA1234567890'
+!account6.balance := 2000
 
-!new Person('person4')
-!person4.age := 40
-!person4.firstName := 'John'
-!person4.lastName := 'Doe'
+!new Person('person7')
+!person7.age := 28
+!person7.firstName := 'Sarah'
+!person7.lastName := 'Jones'
 
-!new Person('person5')
-!person5.age := 22
-!person5.firstName := 'Jane'
-!person5.lastName := 'Smith'
-
-!insert (person4, account3) into Ownership
-!insert (person4, account3) into Use
-!insert (person5, account3) into Use
-!insert (bank3, account3) into AccountOfBanks
-
-!new Account('account4')
-!account4.iban := 'US9876543210'
-!account4.balance := 10000
-
-!insert (person4, account4) into Ownership
-!insert (person4, account4) into Use
-!insert (bank3, account4) into AccountOfBanks
+!insert (person7, account6) into Ownership
+!insert (person7, account6) into Use
+!insert (bank5, account6) into AccountOfBanks

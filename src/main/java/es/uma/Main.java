@@ -6,6 +6,8 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 
+import dev.langchain4j.memory.ChatMemory;
+import dev.langchain4j.memory.chat.MessageWindowChatMemory;
 import dev.langchain4j.model.chat.ChatLanguageModel;
 import dev.langchain4j.model.googleai.GoogleAiGeminiChatModel;
 import dev.langchain4j.service.AiServices;
@@ -67,24 +69,29 @@ public class Main {
 
         ChatLanguageModel gemini = GoogleAiGeminiChatModel.builder()
         .apiKey(System.getenv("GEMINI_KEY"))
-        .modelName("gemini-1.5-flash")
+        .modelName("gemini-1.5-pro")
+        .build();
+
+        ChatMemory chatMemory = MessageWindowChatMemory.withMaxMessages(10);
+
+        ModelInstantiator modelInstantiator = AiServices.builder(ModelInstantiator.class)
+        .chatLanguageModel(gemini)
+        .chatMemory(chatMemory)
         .build();
 
         String messageTemplate = loadTemplate("./src/main/resources/prompts/bank/");
-        String prompt = messageTemplate + "\n Create instances of the conceptual model.";
-
-        ModelInstantiator modelInstantiator = AiServices.create(ModelInstantiator.class, gemini);
+        String prompt = messageTemplate + "\n Create instances of the conceptual model";
         String instance = modelInstantiator.chat(prompt);
         System.out.println("Instance 1:");
         System.out.println(instance);
-        saveInstance(instance, "gemini", "1");
+        saveInstance(instance, "geminiPro", "1");
 
         for (int i = 2; i <= 5; i++) {
-            prompt = messageTemplate + "\n Create more instances of the conceptual model.";
+            prompt = "\n Create more instances of the conceptual model";
             instance = modelInstantiator.chat(prompt);
             System.out.println("Instance " + i + ":");
             System.out.println(instance);
-            saveInstance(instance, "gemini", String.valueOf(i));
+            saveInstance(instance, "geminiPro", String.valueOf(i));
         }
  
 
