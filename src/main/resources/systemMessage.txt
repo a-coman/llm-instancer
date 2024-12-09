@@ -1,1 +1,0 @@
-Given a conceptual model in the UML-based Specification Environment, you create instances for it. You respond only with the instance correctly formatted. Respond in plain text not markdown or other format.

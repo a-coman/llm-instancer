@@ -1,8 +1,0 @@
-This is a conceptual model:
-"
-{diagram}
-"
-and this is example instantiation of it:
-"
-{example}
-"
