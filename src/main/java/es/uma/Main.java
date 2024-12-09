@@ -10,91 +10,43 @@ import dev.langchain4j.memory.ChatMemory;
 import dev.langchain4j.memory.chat.MessageWindowChatMemory;
 import dev.langchain4j.model.chat.ChatLanguageModel;
 import dev.langchain4j.model.googleai.GoogleAiGeminiChatModel;
+import dev.langchain4j.model.openai.OpenAiChatModel;
 import dev.langchain4j.service.AiServices;
 import dev.langchain4j.service.SystemMessage;
 
 public class Main {
-
-    private static String readFileToString(String filePath) {
-        try {
-            return new String(Files.readAllBytes(Paths.get(filePath)));
-        } catch (IOException e) {
-            System.err.println("Error reading file: " + filePath + " - " + e.getMessage());
-            return "";
-        }
-    }
-
-    private static String loadTemplate(String promptPath) {
-
-        String messageTemplate = readFileToString("./src/main/resources/messageTemplate.txt");
-        String diagram = readFileToString(promptPath + "diagram.use"); 
-        messageTemplate = messageTemplate.replace("{diagram}", diagram);
-
-        String examplePath = promptPath + "examples/";
-        File[] filesList = new File(examplePath).listFiles();
-        if (filesList != null) {
-            for (int i = 0; i < filesList.length; i++) {
-                File file = filesList[i];
-                if (file.isFile()) {
-                    String example = readFileToString(examplePath + file.getName());
-                    messageTemplate = messageTemplate.replace("{example}", example);        
-                    if (i < filesList.length - 1) {
-                        messageTemplate = messageTemplate + "another example:\n \"\n{example}\n\" ";
-                    }
-                }
-            }
-        }
-        
-        // Consider StringBuilder if multiple replaces //
-
-        return messageTemplate;
-    }
-
-    private static void saveInstance(String instance, String model, String number) {
-        String filePath = "./src/main/resources/instances/bank/" + model + "_" + number + ".soil";
-        try (FileWriter writer = new FileWriter(filePath)) { 
-            writer.write(instance);
-            System.out.println("Response saved at " + filePath);
-        } catch (Exception e) {
-            System.err.println("Error writing to file: " + e.getMessage());
-        }
-    }
     
-    interface ModelInstantiator {     
-        @SystemMessage(fromResource = "systemMessage.txt")
-        String chat(String userMessage);
+    private static IModelAnalyzer modelAnalyzer;
+    private static IListCreator listCreator;
+    private static IModelInstantiator modelInstantiator;
+
+    private static void initializeModel() {
+        ChatLanguageModel chatGPT = OpenAiChatModel.builder()
+        .apiKey(System.getenv("OPEN_API_KEY"))
+        .modelName("gpt-4o")
+        .build();
+
+        ChatMemory analyzerMemory = MessageWindowChatMemory.withMaxMessages(10);
+        modelAnalyzer = AiServices.builder(IModelAnalyzer.class)
+        .chatLanguageModel(chatGPT)
+        .chatMemory(analyzerMemory)
+        .build();
+
+        ChatMemory listCreatorMemory = MessageWindowChatMemory.withMaxMessages(10);
+        listCreator = AiServices.builder(IListCreator.class)
+        .chatLanguageModel(chatGPT)
+        .chatMemory(listCreatorMemory)
+        .build();
+
+        ChatMemory instantiatorMemory = MessageWindowChatMemory.withMaxMessages(10);
+        modelInstantiator = AiServices.builder(IModelInstantiator.class)
+        .chatLanguageModel(chatGPT)
+        .chatMemory(instantiatorMemory)
+        .build();
     }
 
     public static void main(String[] args) {
-
-        ChatLanguageModel gemini = GoogleAiGeminiChatModel.builder()
-        .apiKey(System.getenv("GEMINI_KEY"))
-        .modelName("gemini-1.5-pro")
-        .build();
-
-        ChatMemory chatMemory = MessageWindowChatMemory.withMaxMessages(10);
-
-        ModelInstantiator modelInstantiator = AiServices.builder(ModelInstantiator.class)
-        .chatLanguageModel(gemini)
-        .chatMemory(chatMemory)
-        .build();
-
-        String messageTemplate = loadTemplate("./src/main/resources/prompts/bank/");
-        String prompt = messageTemplate + "\n Create instances of the conceptual model";
-        String instance = modelInstantiator.chat(prompt);
-        System.out.println("Instance 1:");
-        System.out.println(instance);
-        saveInstance(instance, "geminiPro", "1");
-
-        for (int i = 2; i <= 5; i++) {
-            prompt = "\n Create more instances of the conceptual model";
-            instance = modelInstantiator.chat(prompt);
-            System.out.println("Instance " + i + ":");
-            System.out.println(instance);
-            saveInstance(instance, "geminiPro", String.valueOf(i));
-        }
- 
-
-    }
+        initializeModel();
+        
 
 }
