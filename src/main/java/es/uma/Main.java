@@ -1,18 +1,10 @@
 package es.uma;
 
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-
 import dev.langchain4j.memory.ChatMemory;
 import dev.langchain4j.memory.chat.MessageWindowChatMemory;
 import dev.langchain4j.model.chat.ChatLanguageModel;
-import dev.langchain4j.model.googleai.GoogleAiGeminiChatModel;
 import dev.langchain4j.model.openai.OpenAiChatModel;
 import dev.langchain4j.service.AiServices;
-import dev.langchain4j.service.SystemMessage;
 
 public class Main {
     
@@ -20,7 +12,7 @@ public class Main {
     private static IListCreator listCreator;
     private static IModelInstantiator modelInstantiator;
 
-    private static void initializeModel() {
+    private static void initializeAgents() {
         ChatLanguageModel chatGPT = OpenAiChatModel.builder()
         .apiKey(System.getenv("OPEN_API_KEY"))
         .modelName("gpt-4o")
@@ -46,7 +38,9 @@ public class Main {
     }
 
     public static void main(String[] args) {
-        initializeModel();
-        
+        initializeAgents();
+
+    }
+
 
 }
