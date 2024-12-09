@@ -20,6 +20,7 @@ public class Utils {
     public static void saveFile(String file, String path, String filename) {
         try (FileWriter writer = new FileWriter(path)) {
             writer.write(file);
+            writer.flush();
             System.out.println("Response saved at " + path);
         } catch (Exception e) {
             System.err.println("Error writing to file: " + e.getMessage());
