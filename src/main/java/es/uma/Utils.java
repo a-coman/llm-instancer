@@ -3,6 +3,8 @@ package es.uma;
 import java.io.FileWriter;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 public class Utils {
 
@@ -23,6 +25,10 @@ public class Utils {
             System.err.println("Error writing to file: " + e.getMessage());
             throw new RuntimeException(e);
         }
+    }
+
+    public static String getTime() {
+        return LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd-MM-yyyy -- HH-mm-ss")); 
     }
 
 }
