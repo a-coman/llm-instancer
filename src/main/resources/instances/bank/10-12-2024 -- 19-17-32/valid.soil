@@ -1,0 +1,565 @@
+Below are the instances created based on the provided conceptual model of a banking system, formatted according to the syntax example provided:
+
+### Instance 1: Standard European Bank
+
+!new Bank('bank1')
+!bank1.country := 'Germany'
+!bank1.name := 'Deutsche Bank'
+!bank1.bic := 'DEUTDEFF'
+
+!new Account('account1_1')
+!account1_1.iban := 'DE89370400440532013000'
+!account1_1.balance := 1500
+
+!new Account('account1_2')
+!account1_2.iban := 'DE89370400440532014000'
+!account1_2.balance := 2000
+
+!new Person('person1_1')
+!person1_1.age := 45
+!person1_1.firstName := 'Klaus'
+!person1_1.lastName := 'Müller'
+
+!new Person('person1_2')
+!person1_2.age := 30
+!person1_2.firstName := 'Anna'
+!person1_2.lastName := 'Schmidt'
+
+!insert (person1_1, account1_1) into Ownership
+!insert (person1_1, account1_1) into Use
+!insert (person1_1, account1_2) into Use
+!insert (person1_2, account1_2) into Ownership
+!insert (person1_2, account1_2) into Use
+!insert (bank1, account1_1) into AccountOfBanks
+!insert (bank1, account1_2) into AccountOfBanks
+
+### Instance 2: North American Bank with Multinational Users
+
+!new Bank('bank2')
+!bank2.country := 'United States'
+!bank2.name := 'Bank of America'
+!bank2.bic := 'BOFAUS3N'
+
+!new Account('account2_1')
+!account2_1.iban := 'US12345678901234567890'
+!account2_1.balance := 2500
+
+!new Person('person2_1')
+!person2_1.age := 50
+!person2_1.firstName := 'John'
+!person2_1.lastName := 'Doe'
+
+!new Person('person2_2')
+!person2_2.age := 28
+!person2_2.firstName := 'Maria'
+!person2_2.lastName := 'Gonzalez'
+
+!insert (person2_1, account2_1) into Ownership
+!insert (person2_1, account2_1) into Use
+!insert (person2_2, account2_1) into Use
+!insert (bank2, account2_1) into AccountOfBanks
+
+### Instance 3: Asian Bank with Young Users
+
+!new Bank('bank3')
+!bank3.country := 'Japan'
+!bank3.name := 'Mitsubishi UFJ Financial Group'
+!bank3.bic := 'BOTKJPJT'
+
+!new Account('account3_1')
+!account3_1.iban := 'JP7894561230123456789'
+!account3_1.balance := 10000
+
+!new Person('person3_1')
+!person3_1.age := 60
+!person3_1.firstName := 'Hiroshi'
+!person3_1.lastName := 'Tanaka'
+
+!new Person('person3_2')
+!person3_2.age := 25
+!person3_2.firstName := 'Yuki'
+!person3_2.lastName := 'Sato'
+
+!insert (person3_1, account3_1) into Ownership
+!insert (person3_1, account3_1) into Use
+!insert (person3_2, account3_1) into Use
+!insert (bank3, account3_1) into AccountOfBanks
+
+### Instance 4: African Bank with Community Accounts
+
+!new Bank('bank4')
+!bank4.country := 'South Africa'
+!bank4.name := 'Standard Bank'
+!bank4.bic := 'SBZAZAJJ'
+
+!new Account('account4_1')
+!account4_1.iban := 'ZA1234567890123456789'
+!account4_1.balance := 500
+
+!new Account('account4_2')
+!account4_2.iban := 'ZA9876543210987654321'
+!account4_2.balance := 800
+
+!new Person('person4_1')
+!person4_1.age := 40
+!person4_1.firstName := 'Sipho'
+!person4_1.lastName := 'Ndlovu'
+
+!new Person('person4_2')
+!person4_2.age := 35
+!person4_2.firstName := 'Thandi'
+!person4_2.lastName := 'Mokoena'
+
+!insert (person4_1, account4_1) into Ownership
+!insert (person4_1, account4_1) into Use
+!insert (person4_1, account4_2) into Use
+!insert (person4_2, account4_2) into Ownership
+!insert (person4_2, account4_1) into Use
+!insert (person4_2, account4_2) into Use
+!insert (bank4, account4_1) into AccountOfBanks
+!insert (bank4, account4_2) into AccountOfBanks
+
+### Instance 5: Middle Eastern Bank with Dual Ownership
+
+!new Bank('bank5')
+!bank5.country := 'United Arab Emirates'
+!bank5.name := 'Emirates NBD'
+!bank5.bic := 'EBILAEAD'
+
+!new Account('account5_1')
+!account5_1.iban := 'AE070331234567890123456'
+!account5_1.balance := 3000
+
+!new Person('person5_1')
+!person5_1.age := 34
+!person5_1.firstName := 'Ahmed'
+!person5_1.lastName := 'Al-Farsi'
+
+!new Person('person5_2')
+!person5_2.age := 29
+!person5_2.firstName := 'Fatima'
+!person5_2.lastName := 'Al-Mansoori'
+
+!insert (person5_1, account5_1) into Ownership
+!insert (person5_1, account5_1) into Use
+!insert (person5_2, account5_1) into Use
+!insert (bank5, account5_1) into AccountOfBanks
+
+Below are the instances created based on the provided constraints testing the boundary values, formatted according to the syntax example provided:
+
+### Instance 1: Minimum Age for Ownership
+
+!new Bank('bank1')
+!bank1.country := 'Australia'
+!bank1.name := 'Commonwealth Bank'
+!bank1.bic := 'CTBAAU2S'
+
+!new Account('account1_1')
+!account1_1.iban := 'AU123456789012345678'
+!account1_1.balance := 100
+
+!new Person('person1_1')
+!person1_1.age := 19
+!person1_1.firstName := 'Jack'
+!person1_1.lastName := 'Smith'
+
+!insert (person1_1, account1_1) into Ownership
+!insert (person1_1, account1_1) into Use
+!insert (bank1, account1_1) into AccountOfBanks
+
+### Instance 2: Maximum Number of Accounts for a Person
+
+!new Bank('bank2')
+!bank2.country := 'Canada'
+!bank2.name := 'Royal Bank of Canada'
+!bank2.bic := 'ROYCCAT2'
+
+!new Account('account2_1')
+!account2_1.iban := 'CA123456789012345678'
+!account2_1.balance := 200
+
+!new Account('account2_2')
+!account2_2.iban := 'CA987654321098765432'
+!account2_2.balance := 500
+
+!new Account('account2_3')
+!account2_3.iban := 'CA192837465091827364'
+!account2_3.balance := 750
+
+!new Person('person2_1')
+!person2_1.age := 35
+!person2_1.firstName := 'Emily'
+!person2_1.lastName := 'Johnson'
+
+!insert (person2_1, account2_1) into Ownership
+!insert (person2_1, account2_1) into Use
+!insert (person2_1, account2_2) into Ownership
+!insert (person2_1, account2_2) into Use
+!insert (person2_1, account2_3) into Ownership
+!insert (person2_1, account2_3) into Use
+!insert (bank2, account2_1) into AccountOfBanks
+!insert (bank2, account2_2) into AccountOfBanks
+!insert (bank2, account2_3) into AccountOfBanks
+
+### Instance 3: Minimum Balance
+
+!new Bank('bank3')
+!bank3.country := 'United Kingdom'
+!bank3.name := 'HSBC'
+!bank3.bic := 'HBUKGB4B'
+
+!new Account('account3_1')
+!account3_1.iban := 'GB29NWBK60161331926819'
+!account3_1.balance := 1
+
+!new Person('person3_1')
+!person3_1.age := 40
+!person3_1.firstName := 'Oliver'
+!person3_1.lastName := 'Brown'
+
+!insert (person3_1, account3_1) into Ownership
+!insert (person3_1, account3_1) into Use
+!insert (bank3, account3_1) into AccountOfBanks
+
+### Instance 4: Extreme Balance Values
+
+!new Bank('bank4')
+!bank4.country := 'Switzerland'
+!bank4.name := 'UBS'
+!bank4.bic := 'UBSWCHZH80A'
+
+!new Account('account4_1')
+!account4_1.iban := 'CH9300762011623852957'
+!account4_1.balance := 2147483647
+
+!new Person('person4_1')
+!person4_1.age := 60
+!person4_1.firstName := 'Lucas'
+!person4_1.lastName := 'Meyer'
+
+!insert (person4_1, account4_1) into Ownership
+!insert (person4_1, account4_1) into Use
+!insert (bank4, account4_1) into AccountOfBanks
+
+### Instance 5: No Users (Unused Account)
+
+!new Bank('bank5')
+!bank5.country := 'India'
+!bank5.name := 'State Bank of India'
+!bank5.bic := 'SBININBB'
+
+!new Account('account5_1')
+!account5_1.iban := 'IN30134829201000234567'
+!account5_1.balance := 500
+
+!new Person('person5_1')
+!person5_1.age := 28
+!person5_1.firstName := 'Priya'
+!person5_1.lastName := 'Reddy'
+
+!insert (person5_1, account5_1) into Ownership
+!insert (bank5, account5_1) into AccountOfBanks
+
+### Instance 6: Maximum Users on an Account
+
+!new Bank('bank6')
+!bank6.country := 'Nigeria'
+!bank6.name := 'Zenith Bank'
+!bank6.bic := 'ZEIBNGLA'
+
+!new Account('account6_1')
+!account6_1.iban := 'NG00123456789012345678'
+!account6_1.balance := 1200
+
+!new Person('person6_1')
+!person6_1.age := 38
+!person6_1.firstName := 'Amina'
+!person6_1.lastName := 'Bello'
+
+!new Person('person6_2')
+!person6_2.age := 30
+!person6_2.firstName := 'Chinedu'
+!person6_2.lastName := 'Okeke'
+
+!new Person('person6_3')
+!person6_3.age := 34
+!person6_3.firstName := 'Bisi'
+!person6_3.lastName := 'Adeyemi'
+
+!insert (person6_1, account6_1) into Ownership
+!insert (person6_1, account6_1) into Use
+!insert (person6_2, account6_1) into Use
+!insert (person6_3, account6_1) into Use
+!insert (bank6, account6_1) into AccountOfBanks
+
+Below are the instances created for complex scenarios involving multiple interrelated entities, formatted according to the syntax example provided:
+
+### Instance 1: Transnational Bank Network
+
+!new Bank('bank1')
+!bank1.country := 'France'
+!bank1.name := 'BNP Paribas'
+!bank1.bic := 'BNPAFRPP'
+
+!new Account('account1_1')
+!account1_1.iban := 'FR7630006000011234567890189'
+!account1_1.balance := 5000
+
+!new Account('account1_2')
+!account1_2.iban := 'FR7630006000019876543210123'
+!account1_2.balance := 3000
+
+!new Person('person1_1')
+!person1_1.age := 50
+!person1_1.firstName := 'Jean'
+!person1_1.lastName := 'Dupont'
+
+!new Person('person1_2')
+!person1_2.age := 45
+!person1_2.firstName := 'Marie'
+!person1_2.lastName := 'Dubois'
+
+!new Person('person1_3')
+!person1_3.age := 33
+!person1_3.firstName := 'Ahmed'
+!person1_3.lastName := 'Khan'
+
+!insert (person1_1, account1_1) into Ownership
+!insert (person1_1, account1_1) into Use
+!insert (person1_1, account1_2) into Use
+!insert (person1_2, account1_2) into Ownership
+!insert (person1_2, account1_1) into Use
+!insert (person1_2, account1_2) into Use
+!insert (person1_3, account1_2) into Use
+!insert (bank1, account1_1) into AccountOfBanks
+!insert (bank1, account1_2) into AccountOfBanks
+
+### Instance 2: Family Bank Accounts
+
+!new Bank('bank2_1')
+!bank2_1.country := 'United States'
+!bank2_1.name := 'Wells Fargo'
+!bank2_1.bic := 'WFBIUS6S'
+
+!new Bank('bank2_2')
+!bank2_2.country := 'Canada'
+!bank2_2.name := 'Scotiabank'
+!bank2_2.bic := 'NOSCCATT'
+
+!new Account('account2_1')
+!account2_1.iban := 'US12345678912345678910'
+!account2_1.balance := 10000
+
+!new Account('account2_2')
+!account2_2.iban := 'CA98765432109876543210'
+!account2_2.balance := 2000
+
+!new Person('person2_1')
+!person2_1.age := 55
+!person2_1.firstName := 'John'
+!person2_1.lastName := 'Williams'
+
+!new Person('person2_2')
+!person2_2.age := 50
+!person2_2.firstName := 'Lucy'
+!person2_2.lastName := 'Williams'
+
+!new Person('person2_3')
+!person2_3.age := 22
+!person2_3.firstName := 'Emily'
+!person2_3.lastName := 'Williams'
+
+!insert (person2_1, account2_1) into Ownership
+!insert (person2_1, account2_1) into Use
+!insert (person2_1, account2_2) into Use
+!insert (person2_2, account2_2) into Ownership
+!insert (person2_2, account2_1) into Use
+!insert (person2_2, account2_2) into Use
+!insert (person2_3, account2_2) into Use
+!insert (bank2_1, account2_1) into AccountOfBanks
+!insert (bank2_2, account2_2) into AccountOfBanks
+
+### Instance 3: Corporate and Personal Accounts
+
+!new Bank('bank3')
+!bank3.country := 'Germany'
+!bank3.name := 'Deutsche Bank'
+!bank3.bic := 'DEUTDEFF'
+
+!new Account('account3_1')
+!account3_1.iban := 'DE89370400440532013000'
+!account3_1.balance := 150000
+
+!new Account('account3_2')
+!account3_2.iban := 'DE89370400440532014000'
+!account3_2.balance := 5000
+
+!new Person('person3_1')
+!person3_1.age := 40
+!person3_1.firstName := 'Martin'
+!person3_1.lastName := 'Schneider'
+
+!new Person('person3_2')
+!person3_2.age := 32
+!person3_2.firstName := 'Julia'
+!person3_2.lastName := 'Bauer'
+
+!new Person('person3_3')
+!person3_3.age := 38
+!person3_3.firstName := 'Sven'
+!person3_3.lastName := 'Koch'
+
+!insert (person3_1, account3_1) into Ownership
+!insert (person3_1, account3_1) into Use
+!insert (person3_2, account3_1) into Use
+!insert (person3_2, account3_2) into Use
+!insert (person3_3, account3_2) into Ownership
+!insert (person3_3, account3_1) into Use
+!insert (person3_3, account3_2) into Use
+!insert (bank3, account3_1) into AccountOfBanks
+!insert (bank3, account3_2) into AccountOfBanks
+
+### Instance 4: Multigenerational Wealth Management
+
+!new Bank('bank4_1')
+!bank4_1.country := 'Japan'
+!bank4_1.name := 'Mizuho Bank'
+!bank4_1.bic := 'MHCBJPJT'
+
+!new Bank('bank4_2')
+!bank4_2.country := 'Singapore'
+!bank4_2.name := 'DBS Bank'
+!bank4_2.bic := 'DBSSSGSG'
+
+!new Account('account4_1')
+!account4_1.iban := 'JP12345678901234567890'
+!account4_1.balance := 100000
+
+!new Account('account4_2')
+!account4_2.iban := 'SG98765432109876543210'
+!account4_2.balance := 30000
+
+!new Person('person4_1')
+!person4_1.age := 70
+!person4_1.firstName := 'Kenji'
+!person4_1.lastName := 'Sakamoto'
+
+!new Person('person4_2')
+!person4_2.age := 45
+!person4_2.firstName := 'Haruto'
+!person4_2.lastName := 'Sakamoto'
+
+!new Person('person4_3')
+!person4_3.age := 18
+!person4_3.firstName := 'Yuki'
+!person4_3.lastName := 'Sakamoto'
+
+!insert (person4_1, account4_1) into Ownership
+!insert (person4_1, account4_1) into Use
+!insert (person4_2, account4_2) into Ownership
+!insert (person4_2, account4_1) into Use
+!insert (person4_2, account4_2) into Use
+!insert (person4_3, account4_2) into Use
+!insert (bank4_1, account4_1) into AccountOfBanks
+!insert (bank4_2, account4_2) into AccountOfBanks
+
+Below are the instances created for unrealistic scenarios, formatted according to the syntax example provided:
+
+### Instance 1: One Person Owns All Accounts Globally
+
+!new Bank('bank1_1')
+!bank1_1.country := 'Liechtenstein'
+!bank1_1.name := 'LGT Bank'
+!bank1_1.bic := 'LGTBLI2X'
+
+!new Bank('bank1_2')
+!bank1_2.country := 'Monaco'
+!bank1_2.name := 'CMB Monaco'
+!bank1_2.bic := 'CMBMMCMX'
+
+!new Account('account1_1')
+!account1_1.iban := 'LI21088100002324013AA'
+!account1_1.balance := 1000000
+
+!new Account('account1_2')
+!account1_2.iban := 'MC5811222000010123456789030'
+!account1_2.balance := 5000000
+
+!new Account('account1_3')
+!account1_3.iban := 'LI21088100002324014BB'
+!account1_3.balance := 750000
+
+!new Person('person1_1')
+!person1_1.age := 55
+!person1_1.firstName := 'Maximus'
+!person1_1.lastName := 'GlobalOwner'
+
+!insert (person1_1, account1_1) into Ownership
+!insert (person1_1, account1_1) into Use
+!insert (person1_1, account1_2) into Ownership
+!insert (person1_1, account1_2) into Use
+!insert (person1_1, account1_3) into Ownership
+!insert (person1_1, account1_3) into Use
+!insert (bank1_1, account1_1) into AccountOfBanks
+!insert (bank1_2, account1_2) into AccountOfBanks
+!insert (bank1_1, account1_3) into AccountOfBanks
+
+### Instance 2: Bank with Only One Customer and One Massive Account
+
+!new Bank('bank2')
+!bank2.country := 'Vatican City'
+!bank2.name := 'Vatican Bank'
+!bank2.bic := 'IOPVVAVX'
+
+!new Account('account2_1')
+!account2_1.iban := 'VA590011230000123456789'
+!account2_1.balance := 999999999
+
+!new Person('person2_1')
+!person2_1.age := 35
+!person2_1.firstName := 'Unique'
+!person2_1.lastName := 'Singleton'
+
+!insert (person2_1, account2_1) into Ownership
+!insert (person2_1, account2_1) into Use
+!insert (bank2, account2_1) into AccountOfBanks
+
+### Instance 3: Multiple Banks with Shared Accounts
+
+!new Bank('bank3_1')
+!bank3_1.country := 'Nauru'
+!bank3_1.name := 'Nauru Bank'
+!bank3_1.bic := 'NRUNNRUX'
+
+!new Bank('bank3_2')
+!bank3_2.country := 'Tuvalu'
+!bank3_2.name := 'Tuvalu Bank'
+!bank3_2.bic := 'TUVLTUVX'
+
+!new Account('account3_1')
+!account3_1.iban := 'NR1212345678901234567890123'
+!account3_1.balance := 100000
+
+!new Account('account3_2')
+!account3_2.iban := 'TV3412345678909876543210123'
+!account3_2.balance := 200000
+
+!new Person('person3_1')
+!person3_1.age := 40
+!person3_1.firstName := 'John'
+!person3_1.lastName := 'Doe'
+
+!new Person('person3_2')
+!person3_2.age := 38
+!person3_2.firstName := 'Jane'
+!person3_2.lastName := 'Doe'
+
+!insert (person3_1, account3_1) into Ownership
+!insert (person3_1, account3_1) into Use
+!insert (person3_1, account3_2) into Use
+!insert (person3_2, account3_2) into Ownership
+!insert (person3_2, account3_1) into Use
+!insert (person3_2, account3_2) into Use
+!insert (bank3_1, account3_1) into AccountOfBanks
+!insert (bank3_2, account3_2) into AccountOfBanks
+

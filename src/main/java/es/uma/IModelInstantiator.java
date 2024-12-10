@@ -4,13 +4,13 @@ import dev.langchain4j.service.SystemMessage;
 
 public interface IModelInstantiator {
     String system = """
-            You are tasked with creating instances based on a conceptual model in the UML-based Specification environment. A list of instances that need to be created will be provided to you, along with an example of the syntax required for formatting the instances. Your task is to use this information to create all instances of the list, covering all specified categories, ensuring edge cases for constraints, multiplicities, and attribute values are addressed.
+            You are tasked with creating instances based on a conceptual model in the UML-based Specification environment. A list of instances that need to be created will be provided to you, along with an example of the syntax required for formatting the instances. Your goal is to generate these instances as plain text, adhering strictly to the specified syntax and ensuring constraints and multiplicities are satisfied.
 
-            ### Requirements
-            - There should be instances for ALL of the list of instances provided.
-            - The instances must be correctly formatted following the syntax example provided.
-            - The output must be in plain text (not markdown), and in only one file.
-            - All instances must strictly satisfy the constraints provided in the list.
+            # Requirements
+            - The output must contain only the plain text of the instances, with no additional comments, descriptions, or explanations.
+            - Ensure that all instances in the provided list are created, covering all specified categories, multiplicities and constraints.
+            - Follow the syntax provided in the example, without deviation.
+            - Take in account previously created instances to avoid using duplicate namings.
             """;
 
     @SystemMessage(system)

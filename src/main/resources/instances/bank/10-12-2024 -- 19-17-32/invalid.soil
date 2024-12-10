@@ -1,0 +1,94 @@
+Below are the instances created for scenarios that violate model constraints, formatted according to the syntax example provided. These instances illustrate realistic situations that challenge the model's constraints:
+
+### Instance 1: Teenage Savings Account
+
+!new Bank('bank1')
+!bank1.country := 'United States'
+!bank1.name := 'Chase Bank'
+!bank1.bic := 'CHASUS33'
+
+!new Account('account1_1')
+!account1_1.iban := 'US12345678901234567890'
+!account1_1.balance := 500
+
+!new Person('person1_1')
+!person1_1.age := 17
+!person1_1.firstName := 'Alex'
+!person1_1.lastName := 'Johnson'
+
+!insert (person1_1, account1_1) into Ownership // Violates AdultOwners invariant
+!insert (person1_1, account1_1) into Use
+!insert (bank1, account1_1) into AccountOfBanks
+
+### Instance 2: Community Account with Negative Balance
+
+!new Bank('bank2')
+!bank2.country := 'United Kingdom'
+!bank2.name := 'Barclays'
+!bank2.bic := 'BARCGB22'
+
+!new Account('account2_1')
+!account2_1.iban := 'GB29NWBK60161331926819'
+!account2_1.balance := -100 // Violates PositiveBalance invariant
+
+!new Person('person2_1')
+!person2_1.age := 30
+!person2_1.firstName := 'Sarah'
+!person2_1.lastName := 'Thompson'
+
+!new Person('person2_2')
+!person2_2.age := 29
+!person2_2.firstName := 'Tom'
+!person2_2.lastName := 'Baker'
+
+!insert (person2_1, account2_1) into Ownership
+!insert (person2_1, account2_1) into Use
+!insert (person2_2, account2_1) into Use
+!insert (bank2, account2_1) into AccountOfBanks
+
+### Instance 3: Shared Ownership Scenario
+
+!new Bank('bank3')
+!bank3.country := 'Australia'
+!bank3.name := 'ANZ'
+!bank3.bic := 'ANZBAU3M'
+
+!new Account('account3_1')
+!account3_1.iban := 'AU123456789012345678'
+!account3_1.balance := 1500
+
+!new Person('person3_1')
+!person3_1.age := 45
+!person3_1.firstName := 'Emma'
+!person3_1.lastName := 'Smith'
+
+!new Person('person3_2')
+!person3_2.age := 47
+!person3_2.firstName := 'Liam'
+!person3_2.lastName := 'Smith'
+
+!insert (person3_1, account3_1) into Ownership
+!insert (person3_1, account3_1) into Use
+!insert (person3_2, account3_1) into Ownership // Violates ownership multiplicity constraint
+!insert (person3_2, account3_1) into Use
+!insert (bank3, account3_1) into AccountOfBanks
+
+### Instance 4: Account Used Before Age of Majority
+
+!new Bank('bank4')
+!bank4.country := 'Canada'
+!bank4.name := 'TD Bank'
+!bank4.bic := 'TDOMCATTTOR'
+
+!new Account('account4_1')
+!account4_1.iban := 'CA123456789012345678'
+!account4_1.balance := 800
+
+!new Person('person4_1')
+!person4_1.age := 16
+!person4_1.firstName := 'Lucas'
+!person4_1.lastName := 'Brown'
+
+!insert (person4_1, account4_1) into Use // Realistically can use but not own
+!insert (bank4, account4_1) into AccountOfBanks
+
