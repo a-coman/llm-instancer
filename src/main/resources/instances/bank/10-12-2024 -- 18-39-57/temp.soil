@@ -1,0 +1,83 @@
+!new Bank('bank16')
+!bank16.country := 'United States'
+!bank16.name := 'Chase Bank'
+!bank16.bic := 'CHASUS33'
+
+!new Account('account25')
+!account25.iban := 'US12345678901234567890'
+!account25.balance := 500.00
+
+!new Person('person23')
+!person23.firstName := 'John'
+!person23.lastName := 'Doe'
+!person23.age := 30
+
+!insert (person23, account25) into Ownership
+!insert (person23, account25) into Use
+!insert (bank16, account25) into AccountOfBanks
+
+!new Bank('bank17')
+!bank17.country := 'Canada'
+!bank17.name := 'Royal Bank of Canada'
+!bank17.bic := 'ROYCCAT2'
+
+!new Account('account26')
+!account26.iban := 'CA123456789012345678'
+!account26.balance := 1500.00
+
+!new Account('account27')
+!account27.iban := 'CA987654321098765432'
+!account27.balance := 250.00
+
+!new Person('person24')
+!person24.firstName := 'Alice'
+!person24.lastName := 'Smith'
+!person24.age := 45
+
+!new Person('person25')
+!person25.firstName := 'Bob'
+!person25.lastName := 'Smith'
+!person25.age := 50
+
+!insert (person24, account26) into Ownership
+!insert (person25, account27) into Ownership
+
+!insert (person24, account26) into Use
+!insert (person24, account27) into Use
+!insert (person25, account27) into Use
+!insert (person25, account26) into Use
+
+!insert (bank17, account26) into AccountOfBanks
+!insert (bank17, account27) into AccountOfBanks
+
+!new Bank('bank18')
+!bank18.country := 'United Kingdom'
+!bank18.name := 'HSBC UK'
+!bank18.bic := 'MIDLGB22'
+
+!new Account('account28')
+!account28.iban := 'GB12345678901234567890'
+!account28.balance := 10000.00
+
+!new Person('person26')
+!person26.firstName := 'Charlie'
+!person26.lastName := 'Brown'
+!person26.age := 35
+
+!new Person('person27')
+!person27.firstName := 'Diana'
+!person27.lastName := 'Johnson'
+!person27.age := 40
+
+!new Person('person28')
+!person28.firstName := 'Edward'
+!person28.lastName := 'White'
+!person28.age := 28
+
+!insert (person26, account28) into Ownership
+
+!insert (person26, account28) into Use
+!insert (person27, account28) into Use
+!insert (person28, account28) into Use
+
+!insert (bank18, account28) into AccountOfBanks

@@ -7,38 +7,31 @@ import dev.langchain4j.model.openai.OpenAiChatModel;
 import dev.langchain4j.service.AiServices;
 
 public class Main {
-
-    private static IModelAnalyzer modelAnalyzer;
-    private static IListCreator listCreator;
-    private static IModelInstantiator modelInstantiator;
-
-    private static void initializeAgents() {
-        ChatLanguageModel chatGPT = OpenAiChatModel.builder()
-                .apiKey(System.getenv("OPEN_API_KEY"))
-                .modelName("gpt-4o")
-                .build();
-
-        ChatMemory analyzerMemory = MessageWindowChatMemory.withMaxMessages(10);
-        modelAnalyzer = AiServices.builder(IModelAnalyzer.class)
-                .chatLanguageModel(chatGPT)
-                .chatMemory(analyzerMemory)
-                .build();
-
-        ChatMemory listCreatorMemory = MessageWindowChatMemory.withMaxMessages(10);
-        listCreator = AiServices.builder(IListCreator.class)
-                .chatLanguageModel(chatGPT)
-                .chatMemory(listCreatorMemory)
-                .build();
-
-        ChatMemory instantiatorMemory = MessageWindowChatMemory.withMaxMessages(10);
-        modelInstantiator = AiServices.builder(IModelInstantiator.class)
-                .chatLanguageModel(chatGPT)
-                .chatMemory(instantiatorMemory)
-                .build();
-    }
-
     public static void main(String[] args) {
-        initializeAgents();
+        
+        // Initialize the agents
+        ChatLanguageModel chatGPT = OpenAiChatModel.builder()
+            .apiKey(System.getenv("OPEN_API_KEY"))
+            .modelName("gpt-4o")
+            .build();
+
+        IModelAnalyzer modelAnalyzer = AiServices.builder(IModelAnalyzer.class)
+            .chatLanguageModel(chatGPT)
+            .build();
+
+        ChatMemory listCreatorMemory = MessageWindowChatMemory.withMaxMessages(12);
+        IListCreator listCreator = AiServices.builder(IListCreator.class)
+            .chatLanguageModel(chatGPT)
+            .chatMemory(listCreatorMemory)
+            .build();
+
+        ChatMemory instantiatorMemory = MessageWindowChatMemory.withMaxMessages(12);
+        IModelInstantiator modelInstantiator = AiServices.builder(IModelInstantiator.class)
+            .chatLanguageModel(chatGPT)
+            .chatMemory(instantiatorMemory)
+            .build();
+
+        // Load variables
         Prompts prompts = new Prompts();
         String model = "bank/";
         String modelUML = Utils.readFile("./src/main/resources/prompts/" + model + "diagram.use"); 
@@ -54,7 +47,7 @@ public class Main {
         prompts.list.forEach( (category, categoryDescription) -> {
             
             // Create list
-            String instance = listCreator.chat(categoryDescription + description);
+            String instance = listCreator.chat(categoryDescription + "\n\n" + description);
             Utils.saveFile("\n\n" + category + "\n" + instance, "./src/main/resources/instances/" + model + currentTime, "/output.md");
 
             // Create SOIL and check constraints
@@ -67,9 +60,9 @@ public class Main {
                 if (check != "OK")
                     instanceSOIL = modelInstantiator.chat(check);    
 
-                Utils.saveFile(instanceSOIL, "./src/main/resources/instances/" + model + currentTime, "/valid.soil");
+                Utils.saveFile(instanceSOIL + "\n\n", "./src/main/resources/instances/" + model + currentTime, "/valid.soil");
             } else {
-                Utils.saveFile(instanceSOIL, "./src/main/resources/instances/" + model + currentTime, "/invalid.soil");
+                Utils.saveFile(instanceSOIL + "\n\n", "./src/main/resources/instances/" + model + currentTime, "/invalid.soil");
             }
 
             Utils.saveFile("\n" + "```\n" + instanceSOIL + "\n```", "./src/main/resources/instances/" + model + currentTime, "/output.md");

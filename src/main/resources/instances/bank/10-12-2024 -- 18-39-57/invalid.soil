@@ -1,0 +1,61 @@
+!new Bank('bank13')
+!bank13.country := 'United States'
+!bank13.name := 'Bank of Youth'
+!bank13.bic := 'BOYUS33'
+
+!new Account('account22')
+!account22.iban := 'US123456789012345678'
+!account22.balance := 100.00
+
+!new Person('person19')
+!person19.firstName := 'Tommy'
+!person19.lastName := 'Young'
+!person19.age := 16
+
+!insert (person19, account22) into Ownership
+!insert (person19, account22) into Use
+!insert (bank13, account22) into AccountOfBanks
+
+!new Bank('bank14')
+!bank14.country := 'Germany'
+!bank14.name := 'Deutsche Savings'
+!bank14.bic := 'DEUSDEFF'
+
+!new Account('account23')
+!account23.iban := 'DE12345678901234567890'
+!account23.balance := 0.00
+
+!new Person('person20')
+!person20.firstName := 'Klaus'
+!person20.lastName := 'Müller'
+!person20.age := 40
+
+!insert (person20, account23) into Ownership
+!insert (person20, account23) into Use
+!insert (bank14, account23) into AccountOfBanks
+
+!new Bank('bank15')
+!bank15.country := 'United Kingdom'
+!bank15.name := 'Joint Financial'
+!bank15.bic := 'JOINTGB2L'
+
+!new Account('account24')
+!account24.iban := 'GB12345678901234567890'
+!account24.balance := 1500.00
+
+!new Person('person21')
+!person21.firstName := 'Robert'
+!person21.lastName := 'Smith'
+!person21.age := 50
+
+!new Person('person22')
+!person22.firstName := 'Emma'
+!person22.lastName := 'Jones'
+!person22.age := 48
+
+!insert (person21, account24) into Ownership
+!insert (person22, account24) into Ownership
+
+!insert (person21, account24) into Use
+!insert (person22, account24) into Use
+!insert (bank15, account24) into AccountOfBanks
