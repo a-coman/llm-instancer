@@ -7,42 +7,50 @@ import dev.langchain4j.model.openai.OpenAiChatModel;
 import dev.langchain4j.service.AiServices;
 
 public class Main {
-    
+
     private static IModelAnalyzer modelAnalyzer;
     private static IListCreator listCreator;
     private static IModelInstantiator modelInstantiator;
 
     private static void initializeAgents() {
         ChatLanguageModel chatGPT = OpenAiChatModel.builder()
-        .apiKey(System.getenv("OPEN_API_KEY"))
-        .modelName("gpt-4o")
-        .build();
+                .apiKey(System.getenv("OPEN_API_KEY"))
+                .modelName("gpt-4o")
+                .build();
 
         ChatMemory analyzerMemory = MessageWindowChatMemory.withMaxMessages(10);
         modelAnalyzer = AiServices.builder(IModelAnalyzer.class)
-        .chatLanguageModel(chatGPT)
-        .chatMemory(analyzerMemory)
-        .build();
+                .chatLanguageModel(chatGPT)
+                .chatMemory(analyzerMemory)
+                .build();
 
         ChatMemory listCreatorMemory = MessageWindowChatMemory.withMaxMessages(10);
         listCreator = AiServices.builder(IListCreator.class)
-        .chatLanguageModel(chatGPT)
-        .chatMemory(listCreatorMemory)
-        .build();
+                .chatLanguageModel(chatGPT)
+                .chatMemory(listCreatorMemory)
+                .build();
 
         ChatMemory instantiatorMemory = MessageWindowChatMemory.withMaxMessages(10);
         modelInstantiator = AiServices.builder(IModelInstantiator.class)
-        .chatLanguageModel(chatGPT)
-        .chatMemory(instantiatorMemory)
-        .build();
+                .chatLanguageModel(chatGPT)
+                .chatMemory(instantiatorMemory)
+                .build();
     }
 
     public static void main(String[] args) {
         initializeAgents();
-        
+        String model = "bank/";
+        String modelUML = Utils.readFile("./src/main/resources/prompts/" + model + "diagram.use"); 
+        String exampleSOIL = Utils.readFile("./src/main/resources/prompts/" + model + "examples/example_1.soil");
 
+        // Create model description in plain english
+        String description = modelAnalyzer.chat(modelUML);
+        Utils.saveFile(description, "./src/main/resources/instances/" + model + Utils.getTime(), "/output.md");
+
+        // for (HashMap.Entry<String, Integer> entry : map.entrySet()) {
+        //     System.out.println("Key: " + entry.getKey() + ", Value: " + entry.getValue());
+        // }
 
     }
-
 
 }

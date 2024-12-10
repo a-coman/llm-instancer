@@ -1,5 +1,6 @@
 package es.uma;
 
+import java.io.File;
 import java.io.FileWriter;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -18,9 +19,15 @@ public class Utils {
     }
 
     public static void saveFile(String file, String path, String filename) {
-        try (FileWriter writer = new FileWriter(path)) {
+        try {
+            File directory = new File(path);
+            if (!directory.exists()) {
+                directory.mkdirs();
+            }
+            FileWriter writer = new FileWriter(path + filename);
             writer.write(file);
             writer.flush();
+            writer.close();
             System.out.println("Response saved at " + path);
         } catch (Exception e) {
             System.err.println("Error writing to file: " + e.getMessage());
@@ -32,4 +39,8 @@ public class Utils {
         return LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd-MM-yyyy -- HH-mm-ss")); 
     }
 
+    public static void main(String[] args) {
+        String model = "test/";
+        Utils.saveFile("Hello World!", "./src/main/resources/instances/" + model + Utils.getTime(), "/output.md");
+    }
 }
