@@ -1,0 +1,135 @@
+### Instance 1: European Bank Scenario
+
+!new Bank('bank1')
+!bank1.country := 'Germany'
+!bank1.name := 'Deutsche Bank'
+!bank1.bic := 'DEUTDEFF'
+
+!new Account('account1')
+!account1.iban := 'DE89370400440532013000'
+!account1.balance := 5000
+
+!new Person('person1')
+!person1.age := 45
+!person1.firstName := 'Hans'
+!person1.lastName := 'Müller'
+
+!new Person('person2')
+!person2.age := 22
+!person2.firstName := 'Anna'
+!person2.lastName := 'Schmidt'
+
+!insert (person1, account1) into Ownership
+!insert (person1, account1) into Use
+!insert (person2, account1) into Use
+!insert (bank1, account1) into AccountOfBanks
+
+!new Account('account2')
+!account2.iban := 'DE89370400440532013001'
+!account2.balance := 1200
+
+!new Person('person3')
+!person3.age := 30
+!person3.firstName := 'Lisa'
+!person3.lastName := 'Weber'
+
+!new Person('person4')
+!person4.age := 28
+!person4.firstName := 'Peter'
+!person4.lastName := 'Fischer'
+
+!insert (person3, account2) into Ownership
+!insert (person3, account2) into Use
+!insert (person4, account2) into Use
+!insert (bank1, account2) into AccountOfBanks
+
+### Instance 2: Asian Bank Scenario
+
+!new Bank('bank2')
+!bank2.country := 'Japan'
+!bank2.name := 'Mizuho Bank'
+!bank2.bic := 'MHCBJPJT'
+
+!new Account('account3')
+!account3.iban := 'JP12345678901234567890'
+!account3.balance := 7500
+
+!new Person('person5')
+!person5.age := 60
+!person5.firstName := 'Akira'
+!person5.lastName := 'Tanaka'
+
+!new Person('person6')
+!person6.age := 35
+!person6.firstName := 'Yuki'
+!person6.lastName := 'Sato'
+
+!insert (person5, account3) into Ownership
+!insert (person5, account3) into Use
+!insert (person6, account3) into Use
+!insert (bank2, account3) into AccountOfBanks
+
+!new Account('account4')
+!account4.iban := 'JP09876543210987654321'
+!account4.balance := 3000
+
+!new Person('person7')
+!person7.age := 40
+!person7.firstName := 'Naoko'
+!person7.lastName := 'Kobayashi'
+
+!new Person('person8')
+!person8.age := 38
+!person8.firstName := 'Kenji'
+!person8.lastName := 'Suzuki'
+
+!insert (person7, account4) into Ownership
+!insert (person7, account4) into Use
+!insert (person8, account4) into Use
+!insert (bank2, account4) into AccountOfBanks
+
+### Instance 3: North American Bank Scenario
+
+!new Bank('bank3')
+!bank3.country := 'USA'
+!bank3.name := 'Bank of America'
+!bank3.bic := 'BOFAUS3N'
+
+!new Account('account5')
+!account5.iban := 'US12345678901234567890'
+!account5.balance := 9800
+
+!new Person('person9')
+!person9.age := 50
+!person9.firstName := 'John'
+!person9.lastName := 'Doe'
+
+!new Person('person10')
+!person10.age := 25
+!person10.firstName := 'Emily'
+!person10.lastName := 'Johnson'
+
+!insert (person9, account5) into Ownership
+!insert (person9, account5) into Use
+!insert (person10, account5) into Use
+!insert (bank3, account5) into AccountOfBanks
+
+!new Account('account6')
+!account6.iban := 'US09876543210987654321'
+!account6.balance := 1500
+
+!new Person('person11')
+!person11.age := 42
+!person11.firstName := 'Michael'
+!person11.lastName := 'Smith'
+
+!new Person('person12')
+!person12.age := 29
+!person12.firstName := 'Jessica'
+!person12.lastName := 'Brown'
+
+!insert (person11, account6) into Ownership
+!insert (person11, account6) into Use
+!insert (person12, account6) into Use
+!insert (bank3, account6) into AccountOfBanks
+

@@ -55,7 +55,7 @@ public class Main {
             Utils.saveFile(instanceSOIL, "./src/main/resources/instances/" + model + currentTime, "/temp.soil", false);
             if (!category.equals("# Category: Realistic but invalid")) { // Check only for valid instances
                 String check = use.check("/home/andrei/Repos/llm-instancer/src/main/resources/prompts/" + model + "diagram.use", 
-                                        "home/andrei/Repos/llm-instancer/src/main/resources/instances/" + model + currentTime + "/temp.soil"); 
+                "/home/andrei/Repos/llm-instancer/src/main/resources/instances/" + model + currentTime + "/temp.soil"); 
                 
                 if (check != "OK")
                     instanceSOIL = modelInstantiator.chat(check);    

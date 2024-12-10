@@ -1,0 +1,89 @@
+### Instance 1: Joint Account Ownership by Minors
+
+!new Bank('bank17')
+!bank17.country := 'United States'
+!bank17.name := 'Wells Fargo'
+!bank17.bic := 'WFBIUS6S'
+
+!new Person('person28')
+!person28.age := 17
+!person28.firstName := 'Tom'
+!person28.lastName := 'Anderson'
+
+!new Person('person29')
+!person29.age := 16
+!person29.firstName := 'Lucy'
+!person29.lastName := 'Anderson'
+
+!new Account('account21')
+!account21.iban := 'US12345678901234567890'
+!account21.balance := 200
+
+!insert (person28, account21) into Ownership
+!insert (person29, account21) into Ownership
+!insert (bank17, account21) into AccountOfBanks
+
+### Instance 2: Overdraft Enabled Account
+
+!new Bank('bank18')
+!bank18.country := 'Canada'
+!bank18.name := 'TD Bank'
+!bank18.bic := 'TDOMCATTTOR'
+
+!new Person('person30')
+!person30.age := 30
+!person30.firstName := 'Natalie'
+!person30.lastName := 'Green'
+
+!new Account('account22')
+!account22.iban := 'CA12345678901234567890'
+!account22.balance := -100
+
+!insert (person30, account22) into Ownership
+!insert (person30, account22) into Use
+!insert (bank18, account22) into AccountOfBanks
+
+### Instance 3: Family Account for a Minor
+
+!new Bank('bank19')
+!bank19.country := 'Australia'
+!bank19.name := 'ANZ'
+!bank19.bic := 'ANZBAU3M'
+
+!new Person('person31')
+!person31.age := 15
+!person31.firstName := 'Jake'
+!person31.lastName := 'Miller'
+
+!new Person('person32')
+!person32.age := 40
+!person32.firstName := 'Laura'
+!person32.lastName := 'Miller'
+
+!new Account('account23')
+!account23.iban := 'AU12345678901234567890'
+!account23.balance := 50
+
+!insert (person31, account23) into Ownership
+!insert (person32, account23) into Use
+!insert (bank19, account23) into AccountOfBanks
+
+### Instance 4: Zero Balance Allowed
+
+!new Bank('bank20')
+!bank20.country := 'France'
+!bank20.name := 'Crédit Agricole'
+!bank20.bic := 'AGRIFRPP'
+
+!new Person('person33')
+!person33.age := 50
+!person33.firstName := 'François'
+!person33.lastName := 'Dubois'
+
+!new Account('account24')
+!account24.iban := 'FR7630006000011234567890189'
+!account24.balance := 0
+
+!insert (person33, account24) into Ownership
+!insert (person33, account24) into Use
+!insert (bank20, account24) into AccountOfBanks

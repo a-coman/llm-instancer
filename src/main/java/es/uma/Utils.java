@@ -42,7 +42,7 @@ public class Utils {
     
 
     public static String getTime() {
-        return LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd-MM-yyyy -- HH-mm-ss")); 
+        return LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd-MM-yyyy--HH-mm-ss")); 
     }
 
     public static void main(String[] args) {

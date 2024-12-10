@@ -85,6 +85,7 @@ public class Use {
         
         // Read output
         String output = readOutput("Check finalized");
+        System.out.println(output);
         
         // Trim result and return errors
         int start = output.indexOf("checking structure");

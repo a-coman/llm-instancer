@@ -1,0 +1,53 @@
+!new Bank('bank19')
+!bank19.country := 'United States'
+!bank19.name := 'FamilyBank'
+!bank19.bic := 'FAMBUS33'
+
+!new Account('account27')
+!account27.iban := 'US12FAMB000000000001'
+!account27.balance := 1000
+
+!new Person('person22')
+!person22.age := 17
+!person22.firstName := 'Tommy'
+!person22.lastName := 'Anderson'
+
+!insert (person22, account27) into Ownership
+!insert (person22, account27) into Use
+!insert (bank19, account27) into AccountOfBanks
+
+!new Bank('bank20')
+!bank20.country := 'Canada'
+!bank20.name := 'NorthernBank'
+!bank20.bic := 'NRTNCA33'
+
+!new Account('account28')
+!account28.iban := 'CA23NRTN000000000001'
+!account28.balance := -500
+
+!new Person('person23')
+!person23.age := 28
+!person23.firstName := 'Lisa'
+!person23.lastName := 'Wong'
+
+!insert (person23, account28) into Ownership
+!insert (person23, account28) into Use
+!insert (bank20, account28) into AccountOfBanks
+
+!new Bank('bank21')
+!bank21.country := 'Australia'
+!bank21.name := 'OutbackBank'
+!bank21.bic := 'OUTBAU33'
+
+!new Account('account29')
+!account29.iban := 'AU34OUTB000000000001'
+!account29.balance := 2500
+
+!new Person('person24')
+!person24.age := 50
+!person24.firstName := 'James'
+!person24.lastName := 'Taylor'
+
+!insert (person24, account29) into Use
+!insert (bank21, account29) into AccountOfBanks
+
