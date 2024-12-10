@@ -1,0 +1,83 @@
+!new Bank('bank1')
+!bank1.country := 'USA'
+!bank1.name := 'National Bank'
+!bank1.bic := 'USNATBANK'
+
+!new Person('person1')
+!person1.age := 30
+!person1.firstName := 'Alice'
+!person1.lastName := 'Johnson'
+
+!new Account('account1')
+!account1.iban := 'US12345678901234567890'
+!account1.balance := 2500
+
+!insert (person1, account1) into Ownership
+!insert (person1, account1) into Use
+!insert (bank1, account1) into AccountOfBanks
+
+!new Bank('bank2')
+!bank2.country := 'Canada'
+!bank2.name := 'Family Bank'
+!bank2.bic := 'CANFAMBANK'
+
+!new Person('person2')
+!person2.age := 45
+!person2.firstName := 'David'
+!person2.lastName := 'Miller'
+
+!new Person('person3')
+!person3.age := 42
+!person3.firstName := 'Emma'
+!person3.lastName := 'Miller'
+
+!new Account('account2')
+!account2.iban := 'CA12345678901234567890'
+!account2.balance := 15000
+
+!new Account('account3')
+!account3.iban := 'CA09876543210987654321'
+!account3.balance := 5000
+
+!new Account('account4')
+!account4.iban := 'CA11223344556677889900'
+!account4.balance := 10000
+
+!insert (person2, account2) into Ownership
+!insert (person3, account3) into Ownership
+!insert (person2, account4) into Ownership
+!insert (person3, account4) into Ownership
+
+!insert (person2, account2) into Use
+!insert (person3, account3) into Use
+!insert (person2, account4) into Use
+!insert (person3, account4) into Use
+
+!insert (bank2, account2) into AccountOfBanks
+!insert (bank2, account3) into AccountOfBanks
+!insert (bank2, account4) into AccountOfBanks
+
+!new Bank('bank3')
+!bank3.country := 'UK'
+!bank3.name := 'Business Bank'
+!bank3.bic := 'UKBUSBANK'
+
+!new Person('person4')
+!person4.age := 38
+!person4.firstName := 'Oliver'
+!person4.lastName := 'Brown'
+
+!new Person('person5')
+!person5.age := 36
+!person5.firstName := 'Sophie'
+!person5.lastName := 'White'
+
+!new Account('account5')
+!account5.iban := 'GB12345678901234567890'
+!account5.balance := 30000
+
+!insert (person4, account5) into Ownership
+!insert (person4, account5) into Use
+!insert (person5, account5) into Use
+
+!insert (bank3, account5) into AccountOfBanks

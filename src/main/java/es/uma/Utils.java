@@ -18,13 +18,13 @@ public class Utils {
         }
     }
 
-    public static void saveFile(String file, String path, String filename) {
+    public static void saveFile(String file, String path, String filename, boolean append) {
         try {
             File directory = new File(path);
             if (!directory.exists()) {
                 directory.mkdirs();
             }
-            FileWriter writer = new FileWriter(path + filename);
+            FileWriter writer = new FileWriter(path + filename, append);
             writer.write(file);
             writer.flush();
             writer.close();
@@ -34,6 +34,12 @@ public class Utils {
             throw new RuntimeException(e);
         }
     }
+
+    // Append true by default
+    public static void saveFile(String file, String path, String filename) {
+        saveFile(file, path, filename, true);
+    }
+    
 
     public static String getTime() {
         return LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd-MM-yyyy -- HH-mm-ss")); 

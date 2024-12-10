@@ -39,18 +39,42 @@ public class Main {
 
     public static void main(String[] args) {
         initializeAgents();
+        Prompts prompts = new Prompts();
         String model = "bank/";
         String modelUML = Utils.readFile("./src/main/resources/prompts/" + model + "diagram.use"); 
         String exampleSOIL = Utils.readFile("./src/main/resources/prompts/" + model + "examples/example_1.soil");
+        String currentTime = Utils.getTime();
+        Use use = new Use();
 
         // Create model description in plain english
         String description = modelAnalyzer.chat(modelUML);
-        Utils.saveFile(description, "./src/main/resources/instances/" + model + Utils.getTime(), "/output.md");
+        Utils.saveFile(description, "./src/main/resources/instances/" + model + currentTime, "/output.md");
 
-        // for (HashMap.Entry<String, Integer> entry : map.entrySet()) {
-        //     System.out.println("Key: " + entry.getKey() + ", Value: " + entry.getValue());
-        // }
+        // For each category, create instances
+        prompts.list.forEach( (category, categoryDescription) -> {
+            
+            // Create list
+            String instance = listCreator.chat(categoryDescription + description);
+            Utils.saveFile("\n\n" + category + "\n" + instance, "./src/main/resources/instances/" + model + currentTime, "/output.md");
 
+            // Create SOIL and check constraints
+            String instanceSOIL = modelInstantiator.chat("Lets continue with the following instance: \n" + instance + "\n # Syntax exaple: \n" + exampleSOIL);
+            Utils.saveFile(instanceSOIL, "./src/main/resources/instances/" + model + currentTime, "/temp.soil", false);
+            if (!category.equals("# Category: Realistic but invalid")) { // Check only for valid instances
+                String check = use.check("/home/andrei/Repos/llm-instancer/src/main/resources/prompts/" + model + "diagram.use", 
+                                        "home/andrei/Repos/llm-instancer/src/main/resources/instances/" + model + currentTime + "/temp.soil"); 
+                
+                if (check != "OK")
+                    instanceSOIL = modelInstantiator.chat(check);    
+
+                Utils.saveFile(instanceSOIL, "./src/main/resources/instances/" + model + currentTime, "/valid.soil");
+            } else {
+                Utils.saveFile(instanceSOIL, "./src/main/resources/instances/" + model + currentTime, "/invalid.soil");
+            }
+
+            Utils.saveFile("\n" + "```\n" + instanceSOIL + "\n```", "./src/main/resources/instances/" + model + currentTime, "/output.md");
+
+        });
     }
 
 }

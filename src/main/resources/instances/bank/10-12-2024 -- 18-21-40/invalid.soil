@@ -1,0 +1,66 @@
+!new Bank('bank1')
+!bank1.country := 'Canada'
+!bank1.name := 'Friendly Bank'
+!bank1.bic := 'CANFRIEND'
+
+!new Person('person1')
+!person1.age := 30
+!person1.firstName := 'Sarah'
+!person1.lastName := 'Brown'
+
+!new Person('person2')
+!person2.age := 32
+!person2.firstName := 'Michael'
+!person2.lastName := 'Brown'
+
+!new Account('account1')
+!account1.iban := 'CA12345678901234567890'
+!account1.balance := 5000
+
+!insert (person1, account1) into Ownership
+!insert (person2, account1) into Ownership  // Violation: More than one owner
+
+!insert (person1, account1) into Use
+!insert (person2, account1) into Use
+
+!insert (bank1, account1) into AccountOfBanks
+
+!new Bank('bank2')
+!bank2.country := 'United Kingdom'
+!bank2.name := 'Future Bank'
+!bank2.bic := 'UKFUTURE'
+
+!new Person('person3')
+!person3.age := 16
+!person3.firstName := 'Emily'
+!person3.lastName := 'Green'
+
+!new Account('account2')
+!account2.iban := 'GB09876543210987654321'
+!account2.balance := 1000
+
+!insert (person3, account2) into Ownership  // Violation: Owner is a minor
+
+!insert (person3, account2) into Use
+
+!insert (bank2, account2) into AccountOfBanks
+
+!new Bank('bank3')
+!bank3.country := 'USA'
+!bank3.name := 'City Bank'
+!bank3.bic := 'USACITYBK'
+
+!new Person('person4')
+!person4.age := 45
+!person4.firstName := 'John'
+!person4.lastName := 'Smith'
+
+!new Account('account3')
+!account3.iban := 'US23456789012345678901'
+!account3.balance := -50  // Violation: Negative balance
+
+!insert (person4, account3) into Ownership
+
+!insert (person4, account3) into Use
+
+!insert (bank3, account3) into AccountOfBanks
