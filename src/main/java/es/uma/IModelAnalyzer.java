@@ -8,7 +8,7 @@ public interface IModelAnalyzer {
 
             # Description
             Start by explaining the overall structure and purpose.
-            Break down the components of the model, classes and attributes, describing each and their purpose.
+            Break down the components of the model, classes and attributes, describing each, their type and purpose.
 
             # Relationships
             Describe the relationships between the components of the model, dependencies and multiplicities (minimum and maximum number of instances of one class that can be associated with instances of another class). Describe multiplicities in both directions.

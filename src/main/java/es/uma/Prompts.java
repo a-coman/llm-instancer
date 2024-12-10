@@ -1,10 +1,10 @@
 package es.uma;
 
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 public class Prompts {
-    Map<String, String> list = new HashMap<>();
+    Map<String, String> list = new LinkedHashMap<>();
 
     public Prompts() {
 
