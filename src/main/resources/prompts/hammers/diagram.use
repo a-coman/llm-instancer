@@ -1,0 +1,97 @@
+model AssemblyChain
+
+abstract class Element
+  attributes
+    x:Integer
+    y:Integer
+end
+abstract class Machine < Element
+  attributes
+    processingTime:Integer
+  operations
+    start()
+    stop()
+end
+abstract class PieceGenerator < Machine
+end
+class HandleGenerator < PieceGenerator
+  attributes
+    counter:Integer
+end
+
+class HeadGenerator < PieceGenerator
+  attributes
+    counter:Integer
+end
+
+class Assembler < Machine
+end
+
+class Polisher < Machine
+end
+
+class Tray < Element
+  attributes
+    capacity:Integer
+end
+abstract class Piece
+end
+
+class Head < Piece
+end
+
+class Handle < Piece
+end
+class Hammer < Piece
+  attributes
+    isPolished:Boolean
+end
+
+-- associations
+association Output between
+  Machine [1..*] role input
+  Tray [1] role output
+end
+
+association Input between
+  Tray [*] role input
+  Machine [*] role output
+end
+
+aggregation Content between
+  Tray [1] role Tray 
+  Piece [*] role Pieces ordered
+end 
+
+constraints
+
+context Tray inv AtLeastOneCell:
+  self.capacity > 0
+
+context Tray inv PiecesSameType:
+-- self.Pieces->forAll(p1,p2|p1.oclType()=p2.oclType()) 
+-- no oclType() in USE. Alternative spec:
+  self.Pieces->forAll(p|p.oclIsTypeOf(Hammer)) or
+  self.Pieces->forAll(p|p.oclIsTypeOf(Handle)) or
+  self.Pieces->forAll(p|p.oclIsTypeOf(Head))
+
+context Assembler inv OneinputOfHandles:
+  self.input->exists(b|b.Pieces->forAll(p|p.oclIsTypeOf(Handle)))
+
+context Assembler inv OneinputOfHeads:
+  self.input->exists(b|b.Pieces->forAll(p|p.oclIsTypeOf(Head)))
+  
+context Polisher inv HammersInput:
+  self.input->forAll(b|b.Pieces->forAll(p|p.oclIsTypeOf(Hammer)))
+
+context HeadGenerator inv HeadsOutput:
+  self.output.Pieces->forAll(p|p.oclIsTypeOf(Head))
+
+context HandleGenerator inv HandlesOutput:
+  self.output.Pieces->forAll(p|p.oclIsTypeOf(Handle))
+
+context Assembler inv HammersOutput:
+  self.output.Pieces->forAll(p|p.oclIsTypeOf(Hammer))
+  
+context PieceGenerator inv NoInput:
+  self.input->size()=0

@@ -33,7 +33,7 @@ public class Main {
 
         // Load variables
         Prompts prompts = new Prompts();
-        String model = "bank/";
+        String model = "hammers/";
         String modelUML = Utils.readFile("./src/main/resources/prompts/" + model + "diagram.use"); 
         String exampleSOIL = Utils.readFile("./src/main/resources/prompts/" + model + "examples/example_1.soil");
         String currentTime = Utils.getTime();
@@ -68,6 +68,8 @@ public class Main {
             Utils.saveFile("\n" + "```\n" + instanceSOIL + "\n```", "./src/main/resources/instances/" + model + currentTime, "/output.md");
 
         });
+
+        use.close();
     }
 
 }

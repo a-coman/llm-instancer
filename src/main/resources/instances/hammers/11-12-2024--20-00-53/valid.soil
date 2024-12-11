@@ -1,0 +1,286 @@
+!new HandleGenerator('A')
+!A.x:=10
+!A.y:=20
+!A.processingTime:=5
+!A.counter:=100
+
+!new Tray('Tray1')
+!Tray1.capacity:=50
+
+!new HeadGenerator('B')
+!B.x:=15
+!B.y:=25
+!B.processingTime:=6
+!B.counter:=100
+
+!new Tray('Tray2')
+!Tray2.capacity:=50
+
+!new Assembler('X')
+!X.x:=20
+!X.y:=30
+!X.processingTime:=10
+
+!new Tray('Tray3')
+!Tray3.capacity:=100
+
+!new Polisher('C')
+!C.x:=25
+!C.y:=35
+!C.processingTime:=8
+
+!new Tray('Tray4')
+!Tray4.capacity:=100
+
+!insert(A,Tray1) into Output
+!insert(B,Tray2) into Output
+!insert(Tray1,X) into Input
+!insert(Tray2,X) into Input
+!insert(X,Tray3) into Output
+!insert(Tray3,C) into Input
+!insert(C,Tray4) into Output
+
+!new HandleGenerator('Sakura')
+!Sakura.x:=30
+!Sakura.y:=40
+!Sakura.processingTime:=4
+!Sakura.counter:=200
+
+!new Tray('TraySakura')
+!TraySakura.capacity:=70
+
+!new HeadGenerator('Fuji')
+!Fuji.x:=35
+!Fuji.y:=45
+!Fuji.processingTime:=5
+!Fuji.counter:=200
+
+!new Tray('TrayFuji')
+!TrayFuji.capacity:=70
+
+!new Assembler('FujiAssembler')
+!FujiAssembler.x:=40
+!FujiAssembler.y:=50
+!FujiAssembler.processingTime:=9
+
+!new Tray('TrayYamato')
+!TrayYamato.capacity:=140
+
+!new Polisher('Kyoto')
+!Kyoto.x:=45
+!Kyoto.y:=55
+!Kyoto.processingTime:=7
+
+!new Tray('TrayNara')
+!TrayNara.capacity:=140
+
+!insert(Sakura,TraySakura) into Output
+!insert(Fuji,TrayFuji) into Output
+!insert(TraySakura,FujiAssembler) into Input
+!insert(TrayFuji,FujiAssembler) into Input
+!insert(FujiAssembler,TrayYamato) into Output
+!insert(TrayYamato,Kyoto) into Input
+!insert(Kyoto,TrayNara) into Output
+
+!new HandleGenerator('MinHandleGen')
+!MinHandleGen.x:=0
+!MinHandleGen.y:=0
+!MinHandleGen.processingTime:=1
+!MinHandleGen.counter:=1
+
+!new Tray('TrayA')
+!TrayA.capacity:=1
+
+!new HeadGenerator('MinHeadGen')
+!MinHeadGen.x:=1
+!MinHeadGen.y:=1
+!MinHeadGen.processingTime:=1
+!MinHeadGen.counter:=1
+
+!new Tray('TrayB')
+!TrayB.capacity:=1
+
+!new Assembler('MinAssembler')
+!MinAssembler.x:=2
+!MinAssembler.y:=2
+!MinAssembler.processingTime:=1
+
+!new Tray('TrayC')
+!TrayC.capacity:=1
+
+!insert(MinHandleGen,TrayA) into Output
+!insert(MinHeadGen,TrayB) into Output
+!insert(TrayA,MinAssembler) into Input
+!insert(TrayB,MinAssembler) into Input
+!insert(MinAssembler,TrayC) into Output
+
+!new HandleGenerator('MaxHandleGen')
+!MaxHandleGen.x:=1000
+!MaxHandleGen.y:=1000
+!MaxHandleGen.processingTime:=100
+!MaxHandleGen.counter:=1000
+
+!new Tray('TrayX')
+!TrayX.capacity:=1000
+
+!new HeadGenerator('MaxHeadGen')
+!MaxHeadGen.x:=1001
+!MaxHeadGen.y:=1001
+!MaxHeadGen.processingTime:=100
+!MaxHeadGen.counter:=1000
+
+!new Tray('TrayY')
+!TrayY.capacity:=1000
+
+!new Assembler('MaxAssembler1')
+!MaxAssembler1.x:=1002
+!MaxAssembler1.y:=1002
+!MaxAssembler1.processingTime:=50
+
+!new Assembler('MaxAssembler2')
+!MaxAssembler2.x:=1003
+!MaxAssembler2.y:=1003
+!MaxAssembler2.processingTime:=50
+
+!new Tray('TrayZ1')
+!TrayZ1.capacity:=500
+
+!new Tray('TrayZ2')
+!TrayZ2.capacity:=500
+
+!insert(MaxHandleGen,TrayX) into Output
+!insert(MaxHeadGen,TrayY) into Output
+!insert(TrayX,MaxAssembler1) into Input
+!insert(TrayY,MaxAssembler1) into Input
+!insert(MaxAssembler1,TrayZ1) into Output
+!insert(TrayX,MaxAssembler2) into Input
+!insert(TrayY,MaxAssembler2) into Input
+!insert(MaxAssembler2,TrayZ2) into Output
+
+!new HandleGenerator('OptionalHandleGen')
+!OptionalHandleGen.x:=-999
+!OptionalHandleGen.y:=-999
+!OptionalHandleGen.processingTime:=0
+!OptionalHandleGen.counter:=0
+
+!new Tray('TrayOptionalA')
+!TrayOptionalA.capacity:=1
+
+!new Assembler('OptionalAssembler')
+!OptionalAssembler.x:=-998
+!OptionalAssembler.y:=-998
+!OptionalAssembler.processingTime:=100
+
+!new Tray('TrayOptionalOutput')
+!TrayOptionalOutput.capacity:=0
+
+!insert(OptionalHandleGen,TrayOptionalA) into Output
+!insert(TrayOptionalA,OptionalAssembler) into Input
+!insert(OptionalAssembler,TrayOptionalOutput) into Output
+
+!new HandleGenerator('Alpha')
+!Alpha.x:=5
+!Alpha.y:=10
+!Alpha.processingTime:=3
+!Alpha.counter:=500
+
+!new Tray('TrayHandles1')
+!TrayHandles1.capacity:=250
+
+!new HandleGenerator('Beta')
+!Beta.x:=6
+!Beta.y:=12
+!Beta.processingTime:=3
+!Beta.counter:=500
+
+!new Tray('TrayHandles2')
+!TrayHandles2.capacity:=250
+
+!new HeadGenerator('Gamma')
+!Gamma.x:=7
+!Gamma.y:=14
+!Gamma.processingTime:=4
+!Gamma.counter:=500
+
+!new Tray('TrayHeads1')
+!TrayHeads1.capacity:=500
+
+!new Assembler('Delta')
+!Delta.x:=8
+!Delta.y:=16
+!Delta.processingTime:=5
+
+!new Tray('TrayHammers1')
+!TrayHammers1.capacity:=200
+
+!new Assembler('Epsilon')
+!Epsilon.x:=9
+!Epsilon.y:=18
+!Epsilon.processingTime:=6
+
+!new Tray('TrayHammers2')
+!TrayHammers2.capacity:=300
+
+!new Polisher('Zeta')
+!Zeta.x:=10
+!Zeta.y:=20
+!Zeta.processingTime:=7
+
+!new Tray('TrayPolishedHammers')
+!TrayPolishedHammers.capacity:=500
+
+!insert(Alpha,TrayHandles1) into Output
+!insert(Beta,TrayHandles2) into Output
+!insert(Gamma,TrayHeads1) into Output
+!insert(TrayHandles1,Delta) into Input
+!insert(TrayHeads1,Delta) into Input
+!insert(Delta,TrayHammers1) into Output
+!insert(TrayHandles2,Epsilon) into Input
+!insert(TrayHeads1,Epsilon) into Input
+!insert(Epsilon,TrayHammers2) into Output
+!insert(TrayHammers1,Zeta) into Input
+!insert(TrayHammers2,Zeta) into Input
+!insert(Zeta,TrayPolishedHammers) into Output
+
+!new HandleGenerator('CircularHandleGen')
+!CircularHandleGen.x:=50
+!CircularHandleGen.y:=50
+!CircularHandleGen.processingTime:=2
+!CircularHandleGen.counter:=10
+
+!new Tray('TrayCircularHandles')
+!TrayCircularHandles.capacity:=10
+
+!new HeadGenerator('CircularHeadGen')
+!CircularHeadGen.x:=60
+!CircularHeadGen.y:=60
+!CircularHeadGen.processingTime:=2
+!CircularHeadGen.counter:=10
+
+!new Tray('TrayCircularHeads')
+!TrayCircularHeads.capacity:=10
+
+!new Assembler('CircularAssembler')
+!CircularAssembler.x:=70
+!CircularAssembler.y:=70
+!CircularAssembler.processingTime:=3
+
+!new Tray('TrayCircularHammers')
+!TrayCircularHammers.capacity:=10
+
+!new Polisher('CircularPolisher')
+!CircularPolisher.x:=80
+!CircularPolisher.y:=80
+!CircularPolisher.processingTime:=4
+
+!new Tray('TrayFinalHammers')
+!TrayFinalHammers.capacity:=10
+
+!insert(CircularHandleGen,TrayCircularHandles) into Output
+!insert(CircularHeadGen,TrayCircularHeads) into Output
+!insert(TrayCircularHandles,CircularAssembler) into Input
+!insert(TrayCircularHeads,CircularAssembler) into Input
+!insert(CircularAssembler,TrayCircularHammers) into Output
+!insert(TrayCircularHammers,CircularPolisher) into Input
+!insert(CircularPolisher,TrayFinalHammers) into Output
+

@@ -1,0 +1,38 @@
+!new HandleGenerator('MixedGenHandle')
+!MixedGenHandle.x:=10
+!MixedGenHandle.y:=10
+!MixedGenHandle.processingTime:=3
+!MixedGenHandle.counter:=50
+
+!new HeadGenerator('MixedGenHead')
+!MixedGenHead.x:=15
+!MixedGenHead.y:=15
+!MixedGenHead.processingTime:=3
+!MixedGenHead.counter:=50
+
+!new Tray('TrayMixedPieces')
+!TrayMixedPieces.capacity:=100
+
+!new Assembler('FlexibleAssembler')
+!FlexibleAssembler.x:=20
+!FlexibleAssembler.y:=20
+!FlexibleAssembler.processingTime:=5
+
+!new Tray('TrayAssembledHammers')
+!TrayAssembledHammers.capacity:=50
+
+!new Polisher('FinalPolisher')
+!FinalPolisher.x:=25
+!FinalPolisher.y:=25
+!FinalPolisher.processingTime:=4
+
+!new Tray('TrayPolishedHammers')
+!TrayPolishedHammers.capacity:=50
+
+!insert(MixedGenHandle,TrayMixedPieces) into Output
+!insert(MixedGenHead,TrayMixedPieces) into Output
+!insert(TrayMixedPieces,FlexibleAssembler) into Input
+!insert(FlexibleAssembler,TrayAssembledHammers) into Output
+!insert(TrayAssembledHammers,FinalPolisher) into Input
+!insert(FinalPolisher,TrayPolishedHammers) into Output
+

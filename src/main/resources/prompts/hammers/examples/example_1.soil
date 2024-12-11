@@ -1,0 +1,20 @@
+!new HandleGenerator('gm')
+!new HeadGenerator('gc')
+!new Tray('bgm')
+!bgm.capacity:=10
+!new Tray('bgc')
+!bgc.capacity:=10
+!new Assembler('e')
+!new Tray('be')
+!be.capacity:=10
+!new Polisher('p')
+!new Tray('bp')
+!bp.capacity:=10
+
+!insert(gm,bgm) into Output
+!insert(gc,bgc) into Output 
+!insert(bgm,e) into Input
+!insert(bgc,e) into Input
+!insert(e,be) into Output
+!insert(be,p) into Input
+!insert(p,bp) into Output
