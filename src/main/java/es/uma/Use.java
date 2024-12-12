@@ -76,7 +76,7 @@ public class Use {
         }
     }
 
-    public String check(String diagramPath, String instancePath) {
+    public String check(String diagramPath, String instancePath, String invariants) {
         // Open diagram and instance files
         runCommand("open " + diagramPath);
         runCommand("open " + instancePath);
@@ -85,25 +85,28 @@ public class Use {
         
         // Read output
         String output = readOutput("Check finalized");
-        System.out.println(output);
         
         // Trim result and return errors
         int start = output.indexOf("checking structure");
         output = output.substring(start);
-        if (output.contains("violation") || output.contains("FAILED") || output.contains("N/A"))
-            return output;
-        else
-            return "OK";
+
+        String result = "";
+        if (output.contains("violation"))
+            result = output;
+        if (output.contains("FAILED") || output.contains("N/A"))
+            result = output + "\n" + invariants;
+        
+        System.out.println(result);
+
+        return result.isEmpty() ? "OK" : result;
 
     }
 
     // Main for testing purposes
     public static void main(String[] args) {
         Use use = new Use();
-        
-        System.out.println(use.check("/home/andrei/Repos/llm-instancer/src/main/resources/prompts/bank/diagram.use", "/home/andrei/Repos/llm-instancer/src/main/resources/instances/previous/bank/gemini_1.soil"));
 
-        System.out.println(use.check("/home/andrei/Repos/llm-instancer/src/main/resources/prompts/bank/diagram.use", "/home/andrei/Repos/llm-instancer/src/main/resources/instances/previous/bank/gemini_2.soil"));
+        System.out.println(use.check("/home/andrei/Repos/llm-instancer/src/main/resources/prompts/bank/diagram.use", "/home/andrei/Repos/llm-instancer/src/main/resources/instances/previous/bank/gemini_2.soil", "invariants_Placeholder"));
 
         use.close();
     }
