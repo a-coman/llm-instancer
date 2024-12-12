@@ -1,0 +1,431 @@
+!new HandleGenerator('HandleGenerator1')
+!HandleGenerator1.x:=10
+!HandleGenerator1.y:=20
+!HandleGenerator1.processingTime:=5
+!HandleGenerator1.counter:=100
+
+!new HeadGenerator('HeadGenerator1')
+!HeadGenerator1.x:=15
+!HeadGenerator1.y:=25
+!HeadGenerator1.processingTime:=6
+!HeadGenerator1.counter:=100
+
+!new Assembler('Assembler1')
+!Assembler1.x:=20
+!Assembler1.y:=30
+!Assembler1.processingTime:=8
+
+!new Polisher('Polisher1')
+!Polisher1.x:=25
+!Polisher1.y:=35
+!Polisher1.processingTime:=4
+
+!new Tray('Tray1')
+!Tray1.x:=12
+!Tray1.y:=22
+!Tray1.capacity:=50
+
+!new Tray('Tray2')
+!Tray2.x:=17
+!Tray2.y:=27
+!Tray2.capacity:=50
+
+!new Tray('Tray3')
+!Tray3.x:=22
+!Tray3.y:=32
+!Tray3.capacity:=50
+
+!new Tray('Tray4')
+!Tray4.x:=27
+!Tray4.y:=37
+!Tray4.capacity:=50
+
+!new Piece('Head1')
+
+!new Piece('Handle1')
+
+!new Piece('Hammer1')
+!Hammer1.isPolished:=False
+
+!new Piece('Hammer2')
+!Hammer2.isPolished:=True
+
+!insert(HandleGenerator1,Tray1) into Output
+!insert(HeadGenerator1,Tray2) into Output
+!insert(Tray1,Assembler1) into Input
+!insert(Tray2,Assembler1) into Input
+!insert(Assembler1,Tray3) into Output
+!insert(Tray3,Polisher1) into Input
+!insert(Polisher1,Tray4) into Output
+!insert(Handle1,Tray1) into Content
+!insert(Head1,Tray2) into Content
+!insert(Hammer1,Tray3) into Content
+!insert(Hammer2,Tray4) into Content
+
+!new HandleGenerator('HandleGenerator2')
+!HandleGenerator2.x:=30
+!HandleGenerator2.y:=40
+!HandleGenerator2.processingTime:=5
+!HandleGenerator2.counter:=200
+
+!new HeadGenerator('HeadGenerator2')
+!HeadGenerator2.x:=35
+!HeadGenerator2.y:=45
+!HeadGenerator2.processingTime:=7
+!HeadGenerator2.counter:=200
+
+!new Assembler('Assembler2')
+!Assembler2.x:=40
+!Assembler2.y:=50
+!Assembler2.processingTime:=10
+
+!new Polisher('Polisher2')
+!Polisher2.x:=45
+!Polisher2.y:=55
+!Polisher2.processingTime:=6
+
+!new Tray('Tray5')
+!Tray5.x:=32
+!Tray5.y:=42
+!Tray5.capacity:=100
+
+!new Tray('Tray6')
+!Tray6.x:=37
+!Tray6.y:=47
+!Tray6.capacity:=100
+
+!new Tray('Tray7')
+!Tray7.x:=42
+!Tray7.y:=52
+!Tray7.capacity:=100
+
+!new Tray('Tray8')
+!Tray8.x:=47
+!Tray8.y:=57
+!Tray8.capacity:=100
+
+!new Piece('Head2')
+
+!new Piece('Handle2')
+
+!new Piece('Hammer3')
+!Hammer3.isPolished:=False
+
+!new Piece('Hammer4')
+!Hammer4.isPolished:=True
+
+!insert(HandleGenerator2,Tray5) into Output
+!insert(HeadGenerator2,Tray6) into Output
+!insert(Tray5,Assembler2) into Input
+!insert(Tray6,Assembler2) into Input
+!insert(Assembler2,Tray7) into Output
+!insert(Tray7,Polisher2) into Input
+!insert(Polisher2,Tray8) into Output
+!insert(Handle2,Tray5) into Content
+!insert(Head2,Tray6) into Content
+!insert(Hammer3,Tray7) into Content
+!insert(Hammer4,Tray8) into Content
+
+!new HandleGenerator('HandleGenerator_Min')
+!HandleGenerator_Min.x:=1
+!HandleGenerator_Min.y:=1
+!HandleGenerator_Min.processingTime:=1
+!HandleGenerator_Min.counter:=0
+
+!new HeadGenerator('HeadGenerator_Min')
+!HeadGenerator_Min.x:=3
+!HeadGenerator_Min.y:=3
+!HeadGenerator_Min.processingTime:=1
+!HeadGenerator_Min.counter:=0
+
+!new Assembler('Assembler_Min')
+!Assembler_Min.x:=4
+!Assembler_Min.y:=4
+!Assembler_Min.processingTime:=1
+
+!new Polisher('Polisher_Min')
+!Polisher_Min.x:=5
+!Polisher_Min.y:=5
+!Polisher_Min.processingTime:=1
+
+!new Tray('Tray_Min')
+!Tray_Min.x:=2
+!Tray_Min.y:=2
+!Tray_Min.capacity:=1
+
+!new Piece('Handle_Min')
+
+!new Piece('Head_Min')
+
+!new Piece('Hammer_Min')
+!Hammer_Min.isPolished:=False
+
+!new Piece('Hammer_Polished_Min')
+!Hammer_Polished_Min.isPolished:=True
+
+!insert(HandleGenerator_Min,Tray_Min) into Output
+!insert(HeadGenerator_Min,Tray_Min) into Output
+!insert(Tray_Min,Assembler_Min) into Input
+!insert(Assembler_Min,Tray_Min) into Output
+!insert(Tray_Min,Polisher_Min) into Input
+!insert(Polisher_Min,Tray_Min) into Output
+!insert(Handle_Min,Tray_Min) into Content
+!insert(Head_Min,Tray_Min) into Content
+!insert(Hammer_Min,Tray_Min) into Content
+!insert(Hammer_Polished_Min,Tray_Min) into Content
+
+!new HandleGenerator('HandleGenerator_Max')
+!HandleGenerator_Max.x:=100
+!HandleGenerator_Max.y:=100
+!HandleGenerator_Max.processingTime:=10
+!HandleGenerator_Max.counter:=1000
+
+!new HeadGenerator('HeadGenerator_Max')
+!HeadGenerator_Max.x:=105
+!HeadGenerator_Max.y:=105
+!HeadGenerator_Max.processingTime:=10
+!HeadGenerator_Max.counter:=1000
+
+!new Assembler('Assembler_Max')
+!Assembler_Max.x:=110
+!Assembler_Max.y:=110
+!Assembler_Max.processingTime:=20
+
+!new Polisher('Polisher_Max')
+!Polisher_Max.x:=115
+!Polisher_Max.y:=115
+!Polisher_Max.processingTime:=15
+
+!new Tray('Tray_Max_Handle')
+!Tray_Max_Handle.x:=102
+!Tray_Max_Handle.y:=102
+!Tray_Max_Handle.capacity:=1000
+
+!new Tray('Tray_Max_Head')
+!Tray_Max_Head.x:=107
+!Tray_Max_Head.y:=107
+!Tray_Max_Head.capacity:=1000
+
+!new Tray('Tray_Max_Hammer')
+!Tray_Max_Hammer.x:=112
+!Tray_Max_Hammer.y:=112
+!Tray_Max_Hammer.capacity:=1000
+
+!new Tray('Tray_Max_Polished')
+!Tray_Max_Polished.x:=117
+!Tray_Max_Polished.y:=117
+!Tray_Max_Polished.capacity:=1000
+
+!new Piece('Handle_Max')
+
+!new Piece('Head_Max')
+
+!new Piece('Hammer_Max')
+!Hammer_Max.isPolished:=False
+
+!new Piece('Hammer_Polished_Max')
+!Hammer_Polished_Max.isPolished:=True
+
+!insert(HandleGenerator_Max,Tray_Max_Handle) into Output
+!insert(HeadGenerator_Max,Tray_Max_Head) into Output
+!insert(Tray_Max_Handle,Assembler_Max) into Input
+!insert(Tray_Max_Head,Assembler_Max) into Input
+!insert(Assembler_Max,Tray_Max_Hammer) into Output
+!insert(Tray_Max_Hammer,Polisher_Max) into Input
+!insert(Polisher_Max,Tray_Max_Polished) into Output
+!insert(Handle_Max,Tray_Max_Handle) into Content
+!insert(Head_Max,Tray_Max_Head) into Content
+!insert(Hammer_Max,Tray_Max_Hammer) into Content
+!insert(Hammer_Polished_Max,Tray_Max_Polished) into Content
+
+!new HandleGenerator('HandleGenerator_Complex1')
+!HandleGenerator_Complex1.x:=10
+!HandleGenerator_Complex1.y:=20
+!HandleGenerator_Complex1.processingTime:=5
+!HandleGenerator_Complex1.counter:=500
+
+!new HandleGenerator('HandleGenerator_Complex2')
+!HandleGenerator_Complex2.x:=15
+!HandleGenerator_Complex2.y:=25
+!HandleGenerator_Complex2.processingTime:=6
+!HandleGenerator_Complex2.counter:=300
+
+!new HeadGenerator('HeadGenerator_Complex1')
+!HeadGenerator_Complex1.x:=20
+!HeadGenerator_Complex1.y:=30
+!HeadGenerator_Complex1.processingTime:=7
+!HeadGenerator_Complex1.counter:=500
+
+!new HeadGenerator('HeadGenerator_Complex2')
+!HeadGenerator_Complex2.x:=25
+!HeadGenerator_Complex2.y:=35
+!HeadGenerator_Complex2.processingTime:=8
+!HeadGenerator_Complex2.counter:=200
+
+!new Assembler('Assembler_Complex1')
+!Assembler_Complex1.x:=30
+!Assembler_Complex1.y:=40
+!Assembler_Complex1.processingTime:=9
+
+!new Assembler('Assembler_Complex2')
+!Assembler_Complex2.x:=35
+!Assembler_Complex2.y:=45
+!Assembler_Complex2.processingTime:=10
+
+!new Polisher('Polisher_Complex1')
+!Polisher_Complex1.x:=40
+!Polisher_Complex1.y:=50
+!Polisher_Complex1.processingTime:=4
+
+!new Polisher('Polisher_Complex2')
+!Polisher_Complex2.x:=45
+!Polisher_Complex2.y:=55
+!Polisher_Complex2.processingTime:=5
+
+!new Tray('Tray_Handles')
+!Tray_Handles.x:=12
+!Tray_Handles.y:=22
+!Tray_Handles.capacity:=200
+
+!new Tray('Tray_Handles_Premium')
+!Tray_Handles_Premium.x:=17
+!Tray_Handles_Premium.y:=27
+!Tray_Handles_Premium.capacity:=100
+
+!new Tray('Tray_Heads')
+!Tray_Heads.x:=22
+!Tray_Heads.y:=32
+!Tray_Heads.capacity:=200
+
+!new Tray('Tray_Heads_Premium')
+!Tray_Heads_Premium.x:=27
+!Tray_Heads_Premium.y:=37
+!Tray_Heads_Premium.capacity:=100
+
+!new Tray('Tray_Hammers')
+!Tray_Hammers.x:=32
+!Tray_Hammers.y:=42
+!Tray_Hammers.capacity:=150
+
+!new Tray('Tray_Hammers_Premium')
+!Tray_Hammers_Premium.x:=37
+!Tray_Hammers_Premium.y:=47
+!Tray_Hammers_Premium.capacity:=100
+
+!new Tray('Tray_Polished')
+!Tray_Polished.x:=42
+!Tray_Polished.y:=52
+!Tray_Polished.capacity:=150
+
+!new Tray('Tray_Polished_Premium')
+!Tray_Polished_Premium.x:=47
+!Tray_Polished_Premium.y:=57
+!Tray_Polished_Premium.capacity:=100
+
+!new Piece('Heads_Standard')
+
+!new Piece('Handles_Standard')
+
+!new Piece('Heads_Premium')
+
+!new Piece('Handles_Premium')
+
+!new Piece('Hammer_Standard_Unpolished')
+!Hammer_Standard_Unpolished.isPolished:=False
+
+!new Piece('Hammer_Premium_Unpolished')
+!Hammer_Premium_Unpolished.isPolished:=False
+
+!new Piece('Hammer_Standard_Polished')
+!Hammer_Standard_Polished.isPolished:=True
+
+!new Piece('Hammer_Premium_Polished')
+!Hammer_Premium_Polished.isPolished:=True
+
+!insert(HandleGenerator_Complex1,Tray_Handles) into Output
+!insert(HandleGenerator_Complex2,Tray_Handles_Premium) into Output
+!insert(HeadGenerator_Complex1,Tray_Heads) into Output
+!insert(HeadGenerator_Complex2,Tray_Heads_Premium) into Output
+!insert(Tray_Handles,Assembler_Complex1) into Input
+!insert(Tray_Heads,Assembler_Complex1) into Input
+!insert(Assembler_Complex1,Tray_Hammers) into Output
+!insert(Tray_Handles_Premium,Assembler_Complex2) into Input
+!insert(Tray_Heads_Premium,Assembler_Complex2) into Input
+!insert(Assembler_Complex2,Tray_Hammers_Premium) into Output
+!insert(Tray_Hammers,Polisher_Complex1) into Input
+!insert(Polisher_Complex1,Tray_Polished) into Output
+!insert(Tray_Hammers_Premium,Polisher_Complex2) into Input
+!insert(Polisher_Complex2,Tray_Polished_Premium) into Output
+!insert(Handles_Standard,Tray_Handles) into Content
+!insert(Handles_Premium,Tray_Handles_Premium) into Content
+!insert(Heads_Standard,Tray_Heads) into Content
+!insert(Heads_Premium,Tray_Heads_Premium) into Content
+!insert(Hammer_Standard_Unpolished,Tray_Hammers) into Content
+!insert(Hammer_Premium_Unpolished,Tray_Hammers_Premium) into Content
+!insert(Hammer_Standard_Polished,Tray_Polished) into Content
+!insert(Hammer_Premium_Polished,Tray_Polished_Premium) into Content
+
+!new HandleGenerator('HandleGenerator_Unreal')
+!HandleGenerator_Unreal.x:=0
+!HandleGenerator_Unreal.y:=0
+!HandleGenerator_Unreal.processingTime:=0
+!HandleGenerator_Unreal.counter:=1000
+
+!new HeadGenerator('HeadGenerator_Unreal')
+!HeadGenerator_Unreal.x:=0
+!HeadGenerator_Unreal.y:=0
+!HeadGenerator_Unreal.processingTime:=0
+!HeadGenerator_Unreal.counter:=1000
+
+!new Assembler('Assembler_Unreal')
+!Assembler_Unreal.x:=10
+!Assembler_Unreal.y:=10
+!Assembler_Unreal.processingTime:=0
+
+!new Polisher('Polisher_Unreal')
+!Polisher_Unreal.x:=20
+!Polisher_Unreal.y:=20
+!Polisher_Unreal.processingTime:=0
+
+!new Tray('Tray_Unreal_Handle')
+!Tray_Unreal_Handle.x:=5
+!Tray_Unreal_Handle.y:=5
+!Tray_Unreal_Handle.capacity:=1
+
+!new Tray('Tray_Unreal_Head')
+!Tray_Unreal_Head.x:=5
+!Tray_Unreal_Head.y:=5
+!Tray_Unreal_Head.capacity:=1
+
+!new Tray('Tray_Unreal_Hammer_Unpolished')
+!Tray_Unreal_Hammer_Unpolished.x:=15
+!Tray_Unreal_Hammer_Unpolished.y:=15
+!Tray_Unreal_Hammer_Unpolished.capacity:=1
+
+!new Tray('Tray_Unreal_Hammer_Polished')
+!Tray_Unreal_Hammer_Polished.x:=25
+!Tray_Unreal_Hammer_Polished.y:=25
+!Tray_Unreal_Hammer_Polished.capacity:=1
+
+!new Piece('Handles_Unreal')
+
+!new Piece('Heads_Unreal')
+
+!new Piece('Hammer_Unpolished_Unreal')
+!Hammer_Unpolished_Unreal.isPolished:=False
+
+!new Piece('Hammer_Polished_Unreal')
+!Hammer_Polished_Unreal.isPolished:=True
+
+!insert(HandleGenerator_Unreal,Tray_Unreal_Handle) into Output
+!insert(HeadGenerator_Unreal,Tray_Unreal_Head) into Output
+!insert(Tray_Unreal_Handle,Assembler_Unreal) into Input
+!insert(Tray_Unreal_Head,Assembler_Unreal) into Input
+!insert(Assembler_Unreal,Tray_Unreal_Hammer_Unpolished) into Output
+!insert(Tray_Unreal_Hammer_Unpolished,Polisher_Unreal) into Input
+!insert(Polisher_Unreal,Tray_Unreal_Hammer_Polished) into Output
+!insert(Handles_Unreal,Tray_Unreal_Handle) into Content
+!insert(Heads_Unreal,Tray_Unreal_Head) into Content
+!insert(Hammer_Unpolished_Unreal,Tray_Unreal_Hammer_Unpolished) into Content
+!insert(Hammer_Polished_Unreal,Tray_Unreal_Hammer_Polished) into Content
+
