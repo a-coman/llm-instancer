@@ -1,0 +1,99 @@
+!new HandleGenerator('HandleGenerator_Realistic')
+!HandleGenerator_Realistic.x:=5
+!HandleGenerator_Realistic.y:=5
+!HandleGenerator_Realistic.processingTime:=4
+!HandleGenerator_Realistic.counter:=100
+
+!new HeadGenerator('HeadGenerator_Realistic')
+!HeadGenerator_Realistic.x:=10
+!HeadGenerator_Realistic.y:=5
+!HeadGenerator_Realistic.processingTime:=4
+!HeadGenerator_Realistic.counter:=100
+
+!new Tray('Tray_Mixed')
+!Tray_Mixed.x:=7
+!Tray_Mixed.y:=6
+!Tray_Mixed.capacity:=50
+
+!insert(HandleGenerator_Realistic, Tray_Mixed) into Output
+!insert(HeadGenerator_Realistic, Tray_Mixed) into Output
+
+!new HandleGenerator('HandleGenerator_SingleInput')
+!HandleGenerator_SingleInput.x:=15
+!HandleGenerator_SingleInput.y:=15
+!HandleGenerator_SingleInput.processingTime:=3
+!HandleGenerator_SingleInput.counter:=200
+
+!new Tray('Tray_SingleInput')
+!Tray_SingleInput.x:=17
+!Tray_SingleInput.y:=16
+!Tray_SingleInput.capacity:=50
+
+!new Assembler('Assembler_SingleInput')
+!Assembler_SingleInput.x:=20
+!Assembler_SingleInput.y:=15
+!Assembler_SingleInput.processingTime:=6
+
+!new Tray('Tray_InvalidHammers')
+!Tray_InvalidHammers.x:=25
+!Tray_InvalidHammers.y:=15
+!Tray_InvalidHammers.capacity:=10
+
+!insert(HandleGenerator_SingleInput, Tray_SingleInput) into Output
+!insert(Tray_SingleInput, Assembler_SingleInput) into Input
+!insert(Assembler_SingleInput, Tray_InvalidHammers) into Output
+
+!new Assembler('Assembler_MixedInput')
+!Assembler_MixedInput.x:=30
+!Assembler_MixedInput.y:=30
+!Assembler_MixedInput.processingTime:=8
+
+!new Tray('Tray_Handles_A')
+!Tray_Handles_A.x:=31
+!Tray_Handles_A.y:=31
+!Tray_Handles_A.capacity:=25
+
+!new Tray('Tray_Heads_A')
+!Tray_Heads_A.x:=32
+!Tray_Heads_A.y:=31
+!Tray_Heads_A.capacity:=25
+
+!new Tray('Tray_MixedHammers')
+!Tray_MixedHammers.x:=35
+!Tray_MixedHammers.y:=31
+!Tray_MixedHammers.capacity:=20
+
+!new Polisher('Polisher_MixedInput')
+!Polisher_MixedInput.x:=40
+!Polisher_MixedInput.y:=30
+!Polisher_MixedInput.processingTime:=7
+
+!new Tray('Tray_PolishedMixed')
+!Tray_PolishedMixed.x:=45
+!Tray_PolishedMixed.y:=30
+!Tray_PolishedMixed.capacity:=20
+
+!insert(Tray_Handles_A, Assembler_MixedInput) into Input
+!insert(Tray_Heads_A, Assembler_MixedInput) into Input
+!insert(Assembler_MixedInput, Tray_MixedHammers) into Output
+!insert(Tray_MixedHammers, Polisher_MixedInput) into Input
+!insert(Polisher_MixedInput, Tray_PolishedMixed) into Output
+
+!new HandleGenerator('HandleGenerator_WithInput')
+!HandleGenerator_WithInput.x:=50
+!HandleGenerator_WithInput.y:=50
+!HandleGenerator_WithInput.processingTime:=4
+!HandleGenerator_WithInput.counter:=150
+
+!new Tray('Tray_UnnecessaryInput')
+!Tray_UnnecessaryInput.x:=51
+!Tray_UnnecessaryInput.y:=51
+!Tray_UnnecessaryInput.capacity:=30
+
+!new Tray('Tray_Handles_Output')
+!Tray_Handles_Output.x:=55
+!Tray_Handles_Output.y:=50
+!Tray_Handles_Output.capacity:=50
+
+!insert(Tray_UnnecessaryInput, HandleGenerator_WithInput) into Input
+!insert(HandleGenerator_WithInput, Tray_Handles_Output) into Output
