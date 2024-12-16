@@ -13,13 +13,13 @@ import org.apache.logging.log4j.LogManager;
 public class Main {
     private static final Logger logger = LogManager.getLogger(Main.class);
     public static void main(String[] args) {
-        // // Initialize the agents
+        // #region Initialize the agents
+        
         // ChatLanguageModel chatGPT = OpenAiChatModel.builder()
         //     .apiKey(System.getenv("OPEN_API_KEY"))
         //     .modelName("gpt-4o")
         //     .build();
 
-        // Initialize the agents
         ChatLanguageModel AImodel = GoogleAiGeminiChatModel.builder()
             .apiKey(System.getenv("GEMINI_API_KEY"))
             .modelName("gemini-1.5-flash")
@@ -42,41 +42,47 @@ public class Main {
             .chatMemory(instantiatorMemory)
             .build();
 
-        // Load variables
-        Prompts prompts = new Prompts();
-        String diagram = "hammers/";
-        String modelUML = Utils.readFile("./src/main/resources/prompts/" + diagram + "diagram.use"); 
-        String exampleSOIL = Utils.readFile("./src/main/resources/prompts/" + diagram + "examples/example_1.soil");
-        String currentTime = Utils.getTime();
+        // #endregion	
+        
+        // Load constants
+        final Prompts PROMPTS = new Prompts();
+        final String CURRENT_TIME = Utils.getTime();
+        final String DIAGRAM = "hammers";
+        final String INSTACE_PATH = "./src/main/resources/instances/" + DIAGRAM + "/" + CURRENT_TIME + "/";
+        final String PROMPT_PATH = "./src/main/resources/prompts/" + DIAGRAM + "/";
+        final String INVALID = "# Category: Realistic but invalid";
+        
+        // Read model and example
+        String modelUML = Utils.readFile(PROMPT_PATH + "diagram.use"); 
+        String exampleSOIL = Utils.readFile(PROMPT_PATH + "examples/example_1.soil");
         Use use = new Use();
 
-        // Create class diagram modelDescription in plain english
+        // Create class diagram modelDescription in plain English
         String modelDescription = modelAnalyzer.chat(modelUML);
-        Utils.saveFile(modelDescription, "./src/main/resources/instances/" + diagram + currentTime, "/output.md");
+        Utils.saveFile(modelDescription, INSTACE_PATH, "output.md");
 
         // For each category, create instances
-        prompts.list.forEach( (category, categoryDescription) -> {
+        PROMPTS.list.forEach( (category, categoryDescription) -> {
             
             // Create list
             String list = listCreator.chat(categoryDescription, modelDescription);
-            Utils.saveFile("\n\n" + category + "\n" + list, "./src/main/resources/instances/" + diagram + currentTime, "/output.md");
+            Utils.saveFile("\n\n" + category + "\n" + list, INSTACE_PATH, "output.md");
 
             // Create SOIL and check constraints
             String instanceSOIL = modelInstantiator.chat(list, exampleSOIL);
-            Utils.saveFile(instanceSOIL, "./src/main/resources/instances/" + diagram + currentTime, "/temp.soil", false);
-            if (!category.equals("# Category: Realistic but invalid")) { // Check only for valid instances
-                String check = use.check("/home/andrei/Repos/llm-instancer/src/main/resources/prompts/" + diagram + "diagram.use", 
-                "/home/andrei/Repos/llm-instancer/src/main/resources/instances/" + diagram + currentTime + "/temp.soil", modelDescription.substring(modelDescription.indexOf("Invariants"))); 
+            Utils.saveFile(instanceSOIL, INSTACE_PATH, "temp.soil", false);
+            if (!category.equals(INVALID)) { // Check only for valid instances
+                String check = use.check(PROMPT_PATH + "diagram.use", INSTACE_PATH + "temp.soil", modelDescription.substring(modelDescription.indexOf("Invariants")));  
                 
                 if (check != "OK")
                     instanceSOIL = modelInstantiator.chat("The list and output is partially incorrect: \n" + check + "\n Please provide the corrected full output");    
 
-                Utils.saveFile(instanceSOIL + "\n\n", "./src/main/resources/instances/" + diagram + currentTime, "/valid.soil");
+                Utils.saveFile(instanceSOIL + "\n\n", INSTACE_PATH, "valid.soil");
             } else {
-                Utils.saveFile(instanceSOIL + "\n\n", "./src/main/resources/instances/" + diagram + currentTime, "/invalid.soil");
+                Utils.saveFile(instanceSOIL + "\n\n", INSTACE_PATH, "invalid.soil");
             }
 
-            Utils.saveFile("\n" + "```\n" + instanceSOIL + "\n```", "./src/main/resources/instances/" + diagram + currentTime, "/output.md");
+            Utils.saveFile("\n" + "```\n" + instanceSOIL + "\n```", INSTACE_PATH, "output.md");
 
         });
 
