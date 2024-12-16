@@ -7,8 +7,11 @@ import dev.langchain4j.model.googleai.GoogleAiGeminiChatModel;
 import dev.langchain4j.model.googleai.GoogleAiEmbeddingModel.GoogleAiEmbeddingModelBuilder;
 import dev.langchain4j.model.openai.OpenAiChatModel;
 import dev.langchain4j.service.AiServices;
+import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
 
 public class Main {
+    private static final Logger logger = LogManager.getLogger(Main.class);
     public static void main(String[] args) {
         // // Initialize the agents
         // ChatLanguageModel chatGPT = OpenAiChatModel.builder()
@@ -20,6 +23,7 @@ public class Main {
         ChatLanguageModel AImodel = GoogleAiGeminiChatModel.builder()
             .apiKey(System.getenv("GEMINI_API_KEY"))
             .modelName("gemini-1.5-flash")
+            .logRequestsAndResponses(true)
             .build();
 
         IModelAnalyzer modelAnalyzer = AiServices.builder(IModelAnalyzer.class)
