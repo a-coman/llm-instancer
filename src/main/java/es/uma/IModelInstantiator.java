@@ -1,6 +1,8 @@
 package es.uma;
 
 import dev.langchain4j.service.SystemMessage;
+import dev.langchain4j.service.UserMessage;
+import dev.langchain4j.service.V;
 
 public interface IModelInstantiator {
     String system = """
@@ -12,6 +14,17 @@ public interface IModelInstantiator {
             - Follow the syntax provided in the example, without deviation.
             - Take in account previously created instances to avoid using duplicate namings.
             """;
+
+    String message = """
+            Lets continue with the following list: 
+            {{list}}
+            # Syntax example:
+            {{syntaxExample}}
+            """;
+
+    @SystemMessage(system)
+    @UserMessage(message) 
+    String chat(@V("list") String list, @V("syntaxExample") String syntaxExample);
 
     @SystemMessage(system)
     String chat(String message);

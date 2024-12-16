@@ -3,31 +3,38 @@ package es.uma;
 import dev.langchain4j.memory.ChatMemory;
 import dev.langchain4j.memory.chat.MessageWindowChatMemory;
 import dev.langchain4j.model.chat.ChatLanguageModel;
+import dev.langchain4j.model.googleai.GoogleAiGeminiChatModel;
+import dev.langchain4j.model.googleai.GoogleAiEmbeddingModel.GoogleAiEmbeddingModelBuilder;
 import dev.langchain4j.model.openai.OpenAiChatModel;
 import dev.langchain4j.service.AiServices;
 
 public class Main {
     public static void main(String[] args) {
-        
+        // // Initialize the agents
+        // ChatLanguageModel chatGPT = OpenAiChatModel.builder()
+        //     .apiKey(System.getenv("OPEN_API_KEY"))
+        //     .modelName("gpt-4o")
+        //     .build();
+
         // Initialize the agents
-        ChatLanguageModel chatGPT = OpenAiChatModel.builder()
-            .apiKey(System.getenv("OPEN_API_KEY"))
-            .modelName("gpt-4o")
+        ChatLanguageModel AImodel = GoogleAiGeminiChatModel.builder()
+            .apiKey(System.getenv("GEMINI_API_KEY"))
+            .modelName("gemini-1.5-flash")
             .build();
 
         IModelAnalyzer modelAnalyzer = AiServices.builder(IModelAnalyzer.class)
-            .chatLanguageModel(chatGPT)
+            .chatLanguageModel(AImodel)
             .build();
 
         ChatMemory listCreatorMemory = MessageWindowChatMemory.withMaxMessages(24);
         IListCreator listCreator = AiServices.builder(IListCreator.class)
-            .chatLanguageModel(chatGPT)
+            .chatLanguageModel(AImodel)
             .chatMemory(listCreatorMemory)
             .build();
 
         ChatMemory instantiatorMemory = MessageWindowChatMemory.withMaxMessages(24);
         IModelInstantiator modelInstantiator = AiServices.builder(IModelInstantiator.class)
-            .chatLanguageModel(chatGPT)
+            .chatLanguageModel(AImodel)
             .chatMemory(instantiatorMemory)
             .build();
 
@@ -47,11 +54,11 @@ public class Main {
         prompts.list.forEach( (category, categoryDescription) -> {
             
             // Create list
-            String list = listCreator.chat(categoryDescription + "\n\n" + modelDescription);
+            String list = listCreator.chat(categoryDescription, modelDescription);
             Utils.saveFile("\n\n" + category + "\n" + list, "./src/main/resources/instances/" + diagram + currentTime, "/output.md");
 
             // Create SOIL and check constraints
-            String instanceSOIL = modelInstantiator.chat("Lets continue with the following list: \n" + list + "\n # Syntax exaple: \n" + exampleSOIL);
+            String instanceSOIL = modelInstantiator.chat(list, exampleSOIL);
             Utils.saveFile(instanceSOIL, "./src/main/resources/instances/" + diagram + currentTime, "/temp.soil", false);
             if (!category.equals("# Category: Realistic but invalid")) { // Check only for valid instances
                 String check = use.check("/home/andrei/Repos/llm-instancer/src/main/resources/prompts/" + diagram + "diagram.use", 

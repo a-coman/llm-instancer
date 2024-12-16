@@ -1,6 +1,8 @@
 package es.uma;
 
 import dev.langchain4j.service.SystemMessage;
+import dev.langchain4j.service.UserMessage;
+import dev.langchain4j.service.V;
 
 public interface IListCreator {
     String system = """
@@ -13,6 +15,14 @@ public interface IListCreator {
             6. Structural diversity: Include instances with different shapes and complexity, and create varied examples by changing entity attributes.
             """;
 
+    String message = """
+            # Category:
+            {{categoryDescription}}
+            # Model description:
+            {{modelDescription}}
+            """;
+            
     @SystemMessage(system)
-    String chat(String message);
+    @UserMessage(message)
+    String chat(@V("categoryDescription") String categoryDescription, @V("modelDescription") String modelDescription);
 }
