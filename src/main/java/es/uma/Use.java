@@ -14,6 +14,7 @@ public class Use {
         // Instantiate an use shell
         try {
             ProcessBuilder pb;
+            // Check system type (bash/cmd)
             if (System.getProperty("os.name").toLowerCase().indexOf("win") >= 0) {
                 pb = new ProcessBuilder("cmd.exe", "/c", "java -jar use-gui.jar -nogui");
             } else {
@@ -21,6 +22,7 @@ public class Use {
             }
 
             pb.directory(new File("./src/main/resources/use-7.1.1/lib/"));
+            // Check and add JAVA to path
             String javaPath = System.getenv("JAVA_HOME");
             if (javaPath == null) {
                 throw new RuntimeException("Java path not found");
@@ -36,7 +38,7 @@ public class Use {
     }
 
     public void close() {
-        // Close the use shell
+        // Close the USE shell
         try {
             runCommand("exit");
             process.waitFor();
@@ -77,9 +79,12 @@ public class Use {
     }
 
     public String check(String diagramPath, String instancePath, String invariants) {
-        // Open diagram and instance files
-        runCommand("open " + diagramPath);
-        runCommand("open " + instancePath);
+        // Open diagram and instance files        
+        File diagramFile = new File(diagramPath).getAbsoluteFile();
+        File instanceFile = new File(instancePath).getAbsoluteFile();
+
+        runCommand("open " + diagramFile.getPath());
+        runCommand("open " + instanceFile.getPath());
         runCommand("check");
         runCommand("Check finalized");
         
@@ -106,7 +111,7 @@ public class Use {
     public static void main(String[] args) {
         Use use = new Use();
 
-        System.out.println(use.check("/home/andrei/Repos/llm-instancer/src/main/resources/prompts/bank/diagram.use", "/home/andrei/Repos/llm-instancer/src/main/resources/instances/previous/bank/gemini_2.soil", "invariants_Placeholder"));
+        System.out.println(use.check("./src/main/resources/prompts/bank/diagram.use", "./src/main/resources/instances/previous/bank/gemini_2.soil", "invariants_Placeholder"));
 
         use.close();
     }
