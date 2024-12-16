@@ -15,7 +15,7 @@ public class Main {
     public static void main(String[] args) {
         // #region Initialize the agents
         
-        // ChatLanguageModel chatGPT = OpenAiChatModel.builder()
+        // ChatLanguageModel AImodel = OpenAiChatModel.builder()
         //     .apiKey(System.getenv("OPEN_API_KEY"))
         //     .modelName("gpt-4o")
         //     .build();
