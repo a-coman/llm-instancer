@@ -15,16 +15,16 @@ public class Main {
     public static void main(String[] args) {
         // #region Initialize the agents
         
-        // ChatLanguageModel AImodel = OpenAiChatModel.builder()
-        //     .apiKey(System.getenv("OPEN_API_KEY"))
-        //     .modelName("gpt-4o")
-        //     .build();
-
-        ChatLanguageModel AImodel = GoogleAiGeminiChatModel.builder()
-            .apiKey(System.getenv("GEMINI_API_KEY"))
-            .modelName("gemini-1.5-flash")
-            .logRequestsAndResponses(true)
+        ChatLanguageModel AImodel = OpenAiChatModel.builder()
+            .apiKey(System.getenv("OPEN_API_KEY"))
+            .modelName("gpt-4o")
             .build();
+
+        // ChatLanguageModel AImodel = GoogleAiGeminiChatModel.builder()
+        //     .apiKey(System.getenv("GEMINI_API_KEY"))
+        //     .modelName("gemini-1.5-flash")
+        //     .logRequestsAndResponses(true)
+        //     .build();
 
         IModelAnalyzer modelAnalyzer = AiServices.builder(IModelAnalyzer.class)
             .chatLanguageModel(AImodel)
