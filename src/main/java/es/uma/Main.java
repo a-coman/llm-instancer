@@ -45,12 +45,11 @@ public class Main {
         // #endregion	
         
         // Load constants
-        final Prompts PROMPTS = new Prompts();
+        final CategoryPrompts CATEGORY_PROMPTS = new CategoryPrompts();
         final String CURRENT_TIME = Utils.getTime();
         final String DIAGRAM = "hammers";
         final String INSTACE_PATH = "./src/main/resources/instances/" + DIAGRAM + "/" + CURRENT_TIME + "/";
         final String PROMPT_PATH = "./src/main/resources/prompts/" + DIAGRAM + "/";
-        final String INVALID = "# Category: Realistic but invalid";
         
         // Read model and example
         String modelUML = Utils.readFile(PROMPT_PATH + "diagram.use"); 
@@ -62,26 +61,28 @@ public class Main {
         Utils.saveFile(modelDescription, INSTACE_PATH, "output.md");
 
         // For each category, create instances
-        PROMPTS.list.forEach( (category, categoryDescription) -> {
+        CATEGORY_PROMPTS.list.forEach( (categoryId, categoryPrompt) -> {
             
             // Create list
-            String list = listCreator.chat(categoryDescription, modelDescription);
-            Utils.saveFile("\n\n" + category + "\n" + list, INSTACE_PATH, "output.md");
+            String list = listCreator.chat(categoryPrompt, modelDescription);
+            Utils.saveFile("\n\n" + categoryPrompt + list, INSTACE_PATH, "output.md");
 
             // Create SOIL and check constraints
             String instanceSOIL = modelInstantiator.chat(list, exampleSOIL);
             Utils.saveFile(instanceSOIL, INSTACE_PATH, "temp.soil", false);
-            if (!category.equals(INVALID)) { // Check only for valid instances
+            if (!categoryId.equals("invalid")) { // Check only for valid instances
                 String check = use.check(PROMPT_PATH + "diagram.use", INSTACE_PATH + "temp.soil", modelDescription.substring(modelDescription.indexOf("Invariants")));  
                 
                 if (check != "OK")
                     instanceSOIL = modelInstantiator.chat("The list and output is partially incorrect: \n" + check + "\n Please provide the corrected full output");    
 
-                Utils.saveFile(instanceSOIL + "\n\n", INSTACE_PATH, "valid.soil");
+                Utils.saveFile(instanceSOIL + "\n\n", INSTACE_PATH, "outputValid.soil");
             } else {
-                Utils.saveFile(instanceSOIL + "\n\n", INSTACE_PATH, "invalid.soil");
+                Utils.saveFile(instanceSOIL + "\n\n", INSTACE_PATH, "outputInvalid.soil");
             }
-
+            
+            Utils.saveFile(instanceSOIL + "\n\n", INSTACE_PATH, "output" + ".soil");
+            Utils.saveFile(instanceSOIL + "\n\n", INSTACE_PATH, categoryId + ".soil");
             Utils.saveFile("\n" + "```\n" + instanceSOIL + "\n```", INSTACE_PATH, "output.md");
 
         });

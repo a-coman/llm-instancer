@@ -1,0 +1,87 @@
+```
+!new HandleGenerator('handleGenBoundary')
+!handleGenBoundary.x:=0
+!handleGenBoundary.y:=0
+!handleGenBoundary.processingTime:=1
+!handleGenBoundary.counter:=1
+
+!new Tray('trayBoundary1')
+!trayBoundary1.x:=5
+!trayBoundary1.y:=5
+!trayBoundary1.capacity:=1
+
+!insert(handleGenBoundary,trayBoundary1) into Output
+
+!new Handle('handleBoundary')
+!insert(handleBoundary,trayBoundary1) into Content
+
+!new HeadGenerator('headGenMax')
+!headGenMax.x:=10
+!headGenMax.y:=10
+!headGenMax.processingTime:=2
+!headGenMax.counter:=1000
+
+!new Tray('trayBoundary2')
+!trayBoundary2.x:=15
+!trayBoundary2.y:=15
+!trayBoundary2.capacity:=1000
+
+!insert(headGenMax,trayBoundary2) into Output
+
+!new Head('headBoundary1')
+!insert(headBoundary1,trayBoundary2) into Content
+!new Head('headBoundary2')
+!insert(headBoundary2,trayBoundary2) into Content
+!new Head('headBoundary3')
+!insert(headBoundary3,trayBoundary2) into Content
+!new Head('headBoundary4')
+!insert(headBoundary4,trayBoundary2) into Content
+!new Head('headBoundary5')
+!insert(headBoundary5,trayBoundary2) into Content
+!new Head('headBoundary6')
+!insert(headBoundary6,trayBoundary2) into Content
+!new Head('headBoundary7')
+!insert(headBoundary7,trayBoundary2) into Content
+!new Head('headBoundary8')
+!insert(headBoundary8,trayBoundary2) into Content
+!new Head('headBoundary9')
+!insert(headBoundary9,trayBoundary2) into Content
+!new Head('headBoundary10')
+!insert(headBoundary10,trayBoundary2) into Content
+
+!new Assembler('assemblerBoundary')
+!assemblerBoundary.x:=20
+!assemblerBoundary.y:=20
+!assemblerBoundary.processingTime:=3
+
+!new Tray('trayBoundary3')
+!trayBoundary3.x:=25
+!trayBoundary3.y:=25
+!trayBoundary3.capacity:=10
+
+!insert(trayBoundary1,assemblerBoundary) into Input
+!insert(trayBoundary2,assemblerBoundary) into Input
+!insert(assemblerBoundary,trayBoundary3) into Output
+
+!new Hammer('hammerBoundary')
+!hammerBoundary.isPolished:=false
+!insert(hammerBoundary,trayBoundary3) into Content
+
+!new Polisher('polisherBoundary')
+!polisherBoundary.x:=30
+!polisherBoundary.y:=30
+!polisherBoundary.processingTime:=4
+
+!new Tray('trayBoundary4')
+!trayBoundary4.x:=35
+!trayBoundary4.y:=35
+!trayBoundary4.capacity:=5
+
+!insert(trayBoundary3,polisherBoundary) into Input
+!insert(polisherBoundary,trayBoundary4) into Output
+
+!new Hammer('polishedHammerBoundary')
+!polishedHammerBoundary.isPolished:=true
+!insert(polishedHammerBoundary,trayBoundary4) into Content
+```
+

@@ -1,0 +1,84 @@
+```
+!new Tray('trayMixedRealistic')
+!trayMixedRealistic.x:=0
+!trayMixedRealistic.y:=0
+!trayMixedRealistic.capacity:=50
+
+!new Handle('handleRealistic1')
+!insert(handleRealistic1,trayMixedRealistic) into Content
+!new Handle('handleRealistic2')
+!insert(handleRealistic2,trayMixedRealistic) into Content
+!new Head('headRealistic1')
+!insert(headRealistic1,trayMixedRealistic) into Content
+!new Head('headRealistic2')
+!insert(headRealistic2,trayMixedRealistic) into Content
+
+!new Assembler('assemblerRealistic')
+!assemblerRealistic.x:=5
+!assemblerRealistic.y:=5
+!assemblerRealistic.processingTime:=6
+
+!new Tray('trayHammersRealistic')
+!trayHammersRealistic.x:=10
+!trayHammersRealistic.y:=10
+!trayHammersRealistic.capacity:=25
+
+!insert(trayMixedRealistic,assemblerRealistic) into Input
+!insert(assemblerRealistic,trayHammersRealistic) into Output
+
+!new Hammer('hammerRealistic1')
+!hammerRealistic1.isPolished:=false
+!insert(hammerRealistic1,trayHammersRealistic) into Content
+!new Hammer('hammerRealistic2')
+!hammerRealistic2.isPolished:=false
+!insert(hammerRealistic2,trayHammersRealistic) into Content
+
+!new HeadGenerator('headGenRealistic')
+!headGenRealistic.x:=15
+!headGenRealistic.y:=15
+!headGenRealistic.processingTime:=3
+!headGenRealistic.counter:=500
+
+!new Tray('trayHeadsRealistic1')
+!trayHeadsRealistic1.x:=20
+!trayHeadsRealistic1.y:=20
+!trayHeadsRealistic1.capacity:=250
+
+!new Tray('trayHeadsRealistic2')
+!trayHeadsRealistic2.x:=25
+!trayHeadsRealistic2.y:=25
+!trayHeadsRealistic2.capacity:=250
+
+!insert(headGenRealistic,trayHeadsRealistic1) into Output
+!insert(headGenRealistic,trayHeadsRealistic2) into Output
+
+!new Head('headRealistic26')
+!insert(headRealistic26,trayHeadsRealistic1) into Content
+!new Head('headRealistic27')
+!insert(headRealistic27,trayHeadsRealistic1) into Content
+
+!new Head('headRealistic251')
+!insert(headRealistic251,trayHeadsRealistic2) into Content
+!new Head('headRealistic252')
+!insert(headRealistic252,trayHeadsRealistic2) into Content
+
+!new Polisher('polisherRealistic')
+!polisherRealistic.x:=30
+!polisherRealistic.y:=30
+!polisherRealistic.processingTime:=2
+
+!new Tray('trayMixedHammers')
+!trayMixedHammers.x:=35
+!trayMixedHammers.y:=35
+!trayMixedHammers.capacity:=20
+
+!new Hammer('hammerPolished1')
+!hammerPolished1.isPolished:=true
+!insert(hammerPolished1,trayMixedHammers) into Content
+!new Hammer('hammerUnpolished1')
+!hammerUnpolished1.isPolished:=false
+!insert(hammerUnpolished1,trayMixedHammers) into Content
+
+!insert(trayMixedHammers,polisherRealistic) into Input
+```
+

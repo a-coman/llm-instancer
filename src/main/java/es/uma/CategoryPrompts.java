@@ -3,17 +3,17 @@ package es.uma;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-public class Prompts {
+public class CategoryPrompts {
     Map<String, String> list = new LinkedHashMap<>();
 
-    public Prompts() {
+    public CategoryPrompts() {
 
-        String baseline = """
+        String baselinePrompt = """
                 # Category: Baseline Instances
                 Describe typical or standard instances that align with common expectations of the model. Ensure every class and relationship is represented at least once in a baseline configuration.
 
                 """;        
-        String boundary = """
+        String boundaryPrompt = """
                 # Category: Boundary Instances
                 Create instances that test boundary values of constraints, such as:
                 - Minimum and maximum multiplicities.
@@ -21,28 +21,28 @@ public class Prompts {
                 - Extreme values for numeric or range invariants constraints.
 
                 """;
-        String complex = """
+        String complexPrompt = """
                 # Category: Complex Instances
                 Describe complex instances involving multiple interrelated entities, testing interactions between constraints, relationships, and multiplicities.
 
                 """;
-        String valid = """
+        String unrealisticPrompt = """
                 # Category: Unrealistc but valid
                 Develop instances that are syntactically and constraints-wise/multiplicity-wise valid but unlikely or impossible in real life. Edge cases and uncommon combinations of relationships and attributes.
 
                 """;
 
-        String invalid = """
+        String invalidPrompt = """
                 # Category: Realistic but invalid
                 Create instances that make sense in real-life scenarios but violate constraints exposing overly restrictive or unrealistic constraints.
                 
                 """;
 
-        list.put("# Category: Baseline Instances", baseline);
-        list.put("# Category: Boundary Instances", boundary);
-        list.put("# Category: Complex Instances", complex);
-        list.put("# Category: Unrealistc but valid", valid);
-        list.put("# Category: Realistic but invalid", invalid);
+        list.put("baseline", baselinePrompt);
+        list.put("boundary", boundaryPrompt);
+        list.put("complex", complexPrompt);
+        list.put("unrealistic", unrealisticPrompt);
+        list.put("invalid", invalidPrompt);
 
     }
 }

@@ -1,0 +1,193 @@
+```
+!new HandleGenerator('handleGenComplex1')
+!handleGenComplex1.x:=10
+!handleGenComplex1.y:=10
+!handleGenComplex1.processingTime:=5
+!handleGenComplex1.counter:=200
+
+!new Tray('trayHandles1')
+!trayHandles1.x:=15
+!trayHandles1.y:=15
+!trayHandles1.capacity:=200
+
+!insert(handleGenComplex1,trayHandles1) into Output
+
+!new HeadGenerator('headGenComplex1')
+!headGenComplex1.x:=20
+!headGenComplex1.y:=20
+!headGenComplex1.processingTime:=6
+!headGenComplex1.counter:=150
+
+!new Tray('trayHeads1')
+!trayHeads1.x:=25
+!trayHeads1.y:=25
+!trayHeads1.capacity:=150
+
+!insert(headGenComplex1,trayHeads1) into Output
+
+!new Assembler('assemblerComplex1')
+!assemblerComplex1.x:=30
+!assemblerComplex1.y:=30
+!assemblerComplex1.processingTime:=7
+
+!new Tray('trayHammers1')
+!trayHammers1.x:=35
+!trayHammers1.y:=35
+!trayHammers1.capacity:=100
+
+!insert(trayHandles1,assemblerComplex1) into Input
+!insert(trayHeads1,assemblerComplex1) into Input
+!insert(assemblerComplex1,trayHammers1) into Output
+
+!new Polisher('polisherComplex1')
+!polisherComplex1.x:=40
+!polisherComplex1.y:=40
+!polisherComplex1.processingTime:=4
+
+!new Tray('trayPolishedHammers1')
+!trayPolishedHammers1.x:=45
+!trayPolishedHammers1.y:=45
+!trayPolishedHammers1.capacity:=100
+
+!insert(trayHammers1,polisherComplex1) into Input
+!insert(polisherComplex1,trayPolishedHammers1) into Output
+
+!new Handle('handle1')
+!insert(handle1,trayHandles1) into Content
+!new Handle('handle2')
+!insert(handle2,trayHandles1) into Content
+!new Handle('handle3')
+!insert(handle3,trayHandles1) into Content
+!new Handle('handle4')
+!insert(handle4,trayHandles1) into Content
+!new Handle('handle5')
+!insert(handle5,trayHandles1) into Content
+
+!new Head('head1')
+!insert(head1,trayHeads1) into Content
+!new Head('head2')
+!insert(head2,trayHeads1) into Content
+!new Head('head3')
+!insert(head3,trayHeads1) into Content
+!new Head('head4')
+!insert(head4,trayHeads1) into Content
+!new Head('head5')
+!insert(head5,trayHeads1) into Content
+
+!new Hammer('hammer1')
+!hammer1.isPolished:=false
+!insert(hammer1,trayHammers1) into Content
+!new Hammer('hammer2')
+!hammer2.isPolished:=false
+!insert(hammer2,trayHammers1) into Content
+!new Hammer('hammer3')
+!hammer3.isPolished:=false
+!insert(hammer3,trayHammers1) into Content
+!new Hammer('hammer4')
+!hammer4.isPolished:=false
+!insert(hammer4,trayHammers1) into Content
+!new Hammer('hammer5')
+!hammer5.isPolished:=false
+!insert(hammer5,trayHammers1) into Content
+
+!new Hammer('polishedHammer1')
+!polishedHammer1.isPolished:=true
+!insert(polishedHammer1,trayPolishedHammers1) into Content
+!new Hammer('polishedHammer2')
+!polishedHammer2.isPolished:=true
+!insert(polishedHammer2,trayPolishedHammers1) into Content
+!new Hammer('polishedHammer3')
+!polishedHammer3.isPolished:=true
+!insert(polishedHammer3,trayPolishedHammers1) into Content
+!new Hammer('polishedHammer4')
+!polishedHammer4.isPolished:=true
+!insert(polishedHammer4,trayPolishedHammers1) into Content
+!new Hammer('polishedHammer5')
+!polishedHammer5.isPolished:=true
+!insert(polishedHammer5,trayPolishedHammers1) into Content
+
+!new HandleGenerator('handleGenComplex2')
+!handleGenComplex2.x:=50
+!handleGenComplex2.y:=50
+!handleGenComplex2.processingTime:=5
+!handleGenComplex2.counter:=400
+
+!new Tray('trayHandles2')
+!trayHandles2.x:=55
+!trayHandles2.y:=55
+!trayHandles2.capacity:=400
+
+!insert(handleGenComplex2,trayHandles2) into Output
+
+!new Handle('handle201')
+!insert(handle201,trayHandles2) into Content
+!new Handle('handle202')
+!insert(handle202,trayHandles2) into Content
+!new Handle('handle203')
+!insert(handle203,trayHandles2) into Content
+!new Handle('handle204')
+!insert(handle204,trayHandles2) into Content
+!new Handle('handle205')
+!insert(handle205,trayHandles2) into Content
+
+!new Assembler('assemblerComplex2a')
+!assemblerComplex2a.x:=60
+!assemblerComplex2a.y:=60
+!assemblerComplex2a.processingTime:=8
+
+!new Tray('trayHammers2a')
+!trayHammers2a.x:=65
+!trayHammers2a.y:=65
+!trayHammers2a.capacity:=80
+
+!insert(trayHandles2,assemblerComplex2a) into Input
+!insert(trayHeads1,assemblerComplex2a) into Input
+!insert(assemblerComplex2a,trayHammers2a) into Output
+
+!new Hammer('hammer101')
+!hammer101.isPolished:=false
+!insert(hammer101,trayHammers2a) into Content
+!new Hammer('hammer102')
+!hammer102.isPolished:=false
+!insert(hammer102,trayHammers2a) into Content
+!new Hammer('hammer103')
+!hammer103.isPolished:=false
+!insert(hammer103,trayHammers2a) into Content
+!new Hammer('hammer104')
+!hammer104.isPolished:=false
+!insert(hammer104,trayHammers2a) into Content
+!new Hammer('hammer105')
+!hammer105.isPolished:=false
+!insert(hammer105,trayHammers2a) into Content
+
+!new Assembler('assemblerComplex2b')
+!assemblerComplex2b.x:=70
+!assemblerComplex2b.y:=70
+!assemblerComplex2b.processingTime:=9
+
+!new Tray('trayHammers2b')
+!trayHammers2b.x:=75
+!trayHammers2b.y:=75
+!trayHammers2b.capacity:=120
+
+!insert(trayHandles2,assemblerComplex2b) into Input
+!insert(trayHeads1,assemblerComplex2b) into Input
+!insert(assemblerComplex2b,trayHammers2b) into Output
+
+!new Hammer('hammer181')
+!hammer181.isPolished:=false
+!insert(hammer181,trayHammers2b) into Content
+!new Hammer('hammer182')
+!hammer182.isPolished:=false
+!insert(hammer182,trayHammers2b) into Content
+!new Hammer('hammer183')
+!hammer183.isPolished:=false
+!insert(hammer183,trayHammers2b) into Content
+!new Hammer('hammer184')
+!hammer184.isPolished:=false
+!insert(hammer184,trayHammers2b) into Content
+!new Hammer('hammer185')
+!hammer185.isPolished:=false
+!insert(hammer185,trayHammers2b) into Content
+```
+

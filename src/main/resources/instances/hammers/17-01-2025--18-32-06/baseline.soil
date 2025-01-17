@@ -1,0 +1,81 @@
+```
+!new Element('element1')
+!element1.x:=10
+!element1.y:=20
+
+!new HandleGenerator('handleGen1')
+!handleGen1.x:=10
+!handleGen1.y:=20
+!handleGen1.processingTime:=5
+!handleGen1.counter:=0
+
+!new Tray('tray1')
+!tray1.x:=15
+!tray1.y:=25
+!tray1.capacity:=100
+
+!insert(handleGen1,tray1) into Output
+
+!new Handle('handlePiece1')
+!new Handle('handlePiece2')
+
+!insert(handlePiece1,tray1) into Content
+!insert(handlePiece2,tray1) into Content
+
+!new HeadGenerator('headGen1')
+!headGen1.x:=30
+!headGen1.y:=40
+!headGen1.processingTime:=7
+!headGen1.counter:=0
+
+!new Tray('tray2')
+!tray2.x:=35
+!tray2.y:=45
+!tray2.capacity:=50
+
+!insert(headGen1,tray2) into Output
+
+!new Head('headPiece1')
+!new Head('headPiece2')
+
+!insert(headPiece1,tray2) into Content
+!insert(headPiece2,tray2) into Content
+
+!new Assembler('assembler1')
+!assembler1.x:=50
+!assembler1.y:=60
+!assembler1.processingTime:=10
+
+!new Tray('tray3')
+!tray3.x:=55
+!tray3.y:=65
+!tray3.capacity:=30
+
+!insert(tray1,assembler1) into Input
+!insert(tray2,assembler1) into Input
+!insert(assembler1,tray3) into Output
+
+!new Hammer('hammer1')
+!hammer1.isPolished:=false
+
+!insert(hammer1,tray3) into Content
+
+!new Polisher('polisher1')
+!polisher1.x:=70
+!polisher1.y:=80
+!polisher1.processingTime:=4
+
+!new Tray('tray4')
+!tray4.x:=75
+!tray4.y:=85
+!tray4.capacity:=10
+
+!insert(tray3,polisher1) into Input
+!insert(polisher1,tray4) into Output
+
+!new Hammer('polishedHammer1')
+!polishedHammer1.isPolished:=true
+
+!insert(polishedHammer1,tray4) into Content
+```
+

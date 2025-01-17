@@ -1,0 +1,79 @@
+```
+!new Polisher('polisherUnrealistic')
+!polisherUnrealistic.x:=0
+!polisherUnrealistic.y:=0
+!polisherUnrealistic.processingTime:=2
+
+!new Tray('trayPolishedUnrealistic')
+!trayPolishedUnrealistic.x:=5
+!trayPolishedUnrealistic.y:=5
+!trayPolishedUnrealistic.capacity:=10
+
+!new Hammer('unassembledHammer1')
+!unassembledHammer1.isPolished:=true
+!insert(unassembledHammer1,trayPolishedUnrealistic) into Content
+!new Hammer('unassembledHammer2')
+!unassembledHammer2.isPolished:=true
+!insert(unassembledHammer2,trayPolishedUnrealistic) into Content
+
+!insert(trayPolishedUnrealistic,polisherUnrealistic) into Input
+
+!new HandleGenerator('handleGenUnrealistic')
+!handleGenUnrealistic.x:=10
+!handleGenUnrealistic.y:=10
+!handleGenUnrealistic.processingTime:=0
+!handleGenUnrealistic.counter:=1000000
+
+!new Tray('trayHandlesUnrealistic')
+!trayHandlesUnrealistic.x:=15
+!trayHandlesUnrealistic.y:=15
+!trayHandlesUnrealistic.capacity:=1000000
+
+!insert(handleGenUnrealistic,trayHandlesUnrealistic) into Output
+
+!new Handle('megaHandle1')
+!insert(megaHandle1,trayHandlesUnrealistic) into Content
+!new Handle('megaHandle2')
+!insert(megaHandle2,trayHandlesUnrealistic) into Content
+
+!new Tray('trayMixed')
+!trayMixed.x:=20
+!trayMixed.y:=20
+!trayMixed.capacity:=200
+
+!new Handle('handleMixed1')
+!insert(handleMixed1,trayMixed) into Content
+!new Handle('handleMixed2')
+!insert(handleMixed2,trayMixed) into Content
+!new Handle('handleMixed3')
+!insert(handleMixed3,trayMixed) into Content
+!new Head('headMixed1')
+!insert(headMixed1,trayMixed) into Content
+!new Head('headMixed2')
+!insert(headMixed2,trayMixed) into Content
+!new Head('headMixed3')
+!insert(headMixed3,trayMixed) into Content
+
+!new Assembler('assemblerUnrealistic')
+!assemblerUnrealistic.x:=25
+!assemblerUnrealistic.y:=25
+!assemblerUnrealistic.processingTime:=3
+
+!new Tray('trayHammersUnrealistic')
+!trayHammersUnrealistic.x:=30
+!trayHammersUnrealistic.y:=30
+!trayHammersUnrealistic.capacity:=100
+
+!insert(trayMixed,assemblerUnrealistic) into Input
+!insert(assemblerUnrealistic,trayHammersUnrealistic) into Output
+
+!new Hammer('impossibleHammer1')
+!impossibleHammer1.isPolished:=false
+!insert(impossibleHammer1,trayHammersUnrealistic) into Content
+!new Hammer('impossibleHammer2')
+!impossibleHammer2.isPolished:=false
+!insert(impossibleHammer2,trayHammersUnrealistic) into Content
+
+!insert(polisherUnrealistic,trayPolishedUnrealistic) into Output
+```
+
