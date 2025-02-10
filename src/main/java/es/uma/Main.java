@@ -37,7 +37,7 @@ public class Main {
             .build();
 
         ChatMemory instantiatorMemory = MessageWindowChatMemory.withMaxMessages(24);
-        IModelInstantiator modelInstantiator = AiServices.builder(IModelInstantiator.class)
+        IListInstantiator modelInstantiator = AiServices.builder(IListInstantiator.class)
             .chatLanguageModel(AImodel)
             .chatMemory(instantiatorMemory)
             .build();
