@@ -1,4 +1,4 @@
-package es.uma;
+package es.uma.CoT;
 
 import dev.langchain4j.service.SystemMessage;
 

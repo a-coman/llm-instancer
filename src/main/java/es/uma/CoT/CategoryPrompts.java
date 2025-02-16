@@ -1,4 +1,4 @@
-package es.uma;
+package es.uma.CoT;
 
 import java.util.LinkedHashMap;
 import java.util.Map;

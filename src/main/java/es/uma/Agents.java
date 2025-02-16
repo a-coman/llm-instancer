@@ -4,6 +4,9 @@ import dev.langchain4j.memory.ChatMemory;
 import dev.langchain4j.memory.chat.MessageWindowChatMemory;
 import dev.langchain4j.model.chat.ChatLanguageModel;
 import dev.langchain4j.service.AiServices;
+import es.uma.CoT.IListCreator;
+import es.uma.CoT.IListInstantiator;
+import es.uma.CoT.IModelAnalyzer;
 import es.uma.Simple.ISimple;
 
 public class Agents {

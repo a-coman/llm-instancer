@@ -1,11 +1,11 @@
-package es.uma;
+package es.uma.Test;
 
 import dev.langchain4j.model.chat.ChatLanguageModel;
 import dev.langchain4j.model.openai.OpenAiChatModel;
 import dev.langchain4j.service.AiServices;
 import dev.langchain4j.service.SystemMessage;
 
-public class Test {
+public class Diagramer {
 
     interface ITestAgent {
         String system = """
