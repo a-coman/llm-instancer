@@ -8,6 +8,7 @@ import es.uma.CoT.IListCreator;
 import es.uma.CoT.IListInstantiator;
 import es.uma.CoT.IModelAnalyzer;
 import es.uma.Simple.ISimple;
+import es.uma.Test.ITest;
 
 public class Agents {
     
@@ -35,5 +36,9 @@ public class Agents {
 
     public static IListInstantiator getListInstantiator(ChatLanguageModel chatModel) {
         return createAgent(IListInstantiator.class, chatModel);
+    }
+
+    public static ITest getTest(ChatLanguageModel chatModel) { 
+        return createAgent(ITest.class, chatModel);
     }
 }
