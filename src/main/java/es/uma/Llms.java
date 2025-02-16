@@ -2,11 +2,24 @@ package es.uma;
 
 import java.util.List;
 
+import dev.langchain4j.memory.ChatMemory;
+import dev.langchain4j.memory.chat.MessageWindowChatMemory;
 import dev.langchain4j.model.chat.ChatLanguageModel;
 import dev.langchain4j.model.googleai.GoogleAiGeminiChatModel;
 import dev.langchain4j.model.openai.OpenAiChatModel;
+import dev.langchain4j.service.AiServices;
 
-public class Models {
+public class Llms {
+
+    public static final int MAX_MESSAGES = 24;
+
+    public static <T> T getAgent(Class<T> agent, ChatLanguageModel model) {
+        ChatMemory memory = MessageWindowChatMemory.withMaxMessages(MAX_MESSAGES);
+        return AiServices.builder(agent)
+                .chatLanguageModel(model)
+                .chatMemory(memory)
+                .build();
+    }
 
     public static ChatLanguageModel getModel(String name) {
         switch (name) {
