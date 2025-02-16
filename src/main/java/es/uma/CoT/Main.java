@@ -1,51 +1,22 @@
 package es.uma.CoT;
 
-import dev.langchain4j.memory.ChatMemory;
-import dev.langchain4j.memory.chat.MessageWindowChatMemory;
-import dev.langchain4j.model.chat.ChatLanguageModel;
-import dev.langchain4j.model.googleai.GoogleAiGeminiChatModel;
-import dev.langchain4j.model.googleai.GoogleAiEmbeddingModel.GoogleAiEmbeddingModelBuilder;
-import dev.langchain4j.model.openai.OpenAiChatModel;
-import dev.langchain4j.service.AiServices;
+import es.uma.Llms;
 import es.uma.Use;
 import es.uma.Utils;
-
-import org.apache.logging.log4j.Logger;
-import org.apache.logging.log4j.LogManager;
+import dev.langchain4j.model.chat.ChatLanguageModel;
+// Log4j
+//import org.apache.logging.log4j.Logger;
+//import org.apache.logging.log4j.LogManager;
 
 public class Main {
-    private static final Logger logger = LogManager.getLogger(Main.class);
     public static void main(String[] args) {
-        // #region Initialize the agents
-        
-        ChatLanguageModel AImodel = OpenAiChatModel.builder()
-            .apiKey(System.getenv("OPEN_API_KEY"))
-            .modelName("gpt-4o")
-            .build();
 
-        // ChatLanguageModel AImodel = GoogleAiGeminiChatModel.builder()
-        //     .apiKey(System.getenv("GEMINI_API_KEY"))
-        //     .modelName("gemini-1.5-flash")
-        //     .logRequestsAndResponses(true)
-        //     .build();
+        // Initialize the agents
+        ChatLanguageModel AImodel = Llms.getModel("4o");
 
-        IModelAnalyzer modelAnalyzer = AiServices.builder(IModelAnalyzer.class)
-            .chatLanguageModel(AImodel)
-            .build();
-
-        ChatMemory listCreatorMemory = MessageWindowChatMemory.withMaxMessages(24);
-        IListCreator listCreator = AiServices.builder(IListCreator.class)
-            .chatLanguageModel(AImodel)
-            .chatMemory(listCreatorMemory)
-            .build();
-
-        ChatMemory instantiatorMemory = MessageWindowChatMemory.withMaxMessages(24);
-        IListInstantiator modelInstantiator = AiServices.builder(IListInstantiator.class)
-            .chatLanguageModel(AImodel)
-            .chatMemory(instantiatorMemory)
-            .build();
-
-        // #endregion	
+        IModelAnalyzer modelAnalyzer = Llms.getAgent(IModelAnalyzer.class, AImodel);
+        IListCreator listCreator = Llms.getAgent(IListCreator.class, AImodel);
+        IListInstantiator listInstantiator = Llms.getAgent(IListInstantiator.class, AImodel);
         
         // Load constants
         final CategoryPrompts CATEGORY_PROMPTS = new CategoryPrompts();
@@ -71,13 +42,13 @@ public class Main {
             Utils.saveFile("\n\n" + categoryPrompt + list, INSTACE_PATH, "output.md");
 
             // Create SOIL and check constraints
-            String instanceSOIL = modelInstantiator.chat(list, exampleSOIL);
+            String instanceSOIL = listInstantiator.chat(list, exampleSOIL);
             Utils.saveFile(instanceSOIL, INSTACE_PATH, "temp.soil", false);
             if (!categoryId.equals("invalid")) { // Check only for valid instances
                 String check = use.check(PROMPT_PATH + "diagram.use", INSTACE_PATH + "temp.soil", modelDescription.substring(modelDescription.indexOf("Invariants")));  
                 
                 if (check != "OK")
-                    instanceSOIL = modelInstantiator.chat("The list and output is partially incorrect: \n" + check + "\n Please provide the corrected full output");    
+                    instanceSOIL = listInstantiator.chat("The list and output is partially incorrect: \n" + check + "\n Please provide the corrected full output");    
 
                 Utils.saveFile(instanceSOIL + "\n\n", INSTACE_PATH, "outputValid.soil");
             } else {
