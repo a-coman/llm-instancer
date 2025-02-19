@@ -13,7 +13,7 @@ public class CoT {
     public static void run(Experiment experiment) {
 
         // Initialize AImodel and agents
-        ChatLanguageModel AImodel = Llms.getModel("4o");
+        ChatLanguageModel AImodel = Llms.getModel(experiment.model);
         IModelAnalyzer modelAnalyzer = Llms.getAgent(IModelAnalyzer.class, AImodel);
         IListCreator listCreator = Llms.getAgent(IListCreator.class, AImodel);
         IListInstantiator listInstantiator = Llms.getAgent(IListInstantiator.class, AImodel);
