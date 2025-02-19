@@ -6,7 +6,7 @@ import es.uma.Utils;
 
 public class Simple {
     public static void run(Experiment experiment) {
-        ISimple simple = Llms.getAgent(ISimple.class, Llms.getModel(experiment.model));
+        ISimple simple = Llms.getAgent(ISimple.class, Llms.getModel(experiment.model, experiment.instancePath));
 
         String modelUML = Utils.readFile(experiment.umlPath); 
         String exampleSOIL = Utils.readFile(experiment.examplePath);

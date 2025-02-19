@@ -21,46 +21,50 @@ public class Llms {
                 .build();
     }
 
-    public static ChatLanguageModel getModel(String name) {
+    public static ChatLanguageModel getModel(String name, String logsPath) {
         switch (name) {
             case "4o": 
                 return OpenAiChatModel.builder()
                     .apiKey(System.getenv("OPENAI_KEY"))
                     .modelName("gpt-4o")
-                    .listeners(List.of(new Listener()))
+                    .listeners(List.of(new Listener(logsPath)))
                     .build();
             case "o1":
                 return OpenAiChatModel.builder()
                     .apiKey(System.getenv("OPENAI_KEY"))
                     .modelName("gpt-4o")
-                    .listeners(List.of(new Listener()))
+                    .listeners(List.of(new Listener(logsPath)))
                     .build();
             case "v3":
                 return OpenAiChatModel.builder()
                     .apiKey(System.getenv("DEEPSEEK_KEY"))
                     .modelName("gpt-4o")
-                    .listeners(List.of(new Listener()))
+                    .listeners(List.of(new Listener(logsPath)))
                     .build();
             case "r3":
                 return OpenAiChatModel.builder()
                     .apiKey(System.getenv("DEEPSEEK_KEY"))
                     .modelName("gpt-4o")
-                    .listeners(List.of(new Listener()))
+                    .listeners(List.of(new Listener(logsPath)))
                     .build();
             case "g2":
                 return GoogleAiGeminiChatModel.builder()
                     .apiKey(System.getenv("GEMINI_KEY"))
                     .modelName("gpt-4o")
-                    .listeners(List.of(new Listener()))
+                    .listeners(List.of(new Listener(logsPath)))
                     .build();
             case "g2r":
                 return GoogleAiGeminiChatModel.builder()
                     .apiKey(System.getenv("GEMINI_KEY"))
                     .modelName("gpt-4o")
-                    .listeners(List.of(new Listener()))
+                    .listeners(List.of(new Listener(logsPath)))
                     .build();
             default:
                 throw new IllegalArgumentException("Invalid model name: " + name);
         }
+    }
+
+    public static ChatLanguageModel getModel(String name) {
+        return getModel(name, "./src/main/resources/instances/logs.md");
     }
 }

@@ -10,25 +10,34 @@ import dev.langchain4j.model.chat.listener.ChatModelRequest;
 
 public class Listener implements ChatModelListener {
 
+    private String logsPath;
+    public Listener(String logsPath) {
+        this.logsPath = logsPath;
+    }
+    
     @Override
     public void onRequest(ChatModelRequestContext requestContext) {
         ChatModelRequest request = requestContext.request();
-        
-        System.out.println("Model: " + request.model());
-        System.out.println("Temperature: " + request.temperature());
-        System.out.println("Max-Tokens: " + request.maxTokens());
-        System.out.println("Top-P: " + request.topP());
+        StringBuffer sb = new StringBuffer();
+        sb.append("Model: " + request.model() + "\n");
+        sb.append("Temperature: " + request.temperature() + "\n");
+        sb.append("Max-Tokens: " + request.maxTokens() + "\n");
+        sb.append("Top-P: " + request.topP() + "\n");
+        System.out.println(sb.toString());
+        Utils.saveFile(sb.toString(), logsPath, "output.md");  
     }
 
     @Override
     public void onResponse(ChatModelResponseContext responseContext) {
         ChatModelResponse response = responseContext.response();
-      
-        System.out.println("Finish Reason: " + response.finishReason());
+        StringBuffer sb = new StringBuffer();
+        sb.append("Finish Reason: " + response.finishReason() + "\n");
         TokenUsage tokenUsage = response.tokenUsage();
-        System.out.println("Input Tokens: " + tokenUsage.inputTokenCount());
-        System.out.println("Output Tokens: " + tokenUsage.outputTokenCount());
-        System.out.println("Total Tokens: " + tokenUsage.totalTokenCount());
+        sb.append("Input Tokens: " + tokenUsage.inputTokenCount() + "\n");
+        sb.append("Output Tokens: " + tokenUsage.outputTokenCount() + "\n");
+        sb.append("Total Tokens: " + tokenUsage.totalTokenCount() + "\n\n");
+        System.out.println(sb.toString());
+        Utils.saveFile(sb.toString(), logsPath, "output.md");
     }
 
     @Override
@@ -38,5 +47,7 @@ public class Listener implements ChatModelListener {
 
         ChatModelRequest request = errorContext.request();
         System.out.println("Failed Request: " + request.messages());
+
+        throw new RuntimeException(error);
     }
 }
