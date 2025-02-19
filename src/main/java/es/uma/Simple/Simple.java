@@ -4,9 +4,8 @@ import es.uma.Experiment;
 import es.uma.Llms;
 import es.uma.Utils;
 
-public class Main {
-    public static void main(String[] args) {
-        Experiment experiment = new Experiment("Simple", "bank");
+public class Simple {
+    public static void run(Experiment experiment) {
         ISimple simple = Llms.getAgent(ISimple.class, Llms.getModel("4o"));
 
         String modelUML = Utils.readFile(experiment.umlPath); 

@@ -9,10 +9,8 @@ import dev.langchain4j.model.chat.ChatLanguageModel;
 //import org.apache.logging.log4j.Logger;
 //import org.apache.logging.log4j.LogManager;
 
-public class Main {
-    public static void main(String[] args) {
-        // Experiment
-        Experiment experiment = new Experiment("CoT", "bank");
+public class CoT {
+    public static void run(Experiment experiment) {
 
         // Initialize AImodel and agents
         ChatLanguageModel AImodel = Llms.getModel("4o");
