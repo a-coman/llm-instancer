@@ -13,6 +13,7 @@ public class Simple {
 
         String response = simple.chat(modelUML, exampleSOIL);
 
-        System.out.println(response);
+        Utils.saveFile(response, experiment.instancePath, "instance.soil");
+        Utils.saveFile(response, experiment.instancePath, "output.md");
     }
 }
