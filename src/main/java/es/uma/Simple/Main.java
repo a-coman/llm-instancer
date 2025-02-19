@@ -6,7 +6,7 @@ import es.uma.Utils;
 
 public class Main {
     public static void main(String[] args) {
-        Experiment experiment = new Experiment("bank");
+        Experiment experiment = new Experiment("Simple", "bank");
         ISimple simple = Llms.getAgent(ISimple.class, Llms.getModel("4o"));
 
         String modelUML = Utils.readFile(experiment.umlPath); 

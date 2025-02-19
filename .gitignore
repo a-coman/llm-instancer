@@ -1,3 +1,6 @@
+desktop.ini
 .env
 target/
 src/main/resources/use-7.1.1/
+src/main/resources/prompts/
+src/main/resources/instances/

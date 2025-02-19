@@ -12,7 +12,7 @@ import dev.langchain4j.model.chat.ChatLanguageModel;
 public class Main {
     public static void main(String[] args) {
         // Experiment
-        Experiment experiment = new Experiment("bank");
+        Experiment experiment = new Experiment("CoT", "bank");
 
         // Initialize AImodel and agents
         ChatLanguageModel AImodel = Llms.getModel("4o");

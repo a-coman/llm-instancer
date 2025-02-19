@@ -25,7 +25,7 @@ public class Llms {
         switch (name) {
             case "4o": 
                 return OpenAiChatModel.builder()
-                    .apiKey(System.getenv("OPEN_API_KEY"))
+                    .apiKey(System.getenv("OPENAI_KEY"))
                     .modelName("gpt-4o")
                     .listeners(List.of(new Listener()))
                     .build();
@@ -49,13 +49,13 @@ public class Llms {
                     .build();
             case "g2":
                 return GoogleAiGeminiChatModel.builder()
-                    .apiKey(System.getenv("DEEPSEEK_KEY"))
+                    .apiKey(System.getenv("GEMINI_KEY"))
                     .modelName("gpt-4o")
                     .listeners(List.of(new Listener()))
                     .build();
             case "g2r":
                 return GoogleAiGeminiChatModel.builder()
-                    .apiKey(System.getenv("DEEPSEEK_KEY"))
+                    .apiKey(System.getenv("GEMINI_KEY"))
                     .modelName("gpt-4o")
                     .listeners(List.of(new Listener()))
                     .build();
