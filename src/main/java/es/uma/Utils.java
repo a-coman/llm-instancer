@@ -28,7 +28,7 @@ public class Utils {
             writer.write(file);
             writer.flush();
             writer.close();
-            System.out.println("Response saved at " + path + filename);
+            System.out.println("Saved at " + path + filename);
         } catch (Exception e) {
             System.err.println("Error writing to file: " + e.getMessage());
             throw new RuntimeException(e);
