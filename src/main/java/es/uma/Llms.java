@@ -50,7 +50,7 @@ public class Llms {
             case "g2":
                 return GoogleAiGeminiChatModel.builder()
                     .apiKey(System.getenv("GEMINI_KEY"))
-                    .modelName("gpt-4o")
+                    .modelName("gemini-2.0-flash-lite-preview-02-05")
                     .listeners(List.of(new Listener(logsPath)))
                     .build();
             case "g2r":
