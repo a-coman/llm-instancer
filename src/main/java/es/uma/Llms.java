@@ -21,58 +21,55 @@ public class Llms {
                 .build();
     }
 
-    public static ChatLanguageModel getModel(String name, String logsPath) {
+    public static ChatLanguageModel getModel(String name) {
         switch (name) {
             case "gpt-4o": 
                 return OpenAiChatModel.builder()
                     .apiKey(System.getenv("OPENAI_KEY"))
                     .modelName("gpt-4o")
-                    .listeners(List.of(new Listener(logsPath)))
+                    .listeners(List.of(new Listener()))
                     .build();
             case "gpt-o3-mini":
                 return OpenAiChatModel.builder()
                     .apiKey(System.getenv("OPENAI_KEY"))
                     .modelName("o3-mini-2025-01-31")
-                    .listeners(List.of(new Listener(logsPath)))
+                    .listeners(List.of(new Listener()))
                     .build();
             case "deepseek-v3":
                 return OpenAiChatModel.builder()
                     .baseUrl("https://api.deepseek.com")
                     .apiKey(System.getenv("DEEPSEEK_KEY"))
                     .modelName("deepseek-chat")
-                    .listeners(List.of(new Listener(logsPath)))
+                    .listeners(List.of(new Listener()))
                     .build();
             case "deepseek-r3":
                 return OpenAiChatModel.builder()
                     .baseUrl("https://api.deepseek.com")
                     .apiKey(System.getenv("DEEPSEEK_KEY"))
                     .modelName("deepseek-reasoner")
-                    .listeners(List.of(new Listener(logsPath)))
+                    .listeners(List.of(new Listener()))
                     .build();
             case "gemini-2-pro":
                 return GoogleAiGeminiChatModel.builder()
                     .apiKey(System.getenv("GEMINI_KEY"))
                     .modelName("gemini-2.0-pro-exp-02-05")
-                    .listeners(List.of(new Listener(logsPath)))
+                    .listeners(List.of(new Listener()))
                     .build();
             case "gemini-2-reasoner":
                 return GoogleAiGeminiChatModel.builder()
                     .apiKey(System.getenv("GEMINI_KEY"))
                     .modelName("gemini-2.0-flash-thinking-exp-01-21")
-                    .listeners(List.of(new Listener(logsPath)))
+                    .listeners(List.of(new Listener()))
                     .build();
             case "gemini-2-flash-lite":
                 return GoogleAiGeminiChatModel.builder()
                     .apiKey(System.getenv("GEMINI_KEY"))
                     .modelName("gemini-2.0-flash-lite-preview-02-05")
-                    .listeners(List.of(new Listener(logsPath)))
+                    .listeners(List.of(new Listener()))
                     .build();
             default:
                 throw new IllegalArgumentException("Invalid model name: " + name);
         }
     }
 
-    public static ChatLanguageModel getModel(String name) {
-        return getModel(name, "./src/main/resources/instances/logs.md");
-    }
 }

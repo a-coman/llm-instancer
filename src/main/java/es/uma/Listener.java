@@ -10,10 +10,7 @@ import dev.langchain4j.model.chat.listener.ChatModelRequest;
 
 public class Listener implements ChatModelListener {
 
-    private String logsPath;
-    public Listener(String logsPath) {
-        this.logsPath = logsPath;
-    }
+    public static String logsPath;
     
     @Override
     public void onRequest(ChatModelRequestContext requestContext) {
