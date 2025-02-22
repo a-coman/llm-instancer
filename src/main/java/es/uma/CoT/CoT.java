@@ -37,11 +37,15 @@ public class CoT {
             String list = listCreator.chat(categoryPrompt, modelDescription);
             Utils.saveFile("\n\n" + categoryPrompt + list, experiment.instancePath, "output.md");
 
-            // Create SOIL and check constraints
+            // Create SOIL
             String instanceSOIL = listInstantiator.chat(list, exampleSOIL);
             Utils.saveFile(instanceSOIL, experiment.instancePath, "temp.soil", false);
-            if (!categoryId.equals("invalid")) { // Check only for valid instances
-                String check = use.check(experiment.umlPath, experiment.instancePath + "temp.soil", modelDescription.substring(modelDescription.indexOf("Invariants")));  
+            
+            // Check syntax
+            use.checkSyntax(experiment.umlPath, experiment.instancePath + "temp.soil");
+            
+            if (!categoryId.equals("invalid")) { // Check invariants/multiplicities only for valid instances
+                String check = use.checkRestrictions(experiment.umlPath, experiment.instancePath + "temp.soil", modelDescription.substring(modelDescription.indexOf("Invariants")));  
                 
                 if (check != "OK")
                     instanceSOIL = listInstantiator.chat("The list and output is partially incorrect: \n" + check + "\n Please provide the corrected full output");    

@@ -62,7 +62,7 @@ public class Use {
         }
     }
 
-    public String readOutput(String marker) {
+    private String readOutput(String marker) {
         // Read the standard output until marker
         StringBuilder output = new StringBuilder();
         try {
@@ -78,38 +78,53 @@ public class Use {
         }
     }
 
-    public String check(String diagramPath, String instancePath, String invariants) {
-        // Open diagram and instance files        
+    private void open(String diagramPath, String instancePath) {
+        // Open diagram and instance files     
         File diagramFile = new File(diagramPath).getAbsoluteFile();
         File instanceFile = new File(instancePath).getAbsoluteFile();
 
+        runCommand("reset");
         runCommand("open " + diagramFile.getPath());
         runCommand("open " + instanceFile.getPath());
-        runCommand("check");
-        runCommand("Check finalized");
-        
-        // Read output
-        String output = readOutput("Check finalized");
-        
+        runCommand("Open finalized"); // Marker
+    }
+
+    public void checkSyntax(String diagramPath, String instancePath) {
+        open(diagramPath, instancePath);
+        String output = readOutput("Open finalized");
         // Check for syntax errors
         String[] searchStrings = {"<input>", "Error: Unknown command"};
         for (String search : searchStrings) {
             int index = output.indexOf(search);
             while (index >= 0) {
                 Metrics.incrementSyntaxErrors();
+                Metrics.addSyntaxError(output.substring(index+7, output.indexOf("\n", index))); // +7 to avoid input tag"
                 index = output.indexOf(search, index + 1);
             }
         }
 
+    }
+
+    public String checkRestrictions(String diagramPath, String instancePath, String invariants) {
+        open(diagramPath, instancePath);
+        runCommand("check");
+        runCommand("Check finalized"); // Marker
+        
+        String output = readOutput("Check finalized");
+        
         // Trim result and return errors
         int start = output.indexOf("checking structure");
         output = output.substring(start);
 
         String result = "";
-        if (output.contains("violation"))
+        if (output.contains("violation")) { // Multiplicities failed
             result = output;
-        if (output.contains("FAILED") || output.contains("N/A"))
+            Metrics.addCheckError(output);
+        }
+        if (output.contains("FAILED") || output.contains("N/A")) { // Constraints/invariants failed
+            Metrics.addCheckError(output);
             result = output + "\n" + invariants;
+        }
         
         System.out.println(result);
 
@@ -124,7 +139,7 @@ public class Use {
     public static void main(String[] args) {
         Use use = new Use();
 
-        System.out.println(use.check("./src/main/resources/prompts/bank/diagram.use", "./src/main/resources/instances/previous/bank/gemini_2.soil", "invariants_Placeholder"));
+        System.out.println(use.checkRestrictions("./src/main/resources/prompts/bank/diagram.use", "./src/main/resources/instances/previous/bank/gemini_2.soil", "invariants_Placeholder"));
 
         use.close();
     }
