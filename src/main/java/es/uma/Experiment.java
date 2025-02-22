@@ -24,12 +24,12 @@ public class Experiment {
             case "Simple":
                 Simple.run(this);
                 break;
-            
             case "CoT":
                 CoT.run(this);
                 break;
             default:
                 throw new IllegalArgumentException("Invalid type: " + type);
         }
+        Metrics.save(instancePath);
     }
 }

@@ -91,6 +91,16 @@ public class Use {
         // Read output
         String output = readOutput("Check finalized");
         
+        // Check for syntax errors
+        String[] searchStrings = {"<input>", "Error: Unknown command"};
+        for (String search : searchStrings) {
+            int index = output.indexOf(search);
+            while (index >= 0) {
+                Metrics.incrementSyntaxErrors();
+                index = output.indexOf(search, index + 1);
+            }
+        }
+
         // Trim result and return errors
         int start = output.indexOf("checking structure");
         output = output.substring(start);
@@ -102,6 +112,9 @@ public class Use {
             result = output + "\n" + invariants;
         
         System.out.println(result);
+
+        if (!result.isEmpty())
+            Metrics.incrementCheckErrors();
 
         return result.isEmpty() ? "OK" : result;
 
