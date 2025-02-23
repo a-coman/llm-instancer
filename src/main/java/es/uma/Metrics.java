@@ -1,6 +1,7 @@
 package es.uma;
 
 import java.util.ArrayList;
+import java.util.concurrent.TimeUnit;
 
 public class Metrics {
     private static int sumOfInputTokens = 0;
@@ -10,6 +11,8 @@ public class Metrics {
     private static int sumOfCheckErrors = -1;
     private static ArrayList<String> syntaxErrors = new ArrayList<>();
     private static ArrayList<String> checkErrors = new ArrayList<>();
+    private static long startTime;
+    private static long elapsedTime;
 
     public static void incrementTokens(int input, int output, int total) {
         sumOfInputTokens += input;
@@ -39,6 +42,16 @@ public class Metrics {
         checkErrors.add(error);
     }
 
+    public static void startTimer() {
+        startTime = System.nanoTime();
+    }
+
+    public static void stopTimer() {
+        long endTime = System.nanoTime();
+        elapsedTime = endTime - startTime;
+        elapsedTime = TimeUnit.NANOSECONDS.toSeconds(elapsedTime);
+    }
+
     public static void save(String path) {
 
         StringBuilder metrics = new StringBuilder();
@@ -48,6 +61,8 @@ public class Metrics {
         metrics.append("sumOfTotalTokens: " + sumOfTotalTokens + "\n");
         metrics.append("sumOfSyntaxErrors: " + sumOfSyntaxErrors + "\n");
         metrics.append("sumOfCheckErrors: " + sumOfCheckErrors + "\n");
+        metrics.append("Elapsed time: " + elapsedTime + " seconds\n");
+
         metrics.append("\n## Syntax errors\n||\n|---|\n");
         syntaxErrors.forEach(error -> metrics.append(error + "\n"));
         metrics.append("\n## Check errors\n");
