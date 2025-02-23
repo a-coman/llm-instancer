@@ -59,9 +59,9 @@ public class Metrics {
         metrics.append("Sum of input tokens: " + sumOfInputTokens + "\n");
         metrics.append("Sum of output tokens: " + sumOfOutputTokens + "\n");
         metrics.append("Sum of total tokens: " + sumOfTotalTokens + "\n");
+        metrics.append("Elapsed time: " + elapsedTime + " seconds\n");
         metrics.append("Syntax errors: " + sumOfSyntaxErrors + "\n");
         metrics.append("Check errors: " + sumOfCheckErrors + "\n");
-        metrics.append("Elapsed time: " + elapsedTime + " seconds\n");
 
         metrics.append("\n## Syntax errors\n||\n|---|\n");
         syntaxErrors.forEach(error -> metrics.append(error + "\n"));
