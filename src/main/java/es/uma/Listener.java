@@ -4,7 +4,8 @@ import dev.langchain4j.model.chat.listener.ChatModelRequestContext;
 import dev.langchain4j.model.chat.listener.ChatModelResponse;
 import dev.langchain4j.model.chat.listener.ChatModelResponseContext;
 import dev.langchain4j.model.output.TokenUsage;
-import dev.langchain4j.data.message.ChatMessageType;
+import dev.langchain4j.data.message.SystemMessage;
+import dev.langchain4j.data.message.UserMessage;
 import dev.langchain4j.model.chat.listener.ChatModelErrorContext;
 import dev.langchain4j.model.chat.listener.ChatModelListener;
 import dev.langchain4j.model.chat.listener.ChatModelRequest;
@@ -21,8 +22,12 @@ public class Listener implements ChatModelListener {
         sb.append("\n# Input\n");
         sb.append("|Messages|\n|---|\n");
         request.messages().forEach(message -> {
-            if (message.type() == ChatMessageType.SYSTEM || message.type() == ChatMessageType.USER)
-                sb.append("```\n" + message + "\n```\n");            
+            if (message instanceof SystemMessage) {
+                sb.append("```\n" + ((SystemMessage) message).text() + "\n```\n");
+            } else if (message instanceof UserMessage) { // Because the user message is a list of all messages in chatMemmory
+                UserMessage userMessage = (UserMessage) message;
+                sb.append("```\n" + userMessage.contents().getLast().toString() + "\n```\n");
+            }
         });
         sb.append("|Parameters|\n|---|\n");
         sb.append("Model: " + request.model() + "\n");
