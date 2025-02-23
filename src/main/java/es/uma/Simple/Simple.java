@@ -15,7 +15,7 @@ public class Simple {
         Utils.saveFile(response, experiment.instancePath, "gen1.soil");
         Utils.saveFile(response, experiment.instancePath, "output.md");
 
-        for (int i = 2; i <= 5; i++) {
+        for (int i = 2; i <= experiment.repetitions; i++) {
             response = simple.chat("Let's continue creating more instances");
             Utils.saveFile(response, experiment.instancePath, "gen" + i + ".soil");
             Utils.saveFile(response, experiment.instancePath, "output.md");
