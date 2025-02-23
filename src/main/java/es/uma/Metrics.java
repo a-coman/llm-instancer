@@ -56,11 +56,11 @@ public class Metrics {
 
         StringBuilder metrics = new StringBuilder();
         metrics.append("\n# Metrics\n## Sum of parameters\n||\n|---|\n");
-        metrics.append("sumOfInputTokens: " + sumOfInputTokens + "\n");
-        metrics.append("sumOfOutputTokens: " + sumOfOutputTokens + "\n");
-        metrics.append("sumOfTotalTokens: " + sumOfTotalTokens + "\n");
-        metrics.append("sumOfSyntaxErrors: " + sumOfSyntaxErrors + "\n");
-        metrics.append("sumOfCheckErrors: " + sumOfCheckErrors + "\n");
+        metrics.append("Sum of input tokens: " + sumOfInputTokens + "\n");
+        metrics.append("Sum of output tokens: " + sumOfOutputTokens + "\n");
+        metrics.append("Sum of total tokens: " + sumOfTotalTokens + "\n");
+        metrics.append("Syntax errors: " + sumOfSyntaxErrors + "\n");
+        metrics.append("Check errors: " + sumOfCheckErrors + "\n");
         metrics.append("Elapsed time: " + elapsedTime + " seconds\n");
 
         metrics.append("\n## Syntax errors\n||\n|---|\n");
