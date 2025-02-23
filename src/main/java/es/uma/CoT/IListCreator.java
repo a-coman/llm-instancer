@@ -18,14 +18,11 @@ public interface IListCreator {
 
     String message = 
         """
-        # Category:
-        {{categoryDescription}}
-        
-        # Model description:
+        {{categoryPrompt}}
         {{modelDescription}}
         """;
         
     @SystemMessage(system)
     @UserMessage(message)
-    String chat(@V("categoryDescription") String categoryDescription, @V("modelDescription") String modelDescription);
+    String chat(@V("categoryPrompt") String categoryPrompt, @V("modelDescription") String modelDescription);
 }

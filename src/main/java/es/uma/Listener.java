@@ -17,7 +17,7 @@ public class Listener implements ChatModelListener {
         ChatModelRequest request = requestContext.request();
         StringBuffer sb = new StringBuffer();
         
-        sb.append("# Input\n");
+        sb.append("\n# Input\n");
         sb.append("|Messages|\n|---|\n");
         request.messages().forEach(message -> sb.append("```\n" + message + "\n```\n"));
         sb.append("|Parameters|\n|---|\n");

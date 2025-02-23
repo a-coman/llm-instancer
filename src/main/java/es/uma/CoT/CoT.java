@@ -46,9 +46,13 @@ public class CoT {
             
             if (!categoryId.equals("invalid")) { // Check invariants/multiplicities only for valid instances
                 String check = use.checkRestrictions(experiment.umlPath, experiment.instancePath + "temp.soil", modelDescription.substring(modelDescription.indexOf("Invariants")));  
-                
-                if (check != "OK")
+                int numberOfChecks = 1;
+
+                while (check != "OK" && numberOfChecks < 3) { // If the check is not OK, try again (MAX:2)
                     instanceSOIL = listInstantiator.chat("The list and output is partially incorrect: \n" + check + "\n Please provide the corrected full output");    
+                    check = use.checkRestrictions(experiment.umlPath, experiment.instancePath + "temp.soil", modelDescription.substring(modelDescription.indexOf("Invariants")));  
+                    numberOfChecks++;
+                }
 
                 Utils.saveFile(instanceSOIL + "\n\n", experiment.instancePath, "outputValid.soil");
             } else {
@@ -57,7 +61,7 @@ public class CoT {
             
             Utils.saveFile(instanceSOIL + "\n\n", experiment.instancePath, "output.soil");
             Utils.saveFile(instanceSOIL + "\n\n", experiment.instancePath, categoryId + ".soil");
-            Utils.saveFile("\n" + "```\n" + instanceSOIL + "\n```", experiment.instancePath, "output.md");
+            Utils.saveFile("\n```\n" + instanceSOIL + "\n```\n", experiment.instancePath, "output.md");
 
         });
 
