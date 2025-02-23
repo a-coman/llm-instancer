@@ -40,7 +40,7 @@ public class CoT {
             // Create SOIL
             String instanceSOIL = listInstantiator.chat(list, exampleSOIL);
             Utils.saveFile(instanceSOIL, experiment.instancePath, "temp.soil", false);
-            Utils.saveFile(instanceSOIL, experiment.instancePath, "output.md");
+            Utils.saveFile("\n```\n" + instanceSOIL + "\n```\n", experiment.instancePath, "output.md");
             
             // Check syntax
             use.checkSyntax(experiment.umlPath, experiment.instancePath + "temp.soil");
