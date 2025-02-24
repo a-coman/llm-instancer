@@ -15,9 +15,11 @@ import dev.langchain4j.model.chat.listener.ChatModelRequest;
 public class Listener implements ChatModelListener {
 
     public static String logsPath;
+    private static long startTime;
     
     @Override
     public void onRequest(ChatModelRequestContext requestContext) {
+        startTime = System.nanoTime();
         ChatModelRequest request = requestContext.request();
         StringBuffer sb = new StringBuffer();
         
@@ -47,7 +49,8 @@ public class Listener implements ChatModelListener {
         int totalTokens = tokenUsage.totalTokenCount();
         sb.append("Input Tokens: " + inputTokens + "\n");
         sb.append("Output Tokens: " + outputTokens + "\n");
-        sb.append("Total Tokens: " + totalTokens + "\n\n");
+        sb.append("Total Tokens: " + totalTokens + "\n");
+        sb.append("Elapsed Time: " + (System.nanoTime() - startTime) / 1000000000 + " seconds\n");
         Metrics.incrementTokens(inputTokens, outputTokens, totalTokens);
         sb.append("\n# Output\n");
         Utils.saveFile(sb.toString(), logsPath, "output.md");
