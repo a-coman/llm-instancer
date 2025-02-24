@@ -29,7 +29,7 @@ public class Listener implements ChatModelListener {
                 sb.append("```\n" + userMessage.contents().getLast().toString() + "\n```\n");
             }
         });
-        sb.append("|Parameters|\n|---|\n");
+        sb.append("\n|Request|\n|---|\n");
         sb.append("Model: " + request.model() + "\n");
         sb.append("Temperature: " + request.temperature() + "\n");
         sb.append("Max-Tokens: " + request.maxTokens() + "\n");
@@ -41,7 +41,8 @@ public class Listener implements ChatModelListener {
     public void onResponse(ChatModelResponseContext responseContext) {
         ChatModelResponse response = responseContext.response();
         StringBuffer sb = new StringBuffer();
-        
+
+        sb.append("\n|Response|\n|---|\n");
         sb.append("Finish Reason: " + response.finishReason() + "\n");
         TokenUsage tokenUsage = response.tokenUsage();
         int inputTokens = tokenUsage.inputTokenCount();
@@ -51,7 +52,7 @@ public class Listener implements ChatModelListener {
         sb.append("Output Tokens: " + outputTokens + "\n");
         sb.append("Total Tokens: " + totalTokens + "\n\n");
         Metrics.incrementTokens(inputTokens, outputTokens, totalTokens);
-        sb.append("# Output\n");
+        sb.append("\n# Output\n");
         Utils.saveFile(sb.toString(), logsPath, "output.md");
     }
 
