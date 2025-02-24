@@ -1,5 +1,6 @@
 package es.uma;
 
+import dev.langchain4j.model.chat.ChatLanguageModel;
 import es.uma.CoT.CoT;
 import es.uma.Simple.Simple;
 
@@ -8,13 +9,13 @@ public class Experiment {
     public final String umlPath;
     public final String examplePath;
     public final String instancePath;
-    public final String model;
+    public final ChatLanguageModel model;
     public final int repetitions;
     private final String type;
 
-    public Experiment(String type, String model, String system, int repetitions) {
+    public Experiment(Model model, String type, String system, int repetitions) {
         this.type = type;
-        this.model = model;
+        this.model = Llms.getModel(model);
         this.repetitions = repetitions;
         umlPath = "./src/main/resources/prompts/" + system + "/diagram.use";
         examplePath = "./src/main/resources/prompts/" + system + "/example.soil";

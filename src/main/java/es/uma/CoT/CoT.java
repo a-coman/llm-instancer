@@ -8,8 +8,6 @@ import es.uma.Utils;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.locks.ReentrantLock;
-
-import dev.langchain4j.model.chat.ChatLanguageModel;
 // Log4j
 //import org.apache.logging.log4j.Logger;
 //import org.apache.logging.log4j.LogManager;
@@ -18,9 +16,8 @@ public class CoT {
     public static void run(Experiment experiment) {
 
         // Initialize AImodel and agents
-        ChatLanguageModel AImodel = Llms.getModel(experiment.model);
-        IModelAnalyzer modelAnalyzer = Llms.getAgent(IModelAnalyzer.class, AImodel);
-        IListInstantiator listInstantiator = Llms.getAgent(IListInstantiator.class, AImodel);
+        IModelAnalyzer modelAnalyzer = Llms.getAgent(IModelAnalyzer.class, experiment.model);
+        IListInstantiator listInstantiator = Llms.getAgent(IListInstantiator.class, experiment.model);
 
         // Load category prompts
         final CategoryPrompts CATEGORY_PROMPTS = new CategoryPrompts();
