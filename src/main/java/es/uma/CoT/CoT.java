@@ -4,6 +4,11 @@ import es.uma.Experiment;
 import es.uma.Llms;
 import es.uma.Use;
 import es.uma.Utils;
+
+import java.util.concurrent.BlockingQueue;
+import java.util.concurrent.LinkedBlockingQueue;
+import java.util.concurrent.locks.ReentrantLock;
+
 import dev.langchain4j.model.chat.ChatLanguageModel;
 // Log4j
 //import org.apache.logging.log4j.Logger;
@@ -15,13 +20,12 @@ public class CoT {
         // Initialize AImodel and agents
         ChatLanguageModel AImodel = Llms.getModel(experiment.model);
         IModelAnalyzer modelAnalyzer = Llms.getAgent(IModelAnalyzer.class, AImodel);
-        IListCreator listCreator = Llms.getAgent(IListCreator.class, AImodel);
         IListInstantiator listInstantiator = Llms.getAgent(IListInstantiator.class, AImodel);
 
         // Load category prompts
         final CategoryPrompts CATEGORY_PROMPTS = new CategoryPrompts();
         
-        // Read modelUML and exampleSOIL
+        // Get modelUML, exampleSOIL and use shell
         String modelUML = Utils.readFile(experiment.umlPath); 
         String exampleSOIL = Utils.readFile(experiment.examplePath);
         Use use = new Use();
@@ -30,21 +34,35 @@ public class CoT {
         String modelDescription = modelAnalyzer.chat(modelUML);
         Utils.saveFile(modelDescription, experiment.instancePath, "output.md");
 
-        // For each category, create instances
+        // For each category create list threads
+        BlockingQueue<List> queue = new LinkedBlockingQueue<>();
+        ReentrantLock lock = new ReentrantLock();
+        
         CATEGORY_PROMPTS.list.forEach( (categoryId, categoryPrompt) -> {
-            
-            // Create list
-            String list = listCreator.chat(categoryPrompt, modelDescription);
-            Utils.saveFile("\n\n" + categoryPrompt + list, experiment.instancePath, "output.md");
+            ListCreator listCreator = new ListCreator(experiment, lock, categoryId, categoryPrompt, modelDescription, queue);
+            Thread thread = new Thread(listCreator);
+            thread.start();         
+        });
+        
+        // For each category take from queue and create SOIL 
+        for(int i = 0; i < CATEGORY_PROMPTS.list.size(); i++) {
+            List list;
 
-            // Create SOIL
-            String instanceSOIL = listInstantiator.chat(list, exampleSOIL);
-            Utils.saveFile(instanceSOIL, experiment.instancePath, "temp.soil", false);
+            try {
+                list = queue.take();
+            } catch (InterruptedException e) {
+                Thread.currentThread().interrupt();
+                throw new RuntimeException("Thread interrupted", e);
+            }
             
+            String instanceSOIL = listInstantiator.chat(list.value(), exampleSOIL);
+            Utils.saveFile(instanceSOIL, experiment.instancePath, "temp.soil", false);
+        
             // Check syntax
             use.checkSyntax(experiment.umlPath, experiment.instancePath + "temp.soil");
             
-            if (!categoryId.equals("invalid")) { // Check invariants/multiplicities only for valid instances
+            // Check Restrictions (invariants/multiplicities)
+            if (!list.id().equals("invalid")) { // only for valid instances
                 String check = use.checkRestrictions(experiment.umlPath, experiment.instancePath + "temp.soil", modelDescription.substring(modelDescription.indexOf("Invariants")));  
                 int numberOfChecks = 1;
 
@@ -60,10 +78,10 @@ public class CoT {
             }
             
             Utils.saveFile(instanceSOIL + "\n\n", experiment.instancePath, "output.soil");
-            Utils.saveFile(instanceSOIL + "\n\n", experiment.instancePath, categoryId + ".soil");
+            Utils.saveFile(instanceSOIL + "\n\n", experiment.instancePath, list.id() + ".soil");
             Utils.saveFile("\n```\n" + instanceSOIL + "\n```\n", experiment.instancePath, "output.md");
-
-        });
+            
+        }
 
         use.close();
     }
