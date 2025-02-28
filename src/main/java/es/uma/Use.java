@@ -90,6 +90,7 @@ public class Use {
     }
 
     public void checkSyntax(String diagramPath, String instancePath) {
+        Metrics.initializeSyntax(); // Mark the use of syntax checking for the agent
         open(diagramPath, instancePath);
         String output = readOutput("Open finalized");
         // Check for syntax errors
@@ -106,6 +107,7 @@ public class Use {
     }
 
     public String checkRestrictions(String diagramPath, String instancePath, String invariants) {
+        Metrics.initializeCheck(); // Mark the use of check restrictions for the agent
         open(diagramPath, instancePath);
         runCommand("check");
         runCommand("Check finalized"); // Marker

@@ -1,18 +1,15 @@
 package es.uma;
 
 import java.util.ArrayList;
-import java.util.concurrent.TimeUnit;
 
 public class Metrics {
     private static int sumOfInputTokens = 0;
     private static int sumOfOutputTokens = 0;
     private static int sumOfTotalTokens = 0;
-    private static int sumOfSyntaxErrors = -1;
-    private static int sumOfCheckErrors = -1;
+    private static int sumOfSyntaxErrors = -1; // -1 -> agent not checking syntax
+    private static int sumOfCheckErrors = -1; // -1 -> agent not checking restrictions
     private static ArrayList<String> syntaxErrors = new ArrayList<>();
     private static ArrayList<String> checkErrors = new ArrayList<>();
-    private static long startTime;
-    private static long elapsedTime;
     private static long genTime = 0;
 
     public static void incrementTokens(int input, int output, int total) {
@@ -21,17 +18,23 @@ public class Metrics {
         sumOfTotalTokens += total;
     }
 
-    public static void incrementSyntaxErrors() {
+    public static void initializeSyntax() {
         if (sumOfSyntaxErrors == -1) {
             sumOfSyntaxErrors = 0;
         }
+    }
+
+    public static void initializeCheck() {
+        if (sumOfCheckErrors == -1) {
+            sumOfCheckErrors = 0;
+        }
+    }
+
+    public static void incrementSyntaxErrors() {
         sumOfSyntaxErrors++;
     }
 
     public static void incrementCheckErrors() {
-        if (sumOfCheckErrors == -1) {
-            sumOfCheckErrors = 0;
-        }
         sumOfCheckErrors++;
     }
 
@@ -41,16 +44,6 @@ public class Metrics {
 
     public static void addCheckError(String error) {
         checkErrors.add(error);
-    }
-
-    public static void startTimer() {
-        startTime = System.nanoTime();
-    }
-
-    public static void stopTimer() {
-        long endTime = System.nanoTime();
-        elapsedTime = endTime - startTime;
-        elapsedTime = TimeUnit.NANOSECONDS.toSeconds(elapsedTime);
     }
 
     public static void inecrementGenTime(long time) {
@@ -64,8 +57,7 @@ public class Metrics {
         metrics.append("Sum of input tokens: " + sumOfInputTokens + "\n");
         metrics.append("Sum of output tokens: " + sumOfOutputTokens + "\n");
         metrics.append("Sum of total tokens: " + sumOfTotalTokens + "\n");
-        metrics.append("Generation time: " + genTime + " seconds\n");
-        metrics.append("Running time: " + elapsedTime + " seconds\n");
+        metrics.append("Generations time: " + genTime + " seconds\n");
         metrics.append("Syntax errors: " + sumOfSyntaxErrors + "\n");
         metrics.append("Check errors: " + sumOfCheckErrors + "\n");
 
