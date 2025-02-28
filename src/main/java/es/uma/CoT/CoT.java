@@ -7,7 +7,6 @@ import es.uma.Utils;
 
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
-import java.util.concurrent.locks.ReentrantLock;
 // Log4j
 //import org.apache.logging.log4j.Logger;
 //import org.apache.logging.log4j.LogManager;
@@ -29,14 +28,12 @@ public class CoT {
 
         // Create class diagram modelDescription in plain English
         String modelDescription = modelAnalyzer.chat(modelUML);
-        Utils.saveFile(modelDescription, experiment.instancePath, "output.md");
 
         // For each category create list threads
         BlockingQueue<List> queue = new LinkedBlockingQueue<>();
-        ReentrantLock lock = new ReentrantLock();
         
         CATEGORY_PROMPTS.list.forEach( (categoryId, categoryPrompt) -> {
-            ListCreator listCreator = new ListCreator(experiment, lock, categoryId, categoryPrompt, modelDescription, queue);
+            ListCreator listCreator = new ListCreator(experiment, categoryId, categoryPrompt, modelDescription, queue);
             Thread thread = new Thread(listCreator);
             thread.start();         
         });
@@ -53,7 +50,7 @@ public class CoT {
             }
             
             String instanceSOIL = listInstantiator.chat(list.value(), exampleSOIL);
-            Utils.saveFile(instanceSOIL, experiment.instancePath, "temp.soil", false);
+            Utils.saveFile(Utils.removeComments(instanceSOIL), experiment.instancePath, "temp.soil", false);
         
             // Check syntax
             use.checkSyntax(experiment.umlPath, experiment.instancePath + "temp.soil");
@@ -69,14 +66,13 @@ public class CoT {
                     numberOfChecks++;
                 }
 
-                Utils.saveFile(instanceSOIL + "\n\n", experiment.instancePath, "outputValid.soil");
+                Utils.saveFile(Utils.removeComments(instanceSOIL) + "\n\n", experiment.instancePath, "outputValid.soil");
             } else {
-                Utils.saveFile(instanceSOIL + "\n\n", experiment.instancePath, "outputInvalid.soil");
+                Utils.saveFile(Utils.removeComments(instanceSOIL) + "\n\n", experiment.instancePath, "outputInvalid.soil");
             }
             
-            Utils.saveFile(instanceSOIL + "\n\n", experiment.instancePath, "output.soil");
-            Utils.saveFile(instanceSOIL + "\n\n", experiment.instancePath, list.id() + ".soil");
-            Utils.saveFile("\n```\n" + instanceSOIL + "\n```\n", experiment.instancePath, "output.md");
+            Utils.saveFile(Utils.removeComments(instanceSOIL) + "\n\n", experiment.instancePath, "output.soil");
+            Utils.saveFile(Utils.removeComments(instanceSOIL) + "\n\n", experiment.instancePath, list.id() + ".soil");
             
         }
 

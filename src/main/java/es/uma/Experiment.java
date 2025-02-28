@@ -24,7 +24,6 @@ public class Experiment {
     }
 
     public void run() {
-        Metrics.startTimer();
         switch (type) {
             case "Simple":
                 Simple.run(this);
@@ -35,7 +34,6 @@ public class Experiment {
             default:
                 throw new IllegalArgumentException("Invalid type: " + type);
         }
-        Metrics.stopTimer();
         Metrics.save(instancePath);
     }
 }

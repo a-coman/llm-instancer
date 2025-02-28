@@ -45,6 +45,18 @@ public class Utils {
         return LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd-MM-yyyy--HH-mm-ss")); 
     }
 
+    public static String removeBackticks(String text) {
+        String regex = "```+[^\\n]*"; // Matches codeblocks, i.e. ``` or more followed by any character except a newline
+        return text.replaceAll(regex, "");
+    }
+
+    public static String removeComments(String text) {
+        text = removeBackticks(text);
+        String regex = "^(?!\\!).*"; // Matches any line that doesn't start with !
+        return text.replaceAll(regex, "");
+    }
+
+
     public static void main(String[] args) {
         String model = "test/";
         Utils.saveFile("Hello World!", "./src/main/resources/instances/" + model + Utils.getTime(), "/output.md");

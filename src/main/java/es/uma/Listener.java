@@ -29,8 +29,8 @@ public class Listener implements ChatModelListener {
         sb.append("|Messages|\n|---|\n");
         List<ChatMessage> messages = request.messages();
         ChatRequestParameters parameters = request.parameters();
-        sb.append("```\n" + messages.getFirst().toString() + "\n```\n"); // System message
-        sb.append("```\n" + messages.getLast().toString() + "\n```\n"); // Last user message (No history)
+        sb.append("```\n" + Utils.removeBackticks(messages.getFirst().toString()) + "\n```\n"); // System message (without backticks codeblock)
+        sb.append("```\n" + Utils.removeBackticks(messages.getLast().toString()) + "\n```\n"); // Last user message (no prveious history) (without backticks codeblock)
         sb.append("\n|Request|\n|---|\n");
         sb.append("Model: " + parameters.modelName() + "\n");
         sb.append("Temperature: " + parameters.temperature() + "\n");
@@ -47,6 +47,10 @@ public class Listener implements ChatModelListener {
 
         ChatResponseMetadata metadata = response.metadata();
 
+        sb.append("\n# Output\n");
+        String aiMessage = response.aiMessage().text();
+        aiMessage = Utils.removeBackticks(aiMessage); // (without backticks codeblock)
+        sb.append("```\n" + aiMessage + "\n```\n");
         sb.append("\n|Response|\n|---|\n");
         sb.append("Finish Reason: " + metadata.finishReason() + "\n");
         TokenUsage tokenUsage = metadata.tokenUsage();
@@ -60,10 +64,7 @@ public class Listener implements ChatModelListener {
         Metrics.inecrementGenTime(genTime);
         sb.append("Generation Time: " + genTime + " seconds\n");
         Metrics.incrementTokens(inputTokens, outputTokens, totalTokens);
-        sb.append("\n# Output\n");
-        String aiMessage = response.aiMessage().text();
-        aiMessage = Utils.removeBackticks(aiMessage);
-        sb.append("```\n" + aiMessage + "\n```\n");
+        
         Utils.saveFile(sb.toString(), logsPath, "output.md");
     }
 
