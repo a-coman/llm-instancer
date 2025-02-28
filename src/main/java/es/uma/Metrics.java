@@ -13,6 +13,7 @@ public class Metrics {
     private static ArrayList<String> checkErrors = new ArrayList<>();
     private static long startTime;
     private static long elapsedTime;
+    private static long genTime = 0;
 
     public static void incrementTokens(int input, int output, int total) {
         sumOfInputTokens += input;
@@ -52,6 +53,10 @@ public class Metrics {
         elapsedTime = TimeUnit.NANOSECONDS.toSeconds(elapsedTime);
     }
 
+    public static void inecrementGenTime(long time) {
+        genTime += time;
+    }
+
     public static void save(String path) {
 
         StringBuilder metrics = new StringBuilder();
@@ -59,7 +64,8 @@ public class Metrics {
         metrics.append("Sum of input tokens: " + sumOfInputTokens + "\n");
         metrics.append("Sum of output tokens: " + sumOfOutputTokens + "\n");
         metrics.append("Sum of total tokens: " + sumOfTotalTokens + "\n");
-        metrics.append("Elapsed time: " + elapsedTime + " seconds\n");
+        metrics.append("Generation time: " + genTime + " seconds\n");
+        metrics.append("Running time: " + elapsedTime + " seconds\n");
         metrics.append("Syntax errors: " + sumOfSyntaxErrors + "\n");
         metrics.append("Check errors: " + sumOfCheckErrors + "\n");
 
