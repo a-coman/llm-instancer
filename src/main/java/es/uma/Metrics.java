@@ -11,6 +11,7 @@ public class Metrics {
     private static ArrayList<String> syntaxErrors = new ArrayList<>();
     private static ArrayList<String> checkErrors = new ArrayList<>();
     private static double genTime = 0;
+    public static int repetitions;
 
     public static void incrementTokens(int input, int output, int total) {
         sumOfInputTokens += input;
@@ -58,6 +59,7 @@ public class Metrics {
 
         StringBuilder metrics = new StringBuilder();
         metrics.append("\n# Metrics\n## Sum of parameters\n||\n|---|\n");
+        metrics.append("Number of generations: " + repetitions + "\n");
         metrics.append("Sum of input tokens: " + sumOfInputTokens + "\n");
         metrics.append("Sum of output tokens: " + sumOfOutputTokens + "\n");
         metrics.append("Sum of total tokens: " + sumOfTotalTokens + "\n");
