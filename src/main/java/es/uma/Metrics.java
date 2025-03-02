@@ -10,7 +10,7 @@ public class Metrics {
     private static int sumOfCheckErrors = -1; // -1 -> agent not checking restrictions
     private static ArrayList<String> syntaxErrors = new ArrayList<>();
     private static ArrayList<String> checkErrors = new ArrayList<>();
-    private static long genTime = 0;
+    private static double genTime = 0;
 
     public static void incrementTokens(int input, int output, int total) {
         sumOfInputTokens += input;
@@ -46,8 +46,12 @@ public class Metrics {
         checkErrors.add(error);
     }
 
-    public static void inecrementGenTime(long time) {
+    public static void inecrementGenTime(double time) {
         genTime += time;
+    }
+
+    public static void addFailedCheck(String categoryId) {
+        checkErrors.add("Failed MAX checks for category " + categoryId);
     }
 
     public static void save(String path) {

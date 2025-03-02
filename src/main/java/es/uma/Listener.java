@@ -17,7 +17,7 @@ import dev.langchain4j.model.chat.listener.ChatModelListener;
 public class Listener implements ChatModelListener {
 
     public static String logsPath;
-    private static long startTime;
+    private static double startTime;
     
     @Override
     public void onRequest(ChatModelRequestContext requestContext) {
@@ -60,7 +60,7 @@ public class Listener implements ChatModelListener {
         sb.append("Input Tokens: " + inputTokens + "\n");
         sb.append("Output Tokens: " + outputTokens + "\n");
         sb.append("Total Tokens: " + totalTokens + "\n");
-        long genTime = (System.nanoTime() - startTime) / 1000000000;
+        double genTime = (System.nanoTime() - startTime) / 1000000000;
         Metrics.inecrementGenTime(genTime);
         sb.append("Generation Time: " + genTime + " seconds\n");
         Metrics.incrementTokens(inputTokens, outputTokens, totalTokens);

@@ -2,6 +2,7 @@ package es.uma.CoT;
 
 import es.uma.Experiment;
 import es.uma.Llms;
+import es.uma.Metrics;
 import es.uma.Use;
 import es.uma.Utils;
 
@@ -60,10 +61,14 @@ public class CoT {
                 String check = use.checkRestrictions(experiment.umlPath, experiment.instancePath + "temp.soil", modelDescription.substring(modelDescription.indexOf("Invariants")));  
                 int numberOfChecks = 1;
 
-                while (check != "OK" && numberOfChecks < 3) { // If the check is not OK, try again (MAX:2)
+                while (check != "OK" && numberOfChecks <= 3) { // If the check is not OK, try again (MAX:3)
                     instanceSOIL = listInstantiator.chat("The list and output is partially incorrect: \n" + check + "\n Please provide the corrected full output");    
                     check = use.checkRestrictions(experiment.umlPath, experiment.instancePath + "temp.soil", modelDescription.substring(modelDescription.indexOf("Invariants")));  
                     numberOfChecks++;
+                }
+
+                if (numberOfChecks == 3) { // Mark as failed
+                    Metrics.addFailedCheck(list.id());
                 }
 
                 Utils.saveFile(Utils.removeComments(instanceSOIL) + "\n\n", experiment.instancePath, "outputValid.soil");
