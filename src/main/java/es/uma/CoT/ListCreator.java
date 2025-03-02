@@ -24,9 +24,11 @@ public class ListCreator implements Runnable {
     @Override
     public void run() {
         IListCreator listCreator = Llms.getAgent(IListCreator.class, experiment.model);
-        String value = listCreator.chat(categoryPrompt, modelDescription);
-        List list = new List(categoryId, value);        
-        queue.add(list);
+        for (int i = 1; i <= experiment.repetitions; i++) {
+            String value = listCreator.chat(categoryPrompt, modelDescription);
+            List list = new List(categoryId + i, value);        
+            queue.add(list);
+        }
     }
     
 }

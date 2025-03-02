@@ -39,7 +39,7 @@ public class CoT {
         });
         
         // For each category take from queue and create SOIL 
-        for(int i = 0; i < CATEGORY_PROMPTS.list.size(); i++) {
+        for(int i = 0; i < CATEGORY_PROMPTS.list.size() * experiment.repetitions; i++) {
             List list;
 
             try {
@@ -56,7 +56,7 @@ public class CoT {
             use.checkSyntax(experiment.umlPath, experiment.instancePath + "temp.soil");
             
             // Check Restrictions (invariants/multiplicities)
-            if (!list.id().equals("invalid")) { // only for valid instances
+            if (!list.id().contains("invalid")) { // only for valid instances
                 String check = use.checkRestrictions(experiment.umlPath, experiment.instancePath + "temp.soil", modelDescription.substring(modelDescription.indexOf("Invariants")));  
                 int numberOfChecks = 1;
 
