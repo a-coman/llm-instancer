@@ -51,8 +51,7 @@ public class Utils {
     }
 
     public static String removeComments(String text) {
-        text = removeBackticks(text);
-        String regex = "^(?!\\!).*"; // Matches any line that doesn't start with !
+        String regex = "(?m)^(?!!|--).*$"; // Matches any line that doesn't start with ! or --
         return text.replaceAll(regex, "");
     }
 

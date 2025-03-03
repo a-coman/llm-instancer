@@ -65,11 +65,11 @@ public class Metrics {
         metrics.append("Sum of total tokens: " + sumOfTotalTokens + "\n");
         metrics.append("Generations time: " + genTime + " seconds\n");
         metrics.append("Syntax errors: " + sumOfSyntaxErrors + "\n");
-        metrics.append("Check errors: " + sumOfCheckErrors + "\n");
+        metrics.append("Nº of checks with errors: " + sumOfCheckErrors + "\n");
 
         metrics.append("\n## Syntax errors\n||\n|---|\n");
         syntaxErrors.forEach(error -> metrics.append(error + "\n"));
-        metrics.append("\n## Check errors\n");
+        metrics.append("\n## Checks with errors\n");
         checkErrors.forEach(error -> metrics.append("```\n" + error + "\n```\n"));
 
         Utils.saveFile(metrics.toString(), path, "output.md");
