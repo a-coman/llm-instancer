@@ -6,6 +6,8 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class Use {
     private Process process;
@@ -110,6 +112,27 @@ public class Use {
 
     }
 
+    // Count number of multiplicities failures
+    private static int countOccurrences(String text, String pattern) {
+        Pattern p = Pattern.compile(pattern);
+        Matcher m = p.matcher(text);
+        int count = 0;
+        while (m.find()) {
+            count++;
+        }
+        return count;
+    }
+
+    // Extract number of constraints/invariants failures
+    private static int extractInvariantFailures(String text) {
+        Pattern pattern = Pattern.compile("checked (\\d+) invariants? in ([\\d.]+s), (\\d+) failures?");
+        Matcher matcher = pattern.matcher(text);
+        if (matcher.find()) {
+            return Integer.parseInt(matcher.group(3));
+        }
+        return 0;
+    }
+
     public String checkRestrictions(String diagramPath, String instancePath, String invariants) {
         Metrics.initializeCheck(); // Mark the use of check restrictions for the agent
         open(diagramPath, instancePath);
@@ -122,6 +145,12 @@ public class Use {
         int start = output.indexOf("checking structure");
         output = output.substring(start);
 
+        int multiplicitiesErrors = countOccurrences(output, "Multiplicity constraint violation");
+        int invariantErrors = extractInvariantFailures(output);
+
+        Metrics.incrementMultiplicitiesErrors(multiplicitiesErrors);
+        Metrics.incrementInvariantErrors(invariantErrors);
+
         String result = "";
         if (output.contains("violation")) { // Multiplicities failed
             result = output;
@@ -132,9 +161,10 @@ public class Use {
         
         System.out.println(result);
 
-        if (!result.isEmpty())
+        if (!result.isEmpty()) {
             Metrics.addCheckError(output);
             Metrics.incrementCheckErrors();
+        }
 
         return result.isEmpty() ? "OK" : result;
 

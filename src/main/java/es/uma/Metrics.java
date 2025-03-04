@@ -8,6 +8,8 @@ public class Metrics {
     private static int sumOfTotalTokens = 0;
     private static int sumOfSyntaxErrors = -1; // -1 -> agent not checking syntax
     private static int sumOfCheckErrors = -1; // -1 -> agent not checking restrictions
+    private static int sumOfMultiplicitiesErrors = -1;
+    private static int sumOfInvariantErrors = -1;
     private static ArrayList<String> syntaxErrors = new ArrayList<>();
     private static ArrayList<String> checkErrors = new ArrayList<>();
     private static double genTime = 0;
@@ -55,6 +57,20 @@ public class Metrics {
         checkErrors.add("Failed MAX checks for category " + categoryId);
     }
 
+    public static void incrementMultiplicitiesErrors(int num) {
+        if (sumOfMultiplicitiesErrors == -1) {
+            sumOfMultiplicitiesErrors = 0;
+        }
+        sumOfMultiplicitiesErrors += num;
+    }
+    
+    public static void incrementInvariantErrors(int num) {
+        if (sumOfInvariantErrors == -1) {
+            sumOfInvariantErrors = 0;
+        }
+        sumOfInvariantErrors += num;
+    }
+
     public static void save(String path) {
 
         StringBuilder metrics = new StringBuilder();
@@ -64,8 +80,10 @@ public class Metrics {
         metrics.append("Sum of output tokens: " + sumOfOutputTokens + "\n");
         metrics.append("Sum of total tokens: " + sumOfTotalTokens + "\n");
         metrics.append("Generations time: " + genTime + " seconds\n");
-        metrics.append("Syntax errors: " + sumOfSyntaxErrors + "\n");
+        metrics.append("Sum of syntax errors: " + sumOfSyntaxErrors + "\n");
         metrics.append("Nº of checks with errors: " + sumOfCheckErrors + "\n");
+        metrics.append("Sum of multiplicities errors: " + sumOfMultiplicitiesErrors + "\n");
+        metrics.append("Sum of invariant errors: " + sumOfInvariantErrors + "\n");
 
         metrics.append("\n## Syntax errors\n||\n|---|\n");
         syntaxErrors.forEach(error -> metrics.append(error + "\n"));
