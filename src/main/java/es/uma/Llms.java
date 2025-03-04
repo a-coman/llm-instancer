@@ -15,6 +15,7 @@ public class Llms {
     public static final int MAX_MESSAGES = 128;
 
     public static <T> T getAgent(Class<T> agent, ChatLanguageModel model) {
+        Listener.setCurrentAgent(agent.getSimpleName());
         ChatMemory memory = MessageWindowChatMemory.withMaxMessages(MAX_MESSAGES);
         return AiServices.builder(agent)
                 .chatLanguageModel(model)

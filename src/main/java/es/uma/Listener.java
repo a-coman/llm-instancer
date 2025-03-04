@@ -18,14 +18,24 @@ public class Listener implements ChatModelListener {
 
     public static String logsPath;
     private static double startTime;
-    
+
+    private static ThreadLocal<String> currentAgent = new ThreadLocal<>();
+    public static void setCurrentAgent(String agentName) {
+        currentAgent.set(agentName);
+    }
+
+    private static ThreadLocal<String> currentCategory = new ThreadLocal<>();
+    public static void setCurrentCategory(String category) {
+        currentCategory.set(category);
+    }
+
     @Override
     public void onRequest(ChatModelRequestContext requestContext) {
         startTime = System.nanoTime();
         ChatRequest request = requestContext.chatRequest();
         StringBuffer sb = new StringBuffer();
         
-        sb.append("\n# Input\n");
+        sb.append("\n# Input " + (currentAgent.get() != null ? currentAgent.get() : "Unknown") + (currentCategory.get() != null ? currentCategory.get() : "Unknown") + "\n");
         sb.append("|Messages|\n|---|\n");
         List<ChatMessage> messages = request.messages();
         ChatRequestParameters parameters = request.parameters();
@@ -47,7 +57,7 @@ public class Listener implements ChatModelListener {
 
         ChatResponseMetadata metadata = response.metadata();
 
-        sb.append("\n# Output\n");
+        sb.append("\n# Output " + (currentAgent.get() != null ? currentAgent.get() : "Unknown") + " : " + (currentCategory.get() != null ? currentCategory.get() : "") + "\n");
         String aiMessage = response.aiMessage().text();
         aiMessage = Utils.removeBackticks(aiMessage); // (without backticks codeblock)
         sb.append("```\n" + aiMessage + "\n```\n");

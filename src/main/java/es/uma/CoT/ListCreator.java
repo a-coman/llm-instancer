@@ -3,6 +3,7 @@ package es.uma.CoT;
 import java.util.concurrent.BlockingQueue;
 
 import es.uma.Experiment;
+import es.uma.Listener;
 import es.uma.Llms;
 
 public class ListCreator implements Runnable {
@@ -24,6 +25,7 @@ public class ListCreator implements Runnable {
     @Override
     public void run() {
         IListCreator listCreator = Llms.getAgent(IListCreator.class, experiment.model);
+        Listener.setCurrentCategory(categoryId);
         for (int i = 1; i <= experiment.repetitions; i++) {
             String value = listCreator.chat(categoryPrompt, modelDescription);
             List list = new List(categoryId + i, value);        
