@@ -35,7 +35,7 @@ public class Listener implements ChatModelListener {
         ChatRequest request = requestContext.chatRequest();
         StringBuffer sb = new StringBuffer();
         
-        sb.append("\n# Input " + (currentAgent.get() != null ? currentAgent.get() : "Unknown") + (currentCategory.get() != null ? currentCategory.get() : "Unknown") + "\n");
+        sb.append("\n# Input " + (currentAgent.get() != null ? currentAgent.get() : "Unknown") + (currentCategory.get() != null ? (" : " + currentCategory.get()) : "") + "\n");
         sb.append("|Messages|\n|---|\n");
         List<ChatMessage> messages = request.messages();
         ChatRequestParameters parameters = request.parameters();
@@ -43,10 +43,9 @@ public class Listener implements ChatModelListener {
         sb.append("```\n" + Utils.removeBackticks(messages.getLast().toString()) + "\n```\n"); // Last user message (no prveious history) (without backticks codeblock)
         sb.append("\n|Request|\n|---|\n");
         sb.append("Model: " + parameters.modelName() + "\n");
-        sb.append("Temperature: " + parameters.temperature() + "\n");
         sb.append("Max-Tokens: " + parameters.maxOutputTokens() + "\n");
+        sb.append("Temperature: " + parameters.temperature() + "\n");
         sb.append("Top-P: " + parameters.topP() + "\n");
-        sb.append("Top-K: " + parameters.topK() + "\n");
         Utils.saveFile(sb.toString(), logsPath, "output.md");  
     }
 
@@ -57,7 +56,7 @@ public class Listener implements ChatModelListener {
 
         ChatResponseMetadata metadata = response.metadata();
 
-        sb.append("\n# Output " + (currentAgent.get() != null ? currentAgent.get() : "Unknown") + " : " + (currentCategory.get() != null ? currentCategory.get() : "") + "\n");
+        sb.append("\n# Output " + (currentAgent.get() != null ? currentAgent.get() : "Unknown") + (currentCategory.get() != null ? (" : " + currentCategory.get()) : "") + "\n");
         String aiMessage = response.aiMessage().text();
         aiMessage = Utils.removeBackticks(aiMessage); // (without backticks codeblock)
         sb.append("```\n" + aiMessage + "\n```\n");
