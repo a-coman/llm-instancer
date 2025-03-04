@@ -19,7 +19,7 @@ public class Experiment {
         this.repetitions = repetitions;
         umlPath = "./src/main/resources/prompts/" + system + "/diagram.use";
         examplePath = "./src/main/resources/prompts/" + system + "/example.soil";
-        instancePath = "./src/main/resources/instances/" + type + "/" + system + "/" + Utils.getTime() + "/";
+        instancePath = "./src/main/resources/instances/" + type + "/" + system + "/" + model.toString() + "/" + Utils.getTime() + "/";
         Listener.logsPath = instancePath;
         Metrics.repetitions = repetitions;
     }
