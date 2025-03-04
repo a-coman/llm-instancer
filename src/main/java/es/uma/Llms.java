@@ -32,6 +32,9 @@ public class Llms {
                     .logRequests(true)
                     .logResponses(true)
                     .listeners(List.of(new Listener()))
+                    .maxCompletionTokens(null)
+                    .temperature(1.0)
+                    .topP(1.0)
                     .build();
             case GPT_O3_MINI:
                 return OpenAiChatModel.builder()
