@@ -12,7 +12,7 @@ import dev.langchain4j.service.AiServices;
 
 public class Llms {
 
-    public static final int MAX_MESSAGES = 24;
+    public static final int MAX_MESSAGES = 128;
 
     public static <T> T getAgent(Class<T> agent, ChatLanguageModel model) {
         ChatMemory memory = MessageWindowChatMemory.withMaxMessages(MAX_MESSAGES);

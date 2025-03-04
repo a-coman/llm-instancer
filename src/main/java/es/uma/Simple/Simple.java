@@ -17,12 +17,16 @@ public class Simple {
 
         String response = simple.chat(modelUML, exampleSOIL);
         Utils.saveFile(Utils.removeComments(response), experiment.instancePath, "gen1.soil");
+        Utils.saveFile(Utils.removeComments(response) + "\n", experiment.instancePath, "output.soil");
         use.checkSyntax(experiment.umlPath, experiment.instancePath + "gen1.soil");
+        use.checkRestrictions(experiment.umlPath, experiment.instancePath + "gen1.soil", "");
 
         for (int i = 2; i <= experiment.repetitions; i++) {
             response = simple.chat("Let's continue creating more instances");
             Utils.saveFile(Utils.removeComments(response), experiment.instancePath, "gen" + i + ".soil");
+            Utils.saveFile(Utils.removeComments(response) + "\n", experiment.instancePath, "output.soil");
             use.checkSyntax(experiment.umlPath, experiment.instancePath + "gen" + i + ".soil");
+            use.checkRestrictions(experiment.umlPath, experiment.instancePath + "gen" + i + ".soil", "");
 
             // Wait for 1 minute before generating the next instance to avoid rate limiting
             // try {

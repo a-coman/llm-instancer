@@ -94,10 +94,14 @@ public class Use {
         open(diagramPath, instancePath);
         String output = readOutput("Open finalized");
         // Check for syntax errors
-        String[] searchStrings = {"<input>", "Error: Unknown command"};
+        String[] searchStrings = {"<input>", "Error:", "Warning:"};
         for (String search : searchStrings) {
             int index = output.indexOf(search);
             while (index >= 0) {
+                if (output.contains("natGNUReadline in java.library.path")) {  // Provisional, skip first console log error
+                    index = output.indexOf(search, index + 1);
+                    continue;
+                }
                 Metrics.incrementSyntaxErrors();
                 Metrics.addSyntaxError(output.substring(index+7, output.indexOf("\n", index))); // +7 to avoid input tag"
                 index = output.indexOf(search, index + 1);
