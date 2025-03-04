@@ -125,16 +125,15 @@ public class Use {
         String result = "";
         if (output.contains("violation")) { // Multiplicities failed
             result = output;
-            Metrics.addCheckError(output);
         }
         if (output.contains("FAILED") || output.contains("N/A")) { // Constraints/invariants failed
-            Metrics.addCheckError(output);
             result = output + "\n" + invariants;
         }
         
         System.out.println(result);
 
         if (!result.isEmpty())
+            Metrics.addCheckError(output);
             Metrics.incrementCheckErrors();
 
         return result.isEmpty() ? "OK" : result;
