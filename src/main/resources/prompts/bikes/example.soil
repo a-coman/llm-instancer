@@ -1,0 +1,148 @@
+-- This is a comment example
+-- SustainableCity Amsterdam
+
+!new SustainableCity('city1')
+!city1.name := 'Amsterdam'
+!city1.country := 'Netherlands'
+
+!new BikeStation('station1')
+!station1.name := 'Central Station'
+!station1.address := 'Prins Hendrikkade 14'
+!station1.spots := 50
+
+!new BikeStation('station2')
+!station2.name := 'Rental Vondelpark'
+!station2.address := 'Eerste Constantijn Huygensstraat 88 (& 94) (corner Overtoom)'
+!station2.spots := 30
+
+!new Bike('bike1')
+!bike1.code := 101
+!bike1.priceHour := 5.50
+
+!new Bike('bike2')
+!bike2.code := 102
+!bike2.priceHour := 3.20
+
+!new Bike('bike3')
+!bike3.code := 103
+!bike3.priceHour := 3.00
+
+!new User('user1')
+!user1.id := 1
+!user1.name := 'Noah Jansen'
+!user1.creditCard := '5203920000090194'
+
+!new User('user2')
+!user2.id := 25
+!user2.name := 'Lucas Dekker'
+!user2.creditCard := '4665692931277265'
+
+!new Rental('rental1')
+!rental1.startDate := Date('2024-01-10')
+!rental1.endDate := Date('2024-01-10')
+
+!new Rental('rental2')
+!rental2.startDate := Date('2025-01-19')
+!rental2.endDate := Date('2025-01-19')
+
+!insert (station1, city1) into StationsCity
+!insert (station2, city1) into StationsCity
+
+!insert (user1, rental1) into UserRental
+!insert (rental1, bike1) into RentalBike
+!insert (bike1, station1) into Parked
+!insert (rental1, station1) into Pickup
+!insert (rental1, station2) into Dropoff
+
+!insert (user2, rental2) into UserRental
+!insert (rental2, bike2) into RentalBike
+!insert (bike2, station1) into Parked
+!insert (rental2, station1) into Pickup
+!insert (rental2, station1) into Dropoff
+
+!insert (bike3, station2) into Parked
+
+-- SustainableCity Malaga
+
+!new SustainableCity('city2')
+!city2.name := 'Malaga'
+!city2.country := 'Spain'
+
+!new BikeStation('station3')
+!station3.name := 'Soho Bike Malaga'
+!station3.address := 'C. Cordoba, 17, Distrito Centro'
+!station3.spots := 42
+
+!new BikeStation('station4')
+!station4.name := 'Estacion Malaga Bici'
+!station4.address := 'Av. Santa Rosa de Lima, 7, Cruz de Humilladero'
+!station4.spots := 28
+
+!new Bike('bike4')
+!bike4.code := 421
+!bike4.priceHour := 4.50
+
+!new Bike('bike5')
+!bike5.code := 173
+!bike5.priceHour := 3.23
+
+!new Bike('bike6')
+!bike6.code := 021
+!bike6.priceHour := 2.65
+
+!new User('user3')
+!user3.id := 1
+!user3.name := 'Antonio Jimenez'
+!user3.creditCard := '4634672187608213'
+
+!new User('user4')
+!user4.id := 25
+!user4.name := 'Marta Romero'
+!user4.creditCard := '4218356519436014'
+
+!new User('user5')
+!user5.id := 25
+!user5.name := 'Sofia Sanchez'
+!user5.creditCard := '377457096532962'
+
+!new Rental('rental3')
+!rental3.startDate := Date('2024-05-24')
+!rental3.endDate := Date('2024-05-24')
+
+!new Rental('rental4')
+!rental4.startDate := Date('2022-08-12')
+!rental4.endDate := Date('2022-08-12')
+
+!new Rental('rental5')
+!rental5.startDate := Date('2024-11-17')
+!rental5.endDate := Date('2024-11-17')
+
+!new Rental('rental6')
+!rental6.startDate := Date('2025-01-12')
+!rental6.endDate := Date('2025-01-12')
+
+!insert (station3, city2) into StationsCity
+!insert (station4, city2) into StationsCity
+
+!insert (user4, rental3) into UserRental
+!insert (rental3, bike6) into RentalBike
+!insert (bike6, station4) into Parked
+!insert (rental3, station4) into Pickup
+!insert (rental3, station3) into Dropoff
+
+!insert (user3, rental5) into UserRental
+!insert (rental5, bike4) into RentalBike
+!insert (bike4, station3) into Parked
+!insert (rental5, station3) into Pickup
+!insert (rental5, station4) into Dropoff
+
+!insert (user5, rental4) into UserRental
+!insert (rental4, bike5) into RentalBike
+!insert (bike5, station3) into Parked
+!insert (rental4, station3) into Pickup
+!insert (rental4, station3) into Dropoff
+
+!insert (user3, rental6) into UserRental
+!insert (rental6, bike6) into RentalBike
+!insert (rental6, station3) into Pickup
+!insert (rental6, station4) into Dropoff

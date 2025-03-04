@@ -1,11 +1,34 @@
+-- This is a comment example
+-- Bank 1 example
+
+!new Bank('bank1')
+!bank1.country := 'Spain'
+!bank1.name := 'Banco Santander'
+!bank1.bic := 'BSCHESMMXXX'
+
+!new Account('account1')
+!account1.iban := 'ES6000491500051234567892'
+!account1.balance := 9350
+
+!new Person('person1')
+!person1.age := 21
+!person1.firstName := 'Francisco'
+!person1.lastName := 'Martin'
+
+!insert (person1, account1) into Ownership
+!insert (person1, account1) into Use
+!insert (bank1, account1) into AccountOfBanks
+
+-- Bank 2 example
+
 !new Bank('bank2')
 !bank2.country := 'Germany'
-!bank2.name := 'Deutsche Bank'
-!bank2.bic := 'DEUTDEFFXXX'
+!bank2.name := 'Commerzbank'
+!bank2.bic := 'COBADEFFXXX'
 
 !new Account('account2')
-!account2.iban := 'DE89 3704 0044 0532 0130 00'
-!account2.balance := 2500
+!account2.iban := 'DE89370400440532013000'
+!account2.balance := 2520
 
 !new Person('person2')
 !person2.age := 30

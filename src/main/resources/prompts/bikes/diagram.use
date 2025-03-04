@@ -1,0 +1,69 @@
+model Bikes
+
+dataType Date
+operations
+    Date(date : String)
+end
+
+class Bike
+attributes
+    code : Integer
+    priceHour : Real
+end
+
+class BikeStation
+attributes
+    name : String
+    address : String
+    spots : Integer
+end
+
+class Rental
+attributes
+    startDate : Date
+    endDate : Date
+end
+
+class SustainableCity
+attributes
+    name : String
+    country : String
+end
+
+class User
+attributes
+    id : Integer
+    name : String
+    creditCard : String
+end
+
+
+association StationsCity between
+    BikeStation [1..*] role has
+    SustainableCity [1] role isIn
+end
+
+association Parked between
+    Bike [0..*] role bikesParked
+    BikeStation [0..1] role parkedIn
+end
+
+association Pickup between
+    Rental [*] role pickupRentals
+    BikeStation [1] role pickupStation
+end
+
+association Dropoff between
+    Rental [*] role dropOffRentals
+    BikeStation [1] role dropOffStation
+end
+
+association UserRental between
+    User [1] role user
+    Rental [0..*] role rentals
+end
+
+association RentalBike between
+    Rental [0..*] role rentals
+    Bike [1] role rents
+end
