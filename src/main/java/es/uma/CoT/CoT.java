@@ -54,15 +54,16 @@ public class CoT {
             Utils.saveFile(Utils.removeComments(instanceSOIL), experiment.instancePath, "temp.soil", false);
         
             // Check syntax
-            use.checkSyntax(experiment.umlPath, experiment.instancePath + "temp.soil");
-            
+            String syntaxErrors = use.checkSyntax(experiment.umlPath, experiment.instancePath + "temp.soil");            
+    
             // Check Restrictions (invariants/multiplicities)
             if (!list.id().contains("invalid")) { // only for valid instances
                 String check = use.checkRestrictions(experiment.umlPath, experiment.instancePath + "temp.soil", modelDescription.substring(modelDescription.indexOf("Invariants")));  
                 int numberOfChecks = 1;
 
-                while (check != "OK" && numberOfChecks <= 3) { // If the check is not OK, try again (MAX:3)
+                while (check != "OK" && numberOfChecks < 3) { // If the check is not OK, try again (MAX:2)
                     instanceSOIL = listInstantiator.chat("The list and output is partially incorrect: \n" + check + "\n Please provide the corrected full output");    
+                    Utils.saveFile(Utils.removeComments(instanceSOIL), experiment.instancePath, "temp.soil", false);
                     check = use.checkRestrictions(experiment.umlPath, experiment.instancePath + "temp.soil", modelDescription.substring(modelDescription.indexOf("Invariants")));  
                     numberOfChecks++;
                 }

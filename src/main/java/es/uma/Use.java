@@ -91,11 +91,12 @@ public class Use {
         runCommand("Open finalized"); // Marker
     }
 
-    public void checkSyntax(String diagramPath, String instancePath) {
+    public String checkSyntax(String diagramPath, String instancePath) {
         Metrics.initializeSyntax(); // Mark the use of syntax checking for the agent
         open(diagramPath, instancePath);
         String output = readOutput("Open finalized");
         // Check for syntax errors
+        StringBuffer errors = new StringBuffer();
         String[] searchStrings = {"<input>", "Error:", "Warning:"};
         for (String search : searchStrings) {
             int index = output.indexOf(search);
@@ -104,11 +105,15 @@ public class Use {
                     index = output.indexOf(search, index + 1);
                     continue;
                 }
+                String error = output.substring(index+7, output.indexOf("\n", index)); // +7 to avoid input tag"
                 Metrics.incrementSyntaxErrors();
-                Metrics.addSyntaxError(output.substring(index+7, output.indexOf("\n", index))); // +7 to avoid input tag"
+                Metrics.addSyntaxError(error);
+                errors.append(error + "\n");
                 index = output.indexOf(search, index + 1);
             }
         }
+
+        return errors.toString().isEmpty() ? "OK" : errors.toString();
 
     }
 
