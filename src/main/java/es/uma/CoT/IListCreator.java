@@ -25,4 +25,7 @@ public interface IListCreator {
     @SystemMessage(system)
     @UserMessage(message)
     String chat(@V("categoryPrompt") String categoryPrompt, @V("modelDescription") String modelDescription);
+
+    @SystemMessage(system)
+    String chat(String message);
 }

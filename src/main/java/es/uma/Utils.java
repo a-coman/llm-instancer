@@ -6,6 +6,7 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.concurrent.TimeUnit;
 
 public class Utils {
 
@@ -55,6 +56,15 @@ public class Utils {
         return text.replaceAll(regex, "");
     }
 
+    public static void waitFor(int minutes) {        
+        // Wait for minutes
+        try {
+            System.out.println("\n\nWaiting for " + minutes + " before generating the next instance...\n");
+            TimeUnit.MINUTES.sleep(minutes);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    } 
 
     public static void main(String[] args) {
         String model = "test/";
