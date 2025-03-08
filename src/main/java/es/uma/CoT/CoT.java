@@ -85,8 +85,8 @@ public class CoT {
         int attempts = 0;
         while (!check.equals("OK") && attempts < 2) {
             instanceSOIL = listInstantiator.chat(
-                "The list and output is partially incorrect: \n" + check + 
-                "\n Please provide the corrected full output");    
+                "The last output is partially incorrect: \n" + check + 
+                "\n Please provide it corrected");    
             Utils.saveFile(Utils.removeComments(instanceSOIL), 
                     experiment.instancePath, "temp.soil", false);
             check = use.checkRestrictions(experiment.umlPath, 
