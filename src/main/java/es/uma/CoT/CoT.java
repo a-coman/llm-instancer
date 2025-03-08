@@ -1,6 +1,7 @@
 package es.uma.CoT;
 
 import es.uma.Experiment;
+import es.uma.Listener;
 import es.uma.Llms;
 import es.uma.Metrics;
 import es.uma.Use;
@@ -57,7 +58,7 @@ public class CoT {
     }
 
     private static void instantiateList(List list, IListInstantiator listInstantiator, Experiment experiment, Use use, String invariants, String exampleSOIL) {
-        
+        Listener.setCurrentCategory(list.id());
         // Generate and save temp instance
         String instanceSOIL = listInstantiator.chat(list.value(), exampleSOIL);
         Utils.saveFile(Utils.removeComments(instanceSOIL), experiment.instancePath, "temp.soil", false);
