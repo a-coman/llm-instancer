@@ -11,9 +11,11 @@ public class Experiment {
     public final String instancePath;
     public final ChatLanguageModel model;
     public final int repetitions;
+    public final String system;
     private final String type;
 
     public Experiment(Model model, String type, String system, int repetitions) {
+        this.system = system;
         this.type = type;
         this.model = Llms.getModel(model);
         this.repetitions = repetitions;
@@ -21,7 +23,7 @@ public class Experiment {
         examplePath = "./src/main/resources/prompts/" + system + "/example.soil";
         instancePath = "./src/main/resources/instances/" + type + "/" + system + "/" + model.toString() + "/" + Utils.getTime() + "/";
         Listener.logsPath = instancePath;
-        Metrics.repetitions = repetitions;
+        ListenerMetrics.setRepetitions(repetitions);
     }
 
     public void run() {
@@ -35,6 +37,5 @@ public class Experiment {
             default:
                 throw new IllegalArgumentException("Invalid type: " + type);
         }
-        Metrics.save(instancePath);
     }
 }

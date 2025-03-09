@@ -6,7 +6,10 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class Utils {
 
@@ -64,7 +67,18 @@ public class Utils {
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
-    } 
+    }
+
+    // Split by pattern
+    public static ArrayList<String> split(String text, String pattern) {
+        ArrayList<String> list = new ArrayList<>();
+        Pattern p = Pattern.compile(pattern);
+        Matcher m = p.matcher(text);
+        while (m.find()) {
+            list.add(m.group().trim());
+        }
+        return list;
+    }
 
     public static void main(String[] args) {
         String model = "test/";

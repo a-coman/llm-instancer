@@ -4,7 +4,7 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 public class CategoryPrompts {
-    Map<String, String> list = new LinkedHashMap<>();
+    public Map<String, String> list = new LinkedHashMap<>();
 
     public CategoryPrompts() {
 

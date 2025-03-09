@@ -70,9 +70,9 @@ public class Listener implements ChatModelListener {
         sb.append("Output Tokens: " + outputTokens + "\n");
         sb.append("Total Tokens: " + totalTokens + "\n");
         double genTime = (System.nanoTime() - startTime) / 1000000000;
-        Metrics.inecrementGenTime(genTime);
+        ListenerMetrics.inecrementGenTime(genTime);
         sb.append("Generation Time: " + genTime + " seconds\n");
-        Metrics.incrementTokens(inputTokens, outputTokens, totalTokens);
+        ListenerMetrics.incrementTokens(inputTokens, outputTokens, totalTokens);
         
         Utils.saveFile(sb.toString(), logsPath, "output.md");
     }

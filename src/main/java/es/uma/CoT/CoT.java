@@ -2,8 +2,8 @@ package es.uma.CoT;
 
 import es.uma.Experiment;
 import es.uma.Listener;
+import es.uma.ListenerMetrics;
 import es.uma.Llms;
-import es.uma.Metrics;
 import es.uma.Use;
 import es.uma.Utils;
 
@@ -43,6 +43,7 @@ public class CoT {
         for(int i = 0; i < totalLists; i++) {
             List list = getListFromQueue(queue);
             instantiateList(list, listInstantiator, experiment, use, invariants, exampleSOIL);
+            ListenerMetrics.save(experiment.instancePath + list.gen() + "/");
         }
 
         use.close();
@@ -60,27 +61,29 @@ public class CoT {
     private static void instantiateList(List list, IListInstantiator listInstantiator, Experiment experiment, Use use, String invariants, String exampleSOIL) {
         Listener.setCurrentCategory(list.id());
         // Generate and save temp instance
+        String instancePath = experiment.instancePath + list.gen() + "/";
         String instanceSOIL = listInstantiator.chat(list.value(), exampleSOIL);
-        Utils.saveFile(Utils.removeComments(instanceSOIL), experiment.instancePath, "temp.soil", false);
+        Utils.saveFile(Utils.removeComments(instanceSOIL), instancePath, "temp.soil", false);
         
         // Validate syntax and constraints
-        use.checkSyntax(experiment.umlPath, experiment.instancePath + "temp.soil");            
+        use.checkSyntax(experiment.umlPath, instancePath + "temp.soil");            
         
         if (!list.id().contains("invalid")) {
             instanceSOIL = validateConstraints(instanceSOIL, listInstantiator, list, experiment, use, invariants);
-            Utils.saveFile(Utils.removeComments(instanceSOIL) + "\n\n", experiment.instancePath, "outputValid.soil");
+            Utils.saveFile(Utils.removeComments(instanceSOIL) + "\n\n", instancePath, "outputValid.soil");
         } else {
-            Utils.saveFile(Utils.removeComments(instanceSOIL) + "\n\n", experiment.instancePath, "outputInvalid.soil");
+            Utils.saveFile(Utils.removeComments(instanceSOIL) + "\n\n", instancePath, "outputInvalid.soil");
         }
         
         String processedInstance = Utils.removeComments(instanceSOIL) + "\n\n";
-        Utils.saveFile(processedInstance, experiment.instancePath, "output.soil");
-        Utils.saveFile(processedInstance, experiment.instancePath, list.id() + ".soil");
+        Utils.saveFile(processedInstance, instancePath, "output.soil");
+        Utils.saveFile(processedInstance, instancePath, list.id() + ".soil");
     }
 
     private static String validateConstraints(String instanceSOIL, IListInstantiator listInstantiator, List list, Experiment experiment, Use use, String invariants) {
         
-        String check = use.checkRestrictions(experiment.umlPath, experiment.instancePath + "temp.soil", invariants);
+        String instancePath = experiment.instancePath + list.gen() + "/";
+        String check = use.checkInvariants(experiment.umlPath, instancePath + "temp.soil", invariants);
 
         int attempts = 0;
         while (!check.equals("OK") && attempts < 2) {
@@ -88,15 +91,15 @@ public class CoT {
                 "The last output is partially incorrect: \n" + check + 
                 "\n Please provide it corrected");    
             Utils.saveFile(Utils.removeComments(instanceSOIL), 
-                    experiment.instancePath, "temp.soil", false);
-            check = use.checkRestrictions(experiment.umlPath, 
-                    experiment.instancePath + "temp.soil",
+                    instancePath, "temp.soil", false);
+            check = use.checkInvariants(experiment.umlPath, 
+                    instancePath + "temp.soil",
                     invariants);
             attempts++;
         }
 
         if (attempts == 2) {
-            Metrics.addFailedCheck(list.id());
+            //Metrics.addFailedCheck(list.id());
         }
 
         return instanceSOIL;

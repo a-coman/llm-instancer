@@ -21,10 +21,12 @@ public class Simple {
                 response = simple.chat("Let's continue generating more instances that are structurally and semantically different from the previous ones");
             }
 
-            Utils.saveFile(Utils.removeComments(response), experiment.instancePath, "gen" + i + ".soil");
-            Utils.saveFile(Utils.removeComments(response) + "\n", experiment.instancePath, "output.soil");
-            use.checkSyntax(experiment.umlPath, experiment.instancePath + "gen" + i + ".soil");
-            use.checkRestrictions(experiment.umlPath, experiment.instancePath + "gen" + i + ".soil", "");
+            String instancePath = experiment.instancePath + "gen" + i + "/"; 
+
+            Utils.saveFile(Utils.removeComments(response), instancePath, "output.soil");
+            use.checkSyntax(experiment.umlPath, instancePath + "output.soil");
+            use.checkMultiplicities(experiment.umlPath, instancePath + "output.soil");
+            use.checkInvariants(experiment.umlPath, instancePath + "output.soil", "");
             
             //Utils.waitFor(1); // To avoid rate limiting 
         }

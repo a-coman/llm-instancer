@@ -6,8 +6,6 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 public class Use {
     private Process process;
@@ -92,7 +90,6 @@ public class Use {
     }
 
     public String checkSyntax(String diagramPath, String instancePath) {
-        Metrics.initializeSyntax(); // Mark the use of syntax checking for the agent
         open(diagramPath, instancePath);
         String output = readOutput("Open finalized");
         // Check for syntax errors
@@ -106,40 +103,17 @@ public class Use {
                     continue;
                 }
                 String error = output.substring(index+7, output.indexOf("\n", index)); // +7 to avoid input tag"
-                Metrics.incrementSyntaxErrors();
-                Metrics.addSyntaxError(error);
                 errors.append(error + "\n");
                 index = output.indexOf(search, index + 1);
             }
         }
 
+        System.out.println(errors.toString());
         return errors.toString().isEmpty() ? "OK" : errors.toString();
 
     }
 
-    // Count number of multiplicities failures
-    private static int countOccurrences(String text, String pattern) {
-        Pattern p = Pattern.compile(pattern);
-        Matcher m = p.matcher(text);
-        int count = 0;
-        while (m.find()) {
-            count++;
-        }
-        return count;
-    }
-
-    // Extract number of constraints/invariants failures
-    private static int extractInvariantFailures(String text) {
-        Pattern pattern = Pattern.compile("checked (\\d+) invariants? in ([\\d.]+s), (\\d+) failures?");
-        Matcher matcher = pattern.matcher(text);
-        if (matcher.find()) {
-            return Integer.parseInt(matcher.group(3));
-        }
-        return 0;
-    }
-
-    public String checkRestrictions(String diagramPath, String instancePath, String invariants) {
-        Metrics.initializeCheck(); // Mark the use of check restrictions for the agent
+    public String checkMultiplicities(String diagramPath, String instancePath) {
         open(diagramPath, instancePath);
         runCommand("check");
         runCommand("Check finalized"); // Marker
@@ -147,40 +121,42 @@ public class Use {
         String output = readOutput("Check finalized");
         
         // Trim result and return errors
-        int start = output.indexOf("checking structure");
-        output = output.substring(start);
-
-        int multiplicitiesErrors = countOccurrences(output, "Multiplicity constraint violation");
-        int invariantErrors = extractInvariantFailures(output);
-
-        Metrics.incrementMultiplicitiesErrors(multiplicitiesErrors);
-        Metrics.incrementInvariantErrors(invariantErrors);
+        int start = output.indexOf("checking structure...");
+        int end = output.indexOf("checked structure");
+        output = output.substring(start, end);
 
         String result = "";
         if (output.contains("violation")) { // Multiplicities failed
             result = output;
         }
+
+        System.out.println(result);
+        return result.isEmpty() ? "OK" : result;
+    }
+
+    public String checkInvariants(String diagramPath, String instancePath, String invariants) {
+        open(diagramPath, instancePath);
+        runCommand("check");
+        runCommand("Check finalized"); // Marker
+        
+        String output = readOutput("Check finalized");
+        
+        // Trim result and return errors
+        int start = output.indexOf("checking invariants...");
+        output = output.substring(start);
+
+        String result = "";
         if (output.contains("FAILED") || output.contains("N/A")) { // Constraints/invariants failed
             result = output + "\n" + invariants;
         }
-        
+
         System.out.println(result);
-
-        if (!result.isEmpty()) {
-            Metrics.addCheckError(output);
-            Metrics.incrementCheckErrors();
-        }
-
         return result.isEmpty() ? "OK" : result;
-
     }
 
     // Main for testing purposes
     public static void main(String[] args) {
         Use use = new Use();
-
-        System.out.println(use.checkRestrictions("./src/main/resources/prompts/bank/diagram.use", "./src/main/resources/instances/previous/bank/gemini_2.soil", "invariants_Placeholder"));
-
         use.close();
     }
 }
