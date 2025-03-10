@@ -1,15 +1,24 @@
 package es.uma.Metrics;
 
-public class Bank implements IMetrics {
+public class Bank extends Metric {
 
     @Override
-    public String getMetrics(String diagram, String genPath, String type) {
-        return null;
+    public String getSimpleMetrics(String diagramPath, String genPath) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'getSimpleMetrics'");
+    }
+
+    @Override
+    public String getCoTMetrics(String diagramPath, String genPath) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'getCoTMetrics'");
     }
 
     @Override
     public String getSummary() {
-        return null;
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'getSummary'");
     }
-    
+
+
 }

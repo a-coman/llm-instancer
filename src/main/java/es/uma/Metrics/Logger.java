@@ -5,7 +5,7 @@ import es.uma.Utils;
 
 public class Logger {
     
-    private static IMetrics getSystemMetrics(String system) {
+    private static Metric getSystemMetrics(String system) {
         switch (system.toLowerCase()) {
             case "bank":
                 return new Bank();
@@ -16,8 +16,8 @@ public class Logger {
     }
     
     public static void saveMetrics(Experiment experiment) {
-        IMetrics sysMetrics = getSystemMetrics(experiment.system);
-        IMetrics generalMetrics = new General();
+        Metric sysMetrics = getSystemMetrics(experiment.system);
+        Metric generalMetrics = new General();
         String diagram = experiment.umlPath;
         String type = experiment.type;
 

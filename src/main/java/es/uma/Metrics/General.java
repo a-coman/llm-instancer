@@ -6,7 +6,7 @@ import es.uma.Use;
 import es.uma.Utils;
 import es.uma.CoT.CategoryPrompts;
 
-public class General implements IMetrics {
+public class General extends Metric {
 
     private static int sumOfSyntaxErrors = 0;
     private static int sumOfMultiplicitiesErrors = 0;
@@ -63,7 +63,8 @@ public class General implements IMetrics {
         return invariantErrors.size();
     }
 
-    private static String getSimpleMetrics(String diagramPath, String genPath) {
+    @Override
+    public String getSimpleMetrics(String diagramPath, String genPath) {
         StringBuilder metrics = new StringBuilder();
         String instance = Utils.readFile(genPath + "output.soil");
         metrics.append("## Instance\n");
@@ -87,7 +88,8 @@ public class General implements IMetrics {
         metrics.append("| Sum of invariant errors | " + invariantErrors + " |\n");
     }
 
-    private static String getCoTMetrics(String diagramPath, String genPath) {
+    @Override
+    public String getCoTMetrics(String diagramPath, String genPath) {
         StringBuilder metrics = new StringBuilder();
         CategoryPrompts categoryPrompts = new CategoryPrompts();
         Use use = new Use();
@@ -117,21 +119,6 @@ public class General implements IMetrics {
         use.close();
         return metrics.toString();
 
-    }
-
-    @Override
-    public String getMetrics(String diagramPath, String genPath, String type) {
-        
-        switch (type) {
-            case "Simple":
-                return getSimpleMetrics(diagramPath, genPath);
-            case "CoT":
-                return getCoTMetrics(diagramPath, genPath);
-            default:
-                throw new IllegalArgumentException("Invalid type in metrics: " + type);
-        }
-
-        
     }
 
     @Override
