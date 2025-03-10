@@ -29,13 +29,14 @@ public class Logger {
             String general = generalMetrics.getMetrics(diagram, genPath, type);
             Utils.saveFile(general, genPath, "metrics.md");
             
-            //String system = sysMetrics.getMetrics(diagram, genPath, type);
-            //Utils.saveFile(system, genPath, "metrics.md");
+            String system = sysMetrics.getMetrics(diagram, genPath, type);
+            Utils.saveFile(system, genPath, "metrics.md");
         }
 
         String generalSummary = generalMetrics.getSummary();
-        //String systemSummary = sysMetrics.getSummary();
         Utils.saveFile(generalSummary, experiment.instancePath, "metrics.md");
-        //Utils.saveFile(systemSummary, experiment.instancePath, "metrics.md");
+        
+        String systemSummary = sysMetrics.getSummary();
+        Utils.saveFile(systemSummary, experiment.instancePath, "metrics.md");
     }
 }

@@ -69,7 +69,18 @@ public class Utils {
         }
     }
 
-    // Split by pattern
+    // Match by pattern (Returns the first captured group)
+    public static ArrayList<String> match(String text, String pattern) {
+        ArrayList<String> list = new ArrayList<>();
+        Pattern p = Pattern.compile(pattern);
+        Matcher m = p.matcher(text);
+        while (m.find()) {
+            list.add(m.group(1).trim());
+        }
+        return list;
+    }
+
+    // Split by pattern (Returns entire line matched)
     public static ArrayList<String> split(String text, String pattern) {
         ArrayList<String> list = new ArrayList<>();
         Pattern p = Pattern.compile(pattern);

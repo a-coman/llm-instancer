@@ -18,19 +18,16 @@ public class General extends Metric {
         metrics.append("\n```\n");
     }
 
-    private static void append(StringBuilder metrics, ArrayList<String> list) {
-        for (String error : list) {
-            metrics.append("```\n");
-            metrics.append(error);
-            metrics.append("\n```\n");
+    private static void append(StringBuilder metrics, String[] list) { 
+        for (String text : list) {
+            append(metrics, text);
         }
         metrics.append("\n");
     }
 
-    private static void append(StringBuilder metrics, String[] list) {
-        for (String error : list) {
-            metrics.append(error);
-            metrics.append("\n");
+    private static void append(StringBuilder metrics, ArrayList<String> list) {
+        for (String text : list) {
+            append(metrics, text);
         }
         metrics.append("\n");
     }
@@ -81,11 +78,12 @@ public class General extends Metric {
     }
 
     private static void addSummary(StringBuilder metrics, int syntaxErrors, int multiplicitiesErrors, int invariantErrors) {
-        metrics.append("| Metric | Value |\n");
+        metrics.append("| General | Value |\n");
         metrics.append("| --- | --- |\n");
         metrics.append("| Sum of syntax errors | " + syntaxErrors + " |\n");
         metrics.append("| Sum of multiplicities errors | " + multiplicitiesErrors + " |\n");
         metrics.append("| Sum of invariant errors | " + invariantErrors + " |\n");
+        metrics.append("\n");
     }
 
     @Override
@@ -130,6 +128,7 @@ public class General extends Metric {
         sb.append("| Sum of syntax errors | " + sumOfSyntaxErrors + " |\n");
         sb.append("| Sum of multiplicities errors | " + sumOfMultiplicitiesErrors + " |\n");
         sb.append("| Sum of invariant errors | " + sumOfInvariantErrors + " |\n");
+        sb.append("\n");
         return sb.toString();
     }
     

@@ -2,7 +2,6 @@ package es.uma.CoT;
 
 import es.uma.Experiment;
 import es.uma.Listener;
-import es.uma.ListenerMetrics;
 import es.uma.Llms;
 import es.uma.Use;
 import es.uma.Utils;
