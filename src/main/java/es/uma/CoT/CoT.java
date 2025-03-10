@@ -43,7 +43,6 @@ public class CoT {
         for(int i = 0; i < totalLists; i++) {
             List list = getListFromQueue(queue);
             instantiateList(list, listInstantiator, experiment, use, invariants, exampleSOIL);
-            ListenerMetrics.save(experiment.instancePath + list.gen() + "/");
         }
 
         use.close();

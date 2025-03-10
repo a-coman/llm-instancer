@@ -51,12 +51,12 @@ public class Utils {
 
     public static String removeBackticks(String text) {
         String regex = "```+[^\\n]*"; // Matches codeblocks, i.e. ``` or more followed by any character except a newline
-        return text.replaceAll(regex, "");
+        return text.replaceAll(regex, "").trim();
     }
 
     public static String removeComments(String text) {
         String regex = "(?m)^(?!!|--).*$"; // Matches any line that doesn't start with ! or --
-        return text.replaceAll(regex, "");
+        return text.replaceAll(regex, "").trim();
     }
 
     public static void waitFor(int minutes) {        

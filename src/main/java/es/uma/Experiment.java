@@ -12,7 +12,7 @@ public class Experiment {
     public final ChatLanguageModel model;
     public final int repetitions;
     public final String system;
-    private final String type;
+    public final String type;
 
     public Experiment(Model model, String type, String system, int repetitions) {
         this.system = system;
