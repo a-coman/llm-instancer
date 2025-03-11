@@ -25,7 +25,7 @@ public class Experiment {
         examplePath = "./src/main/resources/prompts/" + system + "/example.soil";
         instancePath = "./src/main/resources/instances/" + type + "/" + system + "/" + model.toString() + "/" + Utils.getTime() + "/";
         Listener.logsPath = instancePath;
-        ListenerMetrics.setRepetitions(repetitions);
+        ListenerMetrics.setExperiment(this);
     }
 
     public void run() {
