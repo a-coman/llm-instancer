@@ -4,132 +4,71 @@ import java.util.ArrayList;
 
 import es.uma.Use;
 import es.uma.Utils;
-import es.uma.CoT.CategoryPrompts;
 
-public class General extends Metric {
+public class General implements IMetrics {
+    
+    private int syntaxErrors, multiplicitiesErrors, invariantsErrors;
 
-    private static int sumOfSyntaxErrors = 0;
-    private static int sumOfMultiplicitiesErrors = 0;
-    private static int sumOfInvariantErrors = 0;
-
-    private static void append(StringBuilder metrics, String text) {
-        metrics.append("```\n");
-        metrics.append(text);
-        metrics.append("\n```\n");
+    public General() {
+        syntaxErrors = 0;
+        multiplicitiesErrors = 0;
+        invariantsErrors = 0;
     }
 
-    private static void append(StringBuilder metrics, String[] list) { 
-        for (String text : list) {
-            append(metrics, text);
-        }
-        metrics.append("\n");
-    }
-
-    private static void append(StringBuilder metrics, ArrayList<String> list) {
-        for (String text : list) {
-            append(metrics, text);
-        }
-        metrics.append("\n");
-    }
-
-    private static int addSyntax(Use use, StringBuilder metrics, String diagramPath, String instancePath) { 
+    private void calculateSyntaxErrors(String diagramPath, String instancePath) {
+        Use use = new Use();
         String syntax = use.checkSyntax(diagramPath, instancePath);
         String[] syntaxErrors = syntax.equals("OK") ? new String[0] : syntax.split("\n");
-        sumOfSyntaxErrors += syntaxErrors.length;
-        metrics.append("| Syntax errors: |\n|---|\n");
-        append(metrics, syntaxErrors);
-        return syntaxErrors.length;
-        
+        this.syntaxErrors += syntaxErrors.length;
+        use.close();
     }
 
-    private static int addMultiplicities(Use use, StringBuilder metrics, String diagramPath, String instancePath) { 
+    private void calculateMultiplicitiesErrors(String diagramPath, String instancePath) {   
+        Use use = new Use();
         String multiplicities = use.checkMultiplicities(diagramPath, instancePath);
         ArrayList<String> multiplicitiesErrors = Utils.split(multiplicities, "Multiplicity constraint violation[\\s\\S]*?(?=Multiplicity constraint violation|$)");
-        sumOfMultiplicitiesErrors += multiplicitiesErrors.size();
-        metrics.append("| Multiplicities errors: |\n|---|\n");
-        append(metrics, multiplicitiesErrors);
-        return multiplicitiesErrors.size();
+        this.multiplicitiesErrors += multiplicitiesErrors.size();
+        use.close();
     }
 
-    private static int addInvariants(Use use, StringBuilder metrics, String diagramPath, String instancePath) { 
+    private void calculateInvariantsErrors(String diagramPath, String instancePath) {   
+        Use use = new Use();
         String invariants = use.checkInvariants(diagramPath, instancePath, "");
         ArrayList<String> invariantErrors = Utils.split(invariants, "(?m)^checking invariant.*?(FAILED|N/A)\\.\\s*$(.*\\n)*?(?=^checking invariant|\\z)");
-        sumOfInvariantErrors += invariantErrors.size();
-        metrics.append("| Invariants errors: |\n|---|\n");
-        append(metrics,invariantErrors);
-        return invariantErrors.size();
-    }
-
-    @Override
-    public String getSimpleMetrics(String diagramPath, String genPath) {
-        StringBuilder metrics = new StringBuilder();
-        String instance = Utils.readFile(genPath + "output.soil");
-        metrics.append("## Instance\n");
-        append(metrics, instance);
-
-        Use use = new Use();
-        addSyntax(use, metrics, diagramPath, genPath);
-        addMultiplicities(use, metrics, diagramPath, genPath);
-        addInvariants(use, metrics, diagramPath, genPath);
+        this.invariantsErrors += invariantErrors.size();
         use.close();
-
-        return metrics.toString();
-
-    }
-
-    private static void addSummary(StringBuilder metrics, int syntaxErrors, int multiplicitiesErrors, int invariantErrors) {
-        metrics.append("| General | Value |\n");
-        metrics.append("| --- | --- |\n");
-        metrics.append("| Sum of syntax errors | " + syntaxErrors + " |\n");
-        metrics.append("| Sum of multiplicities errors | " + multiplicitiesErrors + " |\n");
-        metrics.append("| Sum of invariant errors | " + invariantErrors + " |\n");
-        metrics.append("\n");
     }
 
     @Override
-    public String getCoTMetrics(String diagramPath, String genPath) {
-        StringBuilder metrics = new StringBuilder();
-        CategoryPrompts categoryPrompts = new CategoryPrompts();
-        Use use = new Use();
+    public void calculate(String diagramPath, String instancePath) {
+        calculateInvalid(diagramPath, instancePath);
+        calculateInvariantsErrors(diagramPath, instancePath);
+    }
 
-        int genSyntax = 0, genMultiplicities = 0, genInvariants = 0;
+    @Override
+    public void calculateInvalid(String diagramPath, String instancePath) {
+        calculateSyntaxErrors(diagramPath, instancePath);
+        calculateMultiplicitiesErrors(diagramPath, instancePath);
+    }
 
-        for (String categoryId : categoryPrompts.list.keySet()) {
-            String instancePath = genPath + categoryId + ".soil";
-            String instance = Utils.readFile(instancePath);
-            metrics.append("\n ## Instance " + categoryId + "\n");
-            append(metrics, instance);
-            
-            int syntax = addSyntax(use, metrics, diagramPath, instancePath);
-            int multiplicities = addMultiplicities(use, metrics, diagramPath, instancePath);
-            int invariants = addInvariants(use, metrics, diagramPath, instancePath);
-            
-            genSyntax += syntax;
-            genMultiplicities += multiplicities;
-            genInvariants += invariants;
-
-            metrics.append("\n ## Summary\n");
-            addSummary(metrics, syntax, multiplicities, invariants);
+    @Override
+    public void aggregate(IMetrics otherMetrics) {
+        if (!(otherMetrics instanceof General)) {
+            return;
         }
-
-        metrics.append("\n # Generation summary\n");
-        addSummary(metrics, genSyntax, genMultiplicities, genInvariants);
-        use.close();
-        return metrics.toString();
-
+        
+        General other = (General) otherMetrics;
+        this.syntaxErrors += other.syntaxErrors;
+        this.multiplicitiesErrors += other.multiplicitiesErrors;
+        this.invariantsErrors += other.invariantsErrors;
     }
 
     @Override
-    public String getSummary() {
+    public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append("\n # Generations summary\n");
-        sb.append("| Metric | Value |\n");
-        sb.append("| --- | --- |\n");
-        sb.append("| Sum of syntax errors | " + sumOfSyntaxErrors + " |\n");
-        sb.append("| Sum of multiplicities errors | " + sumOfMultiplicitiesErrors + " |\n");
-        sb.append("| Sum of invariant errors | " + sumOfInvariantErrors + " |\n");
-        sb.append("\n");
+        sb.append("Syntax Errors: ").append(syntaxErrors).append("\n");
+        sb.append("Multiplicities Errors: ").append(multiplicitiesErrors).append("\n");
+        sb.append("Invariants Errors: ").append(invariantsErrors).append("\n");
         return sb.toString();
     }
-    
 }
