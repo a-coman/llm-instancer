@@ -13,11 +13,13 @@ public class Experiment {
     public final int repetitions;
     public final String system;
     public final String type;
+    public final Model modelName;
 
     public Experiment(Model model, String type, String system, int repetitions) {
         this.system = system;
         this.type = type;
         this.model = Llms.getModel(model);
+        this.modelName = model;
         this.repetitions = repetitions;
         umlPath = "./src/main/resources/prompts/" + system + "/diagram.use";
         examplePath = "./src/main/resources/prompts/" + system + "/example.soil";

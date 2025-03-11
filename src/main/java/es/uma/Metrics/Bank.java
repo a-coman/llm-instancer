@@ -117,6 +117,7 @@ public class Bank implements IMetrics {
 
     @Override
     public void calculate(String diagramPath, String instancePath) {
+        System.out.println(this.getClass().getSimpleName() + " calculating ALL metrics for: " + instancePath);
         String diagram = Utils.readFile(diagramPath);
         String instance = Utils.readFile(instancePath);
         
@@ -149,9 +150,11 @@ public class Bank implements IMetrics {
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append("Valid IBANs: ").append(validIbans).append("/").append(totalIbans).append(" (" + String.format("%.2f", validIbans * 100.0 / totalIbans) + "%)").append("\n");
-        sb.append("Valid BICs: ").append(validBics).append("/").append(totalBics).append(" (" + String.format("%.2f", validBics * 100.0 / totalBics) + "%)").append("\n");
-        sb.append("Valid Countries: ").append(validCountries).append("/").append(totalCountries).append(" (" + String.format("%.2f", validCountries * 100.0 / totalCountries) + "%)").append("\n");
+        sb.append("| Bank | Valid | Total | Success (%) | \n");
+        sb.append("|---|---|---|---| \n");
+        sb.append("| IBANs | ").append(validIbans).append(" | ").append(totalIbans).append(" | " + String.format("%.2f", validIbans * 100.0 / totalIbans) + "% | ").append("\n");
+        sb.append("| BICs | ").append(validBics).append(" | ").append(totalBics).append(" | " + String.format("%.2f", validBics * 100.0 / totalBics) + "% | ").append("\n");
+        sb.append("| Countries | ").append(validCountries).append(" | ").append(totalCountries).append(" | " + String.format("%.2f", validCountries * 100.0 / totalCountries) + "% | ").append("\n");
         return sb.toString();
     }
     

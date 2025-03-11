@@ -71,6 +71,11 @@ public class MetricsRunner {
 
         // Output summary metrics and save
         sb.append("# Summary for all generations\n");
+        sb.append("| Summary | Value | \n").append("|---|---| \n");
+        sb.append("| Model | ").append(experiment.modelName).append(" | \n");
+        sb.append("| Type | ").append(experiment.type).append(" | \n");
+        sb.append("| System | ").append(experiment.system).append(" | \n");
+        sb.append("| Number of generations | ").append(experiment.repetitions).append(" | \n\n");
         sb.append(sumGeneral.toString()).append("\n");
         sb.append(sumSpecific.toString()).append("\n");
 

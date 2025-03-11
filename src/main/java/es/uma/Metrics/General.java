@@ -41,12 +41,14 @@ public class General implements IMetrics {
 
     @Override
     public void calculate(String diagramPath, String instancePath) {
+        System.out.println(this.getClass().getSimpleName() + " calculating ALL metrics for: " + instancePath);
         calculateInvalid(diagramPath, instancePath);
         calculateInvariantsErrors(diagramPath, instancePath);
     }
 
     @Override
     public void calculateInvalid(String diagramPath, String instancePath) {
+        System.out.println(this.getClass().getSimpleName() + " calculating Invalid metrics for: " + instancePath);
         calculateSyntaxErrors(diagramPath, instancePath);
         calculateMultiplicitiesErrors(diagramPath, instancePath);
     }
@@ -66,9 +68,12 @@ public class General implements IMetrics {
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append("Syntax Errors: ").append(syntaxErrors).append("\n");
-        sb.append("Multiplicities Errors: ").append(multiplicitiesErrors).append("\n");
-        sb.append("Invariants Errors: ").append(invariantsErrors).append("\n");
+        sb.append("| General | Value | \n");
+        sb.append("|---|---| \n");
+        sb.append("| Syntax Errors | ").append(syntaxErrors).append(" | \n");
+        sb.append("| Multiplicities Errors | ").append(multiplicitiesErrors).append(" | \n");
+        sb.append("| Invariants Errors | ").append(invariantsErrors).append(" | \n");
         return sb.toString();
     }
+    
 }
