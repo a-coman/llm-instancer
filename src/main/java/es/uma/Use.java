@@ -142,7 +142,9 @@ public class Use {
         output = output.substring(start);
 
         String result = "";
-        if (output.contains("FAILED") || output.contains("N/A")) { // Constraints/invariants failed
+
+        // To match also N/A -> || output.contains("N/A")
+        if (output.contains("FAILED")) { // Constraints/invariants failed
             result = output + "\n" + invariants;
         }
 
