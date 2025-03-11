@@ -6,6 +6,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
+import java.util.ArrayList;
 
 public class Use {
     private Process process;
@@ -90,27 +91,22 @@ public class Use {
     }
 
     public String checkSyntax(String diagramPath, String instancePath) {
+        StringBuffer errors = new StringBuffer();
         open(diagramPath, instancePath);
         String output = readOutput("Open finalized");
-        // Check for syntax errors
-        StringBuffer errors = new StringBuffer();
-        String[] searchStrings = {"<input>", "Error:", "Warning:"};
-        for (String search : searchStrings) {
-            int index = output.indexOf(search);
-            while (index >= 0) {
-                if (output.contains("natGNUReadline in java.library.path")) {  // Provisional, skip first console log error
-                    index = output.indexOf(search, index + 1);
-                    continue;
-                }
-                String error = output.substring(index+7, output.indexOf("\n", index)); // +7 to avoid input tag"
-                errors.append(error + "\n");
-                index = output.indexOf(search, index + 1);
+
+        String pattern = "(<input>:.*?\\n|Error:.*?\\n|Warning:.*?\\n)";
+        ArrayList<String> list = Utils.match(output, pattern);
+       
+        list.forEach((error) -> {
+            // Skip irrelevant errors (i.e., console log errors)
+            if (!error.contains("GNUReadline in java.library.path")) {
+                errors.append(error).append("\n");
             }
-        }
+        });
 
         System.out.println(errors.toString());
         return errors.toString().isEmpty() ? "OK" : errors.toString();
-
     }
 
     public String checkMultiplicities(String diagramPath, String instancePath) {
@@ -156,7 +152,18 @@ public class Use {
 
     // Main for testing purposes
     public static void main(String[] args) {
+        String testDiagram = "./src/main/resources/prompts/bank/diagram.use";
+        String testInstance = "./src/main/resources/instances/CoT/bank/GPT_4O/11-03-2025--18-41-54/gen2/outputValid.soil";
+
         Use use = new Use();
+        use.checkSyntax(testDiagram, testInstance);
+        System.out.println("\n\n");
+
+        use.checkMultiplicities(testDiagram, testInstance);
+        System.out.println("\n\n");
+
+        use.checkInvariants(testDiagram, testInstance, "");
+        System.out.println("\n\n");
         use.close();
     }
 }

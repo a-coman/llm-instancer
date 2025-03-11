@@ -34,7 +34,8 @@ public class General implements IMetrics {
     private void calculateInvariantsErrors(String diagramPath, String instancePath) {   
         Use use = new Use();
         String invariants = use.checkInvariants(diagramPath, instancePath, "");
-        ArrayList<String> invariantErrors = Utils.split(invariants, "(?m)^checking invariant.*?(FAILED|N/A)\\.\\s*$(.*\\n)*?(?=^checking invariant|\\z)");
+        // REGEX to match also N/A -> "(?m)^checking invariant.*?(FAILED|N/A)\\.?\\s*$"
+        ArrayList<String> invariantErrors = Utils.split(invariants, "(?m)^checking invariant.*FAILED\\.?\\s*$");
         this.invariantsErrors += invariantErrors.size();
         use.close();
     }
@@ -74,6 +75,16 @@ public class General implements IMetrics {
         sb.append("| Multiplicities Errors | ").append(multiplicitiesErrors).append(" | \n");
         sb.append("| Invariants Errors | ").append(invariantsErrors).append(" | \n");
         return sb.toString();
+    }
+
+    // Main for testing purposes
+    public static void main(String[] args) {
+        String testDiagram = "./src/main/resources/prompts/bank/diagram.use";
+        String testInstance = "./src/main/resources/instances/CoT/bank/GPT_4O/11-03-2025--18-41-54/gen2/outputValid.soil";
+
+        General general = new General();
+        general.calculate(testDiagram, testInstance);
+        System.out.println(general.toString());
     }
     
 }
