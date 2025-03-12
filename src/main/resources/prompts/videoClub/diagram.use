@@ -1,0 +1,58 @@
+model VideoClub
+
+dataType Date
+operations
+    Date(date : String)
+end
+
+enum Genre { 
+    Action, 
+    Comedy
+}
+
+class Client
+attributes
+    clientId : Integer
+    isSuspended : Boolean
+end
+
+class Rental
+attributes
+    date : Date
+end
+
+class Cassette
+attributes
+    title : String
+    availableCopies : Integer
+end
+
+class Film < Cassette
+attributes
+    genre : Genre
+end
+
+class Serie < Cassette
+attributes
+    serialNumber : Integer
+end
+
+class Actor
+attributes
+    name : String
+end
+
+association ClientRental between
+    Client [1] role assigned
+    Rental [*] role gets
+end
+
+association RentalCassette between
+    Rental [*] role borrowed
+    Cassette [1..*] role borrows
+end
+
+association CassetteActor between
+    Cassette [*] role actsIn
+    Actor [1..*] role has
+end
