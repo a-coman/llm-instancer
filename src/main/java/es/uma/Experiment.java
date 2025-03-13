@@ -22,7 +22,7 @@ public class Experiment {
         this.modelName = model;
         this.repetitions = repetitions;
         umlPath = "./src/main/resources/prompts/" + system + "/diagram.use";
-        examplePath = "./src/main/resources/prompts/" + system + "/example.soil";
+        examplePath = "./src/main/resources/prompts/example.soil";
         instancePath = "./src/main/resources/instances/" + type + "/" + system + "/" + model.toString() + "/" + Utils.getTime() + "/";
         Logger.setExperiment(this);
     }

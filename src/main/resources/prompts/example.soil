@@ -1,0 +1,21 @@
+-- This is a comment example
+-- Syntax example of USE instaces generation
+
+-- You can create instances with the following syntax:
+!new <instance type>('<instance name>')
+-- Example:
+!new Client('client1')
+!new Store('store4')
+
+-- You can assign values to attributes for an created instance with the following syntax:
+!<instance name>.<attribute name> := <value>
+-- Example for different data types:
+!client1.clientId := 1 -- For Integer
+!client1.balance := 1123.45 -- For Double
+!client1.name := 'Jhon' -- For Strings
+!store4.available := true -- For Boolean
+
+-- You can create associations between instances with the following syntax:
+!insert (<instance name1>, <instance name2>) into <association name>
+-- Example:
+!insert (client1, store4) into ClientStore
