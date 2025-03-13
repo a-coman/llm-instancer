@@ -27,14 +27,14 @@ attributes
     availableCopies : Integer
 end
 
-class Film < Cassette
+class Movie < Cassette
 attributes
     genre : Genre
 end
 
-class Serie < Cassette
+class Series < Cassette
 attributes
-    serialNumber : Integer
+    episode : Integer
 end
 
 class Actor

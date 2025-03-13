@@ -10,6 +10,22 @@
         <showrolenames>true</showrolenames>
         <showgrid>false</showgrid>
     </diagramOptions>
+    <node id="Movie" sizeCalculated="true" type="Class">
+        <name>Movie</name>
+        <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyFixed">
+            <x>371.0</x>
+            <y>258.0</y>
+        </strategy>
+        <hidden>false</hidden>
+    </node>
+    <node id="Series" sizeCalculated="true" type="Class">
+        <name>Series</name>
+        <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyFixed">
+            <x>488.0</x>
+            <y>256.0</y>
+        </strategy>
+        <hidden>false</hidden>
+    </node>
     <node id="Cassette" sizeCalculated="true" type="Class">
         <name>Cassette</name>
         <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyFixed">
@@ -23,14 +39,6 @@
         <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyFixed">
             <x>241.0</x>
             <y>154.0</y>
-        </strategy>
-        <hidden>false</hidden>
-    </node>
-    <node id="Film" sizeCalculated="true" type="Class">
-        <name>Film</name>
-        <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyFixed">
-            <x>530.0</x>
-            <y>273.0</y>
         </strategy>
         <hidden>false</hidden>
     </node>
@@ -50,27 +58,19 @@
         </strategy>
         <hidden>false</hidden>
     </node>
-    <node id="Serie" sizeCalculated="true" type="Class">
-        <name>Serie</name>
-        <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyFixed">
-            <x>355.0</x>
-            <y>273.0</y>
-        </strategy>
-        <hidden>false</hidden>
-    </node>
     <node id="Date" sizeCalculated="true" type="DataType">
         <name>Date</name>
         <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyFixed">
-            <x>141.0</x>
-            <y>27.0</y>
+            <x>144.0</x>
+            <y>33.0</y>
         </strategy>
         <hidden>false</hidden>
     </node>
     <node id="Genre" sizeCalculated="true" type="Enumeration">
         <name>Genre</name>
         <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyFixed">
-            <x>26.0</x>
-            <y>25.0</y>
+            <x>30.0</x>
+            <y>31.0</y>
         </strategy>
         <hidden>false</hidden>
     </node>
@@ -79,19 +79,6 @@
         <target>Rental</target>
         <name>ClientRental</name>
         <properties>
-            <edgeproperty id="ClientRental::source::rolename"
-                sizeCalculated="true" type="rolename" userDefined="true" visible="true">
-                <name>assigned</name>
-                <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyRelativeToAttached">
-                    <userOffsetX>3.0</userOffsetX>
-                    <userOffsetY>10.0</userOffsetY>
-                    <attached>ClientRental::WayPoint::0</attached>
-                    <offset_x>8</offset_x>
-                    <offset_y>8</offset_y>
-                    <placement>TOP</placement>
-                </strategy>
-                <hidden>false</hidden>
-            </edgeproperty>
             <edgeproperty id="ClientRental::source::multiplicity"
                 sizeCalculated="true" type="multiplicity"
                 userDefined="true" visible="true">
@@ -103,6 +90,19 @@
                     <offset_x>8</offset_x>
                     <offset_y>8</offset_y>
                     <placement>BOTTOM</placement>
+                </strategy>
+                <hidden>false</hidden>
+            </edgeproperty>
+            <edgeproperty id="ClientRental::source::rolename"
+                sizeCalculated="true" type="rolename" userDefined="true" visible="true">
+                <name>assigned</name>
+                <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyRelativeToAttached">
+                    <userOffsetX>3.0</userOffsetX>
+                    <userOffsetY>10.0</userOffsetY>
+                    <attached>ClientRental::WayPoint::0</attached>
+                    <offset_x>8</offset_x>
+                    <offset_y>8</offset_y>
+                    <placement>TOP</placement>
                 </strategy>
                 <hidden>false</hidden>
             </edgeproperty>
@@ -183,6 +183,19 @@
         <target>Cassette</target>
         <name>RentalCassette</name>
         <properties>
+            <edgeproperty id="RentalCassette::source::rolename"
+                sizeCalculated="true" type="rolename" userDefined="true" visible="true">
+                <name>borrowed</name>
+                <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyRelativeToAttached">
+                    <userOffsetX>4.0</userOffsetX>
+                    <userOffsetY>8.0</userOffsetY>
+                    <attached>RentalCassette::WayPoint::0</attached>
+                    <offset_x>8</offset_x>
+                    <offset_y>8</offset_y>
+                    <placement>TOP</placement>
+                </strategy>
+                <hidden>false</hidden>
+            </edgeproperty>
             <edgeproperty id="RentalCassette::source::multiplicity"
                 sizeCalculated="true" type="multiplicity"
                 userDefined="true" visible="true">
@@ -194,19 +207,6 @@
                     <offset_x>8</offset_x>
                     <offset_y>8</offset_y>
                     <placement>BOTTOM</placement>
-                </strategy>
-                <hidden>false</hidden>
-            </edgeproperty>
-            <edgeproperty id="RentalCassette::source::rolename"
-                sizeCalculated="true" type="rolename" userDefined="true" visible="true">
-                <name>borrowed</name>
-                <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyRelativeToAttached">
-                    <userOffsetX>4.0</userOffsetX>
-                    <userOffsetY>8.0</userOffsetY>
-                    <attached>RentalCassette::WayPoint::0</attached>
-                    <offset_x>8</offset_x>
-                    <offset_y>8</offset_y>
-                    <placement>TOP</placement>
                 </strategy>
                 <hidden>false</hidden>
             </edgeproperty>
@@ -387,13 +387,13 @@
         <hidden>false</hidden>
     </edge>
     <edge type="Generalization">
-        <source>Film</source>
+        <source>Movie</source>
         <target>Cassette</target>
         <name>Inheritance</name>
         <properties/>
         <waypoints>
             <edgeproperty
-                id="Generalization::Film::Cassette::WayPoint::0"
+                id="Generalization::Movie::Cassette::WayPoint::0"
                 sizeCalculated="true" type="WayPoint"
                 userDefined="false" visible="true">
                 <name>0</name>
@@ -406,7 +406,7 @@
                 <hidden>false</hidden>
             </edgeproperty>
             <edgeproperty
-                id="Generalization::Film::Cassette::WayPoint::1"
+                id="Generalization::Movie::Cassette::WayPoint::1"
                 sizeCalculated="true" type="WayPoint"
                 userDefined="false" visible="true">
                 <name>1</name>
@@ -422,13 +422,13 @@
         <hidden>false</hidden>
     </edge>
     <edge type="Generalization">
-        <source>Serie</source>
+        <source>Series</source>
         <target>Cassette</target>
         <name>Inheritance</name>
         <properties/>
         <waypoints>
             <edgeproperty
-                id="Generalization::Serie::Cassette::WayPoint::0"
+                id="Generalization::Series::Cassette::WayPoint::0"
                 sizeCalculated="true" type="WayPoint"
                 userDefined="false" visible="true">
                 <name>0</name>
@@ -441,7 +441,7 @@
                 <hidden>false</hidden>
             </edgeproperty>
             <edgeproperty
-                id="Generalization::Serie::Cassette::WayPoint::1"
+                id="Generalization::Series::Cassette::WayPoint::1"
                 sizeCalculated="true" type="WayPoint"
                 userDefined="false" visible="true">
                 <name>1</name>
