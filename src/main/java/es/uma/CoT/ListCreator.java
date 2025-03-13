@@ -25,17 +25,17 @@ public class ListCreator implements Runnable {
     @Override
     public void run() {
         IListCreator listCreator = Llms.getAgent(IListCreator.class, experiment.model);
-        for (int i = 1; i <= experiment.repetitions; i++) {
-            Listener.setCurrentCategory(categoryId+i);
-            Listener.logsPath = experiment.instancePath + "gen" + i + "/";
+        for (int gen = 1; gen <= experiment.repetitions; gen++) {
+            Listener.setCurrentCategory(categoryId + gen);
+            Listener.logsPath = experiment.instancePath + "gen" + gen + "/";
             String value;
-            if(i == 1) {
+            if(gen == 1) {
                 value = listCreator.chat(categoryPrompt, modelDescription);
             } else {
                 value = listCreator.chat("For the same cateogry and model description, let's continue generating more instances that are structurally and semantically different from the previous ones"); 
             }
             
-            List list = new List("gen"+i, categoryId, value);        
+            List list = new List(gen, categoryId, value);        
             queue.add(list);
         }
     }

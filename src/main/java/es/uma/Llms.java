@@ -83,6 +83,7 @@ public class Llms {
             case GEMINI_2_FLASH_LITE:
                 return GoogleAiGeminiChatModel.builder()
                     .apiKey(System.getenv("GEMINI_KEY"))
+                    .maxOutputTokens(500) // Limit for testing
                     .modelName("gemini-2.0-flash-lite-preview-02-05")
                     .logRequestsAndResponses(true)
                     .listeners(List.of(new Listener()))

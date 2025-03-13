@@ -57,9 +57,9 @@ public class CoT {
     }
 
     private static void instantiateList(List list, IListInstantiator listInstantiator, Experiment experiment, Use use, String invariants, String exampleSOIL) {
-        Listener.setCurrentCategory(list.id());
+        Listener.setCurrentCategory(list.id() + list.gen());
         // Generate and save temp instance
-        String instancePath = experiment.instancePath + list.gen() + "/";
+        String instancePath = experiment.instancePath + "gen" + list.gen() + "/";
         String instanceSOIL = listInstantiator.chat(list.value(), exampleSOIL);
         Utils.saveFile(Utils.removeComments(instanceSOIL), instancePath, "temp.soil", false);
         
@@ -92,7 +92,7 @@ public class CoT {
 
     private static String validateConstraints(String instanceSOIL, IListInstantiator listInstantiator, List list, Experiment experiment, Use use, String invariants) {
         
-        String instancePath = experiment.instancePath + list.gen() + "/";
+        String instancePath = experiment.instancePath + "gen" + list.gen() + "/";
         String multiplicitiesErrors;
         String invariantsErrors;
         String check;
