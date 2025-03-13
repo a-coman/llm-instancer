@@ -63,9 +63,21 @@ public class CoT {
         String instanceSOIL = listInstantiator.chat(list.value(), exampleSOIL);
         Utils.saveFile(Utils.removeComments(instanceSOIL), instancePath, "temp.soil", false);
         
-        // Validate syntax and constraints
-        use.checkSyntax(experiment.umlPath, instancePath + "temp.soil");            
+        // We check syntax for all
+        String syntaxErrors;
+        int attempts = 0;
+        final int MAX_ATTEMPTS = 2;
+
+        do {
+            syntaxErrors = use.checkSyntax(experiment.umlPath, instancePath + "temp.soil");
+            if (!syntaxErrors.equals("OK")) {
+                instanceSOIL = listInstantiator.chat("The last output had some syntax errors: \n " + syntaxErrors + "\n Please provide it corrected");
+                Utils.saveFile(Utils.removeComments(instanceSOIL), instancePath, "temp.soil", false);
+            }
+            attempts++;
+        } while (!syntaxErrors.equals("OK") && attempts < MAX_ATTEMPTS);
         
+        // We check multiplicities and invariants only for valid lists
         if (!list.id().contains("invalid")) {
             instanceSOIL = validateConstraints(instanceSOIL, listInstantiator, list, experiment, use, invariants);
             Utils.saveFile(Utils.removeComments(instanceSOIL) + "\n\n", instancePath, "outputValid.soil");
@@ -73,32 +85,38 @@ public class CoT {
             Utils.saveFile(Utils.removeComments(instanceSOIL) + "\n\n", instancePath, "outputInvalid.soil");
         }
         
-        String processedInstance = Utils.removeComments(instanceSOIL) + "\n\n";
-        Utils.saveFile(processedInstance, instancePath, "output.soil");
+        String processedInstance = Utils.removeComments(instanceSOIL);
+        Utils.saveFile(processedInstance + "\n\n", instancePath, "output.soil");
         Utils.saveFile(processedInstance, instancePath, list.id() + ".soil");
     }
 
     private static String validateConstraints(String instanceSOIL, IListInstantiator listInstantiator, List list, Experiment experiment, Use use, String invariants) {
         
         String instancePath = experiment.instancePath + list.gen() + "/";
-        String check = use.checkInvariants(experiment.umlPath, instancePath + "temp.soil", invariants);
-
+        String multiplicitiesErrors;
+        String invariantsErrors;
+        String check;
         int attempts = 0;
-        while (!check.equals("OK") && attempts < 2) {
+        final int MAX_ATTEMPTS = 2;
+
+        do {
+            multiplicitiesErrors = use.checkMultiplicities(experiment.umlPath, instancePath + "temp.soil");
+            invariantsErrors = use.checkInvariants(experiment.umlPath, instancePath + "temp.soil", invariants);
+
+            multiplicitiesErrors = multiplicitiesErrors.equals("OK") ? "" : multiplicitiesErrors + "\n";
+            invariantsErrors = invariantsErrors.equals("OK") ? "" : invariantsErrors;
+            check = multiplicitiesErrors + invariantsErrors;
+
+            if (!check.isEmpty()) {
             instanceSOIL = listInstantiator.chat(
                 "The last output is partially incorrect: \n" + check + 
                 "\n Please provide it corrected");    
             Utils.saveFile(Utils.removeComments(instanceSOIL), 
-                    instancePath, "temp.soil", false);
-            check = use.checkInvariants(experiment.umlPath, 
-                    instancePath + "temp.soil",
-                    invariants);
-            attempts++;
-        }
+                instancePath, "temp.soil", false);
+            }
 
-        if (attempts == 2) {
-            //Metrics.addFailedCheck(list.id());
-        }
+            attempts++;
+        } while (!check.isEmpty() && attempts < MAX_ATTEMPTS);
 
         return instanceSOIL;
     }
