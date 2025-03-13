@@ -16,7 +16,6 @@ import dev.langchain4j.model.chat.listener.ChatModelListener;
 
 public class Listener implements ChatModelListener {
 
-    public static String logsPath;
     private static double startTime;
 
     private static ThreadLocal<String> currentAgent = new ThreadLocal<>();
@@ -35,7 +34,7 @@ public class Listener implements ChatModelListener {
         ChatRequest request = requestContext.chatRequest();
         StringBuffer sb = new StringBuffer();
         
-        sb.append("\n# Input " + (currentAgent.get() != null ? currentAgent.get() : "Unknown") + (currentCategory.get() != null ? (" : " + currentCategory.get()) : "") + "\n");
+        sb.append("# Input " + (currentAgent.get() != null ? currentAgent.get() : "Unknown") + (currentCategory.get() != null ? (" : " + currentCategory.get()) : "") + "\n");
         sb.append("|Messages|\n|---|\n");
         List<ChatMessage> messages = request.messages();
         ChatRequestParameters parameters = request.parameters();
@@ -45,8 +44,9 @@ public class Listener implements ChatModelListener {
         sb.append("Model: " + parameters.modelName() + "\n");
         sb.append("Max-Tokens: " + parameters.maxOutputTokens() + "\n");
         sb.append("Temperature: " + parameters.temperature() + "\n");
-        sb.append("Top-P: " + parameters.topP() + "\n");
-        Utils.saveFile(sb.toString(), logsPath, "output.md");  
+        sb.append("Top-P: " + parameters.topP() + "\n\n");
+        
+        Logger.addLog(sb.toString());
     }
 
     @Override
@@ -56,7 +56,7 @@ public class Listener implements ChatModelListener {
 
         ChatResponseMetadata metadata = response.metadata();
 
-        sb.append("\n# Output " + (currentAgent.get() != null ? currentAgent.get() : "Unknown") + (currentCategory.get() != null ? (" : " + currentCategory.get()) : "") + "\n");
+        sb.append("# Output " + (currentAgent.get() != null ? currentAgent.get() : "Unknown") + (currentCategory.get() != null ? (" : " + currentCategory.get()) : "") + "\n");
         String aiMessage = response.aiMessage().text();
         aiMessage = Utils.removeBackticks(aiMessage); // (without backticks codeblock)
         sb.append("```\n" + aiMessage + "\n```\n");
@@ -70,11 +70,11 @@ public class Listener implements ChatModelListener {
         sb.append("Output Tokens: " + outputTokens + "\n");
         sb.append("Total Tokens: " + totalTokens + "\n");
         double genTime = (System.nanoTime() - startTime) / 1000000000;
-        ListenerMetrics.inecrementGenTime(genTime);
-        sb.append("Generation Time: " + String.format("%.2f", genTime) + " seconds\n");
-        ListenerMetrics.incrementTokens(inputTokens, outputTokens, totalTokens);
+        Logger.inecrementGenTime(genTime);
+        sb.append("Generation Time: " + String.format("%.2f", genTime) + " seconds\n\n");
+        Logger.incrementTokens(inputTokens, outputTokens, totalTokens);
         
-        Utils.saveFile(sb.toString(), logsPath, "output.md");
+        Logger.addLog(sb.toString());
     }
 
     @Override

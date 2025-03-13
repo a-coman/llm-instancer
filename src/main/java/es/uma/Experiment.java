@@ -24,8 +24,7 @@ public class Experiment {
         umlPath = "./src/main/resources/prompts/" + system + "/diagram.use";
         examplePath = "./src/main/resources/prompts/" + system + "/example.soil";
         instancePath = "./src/main/resources/instances/" + type + "/" + system + "/" + model.toString() + "/" + Utils.getTime() + "/";
-        Listener.logsPath = instancePath;
-        ListenerMetrics.setExperiment(this);
+        Logger.setExperiment(this);
     }
 
     public void run() {

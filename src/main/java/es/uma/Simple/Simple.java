@@ -1,5 +1,6 @@
 package es.uma.Simple;
 
+
 import es.uma.Experiment;
 import es.uma.Listener;
 import es.uma.Llms;
@@ -13,8 +14,8 @@ public class Simple {
         String exampleSOIL = Utils.readFile(experiment.examplePath);
 
         for (int gen = 1; gen <= experiment.repetitions; gen++) {
+            Listener.setCurrentCategory("gen" + gen);
             String instancePath = experiment.instancePath + "gen" + gen + "/"; 
-            Listener.logsPath = instancePath;
             String response;
             
             if (gen == 1) {

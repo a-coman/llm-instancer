@@ -27,7 +27,6 @@ public class ListCreator implements Runnable {
         IListCreator listCreator = Llms.getAgent(IListCreator.class, experiment.model);
         for (int gen = 1; gen <= experiment.repetitions; gen++) {
             Listener.setCurrentCategory(categoryId + gen);
-            Listener.logsPath = experiment.instancePath + "gen" + gen + "/";
             String value;
             if(gen == 1) {
                 value = listCreator.chat(categoryPrompt, modelDescription);
