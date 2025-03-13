@@ -11,7 +11,7 @@
 !<instance name>.<attribute name> := <value>
 -- Example for different data types:
 !client1.clientId := 1 -- For Integer
-!client1.balance := 1123.45 -- For Double
+!client1.balance := 1123.45 -- For Real
 !client1.name := 'Jhon' -- For Strings
 !store4.available := true -- For Boolean
 
@@ -19,3 +19,17 @@
 !insert (<instance name1>, <instance name2>) into <association name>
 -- Example:
 !insert (client1, store4) into ClientStore
+
+-- Custom data types example:
+    -- dataType Location
+    -- operations
+    --   Location(x : Real, y : Real)
+    --   some other operations
+    -- end
+-- Can be used as follows:
+!store4.location := Location(14.0, 289.0)
+
+-- Enums example:
+    -- enum Type { Clothes, Shoes }
+-- Can be used as follows:
+store4.type := #Clothes

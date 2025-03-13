@@ -6,6 +6,8 @@ public class MetricsFactory {
             case "bank":
                 return new Bank();
             // Add more cases here for other systems
+            case "videoclub":
+                return new VideoClub();
             default:
                 throw new IllegalArgumentException("Unknown system: " + system);
         }
