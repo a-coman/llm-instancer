@@ -18,8 +18,8 @@ public class General implements IMetrics {
     private void calculateSyntaxErrors(String diagramPath, String instancePath) {
         Use use = new Use();
         String syntax = use.checkSyntax(diagramPath, instancePath);
-        String[] syntaxErrors = syntax.equals("OK") ? new String[0] : syntax.split("\n");
-        this.syntaxErrors += syntaxErrors.length;
+        ArrayList<String> syntaxErrors = syntax.equals("OK") ? new ArrayList<>() : Utils.split(syntax, "(<input>:.*?\\n|Error:.*?\\n|Warning:.*?\\n)");
+        this.syntaxErrors += syntaxErrors.size();
         use.close();
     }
 

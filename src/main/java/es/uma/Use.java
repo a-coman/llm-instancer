@@ -6,7 +6,8 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
-import java.util.ArrayList;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class Use {
     private Process process;
@@ -95,15 +96,22 @@ public class Use {
         open(diagramPath, instancePath);
         String output = readOutput("Open finalized");
 
-        String pattern = "(<input>:.*?\\n|Error:.*?\\n|Warning:.*?\\n)";
-        ArrayList<String> list = Utils.match(output, pattern);
-       
-        list.forEach((error) -> {
-            // Skip irrelevant errors (i.e., console log errors)
-            if (!error.contains("GNUReadline in java.library.path")) {
-                errors.append(error).append("\n");
+        String pattern = "(.*?\\n)?(<input>:.*?\\n|Error:.*?\\n|Warning:.*?\\n)"; // Modified Pattern
+
+        Pattern regex = Pattern.compile(pattern);
+        Matcher matcher = regex.matcher(output);
+
+        while (matcher.find()) {
+            String previousLine = matcher.group(1);
+            String errorLine = matcher.group(2);
+
+            if (errorLine != null && !errorLine.contains("GNUReadline in java.library.path")) {
+                if (previousLine != null) {
+                    errors.append(previousLine);
+                }
+                errors.append(errorLine).append("\n");
             }
-        });
+        }
 
         System.out.println(errors.toString());
         return errors.toString().isEmpty() ? "OK" : errors.toString();
