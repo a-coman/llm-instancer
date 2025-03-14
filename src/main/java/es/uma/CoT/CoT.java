@@ -41,7 +41,7 @@ public class CoT {
         
         for(int i = 0; i < totalLists; i++) {
             List list = getListFromQueue(queue);
-            instantiateList(list, listInstantiator, experiment, use, invariants, exampleSOIL);
+            instantiateList(modelUML, i, list, listInstantiator, experiment, use, invariants, exampleSOIL);
         }
 
         use.close();
@@ -56,11 +56,18 @@ public class CoT {
         }
     }
 
-    private static void instantiateList(List list, IListInstantiator listInstantiator, Experiment experiment, Use use, String invariants, String exampleSOIL) {
+    private static void instantiateList(String modelUML, int i, List list, IListInstantiator listInstantiator, Experiment experiment, Use use, String invariants, String exampleSOIL) {
         Listener.setCurrentCategory(list.id() + list.gen());
         // Generate and save temp instance
         String instancePath = experiment.instancePath + "gen" + list.gen() + "/";
-        String instanceSOIL = listInstantiator.chat(list.value(), exampleSOIL);
+        String instanceSOIL;
+        
+        if (i == 0) {
+            instanceSOIL = listInstantiator.chat(modelUML, exampleSOIL, list.value());    
+        } else {
+            instanceSOIL = listInstantiator.chat("Lets continue with the following list: \n" + list.value());
+        }
+        
         Utils.saveFile(Utils.removeComments(instanceSOIL), instancePath, "temp.soil", false);
         
         // We check syntax for all

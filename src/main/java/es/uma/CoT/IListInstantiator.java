@@ -16,18 +16,21 @@ public interface IListInstantiator {
         - Take in account previously created instances to avoid using duplicate namings.
         """;
 
-    String message = 
+    String firstMessage = 
         """
-        Lets continue with the following list: 
-        {{list}}
-        
-        # Syntax example:
+        # Model UML:
+        {{modelUML}}
+
+        # Syntax example of instances creation:
         {{syntaxExample}}
+
+        Lets start with the following list: 
+        {{list}}
         """;
 
     @SystemMessage(system)
-    @UserMessage(message) 
-    String chat(@V("list") String list, @V("syntaxExample") String syntaxExample);
+    @UserMessage(firstMessage) 
+    String chat(@V("modelUML") String modelUML, @V("syntaxExample") String syntaxExample, @V("list") String list);
 
     @SystemMessage(system)
     String chat(String message);
