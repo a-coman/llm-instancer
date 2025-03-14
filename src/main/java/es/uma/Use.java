@@ -96,7 +96,7 @@ public class Use {
         open(diagramPath, instancePath);
         String output = readOutput("Open finalized");
 
-        String pattern = "(.*?\\n)?(<input>:.*?\\n|Error:.*?\\n|Warning:.*?\\n)"; // Modified Pattern
+        String pattern = "(.*?\\n)?(<input>:.*?\\n|Error:.*?\\n|Warning:.*?\\n|INTERNAL ERROR:.*?\\n)";
 
         Pattern regex = Pattern.compile(pattern);
         Matcher matcher = regex.matcher(output);

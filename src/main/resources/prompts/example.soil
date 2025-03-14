@@ -25,16 +25,16 @@
 -- Example:
 !insert (client1, store4) into ClientStore
 
--- Custom data types example:
+-- Custom data types usage:
     -- dataType Location
     -- operations
     --   Location(x : Real, y : Real)
     --   some other operations
     -- end
--- In this case, the constructor of Location requires two arguments: x and y of type Real. So it can be used as follows:
+-- You can create custom data types calling the constructor directly, in this case, the constructor of Location requires two arguments: x and y of type Real. So it can be used as follows:
 !store4.location := Location(14.0, 289.0)
 
--- Enums example:
+-- Enums usage:
     -- enum Type { Clothes, Shoes }
 -- Can be used as follows:
 store4.type := #Clothes
