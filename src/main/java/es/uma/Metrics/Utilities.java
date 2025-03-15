@@ -13,6 +13,8 @@ import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 public class Utilities {
 
     private static final Map<Locale, Set<String>> COUNTRY_NAMES_CACHE = new HashMap<>();
@@ -41,7 +43,8 @@ public class Utilities {
     }
 
     // Method to get request to URL and parse to DTO
-    public static void getRequest(String URL) {
+    public static <T> T getRequest(String URL, Class<T> responseType) {
+        ObjectMapper objectMapper = new ObjectMapper();
         HttpClient httpClient = HttpClient.newHttpClient();
         HttpRequest request = HttpRequest.newBuilder(URI.create(URL)).GET().build();
 
@@ -49,12 +52,17 @@ public class Utilities {
             HttpResponse<InputStream> response = httpClient.send(request, HttpResponse.BodyHandlers.ofInputStream());
 
             int statusCode = response.statusCode();
-            System.out.println(URL + " : " + statusCode);
-            // TODO: Parse response to DTO
-            //List<User> users = ExampleUtils.toList(response.body());
-
+            System.out.println("GET" + URL + " : " + "Status " + statusCode);
+            
+            if (statusCode == 200) {
+                return objectMapper.readValue(response.body(), responseType); 
+            } else {
+                System.err.println("API request failed with status code: " + statusCode); 
+                return(null);
+            }
         } catch (IOException | InterruptedException e) {
             throw new RuntimeException(e);
         }
+
     }
 }
