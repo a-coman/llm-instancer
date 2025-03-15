@@ -52,7 +52,7 @@ public class Utilities {
             HttpResponse<InputStream> response = httpClient.send(request, HttpResponse.BodyHandlers.ofInputStream());
 
             int statusCode = response.statusCode();
-            System.out.println("GET" + URL + " : " + "Status " + statusCode);
+            System.out.println("GET " + URL + " : " + "Status " + statusCode);
             
             if (statusCode == 200) {
                 return objectMapper.readValue(response.body(), responseType); 
