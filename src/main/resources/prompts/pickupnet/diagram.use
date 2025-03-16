@@ -1,0 +1,81 @@
+model PickupNet
+
+enum ShipmentStatus {
+    NEW,
+    ASSIGNED,
+    UNDERWAY,
+    DELIVERED
+}
+
+class Driver
+attributes
+    id : String
+    name : String
+end
+
+class Shipment
+attributes
+    id : String
+    status : ShipmentStatus
+end
+
+class Address
+attributes
+    text : String
+end
+
+class GeoLocation
+attributes
+    latitude : Real
+    longitude : Real
+end
+
+class Station
+end
+
+class Customer
+attributes
+    id : String
+    name : String
+    twitterUserName : String
+end
+
+association DriverShipment between
+    Driver [0..1] role driver
+    Shipment [0..*] role assignments
+end
+
+composition ShipmentToPickUpAddress between
+    Shipment [1] role hasPickUpShipment
+    Address [1] role pickUpAddress
+end
+
+composition ShipmentToAddress between
+    Shipment [1] role hasAddressShipment
+    Address [1] role shipToAddress
+end
+
+composition AddressGeoLocation between
+    Address [1] 
+    GeoLocation [1] role geoLocation
+end
+
+composition ShipmentCustomer between
+    Shipment [0..*] role orders
+    Customer [1] role orderer
+end
+
+composition StationCustomer between
+    Station [0..*] role customers
+    Customer [1]
+end
+
+association StationShipment between
+    Station [1]
+    Shipment [0..*] role shipments
+end
+
+composition DriverStation between
+    Driver [0..*] role drivers
+    Station [0..*]
+end

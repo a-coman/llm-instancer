@@ -1,4 +1,4 @@
-package es.uma.Metrics;
+package es.uma.Metrics.Specific;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -9,6 +9,8 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import es.uma.Utils;
+import es.uma.Metrics.IMetrics;
+import es.uma.Metrics.Utilities;
 import es.uma.Metrics.DTOs.MovieRecord;
 import io.github.cdimascio.dotenv.Dotenv;
 

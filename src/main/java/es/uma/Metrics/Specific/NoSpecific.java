@@ -1,4 +1,6 @@
-package es.uma.Metrics;
+package es.uma.Metrics.Specific;
+
+import es.uma.Metrics.IMetrics;
 
 public class NoSpecific implements IMetrics {
     @Override

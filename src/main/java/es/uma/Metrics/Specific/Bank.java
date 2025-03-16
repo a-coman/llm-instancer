@@ -1,4 +1,4 @@
-package es.uma.Metrics;
+package es.uma.Metrics.Specific;
 
 import java.util.List;
 
@@ -7,6 +7,8 @@ import de.schegge.bank.validator.BicValidator;
 import de.schegge.bank.validator.IBAN;
 import de.schegge.bank.validator.IbanValidator;
 import es.uma.Utils;
+import es.uma.Metrics.IMetrics;
+import es.uma.Metrics.Utilities;
 
 public class Bank implements IMetrics {
 

@@ -1,5 +1,7 @@
 package es.uma.Metrics;
 
+import es.uma.Metrics.Specific.*;
+
 public class MetricsFactory {
     public static IMetrics createMetrics(String system) {
         switch (system.toLowerCase()) {
