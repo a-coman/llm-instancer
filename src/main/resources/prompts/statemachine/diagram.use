@@ -26,7 +26,7 @@ end
 
 association StateMachineStartsStates between
     StateMachine [1] role startedIn
-    State [0..*] role start
+    State [1] role start
 end
 
 
@@ -35,9 +35,9 @@ composition StateMachineContainsTransitions between
     Transition [0..*] role containsTransitions
 end
 
-association StateContainsEvents between
-    State [1] role state
-    TimeEvent [*] role events
+composition TransitionEvents between
+    Transition [1] 
+    TimeEvent [1] role timer
 end
 
 association StateTransition between
