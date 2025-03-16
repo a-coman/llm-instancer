@@ -49,3 +49,13 @@ association TransitionState between
     Transition [0..*] role incoming
     State [1] role target
 end
+
+constraints
+context TimeEvent inv TimeIsPositive:
+    self.time > 0
+
+context State inv EachStateHasOneOutgoingTransition:
+    self.outgoing -> size() = 1
+
+context StateMachine inv FirstCharLowerCase:
+    self.containsStates -> forAll(s : State | s.name.at(1) = s.name.at(1).toLowerCase())
