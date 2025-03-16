@@ -152,9 +152,9 @@ public class Bank implements IMetrics {
         StringBuilder sb = new StringBuilder();
         sb.append("| Bank | Valid | Total | Success (%) | \n");
         sb.append("|---|---|---|---| \n");
-        sb.append("| IBANs | ").append(validIbans).append(" | ").append(totalIbans).append(" | " + String.format("%.2f", validIbans * 100.0 / totalIbans) + "% | ").append("\n");
-        sb.append("| BICs | ").append(validBics).append(" | ").append(totalBics).append(" | " + String.format("%.2f", validBics * 100.0 / totalBics) + "% | ").append("\n");
-        sb.append("| Countries | ").append(validCountries).append(" | ").append(totalCountries).append(" | " + String.format("%.2f", validCountries * 100.0 / totalCountries) + "% | ").append("\n");
+        sb.append(Utilities.formatMetricRow("IBANs", validIbans, totalIbans))
+          .append(Utilities.formatMetricRow("BICs", validBics, totalBics))
+          .append(Utilities.formatMetricRow("Countries", validCountries, totalCountries));
         return sb.toString();
     }
     

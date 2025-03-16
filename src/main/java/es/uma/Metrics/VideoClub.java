@@ -226,6 +226,7 @@ public class VideoClub implements IMetrics {
             }
         }
 
+        System.out.println("Valid Title: " + validTitle + "/" + totalTitle); 
         System.out.println("Valid Year: " + validYear + "/" + totalYear);
         System.out.println("Valid Genre: " + validGenre + "/" + totalGenre);
         System.out.println("Valid Actors: " + validActors + "/" + totalActors);
@@ -263,18 +264,18 @@ public class VideoClub implements IMetrics {
         StringBuilder sb = new StringBuilder();
         sb.append("| Videoclub | Valid | Total | Success (%) | \n");
         sb.append("|---|---|---|---| \n");
-        sb.append("| Titles | ").append(validTitle).append(" | ").append(totalTitle).append(" | " + String.format("%.2f", validTitle * 100.0 / totalTitle) + "% | ").append("\n");
-        sb.append("| Types (movie/series) | ").append(validType).append(" | ").append(totalType).append(" | " + String.format("%.2f", validType * 100.0 / totalType) + "% | ").append("\n");
-        sb.append("| Genres | ").append(validGenre).append(" | ").append(totalGenre).append(" | " + String.format("%.2f", validGenre * 100.0 / totalGenre) + "% | ").append("\n");
-        sb.append("| Actors | ").append(validActors).append(" | ").append(totalActors).append(" | " + String.format("%.2f", validActors * 100.0 / totalActors) + "% | ").append("\n");
-        sb.append("| Release year > Rental year | ").append(validYear).append(" | ").append(totalYear).append(" | " + String.format("%.2f", validYear * 100.0 / totalYear) + "% | ").append("\n");
+        sb.append(Utilities.formatMetricRow("Titles", validTitle, totalTitle))
+          .append(Utilities.formatMetricRow("Types (movie / series)", validType, totalType))
+          .append(Utilities.formatMetricRow("Genres", validGenre, totalGenre))
+          .append(Utilities.formatMetricRow("Actors", validActors, totalActors))
+          .append(Utilities.formatMetricRow("Release year > Rental year", validYear, totalYear));
         return sb.toString();
     }
     
 
     // Main for testing purposes
     public static void main(String[] args) {
-        String instancePath = "./src/main/resources/instances/CoT/videoclub/GPT_4O/14-03-2025--11-48-55/gen1/baseline.soil";
+        String instancePath = "./src/main/resources/instances/CoT/videoclub/GEMINI_2_FLASH_LITE/16-03-2025--10-51-59/gen1/complex.soil";
         // Dotenv dotenv = Dotenv.load();
         // String apiKey = dotenv.get("OMDB_KEY");
         // String movieTitle = "Guardians of the Galaxy Vol. 2";

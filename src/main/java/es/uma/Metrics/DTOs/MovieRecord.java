@@ -13,6 +13,10 @@ public record MovieRecord(
     String Actors, 
     String Type) {
 
+    public String Year() {
+        return Year != null ? Year.substring(0, 4) : null; // Use only the first year encountered 
+    }
+
     public List<String> getGenreList() {
         if (Genre == null || Genre.isEmpty()) {
             return List.of();

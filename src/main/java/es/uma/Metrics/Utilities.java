@@ -65,4 +65,10 @@ public class Utilities {
         }
 
     }
+    
+    public static String formatMetricRow(String label, int valid, int total) {
+        double percentage = total > 0 ? (valid * 100.0) / total : 0.0;
+        return String.format("| %s | %d | %d | %.2f%% |\n", 
+            label, valid, total, percentage);
+    }
 }
