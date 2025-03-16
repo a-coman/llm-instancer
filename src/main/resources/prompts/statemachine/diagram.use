@@ -1,0 +1,51 @@
+model StateMachine
+
+class NamedElement
+attributes
+    name : String
+end
+
+class State < NamedElement
+end
+
+class StateMachine < NamedElement
+end
+
+class Transition < NamedElement
+end
+
+class TimeEvent
+attributes
+    time : Integer
+end
+
+composition StateMachineContainsStates between
+    StateMachine [1] role containedIn
+    State [0..*] role containsStates
+end
+
+association StateMachineStartsStates between
+    StateMachine [1] role startedIn
+    State [0..*] role start
+end
+
+
+composition StateMachineContainsTransitions between
+    StateMachine [1]
+    Transition [0..*] role containsTransitions
+end
+
+association StateContainsEvents between
+    State [1] role state
+    TimeEvent [*] role events
+end
+
+association StateTransition between
+    State [1] role source
+    Transition [0..*] role outgoing
+end
+
+association TransitionState between
+    Transition [0..*] role incoming
+    State [1] role target
+end
