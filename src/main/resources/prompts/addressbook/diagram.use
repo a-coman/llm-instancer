@@ -1,0 +1,90 @@
+model AddressBook
+
+enum NoteType {
+    MEETING,
+    CALL,
+    EMAIL
+}
+
+enum RelationshipType {
+    BOSS,
+    EMPLOYEE,
+    SUBDIVISION,
+    COWORKER
+}
+
+dataType Date
+operations
+    Date(date : String)
+end
+
+class AddressBook
+end
+
+class Contact
+attributes
+    name : String
+    phone : String
+    website : String
+    email : String
+end
+
+class Note
+attributes
+    author : String
+    time : Date
+    type : NoteType
+    comment : String
+end
+
+class Company < Contact
+attributes
+    industry : String
+end
+
+class Person < Contact
+attributes
+    title : String
+end
+
+class Address
+attributes
+    city : String
+    houseNr : String
+    street : String
+end
+
+class Relationship
+attributes
+    type : RelationshipType
+end
+
+composition AddressBookMadeOfContact between
+    AddressBook[1]
+    Contact[*]
+end
+
+composition ContactMadeOfNote between
+    Contact[1]
+    Note[*]
+end
+
+association ContactRelationship between
+    Contact[1] role target
+    Relationship[*] role isRelated
+end
+
+composition ContactMadeOfRelationship between
+    Contact[1]
+    Relationship[*] role relates
+end
+
+composition ContactMadeOfAddress between
+    Contact[1] role source
+    Address[*] role address
+end
+
+association ContactRelation between
+    Contact[*]
+    Contact[*] role inRelation
+end

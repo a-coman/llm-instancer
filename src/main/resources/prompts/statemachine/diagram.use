@@ -20,7 +20,7 @@ attributes
 end
 
 composition StateMachineContainsStates between
-    StateMachine [1] role containedIn
+    StateMachine [1]
     State [0..*] role containsStates
 end
 
@@ -35,7 +35,7 @@ composition StateMachineContainsTransitions between
     Transition [0..*] role containsTransitions
 end
 
-composition TransitionEvents between
+composition TransitionContainsEvents between
     Transition [1] 
     TimeEvent [1] role timer
 end

@@ -45,29 +45,29 @@ association DriverShipment between
     Shipment [0..*] role assignments
 end
 
-composition ShipmentToPickUpAddress between
+composition ShipmentContainsPickUpAddress between
     Shipment [1] role hasPickUpShipment
     Address [1] role pickUpAddress
 end
 
-composition ShipmentToAddress between
+composition ShipmentContainsDeliveryAddress between
     Shipment [1] role hasAddressShipment
     Address [1] role shipToAddress
 end
 
-composition AddressGeoLocation between
+composition AddressContainsGeoLocation between
     Address [1] 
     GeoLocation [1] role geoLocation
 end
 
-composition ShipmentCustomer between
-    Shipment [0..*] role orders
+composition CustomerConsistsOfShipment between
     Customer [1] role orderer
+    Shipment [0..*] role orders
 end
 
-composition StationCustomer between
-    Station [0..*] role customers
-    Customer [1]
+composition StationContainsCustomer between
+    Station [1]
+    Customer [0..*] role customers 
 end
 
 association StationShipment between
@@ -75,7 +75,7 @@ association StationShipment between
     Shipment [0..*] role shipments
 end
 
-composition DriverStation between
+composition StationContainsDriver between
+    Station [1]
     Driver [0..*] role drivers
-    Station [0..*]
 end
