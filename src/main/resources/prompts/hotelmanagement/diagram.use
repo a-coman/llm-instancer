@@ -1,0 +1,81 @@
+model HotelManagement
+
+class Booking
+attributes
+    startDate : String
+    endDate : String
+    canceled : Boolean
+    bookingId : Integer
+    confirmed : Boolean
+end
+
+class Bill
+attributes
+    price : Real
+    billId : Integer
+end
+
+class FreeRoomTypesDTO
+attributes
+    roomTypeDescription : String
+    numBeds : Integer
+    pricePerNight : Real
+    numFreeRooms : Integer
+end
+
+class Customer
+attributes
+    firstName : String
+    lastName : String
+end
+
+class RoomReservation
+attributes
+    checkInDate : String
+    checkOutDate : String
+end
+
+class RoomExtra
+attributes
+    price : Real
+    description : String
+end
+
+class Room
+attributes
+    numBeds : Integer
+    pricePerNight : Real
+    occupied : Boolean
+    blocked : Boolean
+    roomNumber : Integer
+end
+
+association BookingBill between
+    Booking [1]
+    Bill [0..*] role bills
+end
+
+association BookingCustomer between
+    Booking [1]
+    Customer [1] role customer
+end
+
+association BookingRoomReservation between
+    Booking [1]
+    RoomReservation [*] role roomReservations
+end
+
+association RoomReservationExtras between
+    RoomReservation [1]
+    RoomExtra [*] role roomExtras
+end
+
+association RoomReservationRoom between
+    RoomReservation [1]
+    Room [*] role room
+end
+
+association BillRoomReservation between
+    Bill [1]
+    RoomReservation [1] role roomReservation
+end
