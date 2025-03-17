@@ -35,6 +35,8 @@ public class Llms {
                     .maxCompletionTokens(null)
                     .temperature(1.0)
                     .topP(1.0)
+                    .maxRetries(10)
+                    .timeout(Duration.ofSeconds(180))
                     .build();
             case GPT_O3_MINI:
                 return OpenAiChatModel.builder()

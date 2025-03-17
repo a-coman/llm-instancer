@@ -95,6 +95,19 @@
         <target>Customer</target>
         <name>RentalAgreementCustomer</name>
         <properties>
+            <edgeproperty id="RentalAgreementCustomer::target::rolename"
+                sizeCalculated="true" type="rolename" userDefined="true" visible="true">
+                <name>customer</name>
+                <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyRelativeToAttached">
+                    <userOffsetX>2.0</userOffsetX>
+                    <userOffsetY>2.0</userOffsetY>
+                    <attached>RentalAgreementCustomer::WayPoint::1</attached>
+                    <offset_x>8</offset_x>
+                    <offset_y>8</offset_y>
+                    <placement>TOP</placement>
+                </strategy>
+                <hidden>false</hidden>
+            </edgeproperty>
             <edgeproperty
                 id="RentalAgreementCustomer::target::multiplicity"
                 sizeCalculated="true" type="multiplicity"
@@ -107,19 +120,6 @@
                     <offset_x>8</offset_x>
                     <offset_y>8</offset_y>
                     <placement>BOTTOM</placement>
-                </strategy>
-                <hidden>false</hidden>
-            </edgeproperty>
-            <edgeproperty id="RentalAgreementCustomer::target::rolename"
-                sizeCalculated="true" type="rolename" userDefined="true" visible="true">
-                <name>customer</name>
-                <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyRelativeToAttached">
-                    <userOffsetX>2.0</userOffsetX>
-                    <userOffsetY>2.0</userOffsetY>
-                    <attached>RentalAgreementCustomer::WayPoint::1</attached>
-                    <offset_x>8</offset_x>
-                    <offset_y>8</offset_y>
-                    <placement>TOP</placement>
                 </strategy>
                 <hidden>false</hidden>
             </edgeproperty>
@@ -201,6 +201,19 @@
         <target>Vehicle</target>
         <name>RentalOfficeVehicle</name>
         <properties>
+            <edgeproperty id="RentalOfficeVehicle::target::rolename"
+                sizeCalculated="true" type="rolename" userDefined="true" visible="true">
+                <name>vehicle</name>
+                <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyRelativeToAttached">
+                    <userOffsetX>2.0</userOffsetX>
+                    <userOffsetY>-11.0</userOffsetY>
+                    <attached>RentalOfficeVehicle::WayPoint::1</attached>
+                    <offset_x>8</offset_x>
+                    <offset_y>8</offset_y>
+                    <placement>TOP</placement>
+                </strategy>
+                <hidden>false</hidden>
+            </edgeproperty>
             <edgeproperty id="RentalOfficeVehicle::target::multiplicity"
                 sizeCalculated="true" type="multiplicity"
                 userDefined="true" visible="true">
@@ -215,16 +228,17 @@
                 </strategy>
                 <hidden>false</hidden>
             </edgeproperty>
-            <edgeproperty id="RentalOfficeVehicle::target::rolename"
-                sizeCalculated="true" type="rolename" userDefined="true" visible="true">
-                <name>vehicle</name>
+            <edgeproperty id="RentalOfficeVehicle::source::multiplicity"
+                sizeCalculated="true" type="multiplicity"
+                userDefined="true" visible="true">
+                <name>1</name>
                 <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyRelativeToAttached">
-                    <userOffsetX>2.0</userOffsetX>
-                    <userOffsetY>-11.0</userOffsetY>
-                    <attached>RentalOfficeVehicle::WayPoint::1</attached>
+                    <userOffsetX>30.0</userOffsetX>
+                    <userOffsetY>25.0</userOffsetY>
+                    <attached>RentalOfficeVehicle::WayPoint::0</attached>
                     <offset_x>8</offset_x>
                     <offset_y>8</offset_y>
-                    <placement>TOP</placement>
+                    <placement>BOTTOM</placement>
                 </strategy>
                 <hidden>false</hidden>
             </edgeproperty>
@@ -238,20 +252,6 @@
                     <offset_x>8</offset_x>
                     <offset_y>8</offset_y>
                     <placement>TOP</placement>
-                </strategy>
-                <hidden>false</hidden>
-            </edgeproperty>
-            <edgeproperty id="RentalOfficeVehicle::source::multiplicity"
-                sizeCalculated="true" type="multiplicity"
-                userDefined="true" visible="true">
-                <name>1</name>
-                <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyRelativeToAttached">
-                    <userOffsetX>30.0</userOffsetX>
-                    <userOffsetY>25.0</userOffsetY>
-                    <attached>RentalOfficeVehicle::WayPoint::0</attached>
-                    <offset_x>8</offset_x>
-                    <offset_y>8</offset_y>
-                    <placement>BOTTOM</placement>
                 </strategy>
                 <hidden>false</hidden>
             </edgeproperty>
@@ -334,19 +334,6 @@
                 </strategy>
                 <hidden>false</hidden>
             </edgeproperty>
-            <edgeproperty id="RentalAgreementVehicle::source::rolename"
-                sizeCalculated="true" type="rolename" userDefined="true" visible="true">
-                <name>rentalAgreement</name>
-                <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyRelativeToAttached">
-                    <userOffsetX>49.0</userOffsetX>
-                    <userOffsetY>34.0</userOffsetY>
-                    <attached>RentalAgreementVehicle::WayPoint::0</attached>
-                    <offset_x>8</offset_x>
-                    <offset_y>8</offset_y>
-                    <placement>TOP</placement>
-                </strategy>
-                <hidden>false</hidden>
-            </edgeproperty>
             <edgeproperty
                 id="RentalAgreementVehicle::source::multiplicity"
                 sizeCalculated="true" type="multiplicity"
@@ -359,6 +346,19 @@
                     <offset_x>8</offset_x>
                     <offset_y>8</offset_y>
                     <placement>BOTTOM</placement>
+                </strategy>
+                <hidden>false</hidden>
+            </edgeproperty>
+            <edgeproperty id="RentalAgreementVehicle::source::rolename"
+                sizeCalculated="true" type="rolename" userDefined="true" visible="true">
+                <name>rentalAgreement</name>
+                <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyRelativeToAttached">
+                    <userOffsetX>49.0</userOffsetX>
+                    <userOffsetY>34.0</userOffsetY>
+                    <attached>RentalAgreementVehicle::WayPoint::0</attached>
+                    <offset_x>8</offset_x>
+                    <offset_y>8</offset_y>
+                    <placement>TOP</placement>
                 </strategy>
                 <hidden>false</hidden>
             </edgeproperty>
@@ -553,20 +553,6 @@
                 <hidden>false</hidden>
             </edgeproperty>
             <edgeproperty
-                id="RentalOfficeRentalAgreementDrop::source::rolename"
-                sizeCalculated="true" type="rolename" userDefined="true" visible="true">
-                <name>droppoffRentalOffice</name>
-                <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyRelativeToAttached">
-                    <userOffsetX>5.0</userOffsetX>
-                    <userOffsetY>5.0</userOffsetY>
-                    <attached>RentalOfficeRentalAgreementDrop::WayPoint::0</attached>
-                    <offset_x>8</offset_x>
-                    <offset_y>8</offset_y>
-                    <placement>TOP</placement>
-                </strategy>
-                <hidden>false</hidden>
-            </edgeproperty>
-            <edgeproperty
                 id="RentalOfficeRentalAgreementDrop::source::multiplicity"
                 sizeCalculated="true" type="multiplicity"
                 userDefined="true" visible="true">
@@ -578,6 +564,20 @@
                     <offset_x>8</offset_x>
                     <offset_y>8</offset_y>
                     <placement>BOTTOM</placement>
+                </strategy>
+                <hidden>false</hidden>
+            </edgeproperty>
+            <edgeproperty
+                id="RentalOfficeRentalAgreementDrop::source::rolename"
+                sizeCalculated="true" type="rolename" userDefined="true" visible="true">
+                <name>droppoffRentalOffice</name>
+                <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyRelativeToAttached">
+                    <userOffsetX>5.0</userOffsetX>
+                    <userOffsetY>5.0</userOffsetY>
+                    <attached>RentalOfficeRentalAgreementDrop::WayPoint::0</attached>
+                    <offset_x>8</offset_x>
+                    <offset_y>8</offset_y>
+                    <placement>TOP</placement>
                 </strategy>
                 <hidden>false</hidden>
             </edgeproperty>

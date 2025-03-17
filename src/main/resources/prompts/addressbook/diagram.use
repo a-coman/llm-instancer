@@ -64,27 +64,27 @@ composition AddressBookMadeOfContact between
     Contact[*]
 end
 
-composition ContactMadeOfNote between
+composition ContactContainsNote between
     Contact[1]
     Note[*]
 end
 
-association ContactRelationship between
-    Contact[1] role target
+association RelationshipToContact between
     Relationship[*] role isRelated
+    Contact[1] role target
 end
 
-composition ContactMadeOfRelationship between
+composition ContactToRelationship between
     Contact[1]
     Relationship[*] role relates
 end
 
-composition ContactMadeOfAddress between
+composition ContactContainsAddress between
     Contact[1] role source
     Address[*] role address
 end
 
-association ContactRelation between
+association ContactRelatesToContact between
     Contact[*]
     Contact[*] role inRelation
 end
