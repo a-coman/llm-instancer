@@ -1,0 +1,64 @@
+model MyExpenses
+
+dataType Date
+operations
+    Date(date : String)
+end
+
+enum PaymentMethod {
+    CREDIT_CARD,
+    CHECK,
+    CASH
+}
+
+enum BillStatus {
+    DRAFT,
+    PENDING,
+    VERIFIED,
+    VALIDATED,
+    REFUSED,
+    REFUNDED
+}
+
+class Expense
+attributes
+    amount : String
+    startDate : Date
+    endDate : Date
+end
+
+class Bill
+attributes
+    amount : Real
+    category : String
+    date : Date
+    paymentMethod : PaymentMethod
+    status : BillStatus
+end
+
+class Comment
+attributes
+    text : String
+end
+
+class Currency
+attributes
+    name : String
+    abbreviation : String
+end
+
+
+composition ExpenseContainsBills between
+    Expense [1]
+    Bill [*] role bills
+end
+
+association ExpenseComment between
+    Expense [1]
+    Comment [*] role comments
+end
+
+association BillCurrency between
+    Bill [1]
+    Currency [1] role currency
+end

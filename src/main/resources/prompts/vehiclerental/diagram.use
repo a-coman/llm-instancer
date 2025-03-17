@@ -1,0 +1,106 @@
+model VehicleRental
+
+dataType Date
+operations
+    Date(date : String)
+end
+
+enum State {
+    AL,
+    AK,
+    AZ,
+    CA,
+    CO,
+    CT,
+    DE,
+    FL
+}
+
+enum VehicleTypeCode {
+    TRUCK,
+    TRUCK24,
+    TRUCK10,
+    COVERED_TRAILER,
+    OPEN_TRAILER
+}
+
+class RentalOffice
+attributes
+    name : String
+    number : Integer
+    address : String
+end
+
+class Vehicle
+attributes
+    id : Integer
+    registrationState : State
+    licensePlateNumber : String 
+    vehicleTypeCode : VehicleTypeCode
+    registrationLastMaintenanceDate : Date
+    expirationDate : Date
+end
+
+class RentalAgreement
+attributes
+    number : Integer
+    rentalDate : Date
+    anticipatedDuration : Integer
+    depositPaid : Real
+    quotedDailyRate : Real
+    quotedRatePerMile : Real
+end
+
+class Truck < Vehicle
+attributes
+    odometerReading : Integer
+    gasTankCapacity : Real
+    workingRadio : Boolean
+    mileage : Integer
+end
+
+abstract class Customer
+attributes
+    name : String
+    address : String
+    poorRisk : Boolean
+end
+
+class Individual < Customer
+attributes
+    homePhone : Integer
+    driverLicenseState : State
+    driverLicenseNumber : Integer
+    driverLicenseExpirationDate : Date
+end
+
+class Company < Customer
+attributes
+    idNumber : Integer
+end
+
+
+association RentalOfficeVehicle between
+    RentalOffice [1] role homeOffice
+    Vehicle [*] 
+end
+
+association RentalOfficeRentalAgreementOrigin between
+    RentalOffice [1] role originatingRentalOffice
+    RentalAgreement [*] role originatingAgreement
+end
+
+association RentalOfficeRentalAgreementDrop between
+    RentalOffice [1] role droppoffRentalOffice
+    RentalAgreement [*] role dropoffAgreement
+end
+
+association RentalAgreementVehicle between
+    RentalAgreement [*]
+    Vehicle [1]
+end
+
+association RentalAgreementCustomer between
+    RentalAgreement [*]
+    Customer [1]
+end
