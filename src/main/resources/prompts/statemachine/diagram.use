@@ -1,6 +1,6 @@
 model StateMachine
 
-class NamedElement
+abstract class NamedElement
 attributes
     name : String
 end

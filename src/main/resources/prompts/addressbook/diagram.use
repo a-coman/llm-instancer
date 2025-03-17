@@ -21,7 +21,7 @@ end
 class AddressBook
 end
 
-class Contact
+abstract class Contact
 attributes
     name : String
     phone : String
