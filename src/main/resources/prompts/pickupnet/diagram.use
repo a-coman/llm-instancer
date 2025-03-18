@@ -45,13 +45,13 @@ association DriverShipment between
     Shipment [0..*] role assignments
 end
 
-composition ShipmentContainsPickUpAddress between
-    Shipment [1] role hasPickUpShipment
+association ShipmentContainsPickUpAddress between
+    Shipment [0..1] role hasPickUpShipment
     Address [1] role pickUpAddress
 end
 
-composition ShipmentContainsDeliveryAddress between
-    Shipment [1] role hasAddressShipment
+association ShipmentContainsDeliveryAddress between
+    Shipment [0..1] role hasAddressShipment
     Address [1] role shipToAddress
 end
 

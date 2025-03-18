@@ -59,6 +59,6 @@ association ExpenseComment between
 end
 
 association BillCurrency between
-    Bill [1]
+    Bill [1..*]
     Currency [1] role currency
 end

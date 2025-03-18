@@ -84,7 +84,7 @@ composition ContactContainsAddress between
     Address[*] role address
 end
 
-association ContactRelatesToContact between
-    Contact[*]
-    Contact[*] role inRelation
-end
+
+constraints
+context Contact inv DifferentSourceTarget:
+    self.relates->forAll(r | r.target<>self)
