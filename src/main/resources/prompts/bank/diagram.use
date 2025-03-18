@@ -21,7 +21,7 @@ attributes
 end
 
 association Ownership between
-Person [1] role owner
+Person [1..2] role owner
 Account [*] role accounts
 end
 
@@ -39,7 +39,7 @@ end
 
 constraints
 context Account inv AdultOwners:
-    self.owner.age > 18 
+    self.owner->forAll(p | p.age >= 18)
 	
 context Account inv positiveBalance:
-    self.balance > 0
+    self.balance >= 0
