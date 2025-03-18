@@ -9,6 +9,8 @@ public class MetricsFactory {
                 return new Bank();
             case "videoclub":
                 return new VideoClub();
+            case "hotelmanagement":
+                return new HotelManagement();
             default:
                 return new NoSpecific();
         }
