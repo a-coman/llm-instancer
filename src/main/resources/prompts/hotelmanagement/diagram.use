@@ -79,3 +79,7 @@ association BillRoomReservation between
     Bill [1]
     RoomReservation [1] role roomReservation
 end
+
+constraints
+context Bill inv positiveBill:
+    self.price >= 0
