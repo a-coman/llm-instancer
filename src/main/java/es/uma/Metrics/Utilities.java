@@ -11,9 +11,13 @@ import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
+import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+
+import es.uma.Metrics.DTOs.AddressRecord; // Ensure this class exists in the specified package
+import io.github.cdimascio.dotenv.Dotenv;
 
 public class Utilities {
 
@@ -52,7 +56,7 @@ public class Utilities {
             HttpResponse<InputStream> response = httpClient.send(request, HttpResponse.BodyHandlers.ofInputStream());
 
             int statusCode = response.statusCode();
-            System.out.println("GET " + URL + " : " + "Status " + statusCode);
+            System.out.println("Status " + statusCode);
             
             if (statusCode == 200) {
                 return objectMapper.readValue(response.body(), responseType); 
@@ -70,5 +74,61 @@ public class Utilities {
         double percentage = total > 0 ? (valid * 100.0) / total : 0.0;
         return String.format("| %s | %d | %d | %.2f%% |\n", 
             label, valid, total, percentage);
+    }
+
+    private static void waitForMS(long miliseconds) {
+        try {
+            TimeUnit.MILLISECONDS.sleep(miliseconds);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public static boolean isValidAddress(String country, String city, String street) {
+        Dotenv dotenv = Dotenv.load();
+        String apiKey = dotenv.get("GEOAPIFY_KEY");
+        String url = "https://api.geoapify.com/v1/geocode/search?lang=en&type=street&format=json&apiKey=" + apiKey + "&city=" + city.replace(" ", "%20") + "&country=" + country.replace(" ", "%20") + "&street=" + street.replace(" ", "%20");
+        AddressRecord addressRecord = Utilities.getRequest(url, AddressRecord.class);
+        
+        System.out.println("GET Address: " + street + ", " + city + ", " + country);
+        System.out.println("Latitude: " + addressRecord.latitude());
+        System.out.println("Longitude: " + addressRecord.longitude());
+        System.out.println("Confidence: " + addressRecord.confidence());
+
+        if (addressRecord.confidence()  > 0.8) {
+            return true;
+        }
+        
+        waitForMS(250); // 0.25 seconds api rate limit
+        return false;
+    }
+
+    public static boolean isValidAddress(String city, String street) {
+        return isValidAddress("", city, street);
+    }
+
+    public static boolean isValidAddress(String cityCountry) {
+        Dotenv dotenv = Dotenv.load();
+        String apiKey = dotenv.get("GEOAPIFY_KEY");
+        String url = "https://api.geoapify.com/v1/geocode/search?lang=en&type=city&format=json&apiKey=" + apiKey + "&text=" + cityCountry.replace(" ", "%20");
+        AddressRecord addressRecord = Utilities.getRequest(url, AddressRecord.class);
+        
+        System.out.println("GET Address: " + cityCountry);
+        System.out.println("Latitude: " + addressRecord.latitude());
+        System.out.println("Longitude: " + addressRecord.longitude());
+        System.out.println("Confidence: " + addressRecord.confidence());
+
+        if (addressRecord.confidence()  > 0.8) {
+            return true;
+        }
+        
+        waitForMS(250); // 0.25 seconds api rate limit
+        return false;
+    }
+
+    // Main for testing purposes
+    public static void main(String[] args) {
+        Boolean result = isValidAddress("Spain","Malaga","José Ortega y Gasset");
+        System.out.println("Result: " + result);
     }
 }
