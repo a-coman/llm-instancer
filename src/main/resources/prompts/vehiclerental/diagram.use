@@ -68,7 +68,7 @@ end
 
 class Individual < Customer
 attributes
-    homePhone : Integer
+    homePhone : String
     driverLicenseState : State
     driverLicenseNumber : Integer
     driverLicenseExpirationDate : Date

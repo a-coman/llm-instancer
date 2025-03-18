@@ -16,7 +16,8 @@ import java.util.stream.Collectors;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import es.uma.Metrics.DTOs.AddressRecord; // Ensure this class exists in the specified package
+import es.uma.Utils;
+import es.uma.Metrics.DTOs.AddressRecord;
 import io.github.cdimascio.dotenv.Dotenv;
 
 public class Utilities {
@@ -107,13 +108,13 @@ public class Utilities {
         return isValidAddress("", city, street);
     }
 
-    public static boolean isValidAddress(String cityCountry) {
+    public static boolean isValidAddress(String address) {
         Dotenv dotenv = Dotenv.load();
         String apiKey = dotenv.get("GEOAPIFY_KEY");
-        String url = "https://api.geoapify.com/v1/geocode/search?lang=en&type=city&format=json&apiKey=" + apiKey + "&text=" + cityCountry.replace(" ", "%20");
+        String url = "https://api.geoapify.com/v1/geocode/search?lang=en&format=json&apiKey=" + apiKey + "&text=" + address.replace(" ", "%20");
         AddressRecord addressRecord = Utilities.getRequest(url, AddressRecord.class);
         
-        System.out.println("GET Address: " + cityCountry);
+        System.out.println("GET Address: " + address);
         System.out.println("Latitude: " + addressRecord.latitude());
         System.out.println("Longitude: " + addressRecord.longitude());
         System.out.println("Confidence: " + addressRecord.confidence());
@@ -124,6 +125,21 @@ public class Utilities {
         
         waitForMS(250); // 0.25 seconds api rate limit
         return false;
+    }
+
+    public static boolean isValidPhone(String phone) {
+        String pattern = "^(\\+\\d{1,3}\\s?)?[0-9\\(\\)-.\\s]{6,15}$";
+        
+        // (\\+\\d{1,3}\\s?)? : Optional country code (e.g., +1, +44) with 1-3 digits, optional space after
+        // [0-9\\(\\)-.\\s]{6,15} : 6 to 15 characters that can be:
+        // Digits (0-9)
+        // Parentheses ()
+        // Hyphen -
+        // Dot .
+        // Space \s
+
+        return Utils.split(phone, pattern).isEmpty() ? false : true;
+
     }
 
     // Main for testing purposes

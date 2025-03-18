@@ -11,6 +11,8 @@ public class MetricsFactory {
                 return new VideoClub();
             case "hotelmanagement":
                 return new HotelManagement();
+            case "vehiclerental":
+                return new VehicleRental();
             default:
                 return new NoSpecific();
         }
