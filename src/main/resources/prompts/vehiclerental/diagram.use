@@ -104,3 +104,19 @@ association RentalAgreementCustomer between
     RentalAgreement [*]
     Customer [1]
 end
+
+constraints
+context Truck inv positiveGasTankCapacity:
+    self.gasTankCapacity >= 0
+
+context Truck inv positiveMileage:
+    self.mileage >= 0
+
+context RentalAgreement inv positiveDepositPaid:
+    self.depositPaid >= 0
+
+context RentalAgreement inv positiveQuotedDailyRate:
+    self.quotedDailyRate >= 0
+
+context RentalAgreement inv positiveQuotedRatePerMile:
+    self.quotedRatePerMile >= 0

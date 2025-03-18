@@ -22,7 +22,7 @@ enum BillStatus {
 
 class Expense
 attributes
-    amount : String
+    amount : Real
     startDate : Date
     endDate : Date
 end
@@ -62,3 +62,10 @@ association BillCurrency between
     Bill [1..*]
     Currency [1] role currency
 end
+
+constraints
+context Expense inv positiveAmount:
+    self.amount >= 0
+
+context Expense inv expenseSumOfBills:
+    self.amount = self.bills->collect(b : Bill | b.amount)->sum()

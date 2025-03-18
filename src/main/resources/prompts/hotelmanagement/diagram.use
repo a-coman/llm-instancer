@@ -83,3 +83,9 @@ end
 constraints
 context Bill inv positiveBill:
     self.price >= 0
+
+context Bill inv uniqueBillId:
+    Bill.allInstances->isUnique(b | b.billId)
+
+context Room inv positiveNumBeds:
+    self.numBeds > 0

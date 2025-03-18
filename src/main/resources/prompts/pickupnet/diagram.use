@@ -79,3 +79,13 @@ composition StationContainsDriver between
     Station [1]
     Driver [0..*] role drivers
 end
+
+constraints
+context Shipment inv uniqueShipmentId:
+    Shipment.allInstances->isUnique(s | s.id)
+
+context Driver inv uniqueDriverId:
+    Driver.allInstances->isUnique(d | d.id)
+
+context Customer inv uniqueCustomerId:
+    Customer.allInstances->isUnique(c | c.id)

@@ -56,3 +56,13 @@ association CassetteActor between
     Cassette [*] role actsIn
     Actor [1..*] role has
 end
+
+constraints
+context Client inv positiveClientId:
+    self.clientId > 0
+
+context Cassette inv postiveAvailableCopies:
+    self.availableCopies >= 0
+
+context Series inv positiveEpisode:
+    self.episode > 0
