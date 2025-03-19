@@ -1,5 +1,6 @@
 package es.uma.Metrics.Specific;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import de.schegge.bank.validator.BIC;
@@ -14,6 +15,7 @@ public class Bank implements IMetrics {
 
     private int validIbans, validBics, validCountries;
     private int totalIbans, totalBics, totalCountries;
+    private ArrayList<String> failedIbans, failedBics, failedCountries;
 
     public Bank() {
         validIbans = 0;
@@ -22,6 +24,10 @@ public class Bank implements IMetrics {
         totalIbans = 0;
         totalBics = 0;
         totalCountries = 0;
+
+        failedIbans = new ArrayList<>();
+        failedBics = new ArrayList<>();
+        failedCountries = new ArrayList<>();
     }
 
     private List<String> getIbans (String instance) {
@@ -59,8 +65,11 @@ public class Bank implements IMetrics {
         }
 
         for (String iban : ibans) {
-            if (ibanValidator.isValid(iban, null))
+            if (ibanValidator.isValid(iban, null)){
                 valid++;
+            } else {
+                failedIbans.add(iban);
+            }
 
         }
 
@@ -79,6 +88,8 @@ public class Bank implements IMetrics {
         for (String bic : bics) {
             if (bicValidator.isValid(bic, null)) {
                 valid++;
+            } else {
+                failedBics.add(bic);
             }
         }
 
@@ -90,6 +101,8 @@ public class Bank implements IMetrics {
         for (String country : countries) {
             if (Utilities.isValidCountryName(country)) {
                 valid++;
+            } else {
+                failedCountries.add(country);
             }
         }
 
@@ -147,6 +160,10 @@ public class Bank implements IMetrics {
         this.totalIbans += other.totalIbans;
         this.totalBics += other.totalBics;
         this.totalCountries += other.totalCountries;
+
+        this.failedBics.addAll(other.failedBics);
+        this.failedCountries.addAll(other.failedCountries);
+        this.failedIbans.addAll(other.failedIbans);
     }
 
     @Override
@@ -157,6 +174,11 @@ public class Bank implements IMetrics {
         sb.append(Utilities.formatMetricRow("IBANs", validIbans, totalIbans))
           .append(Utilities.formatMetricRow("BICs", validBics, totalBics))
           .append(Utilities.formatMetricRow("Countries", validCountries, totalCountries));
+
+        sb.append(Utilities.getStringList("Failed IBANs", failedIbans));
+        sb.append(Utilities.getStringList("Failed BICs", failedBics));
+        sb.append(Utilities.getStringList("Failed Countries", failedCountries));
+        
         return sb.toString();
     }
     

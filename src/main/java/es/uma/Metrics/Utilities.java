@@ -8,6 +8,7 @@ import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Locale;
@@ -237,6 +238,17 @@ public class Utilities {
         }
 
         return pairs;
+    }
+
+    public static String getStringList(String label, ArrayList<String> list) {
+        StringBuilder sb = new StringBuilder();
+        if(list.isEmpty()){
+            return "";
+        }
+        sb.append("\n| ").append(label).append(" | \n");
+        sb.append("|---| \n");
+        list.forEach(error -> sb.append("```\n").append(error).append("\n```\n"));
+        return sb.toString();
     }
 
     // Main for testing purposes
