@@ -4,19 +4,20 @@ import java.time.Duration;
 import java.util.List;
 
 import dev.langchain4j.memory.ChatMemory;
-import dev.langchain4j.memory.chat.MessageWindowChatMemory;
+import dev.langchain4j.memory.chat.TokenWindowChatMemory;
 import dev.langchain4j.model.chat.ChatLanguageModel;
 import dev.langchain4j.model.googleai.GoogleAiGeminiChatModel;
 import dev.langchain4j.model.openai.OpenAiChatModel;
+import dev.langchain4j.model.openai.OpenAiTokenizer;
 import dev.langchain4j.service.AiServices;
 
 public class Llms {
 
-    public static final int MAX_MESSAGES = 128;
+    public static final int MAX_TOKENS = 64000;
 
     public static <T> T getAgent(Class<T> agent, ChatLanguageModel model) {
         Listener.setCurrentAgent(agent.getSimpleName());
-        ChatMemory memory = MessageWindowChatMemory.withMaxMessages(MAX_MESSAGES);
+        ChatMemory memory = TokenWindowChatMemory.withMaxTokens(MAX_TOKENS, new OpenAiTokenizer("gpt-4o"));
         return AiServices.builder(agent)
                 .chatLanguageModel(model)
                 .chatMemory(memory)
@@ -32,7 +33,7 @@ public class Llms {
                     .logRequests(true)
                     .logResponses(true)
                     .listeners(List.of(new Listener()))
-                    .maxCompletionTokens(null)
+                    .maxCompletionTokens(16384)
                     .temperature(1.0)
                     .topP(1.0)
                     .maxRetries(10)

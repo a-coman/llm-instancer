@@ -47,6 +47,7 @@ public class Logger {
         metrics.append("| Model | " + experiment.modelName + " |\n");
         metrics.append("| Type | " + experiment.type + " |\n");
         metrics.append("| System | " + experiment.system + " |\n");
+        metrics.append("| Context window tokens | " + Llms.MAX_TOKENS + " |\n");
         metrics.append("| Number of generations | " + experiment.repetitions + " |\n");
         metrics.append("| Generations time | " + String.format("%.2f", genTime) + " seconds |\n");
         metrics.append("| Sum of input tokens | " + sumOfInputTokens + " |\n");
