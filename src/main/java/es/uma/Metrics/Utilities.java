@@ -14,6 +14,8 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -203,6 +205,23 @@ public class Utilities {
         // TLD
 
         return Utils.validMatch(email, emailPattern);
+    }
+
+    public static Map<String, Map<String, String>> getMap(String instance, String pattern) {
+        Map<String, Map<String, String>> map = new HashMap<>();
+
+        Pattern p = Pattern.compile(pattern);
+        Matcher m = p.matcher(instance);
+        while (m.find()) {
+            String entity = m.group(1);
+            String attribute = m.group(2);
+            String value = m.group(3).replace("'", "");
+            
+            map.putIfAbsent(entity, new HashMap<>());
+            map.get(entity).put(attribute, value);
+        }
+        
+        return map;
     }
 
     // Main for testing purposes

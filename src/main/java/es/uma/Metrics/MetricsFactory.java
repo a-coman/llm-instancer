@@ -17,6 +17,8 @@ public class MetricsFactory {
                 return new PickupNet();
             case "addressbook":
                 return new AddressBook();
+            case "myexpenses":
+                return new MyExpenses();
             default:
                 return new NoSpecific();
         }
