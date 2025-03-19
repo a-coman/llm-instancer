@@ -90,10 +90,16 @@ public class Utilities {
     public static boolean isValidAddress(String country, String city, String street) {
         Dotenv dotenv = Dotenv.load();
         String apiKey = dotenv.get("GEOAPIFY_KEY");
-        String encodedCountry = URLEncoder.encode(country, StandardCharsets.UTF_8);
+        
         String encodedCity = URLEncoder.encode(city, StandardCharsets.UTF_8);
         String encodedStreet = URLEncoder.encode(street, StandardCharsets.UTF_8);
-        String url = "https://api.geoapify.com/v1/geocode/search?lang=en&limit=1&type=street&format=json&apiKey=" + apiKey + "&city=" + encodedCity + "&country=" + encodedCountry + "&street=" + encodedStreet;
+        String url = "https://api.geoapify.com/v1/geocode/search?lang=en&limit=1&type=street&format=json&apiKey=" + apiKey + "&city=" + encodedCity + "&street=" + encodedStreet;
+        
+        if (!country.isEmpty()) {
+            String encodedCountry = URLEncoder.encode(country, StandardCharsets.UTF_8);
+            url += "&country=" + encodedCountry;
+        }
+        
         AddressRecord addressRecord = Utilities.getRequest(url, AddressRecord.class);
         
         System.out.println("GET Address: " + street + ", " + city + ", " + country);
@@ -102,10 +108,12 @@ public class Utilities {
         System.out.println("Confidence: " + addressRecord.confidence());
 
         if (addressRecord.confidence()  > 0.8) {
+            System.out.println("Return: true");
             return true;
         }
         
         waitForMS(250); // 0.25 seconds api rate limit
+        System.out.println("Return: false");
         return false;
     }
 
@@ -126,10 +134,12 @@ public class Utilities {
         System.out.println("Confidence: " + addressRecord.confidence());
 
         if (addressRecord.confidence()  > 0.8) {
+            System.out.println("Return: true");
             return true;
         }
         
         waitForMS(250); // 0.25 seconds api rate limit
+        System.out.println("Return: false");
         return false;
     }
 
@@ -168,8 +178,31 @@ public class Utilities {
         // Dot .
         // Space \s
 
-        return Utils.split(phone, pattern).isEmpty() ? false : true;
+        return Utils.validMatch(phone, pattern);
 
+    }
+
+    public static boolean isValidWebsite(String website) {
+        String urlPattern = "^(https?://)?([\\w-]+\\.)?[\\w-]+(\\.[a-z]{2,})(:\\d+)?(/[\\w-./?%&=]*)?$";
+
+        // optional http/https protocol
+        // domain name (e.g., www.example)
+        // top-level domain (e.g., .com)
+        // optional port number
+        // optional path/parameters
+
+        return Utils.validMatch(website, urlPattern);
+    }
+
+    public static boolean isValidEmail(String email) {
+        String emailPattern = "^[\\w!#$%&'*+/=?`{|}~^-]+(?:\\.[\\w!#$%&'*+/=?`{|}~^-]+)*@(?:[\\w-]+\\.)*[\\w]+\\.[a-zA-Z]{2,}$";
+        // local part: word chars + specials
+        // optional dot-separated parts
+        // @ symbol
+        // domain: subdomains + main domain
+        // TLD
+
+        return Utils.validMatch(email, emailPattern);
     }
 
     // Main for testing purposes

@@ -47,7 +47,7 @@ public class PickupNet implements IMetrics {
         while (m.find()) {
             String entity = m.group(1);
             String attribute = m.group(2);
-            String value = m.group(3);
+            String value = m.group(3).replace("'", "");
             
             addresses.putIfAbsent(entity, new HashMap<>());
             addresses.get(entity).put(attribute, value);

@@ -15,6 +15,8 @@ public class MetricsFactory {
                 return new VehicleRental();
             case "pickupnet":
                 return new PickupNet();
+            case "addressbook":
+                return new AddressBook();
             default:
                 return new NoSpecific();
         }
