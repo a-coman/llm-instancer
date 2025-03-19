@@ -43,7 +43,8 @@ public class General implements IMetrics {
     @Override
     public void calculate(String diagramPath, String instancePath) {
         System.out.println(this.getClass().getSimpleName() + " calculating ALL metrics for: " + instancePath);
-        calculateInvalid(diagramPath, instancePath);
+        calculateSyntaxErrors(diagramPath, instancePath);
+        calculateMultiplicitiesErrors(diagramPath, instancePath);
         calculateInvariantsErrors(diagramPath, instancePath);
     }
 
@@ -51,7 +52,6 @@ public class General implements IMetrics {
     public void calculateInvalid(String diagramPath, String instancePath) {
         System.out.println(this.getClass().getSimpleName() + " calculating Invalid metrics for: " + instancePath);
         calculateSyntaxErrors(diagramPath, instancePath);
-        calculateMultiplicitiesErrors(diagramPath, instancePath);
     }
 
     @Override
