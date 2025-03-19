@@ -224,6 +224,21 @@ public class Utilities {
         return map;
     }
 
+    public static Map<String, String> getPairs(String instance, String pattern) {
+        Map<String, String> pairs = new HashMap<>();
+
+        Pattern p = Pattern.compile(pattern);
+        Matcher m = p.matcher(instance);
+
+        while (m.find()) {
+            String firstId = m.group(1);
+            String secondId = m.group(2);
+            pairs.put(firstId, secondId);
+        }
+
+        return pairs;
+    }
+
     // Main for testing purposes
     public static void main(String[] args) {
         Boolean result = isValidAddress("Spain","Malaga","José Ortega y Gasset");

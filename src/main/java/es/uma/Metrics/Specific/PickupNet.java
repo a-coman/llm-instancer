@@ -1,10 +1,7 @@
 package es.uma.Metrics.Specific;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Map;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import es.uma.Utils;
 import es.uma.Metrics.IMetrics;
@@ -22,45 +19,15 @@ public class PickupNet implements IMetrics {
         totalTwitter = 0;
     }
 
-
-    private static Map<String, String> getPairs(String instance) {
-        Map<String, String> pairs = new HashMap<>();
-
-        Pattern pattern = Pattern.compile("!\\s*insert\\s*\\(\\s*(\\w+)\\s*,\\s*(\\w+)\\s*\\)\\s*into\\s*AddressContainsGeoLocation");
-        Matcher matcher = pattern.matcher(instance);
-
-        while (matcher.find()) {
-            String addressId = matcher.group(1);
-            String geolocationId = matcher.group(2);
-            pairs.put(addressId, geolocationId);
-        }
-
-        return pairs;
-    }
-
-    private static Map<String, Map<String, String>> getAddresses(String instance) {
-        Map<String, Map<String, String>> addresses = new HashMap<>();
-
-        String textPattern = "!\\s*(\\w+)\\s*\\.\\s*(text|latitude|longitude)\\s*:=\\s*(.+)";
-        Pattern p = Pattern.compile(textPattern);
-        Matcher m = p.matcher(instance);
-        while (m.find()) {
-            String entity = m.group(1);
-            String attribute = m.group(2);
-            String value = m.group(3).replace("'", "");
-            
-            addresses.putIfAbsent(entity, new HashMap<>());
-            addresses.get(entity).put(attribute, value);
-        }
-
-        return addresses;
-    }
-
     @Override
     public void calculate(String diagramPath, String instancePath) {
         String instance = Utils.readFile(instancePath);
-        Map<String, Map<String, String>> addresses = getAddresses(instance);
-        Map<String, String> pairs = getPairs(instance);
+        String addressesPattern = "!\\s*(\\w+)\\s*\\.\\s*(text|latitude|longitude)\\s*:=\\s*(.+)";
+        String pairsPattern = "!\\s*insert\\s*\\(\\s*(\\w+)\\s*,\\s*(\\w+)\\s*\\)\\s*into\\s*AddressContainsGeoLocation";
+
+        Map<String, Map<String, String>> addresses = Utilities.getMap(instance, addressesPattern);
+        Map<String, String> pairs = Utilities.getPairs(instance, pairsPattern);
+
         ArrayList<String> twitters = Utils.match(instance, "!\\s*\\w+\\s*\\.\\s*twitterUserName\\s*:=\\s*'\\s*([^']+)\\s*'");
 
         System.out.println("Addresses: " + addresses);

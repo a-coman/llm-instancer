@@ -1,10 +1,6 @@
 package es.uma.Metrics.Specific;
 
-import java.util.HashMap;
 import java.util.Map;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
 import es.uma.Utils;
 import es.uma.Metrics.IMetrics;
 import es.uma.Metrics.Utilities;
@@ -25,31 +21,14 @@ public class AddressBook implements IMetrics {
         totalAddress = 0;
     }
 
-    // TODO: Extract to utilities and refactor Specifics to use it
-    private Map<String, Map<String, String>> getMap(String instance, String pattern) {
-        Map<String, Map<String, String>> map = new HashMap<>();
-
-        Pattern p = Pattern.compile(pattern);
-        Matcher m = p.matcher(instance);
-        while (m.find()) {
-            String entity = m.group(1);
-            String attribute = m.group(2);
-            String value = m.group(3).replace("'", "");
-            
-            map.putIfAbsent(entity, new HashMap<>());
-            map.get(entity).put(attribute, value);
-        }
-        
-        return map;
-    }
-
+    // TODO: Can be simplified to just Utilities.match as we dont need to map one with the other (no pairs)
     @Override
     public void calculate(String diagramPath, String instancePath) {
         String instance = Utils.readFile(instancePath);
         String addressesPattern = "!\\s*(\\w+)\\s*\\.\\s*(city|houseNr|street)\\s*:=\\s*(.+)";
         String contactsPattern = "!\\s*(\\w+)\\s*\\.\\s*(phone|website|email)\\s*:=\\s*(.+)"; 
-        Map<String, Map<String, String>> addresses = getMap(instance, addressesPattern);
-        Map<String, Map<String, String>> contacts = getMap(instance, contactsPattern);
+        Map<String, Map<String, String>> addresses = Utilities.getMap(instance, addressesPattern);
+        Map<String, Map<String, String>> contacts = Utilities.getMap(instance, contactsPattern);
         
         System.out.println("Addresses: " + addresses);
         System.out.println("Contacts: " + contacts);
