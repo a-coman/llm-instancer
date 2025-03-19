@@ -32,7 +32,7 @@ public class CategoryPrompts {
         String unrealisticPrompt = 
             """
             # Category: Unrealistc but valid
-            Create instances that are both syntactically and semantically valid but unlikely or impossible in real life. In terms of semantics, take into account constraints and multiplicities. Think about edge cases and uncommon combinations of relationships and attributes.
+            Create instances that are both syntactically and semantically valid but unlikely or impossible in real life. In terms of semantics, take into account constraints and multiplicities. Think about corner cases and uncommon combinations of relationships and attributes.
             """;
             
         String invalidPrompt = 

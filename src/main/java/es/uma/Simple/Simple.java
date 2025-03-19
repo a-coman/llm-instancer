@@ -21,7 +21,7 @@ public class Simple {
             if (gen == 1) {
                 response = simple.chat(modelUML, exampleSOIL);
             } else {
-                response = simple.chat("Let's continue generating more instances that are structurally and semantically different from the previous ones");
+                response = simple.chat("Please, generate another instance that is structurally and semantically different from the previous ones");
             }
 
             Utils.saveFile(Utils.removeComments(response), instancePath, "output.soil");
