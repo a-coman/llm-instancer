@@ -91,6 +91,14 @@ public class Utils {
         return list;
     }
 
+
+    public static boolean validMatch(String text, String pattern) {
+        Pattern p = Pattern.compile(pattern);
+        Matcher m = p.matcher(text);
+        return m.matches();
+    }
+
+
     public static void main(String[] args) {
         String model = "test/";
         Utils.saveFile("Hello World!", "./src/main/resources/instances/" + model + Utils.getTime(), "/output.md");

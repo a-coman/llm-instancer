@@ -31,7 +31,7 @@ public class VehicleRental implements IMetrics{
         String instance = Utils.readFile(instancePath);
         ArrayList<String> addresses = Utils.match(instance, "!\\s*\\w+\\s*\\.\\s*address\\s*:=\\s*'\\s*([^']+)\\s*'");
         ArrayList<String> licensePlates = Utils.match(instance, "!\\s*\\w+\\s*\\.\\s*licensePlateNumber\\s*:=\\s*'\\s*([^']+)\\s*'");
-        ArrayList<String> homePhones = Utils.match(instance, "!\\s*\\w+\\s*\\.\\s*homePhone\\s*:=\\s*(.+)\\s*");
+        ArrayList<String> homePhones = Utils.match(instance, "!\\s*\\w+\\s*\\.\\s*homePhone\\s*:=\\s*'\\s*([^']+)\\s*'");
         
         System.out.println("Addresses: " + addresses);
         System.out.println("License Plates: " + licensePlates);

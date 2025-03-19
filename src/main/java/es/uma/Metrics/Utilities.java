@@ -3,9 +3,11 @@ package es.uma.Metrics;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
+import java.net.URLEncoder;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
+import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Locale;
@@ -88,7 +90,10 @@ public class Utilities {
     public static boolean isValidAddress(String country, String city, String street) {
         Dotenv dotenv = Dotenv.load();
         String apiKey = dotenv.get("GEOAPIFY_KEY");
-        String url = "https://api.geoapify.com/v1/geocode/search?lang=en&type=street&format=json&apiKey=" + apiKey + "&city=" + city.replace(" ", "%20") + "&country=" + country.replace(" ", "%20") + "&street=" + street.replace(" ", "%20");
+        String encodedCountry = URLEncoder.encode(country, StandardCharsets.UTF_8);
+        String encodedCity = URLEncoder.encode(city, StandardCharsets.UTF_8);
+        String encodedStreet = URLEncoder.encode(street, StandardCharsets.UTF_8);
+        String url = "https://api.geoapify.com/v1/geocode/search?lang=en&limit=1&type=street&format=json&apiKey=" + apiKey + "&city=" + encodedCity + "&country=" + encodedCountry + "&street=" + encodedStreet;
         AddressRecord addressRecord = Utilities.getRequest(url, AddressRecord.class);
         
         System.out.println("GET Address: " + street + ", " + city + ", " + country);
@@ -111,7 +116,8 @@ public class Utilities {
     public static boolean isValidAddress(String address) {
         Dotenv dotenv = Dotenv.load();
         String apiKey = dotenv.get("GEOAPIFY_KEY");
-        String url = "https://api.geoapify.com/v1/geocode/search?lang=en&format=json&apiKey=" + apiKey + "&text=" + address.replace(" ", "%20");
+        String encodedAddress = URLEncoder.encode(address, StandardCharsets.UTF_8);
+        String url = "https://api.geoapify.com/v1/geocode/search?lang=en&limit=1&format=json&apiKey=" + apiKey + "&text=" + encodedAddress;
         AddressRecord addressRecord = Utilities.getRequest(url, AddressRecord.class);
         
         System.out.println("GET Address: " + address);
@@ -124,6 +130,30 @@ public class Utilities {
         }
         
         waitForMS(250); // 0.25 seconds api rate limit
+        return false;
+    }
+
+    public static boolean isValidAddress(String address, Double latitude, Double longitude) {
+        Dotenv dotenv = Dotenv.load();
+        String apiKey = dotenv.get("GEOAPIFY_KEY");
+
+        String encodedAddress = URLEncoder.encode(address, StandardCharsets.UTF_8);
+        String url = "https://api.geoapify.com/v1/geocode/search?lang=en&format=json&limit=1&apiKey=" + apiKey + "&text=" + encodedAddress;
+        AddressRecord addressRecord = Utilities.getRequest(url, AddressRecord.class);
+        
+        System.out.println("GET Address: " + address);
+        System.out.println("Latitude: " + addressRecord.latitude());
+        System.out.println("Longitude: " + addressRecord.longitude());
+        System.out.println("Confidence: " + addressRecord.confidence());
+
+        // Permissive 1.0 error margin
+        if (addressRecord.confidence() > 0.8 && Math.abs(addressRecord.latitude() - latitude) < 1 && Math.abs(addressRecord.longitude() - longitude) < 1) {
+            System.out.println("Return: true");
+            return true;
+        }
+        
+        waitForMS(250); // 0.25 seconds api rate limit
+        System.out.println("Return: false");
         return false;
     }
 

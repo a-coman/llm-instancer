@@ -13,6 +13,8 @@ public class MetricsFactory {
                 return new HotelManagement();
             case "vehiclerental":
                 return new VehicleRental();
+            case "pickupnet":
+                return new PickupNet();
             default:
                 return new NoSpecific();
         }

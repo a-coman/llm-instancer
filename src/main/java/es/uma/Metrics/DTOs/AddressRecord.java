@@ -6,17 +6,17 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public record AddressRecord(@JsonProperty("results") Result[] results) {
     @JsonIgnoreProperties(ignoreUnknown = true)
-    public record Result(double latitude, double longitude, Rank rank){}
+    public record Result(double lat, double lon, Rank rank){}
     @JsonIgnoreProperties(ignoreUnknown = true)
     public record Rank(double confidence){}
 
     // Only return the first result
     public double latitude() {
-        return (results != null && results.length > 0) ? results[0].latitude() : Double.NaN;
+        return (results != null && results.length > 0) ? results[0].lat() : Double.NaN;
     }
 
     public double longitude() {
-        return (results != null && results.length > 0) ? results[0].longitude() : Double.NaN;
+        return (results != null && results.length > 0) ? results[0].lon() : Double.NaN;
     }
 
     public double confidence() {
