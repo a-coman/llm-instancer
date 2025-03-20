@@ -9,6 +9,7 @@ import es.uma.Metrics.Utilities;
 public class VehicleRental implements IMetrics{
 
     private int validAddress, validLicensePlate, validHomePhone;
+    private ArrayList<String> invalidAddresses, invalidLicensePlates, invalidHomePhones;
     private int totalAddress, totalLicensePlate, totalHomePhone;
 
     public VehicleRental() {
@@ -18,6 +19,9 @@ public class VehicleRental implements IMetrics{
         totalAddress = 0;
         totalLicensePlate = 0;
         totalHomePhone = 0;
+        invalidAddresses = new ArrayList<>();
+        invalidLicensePlates = new ArrayList<>();
+        invalidHomePhones = new ArrayList<>();
     }
 
     private static Boolean isValidLicensePlate(String licensePlate) {
@@ -41,6 +45,8 @@ public class VehicleRental implements IMetrics{
             totalAddress++;
             if (Utilities.isValidAddress(address)) {
                 validAddress++;
+            } else {
+                invalidAddresses.add(address);
             }
         });
 
@@ -48,6 +54,8 @@ public class VehicleRental implements IMetrics{
             totalLicensePlate++;
             if (isValidLicensePlate(licensePlate)) {
                 validLicensePlate++;
+            } else {
+                invalidLicensePlates.add(licensePlate);
             }
         });
 
@@ -55,6 +63,8 @@ public class VehicleRental implements IMetrics{
             totalHomePhone++;
             if (Utilities.isValidPhone(homePhone)) {
                 validHomePhone++;
+            } else {
+                invalidHomePhones.add(homePhone);
             }
         });
         
@@ -80,6 +90,10 @@ public class VehicleRental implements IMetrics{
         this.totalLicensePlate += other.totalLicensePlate;
         this.totalHomePhone += other.totalHomePhone;
 
+        this.invalidAddresses.addAll(other.invalidAddresses);
+        this.invalidLicensePlates.addAll(other.invalidLicensePlates);
+        this.invalidHomePhones.addAll(other.invalidHomePhones);
+
     }
 
     @Override
@@ -90,6 +104,10 @@ public class VehicleRental implements IMetrics{
         sb.append(Utilities.formatMetricRow("Addresses", validAddress, totalAddress))
           .append(Utilities.formatMetricRow("License Plates", validLicensePlate, totalLicensePlate))
           .append(Utilities.formatMetricRow("Home Phones", validHomePhone, totalHomePhone));
+
+        sb.append(Utilities.getStringList("Invalid Addresses", invalidAddresses))
+          .append(Utilities.getStringList("Invalid License Plates", invalidLicensePlates))
+          .append(Utilities.getStringList("Invalid Home Phones", invalidHomePhones));
         return sb.toString();
     }
 
