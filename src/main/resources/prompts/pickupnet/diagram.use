@@ -46,12 +46,12 @@ association DriverShipment between
 end
 
 association ShipmentContainsPickUpAddress between
-    Shipment [0..1] role hasPickUpShipment
+    Shipment [0..*] role hasPickUpShipment
     Address [1] role pickUpAddress
 end
 
 association ShipmentContainsDeliveryAddress between
-    Shipment [0..1] role hasAddressShipment
+    Shipment [0..*] role hasDeliveryShipment
     Address [1] role shipToAddress
 end
 
@@ -89,3 +89,6 @@ context Driver inv uniqueDriverId:
 
 context Customer inv uniqueCustomerId:
     Customer.allInstances->isUnique(c | c.id)
+
+context Shipment inv differentPickupAndDeliveryAddress:
+    self.pickUpAddress <> self.shipToAddress

@@ -10,6 +10,7 @@ import es.uma.Metrics.Utilities;
 public class PickupNet implements IMetrics {
 
     private int validAddress, validTwitter;
+    private ArrayList<String> invalidAddresses, invalidTwitters;
     private int totalAddress, totalTwitter;
 
     public PickupNet() {
@@ -17,6 +18,9 @@ public class PickupNet implements IMetrics {
         validTwitter = 0;
         totalAddress = 0;
         totalTwitter = 0;
+
+        invalidAddresses = new ArrayList<>();
+        invalidTwitters = new ArrayList<>();
     }
 
     @Override
@@ -51,6 +55,8 @@ public class PickupNet implements IMetrics {
                 totalAddress++;
                 if (Utilities.isValidAddress(addressText, latitude, longitude)) {
                     validAddress++;
+                } else {
+                    invalidAddresses.add(addressText + " at lat: " + latitude + " lon: " + longitude);
                 }
             }
         });
@@ -60,6 +66,8 @@ public class PickupNet implements IMetrics {
             totalTwitter++;
             if (Utils.validMatch(twitter, "^@?[a-zA-Z_][a-zA-Z0-9_]{3,14}$")) {
                 validTwitter++;
+            } else {
+                invalidTwitters.add(twitter);
             }
         });
     }
@@ -81,6 +89,9 @@ public class PickupNet implements IMetrics {
 
         this.totalAddress += other.totalAddress;
         this.totalTwitter += other.totalTwitter;
+
+        this.invalidAddresses.addAll(other.invalidAddresses);
+        this.invalidTwitters.addAll(other.invalidTwitters);
     }
 
     @Override
@@ -90,6 +101,9 @@ public class PickupNet implements IMetrics {
         sb.append("|---|---|---|---| \n");
         sb.append(Utilities.formatMetricRow("Address", validAddress, totalAddress))
           .append(Utilities.formatMetricRow("Twitter", validTwitter, totalTwitter));
+
+        sb.append(Utilities.getStringList("Invalid Addresses", invalidAddresses))
+          .append(Utilities.getStringList("Invalid Twitters", invalidTwitters));
         return sb.toString();
     }
     
