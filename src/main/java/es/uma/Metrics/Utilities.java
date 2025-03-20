@@ -82,7 +82,7 @@ public class Utilities {
             label, valid, total, percentage);
     }
 
-    private static void waitForMS(long miliseconds) {
+    public static void waitForMS(long miliseconds) {
         try {
             TimeUnit.MILLISECONDS.sleep(miliseconds);
         } catch (Exception e) {
