@@ -157,7 +157,7 @@ public class Use {
 
         // To match also N/A -> || output.contains("N/A")
         if (output.contains("FAILED")) { // Constraints/invariants failed
-            result = output + "\n" + invariants;
+            result = invariants.isEmpty() ? output : output + "\n" + invariants;
         }
 
         System.out.println(result);

@@ -4,6 +4,7 @@ package es.uma.Simple;
 import es.uma.Experiment;
 import es.uma.Listener;
 import es.uma.Llms;
+import es.uma.Use;
 import es.uma.Utils;
 
 public class Simple {
@@ -16,16 +17,48 @@ public class Simple {
         for (int gen = 1; gen <= experiment.repetitions; gen++) {
             Listener.setCurrentCategory("gen" + gen);
             String instancePath = experiment.instancePath + "gen" + gen + "/"; 
-            String response;
+            String instanceSOIL;
             
             if (gen == 1) {
-                response = simple.chat(modelUML, exampleSOIL);
+                instanceSOIL = simple.chat(modelUML, exampleSOIL);
             } else {
-                response = simple.chat("Please, generate another instance that is structurally and semantically different from the previous ones");
+                instanceSOIL = simple.chat("Please, generate another instance that is structurally and semantically different from the previous ones");
             }
 
-            Utils.saveFile(Utils.removeComments(response), instancePath, "output.soil");
-            
+            Utils.saveFile(Utils.removeComments(instanceSOIL), instancePath, "output.soil", false);
+
+            // Checks            
+            final int MAX_ATTEMPTS = 2;
+            int attempts = 0;
+            String syntaxErrors, multiplicitiesErrors, invariantsErrors, check;
+            Use use = new Use();
+
+            // Check syntax
+            do {
+                syntaxErrors = use.checkSyntax(experiment.umlPath, instancePath + "output.soil");
+                if (!syntaxErrors.equals("OK")) {
+                    instanceSOIL = simple.chat("The last output had some syntax errors: \n " + syntaxErrors + "\n Please provide it corrected");
+                    Utils.saveFile(Utils.removeComments(instanceSOIL), instancePath, "output.soil", false);
+                }
+                attempts++;
+            } while (!syntaxErrors.equals("OK") && attempts < MAX_ATTEMPTS);
+
+            // Check multiplicities and invariants
+            attempts = 0;
+            do {
+                multiplicitiesErrors = use.checkMultiplicities(experiment.umlPath, instancePath + "output.soil");
+                invariantsErrors = use.checkInvariants(experiment.umlPath, instancePath + "output.soil", "");
+                multiplicitiesErrors = multiplicitiesErrors.equals("OK") ? "" : multiplicitiesErrors + "\n";
+                invariantsErrors = invariantsErrors.equals("OK") ? "" : invariantsErrors;
+                check = multiplicitiesErrors + invariantsErrors;
+
+                if (!check.isEmpty()) {
+                    instanceSOIL = simple.chat("The last output is partially incorrect: \n" + check + "\n Please provide it corrected");    
+                    Utils.saveFile(Utils.removeComments(instanceSOIL), instancePath, "output.soil", false);
+                }
+                attempts++;
+            } while (!check.isEmpty() && attempts < MAX_ATTEMPTS);
+
             //Utils.waitFor(1); // To avoid rate limiting 
         }
     }
