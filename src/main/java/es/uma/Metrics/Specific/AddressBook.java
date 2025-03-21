@@ -1,5 +1,6 @@
 package es.uma.Metrics.Specific;
 
+import java.util.ArrayList;
 import java.util.Map;
 import es.uma.Utils;
 import es.uma.Metrics.IMetrics;
@@ -8,6 +9,7 @@ import es.uma.Metrics.Utilities;
 public class AddressBook implements IMetrics {
 
     private int validPhone, validWebsite, validEmail, validAddress;
+    private ArrayList<String> invalidPhones, invalidWebsites, invalidEmails, invalidAddresses;
     private int totalPhone, totalWebsite, totalEmail, totalAddress;
     
     public AddressBook() {
@@ -19,6 +21,11 @@ public class AddressBook implements IMetrics {
         totalWebsite = 0;
         totalEmail = 0;
         totalAddress = 0;
+
+        invalidAddresses = new ArrayList<>();
+        invalidPhones = new ArrayList<>();
+        invalidWebsites = new ArrayList<>();
+        invalidEmails = new ArrayList<>();
     }
 
     // TODO: Can be simplified to just Utilities.match as we dont need to map one with the other (no pairs)
@@ -46,6 +53,8 @@ public class AddressBook implements IMetrics {
             totalAddress++;
             if (Utilities.isValidAddress(city, street + ", " + houseNr)) {
                 validAddress++;
+            } else {
+                invalidAddresses.add(street + ", " + houseNr + ", " + city); 
             }
         });
 
@@ -60,6 +69,8 @@ public class AddressBook implements IMetrics {
                 totalPhone++;
                 if (Utilities.isValidPhone(phone)) {
                     validPhone++;
+                } else {
+                    invalidPhones.add(phone);
                 }
            }
 
@@ -67,6 +78,8 @@ public class AddressBook implements IMetrics {
                 totalWebsite++;
                 if (Utilities.isValidWebsite(website)) {
                     validWebsite++;
+                } else {
+                    invalidWebsites.add(website);
                 }
            }
 
@@ -74,6 +87,8 @@ public class AddressBook implements IMetrics {
                 totalEmail++;
                 if (Utilities.isValidEmail(email)) {
                     validEmail++;
+                } else {
+                    invalidEmails.add(email);
                 }
            }
 
@@ -103,6 +118,11 @@ public class AddressBook implements IMetrics {
         this.totalPhone += other.totalPhone;
         this.totalWebsite += other.totalWebsite;
         this.totalEmail += other.totalEmail;
+
+        this.invalidAddresses.addAll(other.invalidAddresses);
+        this.invalidPhones.addAll(other.invalidPhones);
+        this.invalidWebsites.addAll(other.invalidWebsites);
+        this.invalidEmails.addAll(other.invalidEmails);
     }
     
     @Override
@@ -114,6 +134,12 @@ public class AddressBook implements IMetrics {
           .append(Utilities.formatMetricRow("Websites", validWebsite, totalWebsite))
           .append(Utilities.formatMetricRow("Emails", validEmail, totalEmail))
           .append(Utilities.formatMetricRow("Addresses", validAddress, totalAddress));
+
+        sb.append(Utilities.getStringList("Invalid Phones", invalidPhones))
+          .append(Utilities.getStringList("Invalid Websites", invalidWebsites))
+          .append(Utilities.getStringList("Invalid Emails", invalidEmails))
+          .append(Utilities.getStringList("Invalid Addresses", invalidAddresses));
+        
         return sb.toString();
     }
 
