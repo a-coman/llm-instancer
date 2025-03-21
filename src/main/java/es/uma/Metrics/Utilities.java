@@ -110,7 +110,7 @@ public class Utilities {
         System.out.println("Longitude: " + addressRecord.longitude());
         System.out.println("Confidence: " + addressRecord.confidence());
 
-        if (addressRecord.confidence()  > 0.8) {
+        if (addressRecord.confidence()  > 0.7) {
             System.out.println("Return: true");
             return true;
         }
@@ -136,7 +136,7 @@ public class Utilities {
         System.out.println("Longitude: " + addressRecord.longitude());
         System.out.println("Confidence: " + addressRecord.confidence());
 
-        if (addressRecord.confidence()  > 0.8) {
+        if (addressRecord.confidence()  > 0.7) {
             System.out.println("Return: true");
             return true;
         }
@@ -160,7 +160,7 @@ public class Utilities {
         System.out.println("Confidence: " + addressRecord.confidence());
 
         // Permissive 1.0 error margin
-        if (addressRecord.confidence() > 0.8 && Math.abs(addressRecord.latitude() - latitude) < 1 && Math.abs(addressRecord.longitude() - longitude) < 1) {
+        if (addressRecord.confidence() > 0.7 && Math.abs(addressRecord.latitude() - latitude) < 1 && Math.abs(addressRecord.longitude() - longitude) < 1) {
             System.out.println("Return: true");
             return true;
         }
