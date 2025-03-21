@@ -129,6 +129,10 @@ public class Utilities {
         return isValidAddress("", city, street, "");
     }
 
+    public static boolean isValidAddress(String city, String street, String houseNr) {
+        return isValidAddress("", city, street, houseNr);
+    }
+
     public static boolean isValidAddress(String address) {
         Dotenv dotenv = Dotenv.load();
         String apiKey = dotenv.get("GEOAPIFY_KEY");

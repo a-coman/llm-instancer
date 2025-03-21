@@ -51,7 +51,7 @@ public class AddressBook implements IMetrics {
             }
 
             totalAddress++;
-            if (Utilities.isValidAddress(city, street + ", " + houseNr)) {
+            if (Utilities.isValidAddress(city, street, houseNr)) {
                 validAddress++;
             } else {
                 invalidAddresses.add(street + ", " + houseNr + ", " + city); 
