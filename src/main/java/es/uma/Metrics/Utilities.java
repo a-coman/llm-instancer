@@ -155,7 +155,8 @@ public class Utilities {
         return false;
     }
 
-    public static boolean isValidAddress(String address, Double latitude, Double longitude) {
+    public static Map<String, Boolean> isValidAddress(String address, Double latitude, Double longitude) {
+        Map<String, Boolean> results = new HashMap<>();
         Dotenv dotenv = Dotenv.load();
         String apiKey = dotenv.get("GEOAPIFY_KEY");
 
@@ -164,19 +165,26 @@ public class Utilities {
         AddressRecord addressRecord = Utilities.getRequest(url, AddressRecord.class);
         
         System.out.println("GET Address: " + address);
-        System.out.println("Latitude: " + addressRecord.latitude());
-        System.out.println("Longitude: " + addressRecord.longitude());
+        System.out.println("Latitude: " + addressRecord.latitude() + " ?= " + latitude);
+        System.out.println("Longitude: " + addressRecord.longitude() + " ?= " + longitude);
         System.out.println("Confidence: " + addressRecord.confidence());
 
+        if (addressRecord.confidence()  > 0.7) {
+            results.put("validAddress", true);
+        }
+
         // Permissive 1.0 error margin
-        if (addressRecord.confidence() > 0.7 && Math.abs(addressRecord.latitude() - latitude) < 1 && Math.abs(addressRecord.longitude() - longitude) < 1) {
-            System.out.println("Return: true");
-            return true;
+        if (Math.abs(addressRecord.latitude() - latitude) < 1 && Math.abs(addressRecord.longitude() - longitude) < 1) {
+            results.put("validLatLon", true);
         }
         
+        // If absent otherwise false
+        results.putIfAbsent("validLatLon", false);
+        results.putIfAbsent("validAddress", false);
+
+        System.out.println(results);
         waitForMS(250); // 0.25 seconds api rate limit
-        System.out.println("Return: false");
-        return false;
+        return results;
     }
 
     public static boolean isValidPhone(String phone) {

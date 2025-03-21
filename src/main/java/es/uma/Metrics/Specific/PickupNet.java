@@ -9,17 +9,20 @@ import es.uma.Metrics.Utilities;
 
 public class PickupNet implements IMetrics {
 
-    private int validAddress, validTwitter;
-    private ArrayList<String> invalidAddresses, invalidTwitters;
-    private int totalAddress, totalTwitter;
+    private int validAddress, validLatLon, validTwitter;
+    private ArrayList<String> invalidAddresses, invalidLatLot, invalidTwitters;
+    private int totalAddress, totalLatLon, totalTwitter;
 
     public PickupNet() {
         validAddress = 0;
+        validLatLon = 0;
         validTwitter = 0;
         totalAddress = 0;
+        totalLatLon = 0;
         totalTwitter = 0;
 
         invalidAddresses = new ArrayList<>();
+        invalidLatLot = new ArrayList<>();
         invalidTwitters = new ArrayList<>();
     }
 
@@ -53,10 +56,19 @@ public class PickupNet implements IMetrics {
 
             if (addressText != null && latitude != null && longitude != null) {
                 totalAddress++;
-                if (Utilities.isValidAddress(addressText, latitude, longitude)) {
+                Map<String, Boolean> results = Utilities.isValidAddress(addressText, latitude, longitude);
+                if (results.get("validAddress")) {
                     validAddress++;
+                    totalLatLon++;
                 } else {
-                    invalidAddresses.add(addressText + " at lat: " + latitude + " lon: " + longitude);
+                    invalidAddresses.add(addressText);
+                    return; // Skip valitation of Lat/Lon for invalid addresses
+                }
+                
+                if (results.get("validLatLon")) {
+                    validLatLon++;
+                } else {
+                    invalidLatLot.add("Invalid Lat: " + latitude + " Lon: " + longitude + " for address: " + addressText);
                 }
             }
         });
@@ -85,12 +97,15 @@ public class PickupNet implements IMetrics {
         
         PickupNet other = (PickupNet) otherMetrics;
         this.validAddress += other.validAddress;
+        this.validLatLon += other.validLatLon;
         this.validTwitter += other.validTwitter;
 
         this.totalAddress += other.totalAddress;
+        this.totalLatLon += other.totalLatLon;
         this.totalTwitter += other.totalTwitter;
 
         this.invalidAddresses.addAll(other.invalidAddresses);
+        this.invalidLatLot.addAll(other.invalidLatLot);
         this.invalidTwitters.addAll(other.invalidTwitters);
     }
 
@@ -100,9 +115,11 @@ public class PickupNet implements IMetrics {
         sb.append("| PickupNet | Valid | Total | Success (%) | \n");
         sb.append("|---|---|---|---| \n");
         sb.append(Utilities.formatMetricRow("Address", validAddress, totalAddress))
+          .append(Utilities.formatMetricRow("Lat/Lon (out of valid addresses)", validLatLon, totalLatLon))
           .append(Utilities.formatMetricRow("Twitter", validTwitter, totalTwitter));
 
         sb.append(Utilities.getStringList("Invalid Addresses", invalidAddresses))
+          .append(Utilities.getStringList("Invalid Lat/Lon", invalidLatLot))
           .append(Utilities.getStringList("Invalid Twitters", invalidTwitters));
         return sb.toString();
     }
