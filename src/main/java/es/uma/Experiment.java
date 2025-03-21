@@ -27,6 +27,18 @@ public class Experiment {
         Logger.setExperiment(this);
     }
 
+    public Experiment(Model model, String type, String system, int repetitions, String time) {
+        this.system = system;
+        this.type = type;
+        this.model = Llms.getModel(model);
+        this.modelName = model;
+        this.repetitions = repetitions;
+        umlPath = "./src/main/resources/prompts/" + system + "/diagram.use";
+        examplePath = "./src/main/resources/prompts/example.soil";
+        instancePath = "./src/main/resources/instances/" + type + "/" + system + "/" + model.toString() + "/" + time + "/";
+        Logger.setExperiment(this);
+    }
+
     public void run() {
         switch (type) {
             case "Simple":

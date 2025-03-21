@@ -1,6 +1,7 @@
 package es.uma.Metrics;
 
 import es.uma.Experiment;
+import es.uma.Model;
 import es.uma.Utils;
 import es.uma.CoT.CategoryPrompts;
 
@@ -79,6 +80,13 @@ public class MetricsRunner {
         sb.append(sumGeneral.toString()).append("\n");
         sb.append(sumSpecific.toString()).append("\n");
 
-        Utils.saveFile(sb.toString(), experiment.instancePath, "metrics.md");
+        Utils.saveFile(sb.toString(), experiment.instancePath, "metrics.md", false);
+    }
+
+    // Run metrics for specific experiment
+    public static void main(String[] args) {
+        Experiment experiment = new Experiment(Model.GPT_4O, "Simple", "addressbook", 30, "21-03-2025--17-36-43");
+        MetricsRunner metricsRunner = new MetricsRunner();
+        metricsRunner.run(experiment);
     }
 }
