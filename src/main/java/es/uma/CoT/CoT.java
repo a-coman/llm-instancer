@@ -78,7 +78,7 @@ public class CoT {
         do {
             syntaxErrors = use.checkSyntax(experiment.umlPath, instancePath + "temp.soil");
             if (!syntaxErrors.equals("OK")) {
-                instanceSOIL = listInstantiator.chat("The last output had some syntax errors: \n " + syntaxErrors + "\n Please provide it corrected");
+                instanceSOIL = listInstantiator.chat("The last output had some syntax errors: \n " + syntaxErrors + "\n Please provide the complete output corrected");
                 Utils.saveFile(Utils.removeComments(instanceSOIL), instancePath, "temp.soil", false);
             }
             attempts++;
@@ -117,7 +117,7 @@ public class CoT {
             if (!check.isEmpty()) {
             instanceSOIL = listInstantiator.chat(
                 "The last output is partially incorrect: \n" + check + 
-                "\n Please provide it corrected");    
+                "\n Please provide the complete output corrected");    
             Utils.saveFile(Utils.removeComments(instanceSOIL), 
                 instancePath, "temp.soil", false);
             }
