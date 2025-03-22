@@ -25,7 +25,7 @@ composition StateMachineContainsStates between
 end
 
 association StateMachineStartsStates between
-    StateMachine [1] role startedIn
+    StateMachine [0..1] role isStartStateOf
     State [1] role start
 end
 
