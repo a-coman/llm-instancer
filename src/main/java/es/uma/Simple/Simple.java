@@ -37,7 +37,7 @@ public class Simple {
             do {
                 syntaxErrors = use.checkSyntax(experiment.umlPath, instancePath + "output.soil");
                 if (!syntaxErrors.equals("OK")) {
-                    instanceSOIL = simple.chat("The last output had some syntax errors: \n " + syntaxErrors + "\n Please provide the complete output corrected");
+                    instanceSOIL = simple.chat("The last output is partially incorrect: \n " + syntaxErrors + "\n Please provide the complete output corrected");
                     Utils.saveFile(Utils.removeComments(instanceSOIL), instancePath, "output.soil", false);
                 }
                 attempts++;
