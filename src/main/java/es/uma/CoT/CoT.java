@@ -65,7 +65,7 @@ public class CoT {
         if (i == 0) {
             instanceSOIL = listInstantiator.chat(modelUML, exampleSOIL, list.value());    
         } else {
-            instanceSOIL = listInstantiator.chat("Lets continue with the following list: \n" + list.value());
+            instanceSOIL = listInstantiator.chat("Continue with following description, creating the instace according to the syntax example and its specification: \n" + list.value()); 
         }
         
         Utils.saveFile(Utils.removeComments(instanceSOIL), instancePath, "temp.soil", false);
@@ -115,11 +115,8 @@ public class CoT {
             check = multiplicitiesErrors + invariantsErrors;
 
             if (!check.isEmpty()) {
-            instanceSOIL = listInstantiator.chat(
-                "The last output is partially incorrect: \n" + check + 
-                "\n Please provide the complete output corrected");    
-            Utils.saveFile(Utils.removeComments(instanceSOIL), 
-                instancePath, "temp.soil", false);
+                instanceSOIL = listInstantiator.chat("The last output is partially incorrect: \n" + check + "\n Please provide the complete output corrected");    
+                Utils.saveFile(Utils.removeComments(instanceSOIL), instancePath, "temp.soil", false);
             }
 
             attempts++;

@@ -7,13 +7,13 @@ import dev.langchain4j.service.V;
 public interface IListCreator {
     String system = 
         """
-        Your task is to generate a complete and diverse list of instances, in plain English, for a given category and based on a provided conceptual model description. Each instance must:
-        1. Be self-contained: Include all required attributes, relationships, and related entities in full detail.
-        2. Conform to the model: Fulfil the constraints, multiplicities, relatinoships and attributes defined in the model expressed as a class diagram.
-        3. Understand the context: Ensure that each instance and its attributes and relationships are relevant.
-        4. Avoid duplication of instances: Take into consideration those instances previously built to avoid redundancy.
-        5. Semantic diversity: From a semantic point of view, incorporate varied scenarios, including regional, linguistic, or cultural differences.
-        6. Structural diversity: Include instances with different number of elements, different number of relationships and complexity, and create varied examples by changing entity attributes.
+        Your task is to generate a complete and diverse instance, in plain English, for a given category and based on a provided conceptual model description. The instance must adhere to these requirements:
+        - Be self-contained: Include all required attributes, relationships, and related entities in full detail.
+        - Conform to the model: Fulfil the constraints, multiplicities, relatinoships and attributes defined in the class diagram model.
+        - Understand the context: Ensure that its attributes and relationships are relevant.
+        - Avoid duplication of instances: Take into consideration those instances previously built to avoid redundancy.
+        - Semantic diversity: From a semantic point of view, incorporate varied scenarios, including regional, linguistic, or cultural differences.
+        - Structural diversity: Include instances with different number of elements, different number of relationships and complexity, and create varied examples by changing entity attributes.
         """;
 
     String message = 

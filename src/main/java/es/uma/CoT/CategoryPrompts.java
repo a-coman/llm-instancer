@@ -11,40 +11,40 @@ public class CategoryPrompts {
         String baselinePrompt = 
             """
             # Category: Baseline Instances
-            Create typical or standard instances that align with standard cases. Ensure every class and relationship is represented at least once in a baseline configuration.
+            Create a baseline instance. This is an instance that represents a typical/standard scenario. Ensure every class and relationship is present in the instance at least once.
             """;
 
         String boundaryPrompt = 
             """
-            # Category: Boundary Instances
-            Create instances that cover corner cases such as:
-            - Minimum and maximum multiplicities.
-            - Empty collections for optional associations.
-            - Extreme values for numeric or range invariants constraints.
+            Create a boundary case instance. This is an instance that focuses on the extreme upper or lower limits of valid input ranges. For example:
+            - Upper or lower limits of multiplicities.
+            - For numbers in a range, the minimum and maximum valid value.
+            - Empty collections when possible, i.e., when they do not violate the semantics of the model or its constraints.
+
             """;
 
         String complexPrompt = 
             """
             # Category: Complex Instances
-            Create complex instances that contain multiple interrelated entities and/or entities that are involved in multiple constraints.
+            Create a complex instance that contains multiple interrelated entities and/or entities that are involved in multiple constraints.
             """;
 
-        String unrealisticPrompt = 
+        String edgePrompt = 
             """
-            # Category: Unrealistc but valid
-            Create instances that are both syntactically and semantically valid but unlikely or impossible in real life. In terms of semantics, take into account constraints and multiplicities. Think about corner cases and uncommon combinations of relationships and attributes.
+            # Category: Edge Instances
+            Create an edge case instance. This is an instance that behaves within but at the limit of the expected behavior. This instance must focus on a scenario that is unusual, unlikely or impossible in real life but possible according to the syntax and semantics of the model. In terms of semantics, take into account constraints, multiplicities and uncommon combinations of relationships and attributes.
             """;
             
         String invalidPrompt = 
             """
-            # Category: Realistic but invalid
-            Create instances that make sense in real-life scenarios but violate the model constraints, exposing overly restrictive or unrealistic constraints.
+            # Category: Overconstraint Detection
+            Create an instance that represents a real-life scenario that is logically valid but violates the model's multiplicities or constraints, exposing overly restrictive or unrealistic restrictions.
             """;
 
         list.put("baseline", baselinePrompt);
         list.put("boundary", boundaryPrompt);
         list.put("complex", complexPrompt);
-        list.put("unrealistic", unrealisticPrompt);
+        list.put("edge", edgePrompt);
         list.put("invalid", invalidPrompt);
 
     }

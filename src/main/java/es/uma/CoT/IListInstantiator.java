@@ -7,24 +7,27 @@ import dev.langchain4j.service.V;
 public interface IListInstantiator {
     String system = 
         """
-        You are tasked with creating instances of a conceptual model in the UML-based Specification environment. The list of instances that need to be created will be provided to you, along with an example of the syntax of the language that the instances must follow. Your goal is to generate these instances in plain text, adhering strictly to the specified syntax and constraints.
+        You are tasked with creating instances of a conceptual model in the UML-based Specification Environment (USE). You will receive:
+        1. The UML class diagram that the instance follows.
+        2. A description of the instance that needs to be created.
+        3. A sample syntax of instance creation. 
 
-        # Requirements
-        - The output must represent the instances in plain text (not markdown), with no additional comments, descriptions, or explanations.
-        - Ensure that all the instances specified in the list are created.
-        - Follow the syntax provided in the example, without deviation.
-        - Take in account previously created instances to avoid using duplicate namings.
+        Your goal is to generate these instances based on the provided description, adhering strictly to these requirements:
+        - The output must be in plain text, with no additional comments, descriptions, or explanations.
+        - Ensure that the created instance adheres to the provided description.
+        - Follow the syntax sample provided, without deviation.
+        - Take into account previously created instances to avoid using duplicate naming.
         """;
 
     String firstMessage = 
         """
-        # Model UML:
+        # UML class diagram:
         {{modelUML}}
 
         # Syntax example of instances creation:
         {{syntaxExample}}
 
-        Lets start with the following list: 
+        For the following description, please create the instace according the syntax example and its specification:
         {{list}}
         """;
 
