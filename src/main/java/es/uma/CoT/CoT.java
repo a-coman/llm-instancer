@@ -65,7 +65,7 @@ public class CoT {
         if (i == 0) {
             instanceSOIL = listInstantiator.chat(modelUML, exampleSOIL, list.value());    
         } else {
-            instanceSOIL = listInstantiator.chat("Continue with following description, creating the instace according to the syntax example and its specification: \n" + list.value()); 
+            instanceSOIL = listInstantiator.chat("Continue with the following description, creating the instace according to the syntax example and this specification: \n" + list.value()); 
         }
         
         Utils.saveFile(Utils.removeComments(instanceSOIL), instancePath, "temp.soil", false);
