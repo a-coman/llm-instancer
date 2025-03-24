@@ -117,8 +117,9 @@ public class Use {
             }
         }
     
-        System.out.println(errors.toString());
-        return errors.toString().isEmpty() ? "OK" : errors.toString();
+        String syntaxErrors = errors.toString().trim().isEmpty() ? "OK" : errors.toString().trim();
+        System.out.println(syntaxErrors);
+        return syntaxErrors;
     }
 
     public String checkMultiplicities(String diagramPath, String instancePath) {
@@ -138,8 +139,9 @@ public class Use {
             result = output;
         }
 
-        System.out.println(result);
-        return result.isEmpty() ? "OK" : result;
+        String multiplicitiesErrors = result.trim().isEmpty() ? "OK" : result.trim();
+        System.out.println(multiplicitiesErrors);
+        return multiplicitiesErrors;
     }
 
     public String checkInvariants(String diagramPath, String instancePath, String invariants) {
@@ -160,8 +162,9 @@ public class Use {
             result = invariants.isEmpty() ? output : output + "\n" + invariants;
         }
 
-        System.out.println(result);
-        return result.isEmpty() ? "OK" : result;
+        String invariantsErrors = result.trim().isEmpty() ? "OK" : result.trim();
+        System.out.println(invariantsErrors);
+        return invariantsErrors;
     }
 
     // Main for testing purposes
