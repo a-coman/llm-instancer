@@ -33,19 +33,14 @@ public class MetricsRunner {
 
                     // Calculate and output category metrics
                     switch (category) {
-                        // For invalid instances -> partial checks, all semantics
+                        // For invalid instances -> partial checks (syntax), all semantics
                         case "invalid":
                             catGeneral.calculateInvalid(diagramPath, instancePath);
                             catSpecific.calculate(diagramPath, instancePath);        
                             sb.append(catGeneral.invalidToString()).append("\n");
                             sb.append(catSpecific.toString()).append("\n");
                             break;
-                        // For edge instances -> all check metrics, no semantics
-                        case "edge":
-                            catGeneral.calculate(diagramPath, instancePath);
-                            sb.append(catGeneral.toString()).append("\n");
-                            break;
-                        // Otherwise -> all check metrics, all semantics
+                        // Otherwise -> all checks, all semantics
                         default:
                             catGeneral.calculate(diagramPath, instancePath);
                             catSpecific.calculate(diagramPath, instancePath);
