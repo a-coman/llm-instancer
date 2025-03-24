@@ -71,11 +71,6 @@ public class VehicleRental implements IMetrics{
     }
 
     @Override
-    public void calculateInvalid(String diagramPath, String instancePath) {
-        calculate(diagramPath, instancePath);
-    }
-
-    @Override
     public void aggregate(IMetrics otherMetrics) {
         if (!(otherMetrics instanceof VehicleRental)) {
             return;

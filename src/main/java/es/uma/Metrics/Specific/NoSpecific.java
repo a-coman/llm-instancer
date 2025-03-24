@@ -9,9 +9,6 @@ public class NoSpecific implements IMetrics {
     }
 
     @Override
-    public void calculateInvalid(String diagramPath, String instancePath) {}
-
-    @Override
     public void aggregate(IMetrics otherMetrics) {}
 
     @Override

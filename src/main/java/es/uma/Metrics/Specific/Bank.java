@@ -142,12 +142,6 @@ public class Bank implements IMetrics {
     }
 
     @Override
-    public void calculateInvalid(String diagramPath, String instancePath) {
-        // For Bank all calculations are always performed for invalid
-        calculate(diagramPath, instancePath);
-    }
-
-    @Override
     public void aggregate(IMetrics otherMetrics) {
         if (!(otherMetrics instanceof Bank)) {
             return;

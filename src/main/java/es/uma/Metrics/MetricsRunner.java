@@ -31,22 +31,32 @@ public class MetricsRunner {
                     General catGeneral = new General();
                     IMetrics catSpecific = MetricsFactory.createMetrics(experiment.system);
 
-                    // For invalid instances -> partial metrics
-                    if(category.equals("invalid")) {
-                        catGeneral.calculateInvalid(diagramPath, instancePath);
-                        catSpecific.calculateInvalid(diagramPath, instancePath);
-                    } else {
-                        catGeneral.calculate(diagramPath, instancePath);
-                        catSpecific.calculate(diagramPath, instancePath);
+                    // Calculate and output category metrics
+                    switch (category) {
+                        // For invalid instances -> partial checks, all semantics
+                        case "invalid":
+                            catGeneral.calculateInvalid(diagramPath, instancePath);
+                            catSpecific.calculate(diagramPath, instancePath);        
+                            sb.append(catGeneral.invalidToString()).append("\n");
+                            sb.append(catSpecific.toString()).append("\n");
+                            break;
+                        // For edge instances -> all check metrics, no semantics
+                        case "edge":
+                            catGeneral.calculate(diagramPath, instancePath);
+                            sb.append(catGeneral.toString()).append("\n");
+                            break;
+                        // Otherwise -> all check metrics, all semantics
+                        default:
+                            catGeneral.calculate(diagramPath, instancePath);
+                            catSpecific.calculate(diagramPath, instancePath);
+                            sb.append(catGeneral.toString()).append("\n");
+                            sb.append(catSpecific.toString()).append("\n");
+                            break;
                     }
 
                     // Aggregate category metrics into generation metrics
                     genGeneral.aggregate(catGeneral);
                     genSpecific.aggregate(catSpecific);
-                    
-                    // Output category metrics
-                    sb.append(catGeneral.toString()).append("\n");
-                    sb.append(catSpecific.toString()).append("\n");
                     
                 }
             }
@@ -85,7 +95,7 @@ public class MetricsRunner {
 
     // Run metrics for specific experiment
     public static void main(String[] args) {
-        Experiment experiment = new Experiment(Model.GPT_4O, "Simple", "addressbook", 30, "21-03-2025--17-36-43");
+        Experiment experiment = new Experiment(Model.GEMINI_2_FLASH_LITE, "Simple", "myexpenses", 1, "22-03-2025--16-30-26");
         MetricsRunner metricsRunner = new MetricsRunner();
         metricsRunner.run(experiment);
     }

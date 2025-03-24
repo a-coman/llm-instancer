@@ -55,7 +55,6 @@ public class General implements IMetrics {
         invariantsErrorsList.addAll(calculateInvariantsErrors(diagramPath, instancePath));
     }
 
-    @Override
     public void calculateInvalid(String diagramPath, String instancePath) {
         System.out.println(this.getClass().getSimpleName() + " calculating Invalid metrics for: " + instancePath);
         calculateSyntaxErrors(diagramPath, instancePath);
@@ -89,6 +88,17 @@ public class General implements IMetrics {
         sb.append(Utilities.getStringList("Syntax Errors", syntaxErrorsList));
         sb.append(Utilities.getStringList("Multiplicities Errors", multiplicitiesErrorsList));
         sb.append(Utilities.getStringList("Invariants Errors", invariantsErrorsList));
+
+        return sb.toString();
+    }
+
+    public String invalidToString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("| General (Overconstraints Detection) | Value | \n");
+        sb.append("|---|---| \n");
+        sb.append("| Syntax Errors | ").append(syntaxErrors).append(" | \n");
+
+        sb.append(Utilities.getStringList("Syntax Errors", syntaxErrorsList));
 
         return sb.toString();
     }
