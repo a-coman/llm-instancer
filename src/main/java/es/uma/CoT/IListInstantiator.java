@@ -9,8 +9,8 @@ public interface IListInstantiator {
         """
         You are tasked with creating instances of a conceptual model in the UML-based Specification Environment (USE). You will receive:
         1. The UML class diagram that the instance follows.
-        2. A description of the instance that needs to be created.
-        3. A sample syntax of instance creation. 
+        2. A sample syntax of instances creation. 
+        3. A description of the instance that needs to be created.
 
         Your goal is to generate these instances based on the provided description, adhering strictly to these requirements:
         - The output must be in plain text, with no additional comments, descriptions, or explanations.
@@ -27,7 +27,8 @@ public interface IListInstantiator {
         # Syntax example of instances creation:
         {{syntaxExample}}
 
-        For the following description, please create the instace according the syntax example and its specification:
+        # Instance description:
+        Please create the instace according to this specifications:
         {{list}}
         """;
 

@@ -16,14 +16,16 @@ public interface IListCreator {
         - Structural diversity: Include instances with different number of elements, different number of relationships and complexity, and create varied examples by changing entity attributes.
         """;
 
-    String message = 
+    String firstMessage = 
         """
-        {{categoryPrompt}}
+        # Conceptual model description:
         {{modelDescription}}
+        
+        {{categoryPrompt}}
         """;
         
     @SystemMessage(system)
-    @UserMessage(message)
+    @UserMessage(firstMessage)
     String chat(@V("categoryPrompt") String categoryPrompt, @V("modelDescription") String modelDescription);
 
     @SystemMessage(system)

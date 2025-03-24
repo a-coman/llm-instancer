@@ -1,6 +1,8 @@
 package es.uma.CoT;
 
 import dev.langchain4j.service.SystemMessage;
+import dev.langchain4j.service.UserMessage;
+import dev.langchain4j.service.V;
 
 public interface IModelAnalyzer {
     String system = 
@@ -12,17 +14,25 @@ public interface IModelAnalyzer {
         - Multiplicities must be very clear and easy to understand.
 
         You should follow the structure and requirements below:
-        # Description
+        ## Description
         Start by explaining the overall structure and purpose of the model.
+        ### Components
         Break down the components of the model (i.e., classes and attributes), describing each, their type and purpose.
 
-        # Relationships
+        ## Relationships
         Describe the relationships between the components of the model, dependencies and multiplicities (i.e., minimum and maximum number of instances of one class that can be associated with instances of another class). Describe the multiplicities at both ends of each association.
         
-        # Invariants
+        ## Invariants
         Define the invariants that apply to the model (i.e., those constraint that must be fulfilled).
         """;
 
+    String message = 
+        """
+        Analyze the following UML class diagram:
+        {{modelUML}}
+        """;
+    
     @SystemMessage(system)
-    String chat(String message);
+    @UserMessage(message)
+    String chat(@V("modelUML") String modelUML);
 }

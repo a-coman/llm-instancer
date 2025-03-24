@@ -19,7 +19,7 @@ public interface ISimple {
 
     String message = 
         """
-        Create instances for the following UML model:
+        Create an instance for the following UML class diagram:
         {{modelUML}}
 
         Here is an example of the language syntax for creating instances:

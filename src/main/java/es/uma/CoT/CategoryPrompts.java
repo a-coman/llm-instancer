@@ -32,7 +32,7 @@ public class CategoryPrompts {
         String edgePrompt = 
             """
             # Category: Edge Instances
-            Create an edge case instance. This is an instance that behaves within but at the limit of the expected behavior. This instance must focus on a scenario that is unusual, unlikely or impossible in real life but possible according to the syntax and semantics of the model. In terms of semantics, take into account constraints, multiplicities and uncommon combinations of relationships and attributes.
+            Create an edge case instance. This is an instance that behaves within but at the limit of the expected behavior. This instance must focus on a scenario that is unusual or unlikely in real life but possible according to the syntax and semantics of the model. In terms of semantics, take into account constraints, multiplicities and uncommon combinations of relationships and attributes.
             """;
             
         String invalidPrompt = 
