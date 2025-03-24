@@ -20,7 +20,6 @@ public class CategoryPrompts {
             - Upper or lower limits of multiplicities.
             - For numbers in a range, the minimum and maximum valid value.
             - Empty collections when possible, i.e., when they do not violate the semantics of the model or its constraints.
-
             """;
 
         String complexPrompt = 
