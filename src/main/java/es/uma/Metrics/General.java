@@ -9,6 +9,10 @@ public class General implements IMetrics {
     
     private int syntaxErrors, multiplicitiesErrors, invariantsErrors;
     private ArrayList<String> syntaxErrorsList, multiplicitiesErrorsList, invariantsErrorsList;
+    
+    // For invalid category increments (just for InvalidToString)
+    private int invalidMultiplicitiesErrors, invalidInvariantsErrors;
+    private ArrayList<String> invalidMultiplicitiesList, invalidInvariantsList;
 
     public General() {
         syntaxErrors = 0;
@@ -17,32 +21,35 @@ public class General implements IMetrics {
         syntaxErrorsList = new ArrayList<>();
         multiplicitiesErrorsList = new ArrayList<>();
         invariantsErrorsList = new ArrayList<>();
+
+        // For invalid category increments (just for InvalidToString)
+        invalidMultiplicitiesErrors = 0;
+        invalidInvariantsErrors = 0;
+        invalidMultiplicitiesList = new ArrayList<>();
+        invalidInvariantsList = new ArrayList<>();
     }
 
-    private ArrayList<String> calculateSyntaxErrors(String diagramPath, String instancePath) {
+    private ArrayList<String> getSyntaxErrors(String diagramPath, String instancePath) {
         Use use = new Use();
         String syntax = use.checkSyntax(diagramPath, instancePath);
         ArrayList<String> syntaxErrors = syntax.equals("OK") ? new ArrayList<>() : Utils.split(syntax, "(<input>:.*?\\n|Error:.*?\\n|Warning:.*?\\n|INTERNAL ERROR:.*?\\n)");
-        this.syntaxErrors += syntaxErrors.size();
         use.close();
         return syntaxErrors;
     }
 
-    private ArrayList<String> calculateMultiplicitiesErrors(String diagramPath, String instancePath) {   
+    private ArrayList<String> getMultiplicitiesErrors(String diagramPath, String instancePath) {   
         Use use = new Use();
         String multiplicities = use.checkMultiplicities(diagramPath, instancePath);
         ArrayList<String> multiplicitiesErrors = Utils.split(multiplicities, "Multiplicity constraint violation[\\s\\S]*?(?=Multiplicity constraint violation|$)");
-        this.multiplicitiesErrors += multiplicitiesErrors.size();
         use.close();
         return multiplicitiesErrors;
     }
 
-    private ArrayList<String> calculateInvariantsErrors(String diagramPath, String instancePath) {   
+    private ArrayList<String> getInvariantsErrors(String diagramPath, String instancePath) {   
         Use use = new Use();
         String invariants = use.checkInvariants(diagramPath, instancePath, "");
         // REGEX to match also N/A -> "(?m)^checking invariant.*?(FAILED|N/A)\\.?\\s*$"
         ArrayList<String> invariantErrors = Utils.split(invariants, "(?m)^checking invariant.*FAILED\\.?\\s*$");
-        this.invariantsErrors += invariantErrors.size();
         use.close();
         return invariantErrors;
     }
@@ -50,14 +57,33 @@ public class General implements IMetrics {
     @Override
     public void calculate(String diagramPath, String instancePath) {
         System.out.println(this.getClass().getSimpleName() + " calculating ALL metrics for: " + instancePath);
-        syntaxErrorsList.addAll(calculateSyntaxErrors(diagramPath, instancePath));
-        multiplicitiesErrorsList.addAll(calculateMultiplicitiesErrors(diagramPath, instancePath));
-        invariantsErrorsList.addAll(calculateInvariantsErrors(diagramPath, instancePath));
+        ArrayList<String> parsedSyntaxErrors = getSyntaxErrors(diagramPath, instancePath);
+        ArrayList<String> parsedMultiplicitiesErrors = getMultiplicitiesErrors(diagramPath, instancePath);
+        ArrayList<String> parsedInvariantsErrors =  getInvariantsErrors(diagramPath, instancePath);
+        
+        syntaxErrors += parsedSyntaxErrors.size();
+        multiplicitiesErrors += parsedMultiplicitiesErrors.size();
+        invariantsErrors += parsedInvariantsErrors.size();
+
+        syntaxErrorsList.addAll(parsedSyntaxErrors);
+        multiplicitiesErrorsList.addAll(parsedMultiplicitiesErrors);
+        invariantsErrorsList.addAll(parsedInvariantsErrors);
     }
 
     public void calculateInvalid(String diagramPath, String instancePath) {
         System.out.println(this.getClass().getSimpleName() + " calculating Invalid metrics for: " + instancePath);
-        calculateSyntaxErrors(diagramPath, instancePath);
+        // General syntax errors
+        ArrayList<String> parsedSyntaxErrors = getSyntaxErrors(diagramPath, instancePath);
+        syntaxErrors += parsedSyntaxErrors.size();
+        syntaxErrorsList.addAll(parsedSyntaxErrors);
+
+        // For invalid category increments (just for InvalidToString)
+        ArrayList<String> parsedMultiplicitiesErrors = getMultiplicitiesErrors(diagramPath, instancePath);
+        ArrayList<String> parsedInvariantsErrors =  getInvariantsErrors(diagramPath, instancePath);
+        invalidMultiplicitiesErrors += parsedMultiplicitiesErrors.size();
+        invalidInvariantsErrors += parsedInvariantsErrors.size();
+        invalidMultiplicitiesList.addAll(parsedMultiplicitiesErrors);
+        invalidInvariantsList.addAll(parsedInvariantsErrors);
     }
 
     @Override
@@ -74,6 +100,12 @@ public class General implements IMetrics {
         this.syntaxErrorsList.addAll(other.syntaxErrorsList);
         this.multiplicitiesErrorsList.addAll(other.multiplicitiesErrorsList);
         this.invariantsErrorsList.addAll(other.invariantsErrorsList);
+
+        // For invalid category increments (just for InvalidToString)
+        this.invalidMultiplicitiesErrors += other.invalidMultiplicitiesErrors;
+        this.invalidInvariantsErrors += other.invalidInvariantsErrors;
+        this.invalidMultiplicitiesList.addAll(other.invalidMultiplicitiesList);
+        this.invalidInvariantsList.addAll(other.invalidInvariantsList);
     }
 
     @Override
@@ -94,11 +126,19 @@ public class General implements IMetrics {
 
     public String invalidToString() {
         StringBuilder sb = new StringBuilder();
-        sb.append("| General (Overconstraints Detection) | Value | \n");
+        sb.append("| General | Value | \n");
         sb.append("|---|---| \n");
         sb.append("| Syntax Errors | ").append(syntaxErrors).append(" | \n");
-
         sb.append(Utilities.getStringList("Syntax Errors", syntaxErrorsList));
+
+        sb.append("\n");
+        sb.append("| [Overconstraints Detection] General | Value | \n");
+        sb.append("|---|---| \n");
+        sb.append("| Multiplicities Errors | ").append(invalidMultiplicitiesErrors).append(" | \n");
+        sb.append("| Invariants Errors | ").append(invalidInvariantsErrors).append(" | \n");
+
+        sb.append(Utilities.getStringList("[Overconstraints Detection] Multiplicities Errors", invalidMultiplicitiesList));
+        sb.append(Utilities.getStringList("[Overconstraints Detection] Invariants Errors", invalidInvariantsList));
 
         return sb.toString();
     }

@@ -72,6 +72,11 @@ public class MetricsRunner {
             // Output generation metrics
             sb.append("## Generation ").append(gen).append(" summary\n");
             sb.append(genGeneral.toString()).append("\n");
+
+            if (experiment.type.equals("CoT")) {
+                sb.append(genGeneral.invalidToString()).append("\n");    
+            }
+            
             sb.append(genSpecific.toString()).append("\n");
         }
 
@@ -83,6 +88,11 @@ public class MetricsRunner {
         sb.append("| System | ").append(experiment.system).append(" | \n");
         sb.append("| Number of generations | ").append(experiment.repetitions).append(" | \n\n");
         sb.append(sumGeneral.toString()).append("\n");
+        
+        if (experiment.type.equals("CoT")) {
+            sb.append(sumGeneral.invalidToString()).append("\n");
+        }
+
         sb.append(sumSpecific.toString()).append("\n");
 
         Utils.saveFile(sb.toString(), experiment.instancePath, "metrics.md", false);
@@ -90,7 +100,7 @@ public class MetricsRunner {
 
     // Run metrics for specific experiment
     public static void main(String[] args) {
-        Experiment experiment = new Experiment(Model.GEMINI_2_FLASH_LITE, "Simple", "myexpenses", 1, "22-03-2025--16-30-26");
+        Experiment experiment = new Experiment(Model.GEMINI_2_FLASH_LITE, "CoT", "bank", 2 *5, "24-03-2025--19-41-30");
         MetricsRunner metricsRunner = new MetricsRunner();
         metricsRunner.run(experiment);
     }
