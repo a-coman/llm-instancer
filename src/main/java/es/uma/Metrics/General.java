@@ -126,19 +126,15 @@ public class General implements IMetrics {
 
     public String invalidToString() {
         StringBuilder sb = new StringBuilder();
-        sb.append("| General | Value | \n");
+        
+        sb.append("| [Overconstraints Detection] | Value | \n");
         sb.append("|---|---| \n");
-        sb.append("| Syntax Errors | ").append(syntaxErrors).append(" | \n");
-        sb.append(Utilities.getStringList("Syntax Errors", syntaxErrorsList));
-
-        sb.append("\n");
-        sb.append("| [Overconstraints Detection] General | Value | \n");
-        sb.append("|---|---| \n");
-        sb.append("| Multiplicities Errors | ").append(invalidMultiplicitiesErrors).append(" | \n");
-        sb.append("| Invariants Errors | ").append(invalidInvariantsErrors).append(" | \n");
-
-        sb.append(Utilities.getStringList("[Overconstraints Detection] Multiplicities Errors", invalidMultiplicitiesList));
-        sb.append(Utilities.getStringList("[Overconstraints Detection] Invariants Errors", invalidInvariantsList));
+        sb.append("| Syntax Errors (included on General) | ").append(syntaxErrors).append(" | \n");
+        sb.append("| Multiplicities Errors (Not included on General) | ").append(invalidMultiplicitiesErrors).append(" | \n");
+        sb.append("| Invariants Errors (Not included on General) | ").append(invalidInvariantsErrors).append(" | \n");
+        sb.append(Utilities.getStringList("Syntax Errors (included on General)", syntaxErrorsList));
+        sb.append(Utilities.getStringList("[Overconstraints Detection] Multiplicities Errors (Not included on General)", invalidMultiplicitiesList));
+        sb.append(Utilities.getStringList("[Overconstraints Detection] Invariants Errors (Not included on General)", invalidInvariantsList));
 
         return sb.toString();
     }
