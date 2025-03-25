@@ -1,5 +1,7 @@
 package es.uma.Metrics.Specific;
 
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -171,7 +173,8 @@ public class VideoClub implements IMetrics {
     private MovieRecord getMovieRecord(String movieTitle) {
         Dotenv dotenv = Dotenv.load();
         String apiKey = dotenv.get("OMDB_KEY");
-        String url = "http://www.omdbapi.com/?apikey=" + apiKey + "&t=" + movieTitle.replace(" ", "%20");
+        String encodedTitle = URLEncoder.encode(movieTitle, StandardCharsets.UTF_8);
+        String url = "http://www.omdbapi.com/?apikey=" + apiKey + "&t=" + encodedTitle;
         return Utilities.getRequest(url, MovieRecord.class);
     }
 
@@ -199,7 +202,7 @@ public class VideoClub implements IMetrics {
                         if (Integer.parseInt(movieRecord.Year()) >= Integer.parseInt(apiMovieRecord.Year())) {
                             validYear++;
                         } else {
-                            invalidYears.add("Rental year: " + movieRecord.Year() + "<" + "Release year: " + apiMovieRecord.Year()); 
+                            invalidYears.add("Rental year: " + movieRecord.Year() + " < " + "Release year: " + apiMovieRecord.Year()); 
                         }
                     } catch (NumberFormatException e) {
                         // Skip invalid year formats
