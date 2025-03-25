@@ -203,7 +203,7 @@ public class Utilities {
     }
 
     public static boolean isValidWebsite(String website) {
-        String urlPattern = "^(https?://)?([\\w-]+\\.)?[\\w-]+(\\.[a-z]{2,})(:\\d+)?(/[\\w-./?%&=]*)?$";
+        String urlPattern = "^(https?://)?([\\w-]+\\.)?[\\w-]+(\\.[a-z]{2,}(\\.[a-z]{2,})?)?(:\\d+)?(/[\\w-./?%&=]*)?$";
 
         // optional http/https protocol
         // domain name (e.g., www.example)
