@@ -11,7 +11,7 @@ public class General implements IMetrics {
     private ArrayList<String> syntaxErrorsList, multiplicitiesErrorsList, invariantsErrorsList;
     
     // For invalid category increments (just for InvalidToString)
-    private int invalidMultiplicitiesErrors, invalidInvariantsErrors;
+    private int invalidMultiplicitiesErrors, invalidInvariantsErrors, totalInvalidMultiplicities, totalInvalidInvariants;
     private ArrayList<String> invalidMultiplicitiesList, invalidInvariantsList;
 
     public General() {
@@ -27,6 +27,8 @@ public class General implements IMetrics {
         // For invalid category increments (just for InvalidToString)
         invalidMultiplicitiesErrors = 0;
         invalidInvariantsErrors = 0;
+        totalInvalidMultiplicities = 0;
+        totalInvalidInvariants = 0;
         invalidMultiplicitiesList = new ArrayList<>();
         invalidInvariantsList = new ArrayList<>();
     }
@@ -102,6 +104,9 @@ public class General implements IMetrics {
         invalidInvariantsErrors += parsedInvariantsErrors.size();
         invalidMultiplicitiesList.addAll(parsedMultiplicitiesErrors);
         invalidInvariantsList.addAll(parsedInvariantsErrors);
+
+        totalInvalidMultiplicities += getTotalMultiplicities(instancePath);
+        totalInvalidInvariants += getTotalInvariants(diagramPath);
     }
 
     @Override
@@ -125,6 +130,8 @@ public class General implements IMetrics {
         // For invalid category increments (just for InvalidToString)
         this.invalidMultiplicitiesErrors += other.invalidMultiplicitiesErrors;
         this.invalidInvariantsErrors += other.invalidInvariantsErrors;
+        this.totalInvalidMultiplicities += other.totalInvalidMultiplicities;
+        this.totalInvalidInvariants += other.totalInvalidInvariants;
         this.invalidMultiplicitiesList.addAll(other.invalidMultiplicitiesList);
         this.invalidInvariantsList.addAll(other.invalidInvariantsList);
     }
@@ -151,8 +158,8 @@ public class General implements IMetrics {
         sb.append("| [Overconstraints Detection] | Errors | Total | Failure (%) | \n");
         sb.append("|---|---|---|---| \n");
         sb.append("| Syntax Errors (included on General) | ").append(syntaxErrors).append(" | N/A | N/A | N/A |\n");
-        sb.append(Utilities.formatMetricRow("Multiplicities Errors (Not included on General)", multiplicitiesErrors, totalMultiplicities));
-        sb.append(Utilities.formatMetricRow("Invariants Errors (Not included on General)", invariantsErrors, totalInvariants));
+        sb.append(Utilities.formatMetricRow("Multiplicities Errors (Not included on General)", invalidMultiplicitiesErrors, totalInvalidMultiplicities));
+        sb.append(Utilities.formatMetricRow("Invariants Errors (Not included on General)", invalidInvariantsErrors, totalInvalidInvariants));
 
         sb.append(Utilities.getStringList("Syntax Errors (included on General)", syntaxErrorsList));
         sb.append(Utilities.getStringList("[Overconstraints Detection] Multiplicities Errors (Not included on General)", invalidMultiplicitiesList));
