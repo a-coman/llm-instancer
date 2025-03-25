@@ -28,7 +28,7 @@ public interface IListInstantiator {
         {{syntaxExample}}
 
         # Instance description:
-        Please create the instace according to this specifications:
+        Please create the instance according to this specification:
         {{list}}
         """;
 
