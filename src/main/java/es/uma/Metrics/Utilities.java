@@ -215,7 +215,7 @@ public class Utilities {
     }
 
     public static boolean isValidEmail(String email) {
-        String emailPattern = "^[\\w!#$%&'*+/=?`{|}~^-]+(?:\\.[\\w!#$%&'*+/=?`{|}~^-]+)*@(?:[\\w-]+\\.)*[\\w]+\\.[a-zA-Z]{2,}$";
+        String emailPattern = "^[\\w!#$%&'*+/=?`{|}~\\^-]+(?:\\.[\\w!#$%&'*+/=?`{|}~\\^-]+)*@(?:[\\w-]+\\.)*[\\w-]+\\.[a-zA-Z]{2,}$";
         // local part: word chars + specials
         // optional dot-separated parts
         // @ symbol
