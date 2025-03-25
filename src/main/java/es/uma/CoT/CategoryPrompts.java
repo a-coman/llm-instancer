@@ -16,6 +16,7 @@ public class CategoryPrompts {
 
         String boundaryPrompt = 
             """
+            # Category: Boundary Instances
             Create a boundary case instance. This is an instance that focuses on the extreme upper or lower limits of valid input ranges. For example:
             - Upper or lower limits of multiplicities.
             - For numbers in a range, the minimum and maximum valid value.
