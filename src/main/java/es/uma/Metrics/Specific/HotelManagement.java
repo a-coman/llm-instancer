@@ -1,5 +1,7 @@
 package es.uma.Metrics.Specific;
 
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Map;
 import es.uma.Utils;
 import es.uma.Metrics.IMetrics;
@@ -7,13 +9,16 @@ import es.uma.Metrics.Utilities;
 
 public class HotelManagement implements IMetrics {
 
-    private int validCheckInDate, validCheckOutDate; 
+    private int validCheckInDate, validCheckOutDate;
+    private ArrayList<String> invalidCheckInDates, invalidCheckOutDates;
     private int totalDates;
 
     public HotelManagement() {
         validCheckInDate = 0;
         validCheckOutDate = 0;
         totalDates = 0;
+        invalidCheckInDates = new ArrayList<>();
+        invalidCheckOutDates = new ArrayList<>();
     }
     
     @Override
@@ -39,18 +44,31 @@ public class HotelManagement implements IMetrics {
             
             Map<String, String> booking = bookings.get(bookingId);
             Map<String, String> reservation = reservations.get(reservationId);
-            String startDate = booking.get("startDate");
-            String endDate = booking.get("endDate");
-            String checkInDate = reservation.get("checkInDate");
-            String checkOutDate = reservation.get("checkOutDate");
+            String startDateStr = booking.get("startDate");
+            String endDateStr = booking.get("endDate");
+            String checkInDateStr = reservation.get("checkInDate");
+            String checkOutDateStr = reservation.get("checkOutDate");
             
-            if (startDate != null && endDate != null && checkInDate != null && checkOutDate != null) {
+            // TODO: Should be compared with dates not strings
+            if (startDateStr != null && endDateStr != null && checkInDateStr != null && checkOutDateStr != null) {
+
+                LocalDate startDate = Utilities.parseDate(startDateStr);
+                LocalDate endDate = Utilities.parseDate(endDateStr);
+                LocalDate checkInDate = Utilities.parseDate(checkInDateStr);
+                LocalDate checkOutDate = Utilities.parseDate(checkOutDateStr);
+
                 totalDates++;
+
                 if (checkInDate.compareTo(startDate) >= 0) {
                     validCheckInDate++;
+                } else {
+                    invalidCheckInDates.add(checkInDateStr + " !>= " + startDateStr);
                 }
+                
                 if (checkOutDate.compareTo(endDate) <= 0) {
                     validCheckOutDate++;
+                } else {
+                    invalidCheckOutDates.add(checkOutDateStr + " !<= " + endDateStr);
                 }
             }
 
@@ -68,6 +86,9 @@ public class HotelManagement implements IMetrics {
         this.validCheckInDate += other.validCheckInDate;
         this.validCheckOutDate += other.validCheckOutDate;
         this.totalDates += other.totalDates;
+
+        this.invalidCheckInDates.addAll(other.invalidCheckInDates);
+        this.invalidCheckOutDates.addAll(other.invalidCheckOutDates);
     }
 
     @Override
@@ -77,6 +98,9 @@ public class HotelManagement implements IMetrics {
         sb.append("|---|---|---|---| \n");
         sb.append(Utilities.formatMetricRow("checkInDate >= startDate", validCheckInDate, totalDates))
           .append(Utilities.formatMetricRow("checkOutDate <= endDate", validCheckOutDate, totalDates));
+        
+        sb.append(Utilities.getStringList("Invalid checkInDate >= startDate", invalidCheckInDates));
+        sb.append(Utilities.getStringList("Invalid checkOutDate <= endDate", invalidCheckOutDates));
         return sb.toString();
     }
 

@@ -8,9 +8,13 @@ import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.nio.charset.StandardCharsets;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
@@ -266,6 +270,37 @@ public class Utilities {
         sb.append("|---| \n");
         list.forEach(error -> sb.append("```\n").append(error).append("\n```\n"));
         return sb.toString();
+    }
+
+    public static LocalDate parseDate(String dateStr) {
+        // List of possible date formats
+        List<DateTimeFormatter> formatters = Arrays.asList(
+            DateTimeFormatter.ofPattern("yyyy-MM-dd"),         // e.g., 2023-03-15
+            DateTimeFormatter.ofPattern("MMMM d, yyyy"),       // e.g., March 15, 2023
+            DateTimeFormatter.ofPattern("MMM d, yyyy"),        // e.g., Mar 15, 2023
+            DateTimeFormatter.ofPattern("M/d/yyyy"),           // e.g., 3/15/2023
+            DateTimeFormatter.ofPattern("MM/dd/yyyy"),         // e.g., 03/15/2023
+            DateTimeFormatter.ofPattern("d-M-yyyy"),           // e.g., 15-3-2023
+            DateTimeFormatter.ofPattern("dd-MM-yyyy"),         // e.g., 15-03-2023
+            DateTimeFormatter.ofPattern("d/M/yyyy"),           // e.g., 15/3/2023
+            DateTimeFormatter.ofPattern("dd/MM/yyyy"),         // e.g., 15/03/2023
+            DateTimeFormatter.ofPattern("yyyy.MM.dd"),         // e.g., 2023.03.15
+            DateTimeFormatter.ofPattern("d MMMM yyyy"),        // e.g., 15 March 2023
+            DateTimeFormatter.ofPattern("d MMM yyyy"),         // e.g., 15 Mar 2023
+            DateTimeFormatter.ofPattern("yyyy/MM/dd"),         // e.g., 2023/03/15
+            DateTimeFormatter.ofPattern("dd.MM.yyyy"),         // e.g., 15.03.2023
+            DateTimeFormatter.ofPattern("d.MM.yyyy")           // e.g., 5.03.2023
+        );
+
+        for (DateTimeFormatter formatter : formatters) {
+            try {
+                return LocalDate.parse(dateStr, formatter);
+            } catch (DateTimeParseException e) {
+                // Continue trying next pattern
+            }
+        }
+        // If none of the patterns match, throw an exception.
+        throw new IllegalArgumentException("Unable to parse date: " + dateStr);
     }
 
     // Main for testing purposes

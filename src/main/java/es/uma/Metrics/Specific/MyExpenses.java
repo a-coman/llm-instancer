@@ -36,8 +36,8 @@ public class MyExpenses implements IMetrics {
                 return;
             }
 
-            LocalDate endDate = LocalDate.parse(endDateStr);
-            LocalDate startDate = LocalDate.parse(startDateStr);
+            LocalDate endDate = Utilities.parseDate(endDateStr);
+            LocalDate startDate = Utilities.parseDate(startDateStr);
 
             totalDates++;
             if (endDate.compareTo(startDate) >= 0) {
