@@ -1,5 +1,8 @@
 package es.uma.Metrics;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+
 import es.uma.Experiment;
 import es.uma.Model;
 import es.uma.Utils;
@@ -100,8 +103,15 @@ public class MetricsRunner {
 
     // Run metrics for specific experiment
     public static void main(String[] args) {
-        Experiment experiment = new Experiment(Model.GEMINI_2_FLASH_LITE, "CoT", "bank", 2 *5, "24-03-2025--19-41-30");
-        MetricsRunner metricsRunner = new MetricsRunner();
-        metricsRunner.run(experiment);
+        ArrayList<String> systems = new ArrayList<>(Arrays.asList("addressbook", "bank", "hotelmanagement", "myexpenses", "pickupnet", "statemachine", "vehiclerental", "videoclub"));
+
+        ArrayList<String> cotTimes = new ArrayList<>(Arrays.asList("25-03-2025--10-38-22", "24-03-2025--21-13-02", "25-03-2025--11-38-06", "25-03-2025--13-12-54", "25-03-2025--13-32-07", "25-03-2025--13-49-01", "25-03-2025--14-02-01", "25-03-2025--14-18-14"));
+
+        for (int i = 0; i < systems.size(); i++) {
+            Experiment experiment = new Experiment(Model.GPT_4O, "CoT", systems.get(i), 30, cotTimes.get(i));
+            MetricsRunner metricsRunner = new MetricsRunner();
+            metricsRunner.run(experiment);  
+        }
+
     }
 }
