@@ -19,7 +19,7 @@ public class CategoryPrompts {
             # Category: Boundary Instances
             Create a boundary case instance. This is an instance that focuses on the extreme upper or lower limits of valid input ranges. For example:
             - Upper or lower limits of multiplicities.
-            - For numbers in a range, the minimum and maximum valid value.
+            - For numbers in a range, the minimum and maximum valid values.
             - Empty collections when possible, i.e., when they do not violate the semantics of the model or its constraints.
             """;
 
@@ -32,7 +32,7 @@ public class CategoryPrompts {
         String edgePrompt = 
             """
             # Category: Edge Instances
-            Create an edge case instance. This is an instance that behaves within but at the limit of the expected behavior. This instance must focus on a scenario that is unusual or unlikely in real life but possible according to the syntax and semantics of the model. In terms of semantics, take into account constraints, multiplicities and uncommon combinations of relationships and attributes.
+            Create an edge case instance. This is an instance that behaves within but at the limit of the expected behavior. This instance must focus on a scenario that is unusual or unlikely in real life but possible according to the syntax and semantics of the model. In terms of semantics, take into account constraints, multiplicities, and uncommon combinations of relationships and attributes.
             """;
             
         String invalidPrompt = 

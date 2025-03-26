@@ -12,12 +12,12 @@
 !new Client('client1')
 !new Store('store4')
 
--- You can assign values to attributes for an created instance with the following syntax:
+-- You can assign values to attributes for a created instance with the following syntax:
 !<instance name>.<attribute name> := <value>
 -- Example for different data types:
 !client1.clientId := 1 -- For Integer
 !client1.balance := 1123.45 -- For Real
-!client1.name := 'Jhon' -- For Strings
+!client1.name := 'John' -- For Strings
 !store4.available := true -- For Boolean
 
 -- You can create associations between instances with the following syntax:
@@ -31,7 +31,7 @@
     --   Location(x : Real, y : Real)
     --   some other operations
     -- end
--- You can create custom data types calling the constructor directly, in this case, the constructor of Location requires two arguments: x and y of type Real. So it can be used as follows:
+-- You can create custom data types by calling the constructor directly; in this case, the constructor of Location requires two arguments: x and y of type Real. So it can be used as follows:
 !store4.location := Location(14.0, 289.0)
 
 -- Enums usage:

@@ -12,9 +12,9 @@ public interface ISimple {
         ### Requirements
         - Instances must be syntactically correct according to the USE syntax example.
         - Avoid unnecessary comments and output the instance in plain text (i.e., not markdown).
-        - Make sure instances fulfil all the model's constraints, and that multiplicities, relatinoships and attributes are valid.
+        - Make sure instances fulfill all the model's constraints, and that multiplicities, relationships, and attributes are valid.
         - Provide multiple instances with diverse data values and structure.
-        - Additionally provide instances that cover corner cases for constraints, multiplicities, and attribute values.
+        - Additionally, provide instances that cover corner cases for constraints, multiplicities, and attribute values.
         """;
 
     String message = 

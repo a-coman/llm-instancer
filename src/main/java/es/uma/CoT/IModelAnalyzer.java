@@ -23,7 +23,7 @@ public interface IModelAnalyzer {
         Describe the relationships between the components of the model, dependencies and multiplicities (i.e., minimum and maximum number of instances of one class that can be associated with instances of another class). Describe the multiplicities at both ends of each association.
         
         ## Invariants
-        Define the invariants that apply to the model (i.e., those constraint that must be fulfilled).
+        Define the invariants that apply to the model (i.e., those constraints that must be fulfilled).
         """;
 
     String message = 
