@@ -22,7 +22,7 @@ public class Simple {
             if (gen == 1) {
                 instanceSOIL = simple.chat(modelUML, exampleSOIL);
             } else {
-                instanceSOIL = simple.chat("Please generate another instance that is structurally and semantically different from the previous ones");
+                instanceSOIL = simple.chat("Please generate another instance that is structurally and semantically different from the previous ones.");
             }
 
             Utils.saveFile(Utils.removeComments(instanceSOIL), instancePath, "output.soil", false);

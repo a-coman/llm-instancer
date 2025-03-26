@@ -2,40 +2,38 @@ model BankAccount
 
 class Bank
 attributes
- country:String
- name:String
- bic:String
+    country:String
+    name:String
+    bic:String
 end
 
 class Account
 attributes
- iban: String
- balance : Integer
+    iban: String
+    balance : Integer
 end
 
 class Person
 attributes
- firstName:String
- lastName:String
- age : Integer
+    firstName:String
+    lastName:String
+    age : Integer
 end
 
 association Ownership between
-Person [1..2] role owner
-Account [*] role accounts
+    Person [1..2] role owner
+    Account [*] role accounts
 end
 
 association Use between
-Person [*] role user
-Account [*] role usedAccounts
+    Person [*] role user
+    Account [*] role usedAccounts
 end
-
 
 composition AccountOfBanks between
-Bank [1] role bank
-Account [*] role accounts
+    Bank [1] role bank
+    Account [*] role accounts
 end
-
 
 constraints
 context Account inv AdultOwners:
