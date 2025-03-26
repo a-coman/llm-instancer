@@ -1,10 +1,10 @@
 -- This is a comment example
 
 -- Primitive data types:
-- Integer i.e. 1, 2, 3, etc.
-- Real i.e. 1.0, 21.89, 322.05556, etc.
-- Boolean i.e. true or false
-- String i.e. 'Hello World'
+    -- Integer i.e. 1, 2, 3, etc.
+    -- Real i.e. 1.0, 21.89, 322.05556, etc.
+    -- Boolean i.e. true or false
+    -- String i.e. 'Hello World'
 
 -- You can create instances with the following syntax:
 !new <instance type>('<instance name>')
@@ -37,4 +37,4 @@
 -- Enums usage:
     -- enum Type { Clothes, Shoes }
 -- Can be used as follows:
-store4.type := #Clothes
+!store4.type := #Clothes
