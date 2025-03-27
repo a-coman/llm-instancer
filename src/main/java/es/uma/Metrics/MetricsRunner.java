@@ -21,7 +21,7 @@ public class MetricsRunner {
             IMetrics genSpecific = MetricsFactory.createMetrics(experiment.system);
 
             if (experiment.type.equals("CoT")) {
-                CategoryPrompts categoryPrompts = new CategoryPrompts();
+                CategoryPrompts categoryPrompts = new CategoryPrompts(experiment.sizePrompt);
                 for (String category : categoryPrompts.list.keySet()) {
                     String diagramPath = experiment.umlPath;
                     String instancePath = experiment.instancePath + "gen" + gen + "/" + category + ".soil";

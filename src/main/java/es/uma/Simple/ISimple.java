@@ -19,7 +19,7 @@ public interface ISimple {
 
     String message = 
         """
-        Create an instance for the following UML class diagram:
+        Create an instance{{size}} for the following UML class diagram:
         {{modelUML}}
 
         Here is an example of the language syntax for creating instances:
@@ -28,7 +28,7 @@ public interface ISimple {
         
     @SystemMessage(system)
     @UserMessage(message)
-    String chat(@V("modelUML") String modelUML, @V("syntaxExample") String syntaxExample);
+    String chat(@V("modelUML") String modelUML, @V("syntaxExample") String syntaxExample, @V("size") String sizePrompt);
 
     @SystemMessage(system)
     String chat(String message);

@@ -15,13 +15,15 @@ public class Experiment {
     public final String system;
     public final String type;
     public final Model modelName;
+    public final String sizePrompt;
 
-    public Experiment(Model model, String type, String system, int repetitions, String time) {
+    public Experiment(Model model, String type, String system, int repetitions, String time, Size size) {
         this.system = system;
         this.type = type;
         this.model = Llms.getModel(model);
         this.modelName = model;
         this.repetitions = getRepetitions(type, repetitions);
+        this.sizePrompt = size.getPrompt();
         umlPath = "./src/main/resources/prompts/" + system + "/diagram.use";
         examplePath = "./src/main/resources/prompts/example.soil";
         instancePath = "./src/main/resources/instances/" + type + "/" + system + "/" + model.toString() + "/" + time + "/";
@@ -32,7 +34,7 @@ public class Experiment {
         switch (type) {
             case "CoT":
                 // If repetitions is less than the number of categories, we generate at least one for each category. Otherwise, we round up to the nearest integer that fits for the number of categories.
-                CategoryPrompts CATEGORY_PROMPTS = new CategoryPrompts();
+                CategoryPrompts CATEGORY_PROMPTS = new CategoryPrompts("");
                 int numberOfGenerations = repetitions < CATEGORY_PROMPTS.list.size() ? 1 : (int) Math.ceil((double) repetitions / CATEGORY_PROMPTS.list.size());
                 return numberOfGenerations;
             default:
@@ -40,8 +42,12 @@ public class Experiment {
         }
     }
 
-    public Experiment(Model model, String type, String system, int repetitions) {
-        this(model, type, system, repetitions, Utils.getTime());
+    public Experiment(Model model, String type, String system, int repetitions, Size size) {
+        this(model, type, system, repetitions, Utils.getTime(), size);
+    }
+
+    public Experiment(Model model, String type, String system, int repetitions, String time) {
+        this(model, type, system, repetitions, time, Size.SMALL);
     }
 
     public void run() {

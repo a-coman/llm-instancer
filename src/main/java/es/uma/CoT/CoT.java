@@ -16,7 +16,7 @@ public class CoT {
     public static void run(Experiment experiment) {
         
         // Load propmts, get modelUML, exampleSOIL and use shell
-        final CategoryPrompts CATEGORY_PROMPTS = new CategoryPrompts();
+        final CategoryPrompts CATEGORY_PROMPTS = new CategoryPrompts(experiment.sizePrompt);
         final String modelUML = Utils.readFile(experiment.umlPath); 
         final String exampleSOIL = Utils.readFile(experiment.examplePath);
         Use use = new Use();

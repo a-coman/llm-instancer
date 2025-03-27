@@ -31,7 +31,7 @@ public class ListCreator implements Runnable {
             if(gen == 1) {
                 value = listCreator.chat(categoryPrompt, modelDescription);
             } else {
-                value = listCreator.chat("For the same category and model description, generate another instance that is structurally and semantically different from the previous ones");
+                value = listCreator.chat("For the same category and model description, generate another instance" + experiment.sizePrompt + " that is structurally and semantically different from the previous ones");
             }
             
             List list = new List(gen, categoryId, value);        

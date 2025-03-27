@@ -20,9 +20,9 @@ public class Simple {
             String instanceSOIL;
             
             if (gen == 1) {
-                instanceSOIL = simple.chat(modelUML, exampleSOIL);
+                instanceSOIL = simple.chat(modelUML, exampleSOIL, experiment.sizePrompt);
             } else {
-                instanceSOIL = simple.chat("Please generate another instance that is structurally and semantically different from the previous ones.");
+                instanceSOIL = simple.chat("Please generate another instance" + experiment.sizePrompt + " that is structurally and semantically different from the previous ones.");
             }
 
             Utils.saveFile(Utils.removeComments(instanceSOIL), instancePath, "output.soil", false);
