@@ -105,6 +105,16 @@ public class MetricsRunner {
     public static void main(String[] args) {
         ArrayList<String> systems = new ArrayList<>(Arrays.asList("addressbook", "bank", "hotelmanagement", "myexpenses", "pickupnet", "statemachine", "vehiclerental", "videoclub"));
 
+        // Simple
+        ArrayList<String> simpleTimes = new ArrayList<>(Arrays.asList("21-03-2025--17-36-43 (with use check)", "21-03-2025--15-41-00 (with use checks)", "22-03-2025--18-31-34 (with use check)", "22-03-2025--17-12-34 (with use check)", "21-03-2025--15-53-43 (with use check)", "22-03-2025--18-08-16 (with use check)", "21-03-2025--16-07-51 (with use check)", "21-03-2025--16-37-44 (with use check)"));
+        
+        for (int i = 0; i < systems.size(); i++) {
+            Experiment experiment = new Experiment(Model.GPT_4O, "Simple", systems.get(i), 30, simpleTimes.get(i));
+            MetricsRunner metricsRunner = new MetricsRunner();
+            metricsRunner.run(experiment);  
+        }
+
+        // CoT
         ArrayList<String> cotTimes = new ArrayList<>(Arrays.asList("25-03-2025--10-38-22", "24-03-2025--21-13-02", "25-03-2025--11-38-06", "25-03-2025--13-12-54", "25-03-2025--13-32-07", "25-03-2025--13-49-01", "25-03-2025--14-02-01", "25-03-2025--14-18-14"));
 
         for (int i = 0; i < systems.size(); i++) {
