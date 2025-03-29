@@ -106,7 +106,7 @@ public class MetricsRunner {
         ArrayList<String> systems = new ArrayList<>(Arrays.asList("addressbook", "bank", "hotelmanagement", "myexpenses", "pickupnet", "statemachine", "vehiclerental", "videoclub"));
 
         // Simple
-        ArrayList<String> simpleTimes = new ArrayList<>(Arrays.asList("21-03-2025--17-36-43", "21-03-2025--15-41-00 (with use checks)", "22-03-2025--18-31-34", "22-03-2025--17-12-34", "21-03-2025--15-53-43", "22-03-2025--18-08-16", "21-03-2025--16-07-51", "21-03-2025--16-37-44"));
+        ArrayList<String> simpleTimes = new ArrayList<>(Arrays.asList("21-03-2025--17-36-43", "21-03-2025--15-41-00", "22-03-2025--18-31-34", "22-03-2025--17-12-34", "21-03-2025--15-53-43", "22-03-2025--18-08-16", "21-03-2025--16-07-51", "21-03-2025--16-37-44"));
         
         for (int i = 0; i < systems.size(); i++) {
             Experiment experiment = new Experiment(Model.GPT_4O, "Simple", systems.get(i), 30, simpleTimes.get(i));
