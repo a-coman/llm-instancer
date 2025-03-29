@@ -7,7 +7,7 @@ import es.uma.Utils;
 
 public class General implements IMetrics {
     
-    private int syntaxErrors, multiplicitiesErrors, invariantsErrors, totalMultiplicities, totalInvariants;
+    private int syntaxErrors, multiplicitiesErrors, invariantsErrors, totalSyntax, totalMultiplicities, totalInvariants;
     private ArrayList<String> syntaxErrorsList, multiplicitiesErrorsList, invariantsErrorsList;
     
     // For invalid category increments (just for InvalidToString)
@@ -18,6 +18,7 @@ public class General implements IMetrics {
         syntaxErrors = 0;
         multiplicitiesErrors = 0;
         invariantsErrors = 0;
+        totalSyntax = 0;
         totalMultiplicities = 0;
         totalInvariants = 0;
         syntaxErrorsList = new ArrayList<>();
@@ -58,10 +59,38 @@ public class General implements IMetrics {
         return invariantErrors;
     }
 
+    private int getTotalSyntax(String instancePath) {
+        String instance = Utils.readFile(instancePath);
+        int count = 0;
+    
+        // Search for "!new"
+        int index = 0;
+        while ((index = instance.indexOf("!new", index)) != -1) {
+            count++;
+            index += 4;
+        }
+        
+        // Search for "!insert"
+        index = 0;
+        while ((index = instance.indexOf("!insert", index)) != -1) {
+            count++;
+            index += 7;
+        }
+        
+        // Search for ":="
+        index = 0;
+        while ((index = instance.indexOf(":=", index)) != -1) {
+            count++;
+            index += 2;
+        }
+        
+        return count;
+    }
+
     private int getTotalMultiplicities(String instancePath) {
-        String diagram = Utils.readFile(instancePath);
+        String instance = Utils.readFile(instancePath);
         String pattern = "insert\\s+(.+?)\\s+into";
-        return Utils.split(diagram, pattern).size();
+        return Utils.split(instance, pattern).size();
     }
 
     private int getTotalInvariants(String diagramPath) {
@@ -85,6 +114,7 @@ public class General implements IMetrics {
         multiplicitiesErrorsList.addAll(parsedMultiplicitiesErrors);
         invariantsErrorsList.addAll(parsedInvariantsErrors);
 
+        totalSyntax += getTotalSyntax(instancePath);
         totalMultiplicities += getTotalMultiplicities(instancePath);
         totalInvariants += getTotalInvariants(diagramPath);
 
@@ -105,6 +135,7 @@ public class General implements IMetrics {
         invalidMultiplicitiesList.addAll(parsedMultiplicitiesErrors);
         invalidInvariantsList.addAll(parsedInvariantsErrors);
 
+        totalSyntax += getTotalSyntax(instancePath);
         totalInvalidMultiplicities += getTotalMultiplicities(instancePath);
         totalInvalidInvariants += getTotalInvariants(diagramPath);
     }
@@ -124,6 +155,7 @@ public class General implements IMetrics {
         this.multiplicitiesErrorsList.addAll(other.multiplicitiesErrorsList);
         this.invariantsErrorsList.addAll(other.invariantsErrorsList);
 
+        this.totalSyntax += other.totalSyntax;
         this.totalMultiplicities += other.totalMultiplicities;
         this.totalInvariants += other.totalInvariants;
 
@@ -141,7 +173,7 @@ public class General implements IMetrics {
         StringBuilder sb = new StringBuilder();
         sb.append("| General | Errors | Total | Failure (%) | \n");
         sb.append("|---|---|---|---| \n");
-        sb.append("| Syntax Errors | ").append(syntaxErrors).append(" | N/A | N/A | N/A |\n");
+        sb.append(Utilities.formatMetricRow("Syntax Errors", syntaxErrors, totalSyntax));
         sb.append(Utilities.formatMetricRow("Multiplicities Errors", multiplicitiesErrors, totalMultiplicities));
         sb.append(Utilities.formatMetricRow("Invariants Errors", invariantsErrors, totalInvariants));
         
@@ -157,11 +189,9 @@ public class General implements IMetrics {
         
         sb.append("| [Overconstraints Detection] | Errors | Total | Failure (%) | \n");
         sb.append("|---|---|---|---| \n");
-        sb.append("| Syntax Errors (included on General) | ").append(syntaxErrors).append(" | N/A | N/A | N/A |\n");
         sb.append(Utilities.formatMetricRow("Multiplicities Errors (Not included on General)", invalidMultiplicitiesErrors, totalInvalidMultiplicities));
         sb.append(Utilities.formatMetricRow("Invariants Errors (Not included on General)", invalidInvariantsErrors, totalInvalidInvariants));
 
-        sb.append(Utilities.getStringList("Syntax Errors (included on General)", syntaxErrorsList));
         sb.append(Utilities.getStringList("[Overconstraints Detection] Multiplicities Errors (Not included on General)", invalidMultiplicitiesList));
         sb.append(Utilities.getStringList("[Overconstraints Detection] Invariants Errors (Not included on General)", invalidInvariantsList));
 
