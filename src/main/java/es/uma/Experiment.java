@@ -26,7 +26,13 @@ public class Experiment {
         this.sizePrompt = size.getPrompt();
         umlPath = "./src/main/resources/prompts/" + system + "/diagram.use";
         examplePath = "./src/main/resources/prompts/example.soil";
-        instancePath = "./src/main/resources/instances/" + type + "/" + system + "/" + model.toString() + "/" + time + "-" + size + "/";
+        
+        if (size.equals(Size.NONE)) {
+            instancePath = "./src/main/resources/instances/" + type + "/" + system + "/" + model.toString() + "/" + time + "/";    
+        } else {
+            instancePath = "./src/main/resources/instances/" + type + "/" + system + "/" + model.toString() + "/" + time + "-" + size + "/";
+        }
+        
         Logger.setExperiment(this);
     }
 
