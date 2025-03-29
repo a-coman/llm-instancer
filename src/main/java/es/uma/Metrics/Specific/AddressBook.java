@@ -123,12 +123,12 @@ public class AddressBook implements IMetrics {
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append("| AddressBook | Valid | Total | Success (%) | \n");
+        sb.append("| AddressBook | Invalid | Total | Failure (%) | \n");
         sb.append("|---|---|---|---| \n");
-        sb.append(Utilities.formatMetricRow("Phones", validPhone, totalPhone))
-          .append(Utilities.formatMetricRow("Websites", validWebsite, totalWebsite))
-          .append(Utilities.formatMetricRow("Emails", validEmail, totalEmail))
-          .append(Utilities.formatMetricRow("Addresses", validAddress, totalAddress));
+        sb.append(Utilities.formatMetricRow("Phones", totalPhone - validPhone, totalPhone))
+          .append(Utilities.formatMetricRow("Websites", totalWebsite - validWebsite, totalWebsite))
+          .append(Utilities.formatMetricRow("Emails", totalEmail - validEmail, totalEmail))
+          .append(Utilities.formatMetricRow("Addresses", totalAddress - validAddress, totalAddress));
 
         sb.append(Utilities.getStringList("Invalid Phones", invalidPhones))
           .append(Utilities.getStringList("Invalid Websites", invalidWebsites))

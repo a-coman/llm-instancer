@@ -163,11 +163,11 @@ public class Bank implements IMetrics {
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append("| Bank | Valid | Total | Success (%) | \n");
+        sb.append("| Bank | Invalid | Total | Failure (%) | \n");
         sb.append("|---|---|---|---| \n");
-        sb.append(Utilities.formatMetricRow("IBANs", validIbans, totalIbans))
-          .append(Utilities.formatMetricRow("BICs", validBics, totalBics))
-          .append(Utilities.formatMetricRow("Countries", validCountries, totalCountries));
+        sb.append(Utilities.formatMetricRow("IBANs", totalIbans - validIbans, totalIbans))
+          .append(Utilities.formatMetricRow("BICs", totalBics - validBics, totalBics))
+          .append(Utilities.formatMetricRow("Countries", totalCountries - validCountries, totalCountries));
 
         sb.append(Utilities.getStringList("Failed IBANs", failedIbans));
         sb.append(Utilities.getStringList("Failed BICs", failedBics));

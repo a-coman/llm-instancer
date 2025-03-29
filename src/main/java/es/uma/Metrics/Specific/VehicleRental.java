@@ -94,11 +94,11 @@ public class VehicleRental implements IMetrics{
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append("| VehicleRental | Valid | Total | Success (%) | \n");
+        sb.append("| VehicleRental | Invalid | Total | Failure (%) | \n");
         sb.append("|---|---|---|---| \n");
-        sb.append(Utilities.formatMetricRow("Addresses", validAddress, totalAddress))
-          .append(Utilities.formatMetricRow("License Plates", validLicensePlate, totalLicensePlate))
-          .append(Utilities.formatMetricRow("Home Phones", validHomePhone, totalHomePhone));
+        sb.append(Utilities.formatMetricRow("Addresses", totalAddress - validAddress, totalAddress))
+          .append(Utilities.formatMetricRow("License Plates", totalLicensePlate - validLicensePlate, totalLicensePlate))
+          .append(Utilities.formatMetricRow("Home Phones", totalHomePhone - validHomePhone, totalHomePhone));
 
         sb.append(Utilities.getStringList("Invalid Addresses", invalidAddresses))
           .append(Utilities.getStringList("Invalid License Plates", invalidLicensePlates))

@@ -63,9 +63,9 @@ public class MyExpenses implements IMetrics {
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append("| MyExpenses | Valid | Total | Success (%) | \n");
+        sb.append("| MyExpenses | Invalid | Total | Failure (%) | \n");
         sb.append("|---|---|---|---| \n");
-        sb.append(Utilities.formatMetricRow("Dates", validDates, totalDates));
+        sb.append(Utilities.formatMetricRow("Dates", totalDates - validDates, totalDates));
         sb.append(Utilities.getStringList("Invalid dates", invalidDates));
         return sb.toString();
     }

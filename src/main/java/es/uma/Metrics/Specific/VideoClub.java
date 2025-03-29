@@ -287,13 +287,13 @@ public class VideoClub implements IMetrics {
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append("| Videoclub | Valid | Total | Success (%) | \n");
+        sb.append("| Videoclub | Invalid | Total | Failure (%) | \n");
         sb.append("|---|---|---|---| \n");
-        sb.append(Utilities.formatMetricRow("Titles", validTitle, totalTitle))
-          .append(Utilities.formatMetricRow("Types (out of valid Titles)", validType, totalType))
-          .append(Utilities.formatMetricRow("Genres (out of valid Titles)", validGenre, totalGenre))
-          .append(Utilities.formatMetricRow("Actors (out of valid Titles)", validActors, totalActors))
-          .append(Utilities.formatMetricRow("Release year > Rental year (out of valid Titles)", validYear, totalYear));
+        sb.append(Utilities.formatMetricRow("Titles", totalTitle - validTitle, totalTitle))
+          .append(Utilities.formatMetricRow("Types (out of valid Titles)", totalType - validType, totalType))
+          .append(Utilities.formatMetricRow("Genres (out of valid Titles)", totalGenre - validGenre, totalGenre))
+          .append(Utilities.formatMetricRow("Actors (out of valid Titles)", totalActors - validActors, totalActors))
+          .append(Utilities.formatMetricRow("Release year > Rental year (out of valid Titles)", totalYear - validYear, totalYear));
 
         sb.append(Utilities.getStringList("Failed Titles", invalidTitles))
           .append(Utilities.getStringList("Failed Types", invalidTypes))

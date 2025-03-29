@@ -94,10 +94,10 @@ public class HotelManagement implements IMetrics {
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append("| HotelManagement | Valid | Total | Success (%) | \n");
+        sb.append("| HotelManagement | Invalid | Total | Failure (%) | \n");
         sb.append("|---|---|---|---| \n");
-        sb.append(Utilities.formatMetricRow("checkInDate >= startDate", validCheckInDate, totalDates))
-          .append(Utilities.formatMetricRow("checkOutDate <= endDate", validCheckOutDate, totalDates));
+        sb.append(Utilities.formatMetricRow("checkInDate >= startDate", totalDates - validCheckInDate, totalDates))
+          .append(Utilities.formatMetricRow("checkOutDate <= endDate", totalDates - validCheckOutDate, totalDates));
         
         sb.append(Utilities.getStringList("Invalid checkInDate >= startDate", invalidCheckInDates));
         sb.append(Utilities.getStringList("Invalid checkOutDate <= endDate", invalidCheckOutDates));

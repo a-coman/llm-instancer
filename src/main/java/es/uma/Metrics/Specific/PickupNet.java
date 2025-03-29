@@ -107,11 +107,11 @@ public class PickupNet implements IMetrics {
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append("| PickupNet | Valid | Total | Success (%) | \n");
+        sb.append("| PickupNet | Invalid | Total | Failure (%) | \n");
         sb.append("|---|---|---|---| \n");
-        sb.append(Utilities.formatMetricRow("Address", validAddress, totalAddress))
-          .append(Utilities.formatMetricRow("Lat/Lon (out of valid addresses)", validLatLon, totalLatLon))
-          .append(Utilities.formatMetricRow("Twitter", validTwitter, totalTwitter));
+        sb.append(Utilities.formatMetricRow("Address", totalAddress - validAddress, totalAddress))
+          .append(Utilities.formatMetricRow("Lat/Lon (out of valid addresses)", totalLatLon - validLatLon, totalLatLon))
+          .append(Utilities.formatMetricRow("Twitter", totalTwitter - validTwitter, totalTwitter));
 
         sb.append(Utilities.getStringList("Invalid Addresses", invalidAddresses))
           .append(Utilities.getStringList("Invalid Lat/Lon", invalidLatLot))
