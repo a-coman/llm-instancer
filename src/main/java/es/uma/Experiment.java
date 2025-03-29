@@ -26,7 +26,7 @@ public class Experiment {
         this.sizePrompt = size.getPrompt();
         umlPath = "./src/main/resources/prompts/" + system + "/diagram.use";
         examplePath = "./src/main/resources/prompts/example.soil";
-        instancePath = "./src/main/resources/instances/" + type + "/" + system + "/" + model.toString() + "/" + time + "/";
+        instancePath = "./src/main/resources/instances/" + type + "/" + system + "/" + model.toString() + "/" + time + "-" + size + "/";
         Logger.setExperiment(this);
     }
 
@@ -47,7 +47,7 @@ public class Experiment {
     }
 
     public Experiment(Model model, String type, String system, int repetitions, String time) {
-        this(model, type, system, repetitions, time, Size.SMALL);
+        this(model, type, system, repetitions, time, Size.NONE);
     }
 
     public void run() {
