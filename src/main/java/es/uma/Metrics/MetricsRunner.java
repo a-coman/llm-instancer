@@ -68,6 +68,15 @@ public class MetricsRunner {
                 sb.append("```\n").append(instance).append("\n```\n");
             }
 
+            if (experiment.type.isEmpty()) {
+                String diagramPath = experiment.umlPath;
+                String instancePath = experiment.instancePath;
+                genGeneral.calculate(diagramPath, instancePath);
+                genSpecific.calculate(diagramPath, instancePath);
+                String instance = Utils.readFile(instancePath);
+                sb.append("```\n").append(instance).append("\n```\n");
+            }
+
             // Aggregate generation metrics into summary metrics
             sumGeneral.aggregate(genGeneral);
             sumSpecific.aggregate(genSpecific);
@@ -103,25 +112,28 @@ public class MetricsRunner {
 
     // Run metrics for specific experiment
     public static void main(String[] args) {
-        ArrayList<String> systems = new ArrayList<>(Arrays.asList("addressbook", "bank", "hotelmanagement", "myexpenses", "pickupnet", "statemachine", "vehiclerental", "videoclub"));
+        // ArrayList<String> systems = new ArrayList<>(Arrays.asList("addressbook", "bank", "hotelmanagement", "myexpenses", "pickupnet", "statemachine", "vehiclerental", "videoclub"));
 
-        // Simple
-        ArrayList<String> simpleTimes = new ArrayList<>(Arrays.asList("21-03-2025--17-36-43", "21-03-2025--15-41-00", "22-03-2025--18-31-34", "22-03-2025--17-12-34", "21-03-2025--15-53-43", "22-03-2025--18-08-16", "21-03-2025--16-07-51", "21-03-2025--16-37-44"));
+        // // Simple
+        // ArrayList<String> simpleTimes = new ArrayList<>(Arrays.asList("21-03-2025--17-36-43", "21-03-2025--15-41-00", "22-03-2025--18-31-34", "22-03-2025--17-12-34", "21-03-2025--15-53-43", "22-03-2025--18-08-16", "21-03-2025--16-07-51", "21-03-2025--16-37-44"));
         
-        for (int i = 0; i < systems.size(); i++) {
-            Experiment experiment = new Experiment(Model.GPT_4O, "Simple", systems.get(i), 30, simpleTimes.get(i));
-            MetricsRunner metricsRunner = new MetricsRunner();
-            metricsRunner.run(experiment);  
-        }
+        // for (int i = 0; i < systems.size(); i++) {
+        //     Experiment experiment = new Experiment(Model.GPT_4O, "Simple", systems.get(i), 30, simpleTimes.get(i));
+        //     MetricsRunner metricsRunner = new MetricsRunner();
+        //     metricsRunner.run(experiment);  
+        // }
 
-        // CoT
-        ArrayList<String> cotTimes = new ArrayList<>(Arrays.asList("25-03-2025--10-38-22", "24-03-2025--21-13-02", "25-03-2025--11-38-06", "25-03-2025--13-12-54", "25-03-2025--13-32-07", "25-03-2025--13-49-01", "25-03-2025--14-02-01", "25-03-2025--14-18-14"));
+        // // CoT
+        // ArrayList<String> cotTimes = new ArrayList<>(Arrays.asList("25-03-2025--10-38-22", "24-03-2025--21-13-02", "25-03-2025--11-38-06", "25-03-2025--13-12-54", "25-03-2025--13-32-07", "25-03-2025--13-49-01", "25-03-2025--14-02-01", "25-03-2025--14-18-14"));
 
-        for (int i = 0; i < systems.size(); i++) {
-            Experiment experiment = new Experiment(Model.GPT_4O, "CoT", systems.get(i), 30, cotTimes.get(i));
-            MetricsRunner metricsRunner = new MetricsRunner();
-            metricsRunner.run(experiment);  
-        }
+        // for (int i = 0; i < systems.size(); i++) {
+        //     Experiment experiment = new Experiment(Model.GPT_4O, "CoT", systems.get(i), 30, cotTimes.get(i));
+        //     MetricsRunner metricsRunner = new MetricsRunner();
+        //     metricsRunner.run(experiment);  
+        // }
 
+        Experiment experiment = new Experiment("hotelmanagement", "src/main/resources/instances/Scalability/hotelmanagement50.soil");
+        MetricsRunner metricsRunner = new MetricsRunner();
+        metricsRunner.run(experiment);
     }
 }

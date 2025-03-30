@@ -56,6 +56,19 @@ public class Experiment {
         this(model, type, system, repetitions, time, Size.NONE);
     }
 
+    // For MetricsRunner Scalability
+    public Experiment(String system, String instancePath) {
+        this.umlPath = "./src/main/resources/prompts/" + system + "/diagram.use";
+        this.instancePath = instancePath;
+        this.system = system;
+        this.type = "";
+        this.model = null;
+        this.modelName = null;
+        this.repetitions = 1;
+        this.sizePrompt = null;
+        this.examplePath = null;
+    }
+
     public void run() {
         switch (type) {
             case "Simple":
