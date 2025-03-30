@@ -2,9 +2,11 @@ package es.uma;
 
 public enum Size {
     NONE(""),
-    SMALL(" with around 10 to 15 objects"),
-    MEDIUM(" with around 16 to 50 objects"),
-    LARGE(" with around 51 to 100 objects");
+    MINIMAL(" with 10 or more objects"),
+    SMALL(" with 20 or more objects"),
+    MEDIUM(" with 30 or more objects"),
+    LARGE(" with 40 or more objects"),
+    GIANT(" with 50 or more objects");
 
     private final String prompt;
 
