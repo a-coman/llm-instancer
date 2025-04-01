@@ -241,3 +241,14 @@ association HeadWaiterWaiter between
     HeadWaiter [1]
     Waiter [1..*] role responsibleFor
 end
+
+
+constraints
+context Table inv PositiveCapacity:
+    self.capacity > 0
+
+context Cook inv PositiveExperience:
+    self.yearsOfExperience >= 0
+
+context Restaurant inv TotalOwnerShares:
+    self.owner -> collect(o | o.numShares) -> sum() = 100
