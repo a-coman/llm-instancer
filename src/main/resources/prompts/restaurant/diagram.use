@@ -1,0 +1,243 @@
+model Restaurant
+
+dataType Date
+operations
+    Date (date : String)
+end
+
+dataType Time
+operations
+   Time (time : String)
+end
+
+enum SeatingPreference {
+    Inside,
+    Patio
+}
+
+enum SmokingPreference {
+    Smoking,
+    NonSmoking
+}
+
+enum PaymentMethod {
+    Cash,
+    CreditCard
+}
+
+enum ItemType {
+    Apetizer,
+    Main,
+    Dessert,
+    Beverage
+}
+
+enum UnitOfMeasure {
+    Ounce,
+    Sheet,
+    Pound,
+    Gram,
+    Dozen
+}
+
+enum AllergenType {
+    Lactose,
+    Seafood,
+    Nuts,
+    Gluten
+}
+
+enum Diet {
+    Vegetarian,
+    Vegan,
+    Kosher,
+    Halal
+}
+
+enum Language {
+    English,
+    Spanish,
+    German,
+    Italian
+}
+
+class Restaurant
+attributes
+    name : String
+end
+
+abstract class Reservation
+attributes
+    time : Time
+    date : Date
+    numberPeople : Integer
+    name : String
+    phoneNumber : String
+    number : Integer
+end
+
+class Individual < Reservation
+attributes
+    seating : SeatingPreference
+    smoking : SmokingPreference
+end
+
+class Banquet < Reservation
+attributes
+    groupName : String
+    paymentMethod : PaymentMethod
+    busService : Boolean
+end
+
+class Table
+attributes
+	number : Integer
+    description : String
+    capacity : Integer
+end
+
+class ItemOrder
+attributes
+    time : Time
+end
+
+class MenuItem
+attributes
+    description : String
+    prepTime : Real
+    classification : ItemType
+end
+
+class FoodItem
+attributes
+    number : Integer
+    description : String
+    purchaseFlag : Boolean
+    unit : UnitOfMeasure
+end
+
+class Allergen
+attributes
+    type : AllergenType
+end
+
+class Person
+attributes
+	name : String
+end
+
+class Owner < Person
+attributes
+	numShares : Integer
+end
+
+class RegularCustomer < Person
+attributes
+	prefferedLanguage : Language
+end
+
+class DietaryRequirement
+attributes
+	diet : Diet
+end
+
+class ReportedAllergy
+attributes
+	allergen : AllergenType
+end
+
+abstract class Worker < Person
+attributes
+	dateOfBirth : Date
+    phoneNumber : String
+end
+
+class HeadWaiter < Worker
+end
+
+class Waiter < Worker
+attributes
+    spokenLanguage : Language
+end
+
+class Manager < Worker
+end
+
+class Cook < Worker
+attributes
+    yearsOfExperience : Integer
+end
+
+class Chef < Worker
+end
+
+class BusDriver < Worker
+attributes
+    driverLicenseNr : String
+end
+
+
+association RestaurantOwner between
+    Restaurant [1..*]
+    Owner [1..*]
+end
+
+association RestaurantReservation between
+    Restaurant [0..1]
+    Reservation [0..*]
+end
+
+association ReservationCustomer between
+    Reservation [0..*]
+    RegularCustomer [0..1]
+end
+
+association ReservationWaiter between
+    Reservation [*]
+    Waiter [1..*] role servedBy
+ end
+
+association BanquetBusDriver between
+    Banquet [1]
+    BusDriver [0..*]
+end
+
+association ReservationTable between
+    Reservation [1]
+    Table [1..*] role assignedTo
+end
+
+association ReservationItemOrdered between
+    Reservation [1]
+    ItemOrder [0..*]
+end
+
+association ItemOrderMenuItem between
+    ItemOrder [*]
+    MenuItem [1] role item
+end
+
+association MenuItemFoodItem between
+    MenuItem [*] role isUtilized
+    FoodItem [*] role utilizes
+end
+
+association FoodItemAllergen between
+    FoodItem [*]
+    Allergen [*] role contains
+end
+
+association MenuItemChef between
+    MenuItem [*] role designs
+    Chef [1] role designedBy
+end
+
+association ChefCook between
+    Chef [1] role underSupervisionOf
+    Cook [1..*] role supervises
+end
+
+association HeadWaiterWaiter between
+    HeadWaiter [1]
+    Waiter [1..*] role responsibleFor
+end
