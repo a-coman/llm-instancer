@@ -1,0 +1,201 @@
+model Football
+
+class Club
+attributes
+    name : String
+    homeGround : String
+    chairman : String
+end
+
+class Team
+attributes
+    name : String
+end
+
+class Competition
+attributes
+    name : String
+    type : String
+end
+
+class TrainingSession
+attributes
+	date : String
+	location : String
+	purpose : String
+end
+
+class TrainingNotes
+attributes
+	note : String
+	date : String
+end
+
+class MatchEvent
+attributes
+	eventType : String
+    time : Integer
+end
+
+class Match
+attributes
+    date : String
+    homeAway : Boolean
+end
+
+class TrainingFailedToAttend
+attributes
+	reason : String
+end
+
+class Player
+attributes
+	name : String
+    age : Integer
+    bestFoot : String
+    phoneNumber : String
+end
+
+class MatchReport
+attributes
+	duration : String
+    result : String
+    winner : Team
+end
+
+class MatchNote
+attributes
+	note : String
+	date : String
+end
+
+class TrainingGoals
+attributes
+	areaToImprove : String
+    startDate : String
+	endDate : String
+    success : Boolean
+end
+
+class Position
+attributes
+    name : String
+    displayOrder : Integer
+end
+
+class PlayerNotes
+attributes
+    note : String
+    date : String
+end
+
+class MatchPlayer
+attributes
+	booked : Boolean
+    goals : Integer
+    rating : Integer
+end
+
+class MatchPlayerPosition
+attributes
+    name : String
+    number : Integer
+end
+
+association ClubTeam between
+    Club [1]
+    Team [1..*]
+end
+
+association TeamTraining between
+    Team [1]
+    TrainingSession [1..*]
+end
+
+association CompetitionMatch between
+    Competition [1]
+    Match [1..*]
+end
+
+association TeamPlayer between
+    Team [1]
+    Player [1..*]
+end
+
+association TrainingTrainingNotes between
+    TrainingSession [1]
+    TrainingNotes [1..*]
+end
+
+association TrainingFailded between
+    TrainingSession [1]
+    TrainingFailedToAttend [0..*]
+end
+
+association FailedPlayer between
+    TrainingFailedToAttend [0..*]
+    Player [1]
+end
+
+association TrainingGoalsPlayer between
+    TrainingGoals [1..*]
+    Player [1]
+end
+
+association PlayerPositions between
+    Player [1]
+    Position [1..3]
+end
+
+association PlayerPlayerNotes between
+    Player [1]
+    PlayerNotes [0..*]
+end
+
+association PlayerMatch between
+    Player [1]
+    MatchPlayer [0..*]
+end
+
+association MatchMatchReport between
+    Match [1]
+    MatchReport [1]
+end
+
+association MatchPlayerMatchPlayerPosition between
+    MatchPlayer [1]
+    MatchPlayerPosition [1]
+end
+
+association MatchMatchPlayer between
+    Match [1]
+    MatchPlayer [1..*]
+end
+
+association MatchMatchEvent between
+    Match [1]
+    MatchEvent [0..*]
+end
+
+association MatchMatchNote between
+    Match [1]
+    MatchNote [0..*]
+end
+
+association LocalMatch between
+    Team [1] role local
+    Match [0..1] role localMatch
+end
+
+association VisitorMatch between
+    Team [1] role visitor
+    Match [0..1] role visitorMatch
+end
+
+
+constraints
+context Match inv DifferentTeams:
+    self.local <> self.visitor
+
+context Match inv TeamsFromDifferentClubs:
+    self.local.club <> self.visitor.club
