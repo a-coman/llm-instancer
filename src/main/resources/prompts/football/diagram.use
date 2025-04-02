@@ -54,7 +54,7 @@ end
 
 class MatchEvent
 attributes
-	eventType : String
+	eventType : EventType
     time : Integer
 end
 
@@ -73,14 +73,15 @@ class Player
 attributes
 	name : String
     age : Integer
-    bestFoot : String
+    bestFoot : BestFoot
     phoneNumber : String
 end
 
 class MatchReport
 attributes
 	duration : Integer
-    result : String
+    scoreVisitor : Integer
+    scoreLocal : Integer
 end
 
 class MatchNote
@@ -99,8 +100,7 @@ end
 
 class Position
 attributes
-    name : String
-    displayOrder : Integer
+    positionName : PlayerPosition
 end
 
 class PlayerNotes
@@ -118,7 +118,7 @@ end
 
 class MatchPlayerPosition
 attributes
-    name : String
+    positionName : PlayerPosition
     number : Integer
 end
 
@@ -212,11 +212,6 @@ association VisitorMatch between
     Match [0..1] role visitorMatch
 end
 
-association MatchWinner between
-    Match [1]
-    Team [0..1] role matchWinner
-end
-
 
 constraints
 context Match inv DifferentTeams:
@@ -225,9 +220,8 @@ context Match inv DifferentTeams:
 context Match inv TeamsFromDifferentClubs:
     self.local.club <> self.visitor.club
 
-context Match inv WinnerIsLocalOrVisitor:
-    if self.matchWinner <> null then
-        self.matchWinner = self.local or self.matchWinner = self.visitor
-    else
-        true
-    endif
+context MatchReport inv PositiveScore:
+    self.scoreVisitor >= 0 and self.scoreLocal >= 0
+
+context MatchReport inv SumOfScoresEqualsGoals:
+    self.match.matchEvent->select(event | event.eventType = EventType::GOAL)->size() = (self.scoreVisitor + self.scoreLocal)
