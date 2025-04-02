@@ -128,7 +128,7 @@ end
 
 class Owner < Person
 attributes
-	numShares : Integer
+	percentageShares : Integer
 end
 
 class RegularCustomer < Person
@@ -251,4 +251,4 @@ context Cook inv PositiveExperience:
     self.yearsOfExperience >= 0
 
 context Restaurant inv TotalOwnerShares:
-    self.owner -> collect(o | o.numShares) -> sum() = 100
+    self.owner -> collect(o | o.percentageShares) -> sum() = 100
