@@ -1,5 +1,26 @@
 model Football
 
+enum EventType {
+    GOAL,
+    FOUL,
+    OFFSIDE,
+    CORNER,
+    PENALTY
+}
+
+enum BestFoot {
+    LEFT,
+    RIGHT,
+    BOTH
+}
+
+enum PlayerPosition {
+    GOALKEEPER,
+    DEFENDER,
+    MIDFIELDER,
+    FORWARD
+}
+
 class Club
 attributes
     name : String
@@ -58,9 +79,8 @@ end
 
 class MatchReport
 attributes
-	duration : String
+	duration : Integer
     result : String
-    winner : Team
 end
 
 class MatchNote
@@ -192,6 +212,11 @@ association VisitorMatch between
     Match [0..1] role visitorMatch
 end
 
+association MatchWinner between
+    Match [1]
+    Team [0..1] role matchWinner
+end
+
 
 constraints
 context Match inv DifferentTeams:
@@ -200,5 +225,9 @@ context Match inv DifferentTeams:
 context Match inv TeamsFromDifferentClubs:
     self.local.club <> self.visitor.club
 
-context Match inv WinnerWithinMatch:
-    self.matchReport.winner = self.local or self.matchReport.winner = self.visitor
+context Match inv WinnerIsLocalOrVisitor:
+    if self.matchWinner <> null then
+        self.matchWinner = self.local or self.matchWinner = self.visitor
+    else
+        true
+    endif
