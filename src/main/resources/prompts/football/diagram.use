@@ -199,3 +199,6 @@ context Match inv DifferentTeams:
 
 context Match inv TeamsFromDifferentClubs:
     self.local.club <> self.visitor.club
+
+context Match inv WinnerWithinMatch:
+    self.matchReport.winner = self.local or self.matchReport.winner = self.visitor
