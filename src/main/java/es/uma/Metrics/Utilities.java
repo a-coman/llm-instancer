@@ -299,8 +299,8 @@ public class Utilities {
                 // Continue trying next pattern
             }
         }
-        // If none of the patterns match, throw an exception.
-        throw new IllegalArgumentException("Unable to parse date: " + dateStr);
+        // If none of the patterns match, return null
+        return null;
     }
 
     // Main for testing purposes

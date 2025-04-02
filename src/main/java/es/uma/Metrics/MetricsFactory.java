@@ -19,6 +19,8 @@ public class MetricsFactory {
                 return new AddressBook();
             case "myexpenses":
                 return new MyExpenses();
+            case "restaurant":
+                return new Restaurant();
             default:
                 return new NoSpecific();
         }

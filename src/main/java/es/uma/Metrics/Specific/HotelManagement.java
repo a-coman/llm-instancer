@@ -57,6 +57,10 @@ public class HotelManagement implements IMetrics {
                 LocalDate checkInDate = Utilities.parseDate(checkInDateStr);
                 LocalDate checkOutDate = Utilities.parseDate(checkOutDateStr);
 
+                if (startDate == null || endDate == null || checkInDate == null || checkOutDate == null) {
+                    return;
+                }
+
                 totalDates++;
 
                 if (checkInDate.compareTo(startDate) >= 0) {
