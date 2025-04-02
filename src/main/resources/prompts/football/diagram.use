@@ -69,7 +69,7 @@ attributes
 	date : String
 end
 
-class TrainingGoals
+class TrainingObjective
 attributes
 	areaToImprove : String
     startDate : String
@@ -137,8 +137,8 @@ association FailedPlayer between
     Player [1]
 end
 
-association TrainingGoalsPlayer between
-    TrainingGoals [1..*]
+association TrainingObjectivePlayer between
+    TrainingObjective [1..*]
     Player [1]
 end
 
