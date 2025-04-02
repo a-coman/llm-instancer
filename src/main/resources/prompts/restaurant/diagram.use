@@ -252,3 +252,6 @@ context Cook inv PositiveExperience:
 
 context Restaurant inv TotalOwnerShares:
     self.owner -> collect(o | o.percentageShares) -> sum() = 100
+
+context Reservation inv TablesCapacityGreaterThanPeople:
+    self.assignedTo -> collect(t | t.capacity) -> sum() >= self.numberPeople
