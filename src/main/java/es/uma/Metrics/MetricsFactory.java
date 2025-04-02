@@ -21,6 +21,8 @@ public class MetricsFactory {
                 return new MyExpenses();
             case "restaurant":
                 return new Restaurant();
+            case "football":
+                return new Football();
             default:
                 return new NoSpecific();
         }
