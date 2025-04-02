@@ -4,7 +4,7 @@ import es.uma.Utils;
 
 public class Extract {
     public static void main(String[] args) {
-        String pathFoot = "src/main/resources/instances/Simple/football/GPT_4O/02-04-2025--15-50-01/";
+        String pathFoot = "src/main/resources/instances/CoT/football/GPT_4O/02-04-2025--19-03-28/";
         String file = Utils.readFile(pathFoot + "metrics.md");
         
         StringBuilder sb = new StringBuilder();
@@ -15,7 +15,7 @@ public class Extract {
             }
         }
 
-        Utils.saveFile(sb.toString(), pathFoot, "names.md");
+        Utils.saveFile(sb.toString(), pathFoot, "names.md", false);
 
 
         // Restaurant
@@ -27,7 +27,7 @@ public class Extract {
         StringBuilder sbFood = new StringBuilder();
 
         for (String line : file.split("\n")) {
-            if (line.contains(".name")) {
+            if (line.contains(".name") && !line.contains("reservation") && !line.contains("banquet") && !line.contains("individual")) {
                 sbNames.append(line).append("\n");
             }
             if (line.contains(".driverLicenseNr")) {
@@ -38,8 +38,8 @@ public class Extract {
             }
         }
 
-        Utils.saveFile(sbNames.toString(), pathRest, "names.md");
-        Utils.saveFile(sbLicenses.toString(), pathRest, "licenses.md");
-        Utils.saveFile(sbFood.toString(), pathRest, "food.md");
+        Utils.saveFile(sbNames.toString(), pathRest, "names.md", false);
+        Utils.saveFile(sbLicenses.toString(), pathRest, "licenses.md", false);
+        Utils.saveFile(sbFood.toString(), pathRest, "food.md", false);
     }
 }
