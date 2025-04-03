@@ -132,16 +132,20 @@ public class MetricsRunner {
         //     metricsRunner.run(experiment);  
         // }
 
-        ArrayList<String> systems = new ArrayList<>(Arrays.asList("addressbook", "bank", "hotelmanagement", "myexpenses", "pickupnet", "vehiclerental", "videoclub"));
-        ArrayList<String> scalability = new ArrayList<>(Arrays.asList("15","30","50","100"));
+        // ArrayList<String> systems = new ArrayList<>(Arrays.asList("addressbook", "bank", "hotelmanagement", "myexpenses", "pickupnet", "vehiclerental", "videoclub"));
+        // ArrayList<String> scalability = new ArrayList<>(Arrays.asList("15","30","50","100"));
 
-        for (String system : systems) {
-            for (String scale : scalability) {
-                Experiment experiment = new Experiment(system, "src/main/resources/instances/Scalability/" + system + "/" + system + scale + ".soil");
-                MetricsRunner metricsRunner = new MetricsRunner();
-                metricsRunner.run(experiment);  
-            }
+        // for (String system : systems) {
+        //     for (String scale : scalability) {
+        //         Experiment experiment = new Experiment(system, "src/main/resources/instances/Scalability/" + system + "/" + system + scale + ".soil");
+        //         MetricsRunner metricsRunner = new MetricsRunner();
+        //         metricsRunner.run(experiment);  
+        //     }
             
-        }
+        // }
+
+        Experiment experiment = new Experiment(Model.GPT_4O, "Simple", "bank", 30, "21-03-2025--15-41-00");
+        MetricsRunner metricsRunner = new MetricsRunner();
+        metricsRunner.run(experiment);
     }
 }
