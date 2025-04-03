@@ -27,7 +27,7 @@ end
 
 association Use between
     Person [*] role user
-    Account [*] role usedAccounts
+    Account [*]
 end
 
 composition AccountOfBanks between
