@@ -5,6 +5,7 @@ import java.util.List;
 
 import de.schegge.bank.validator.BIC;
 import de.schegge.bank.validator.BicValidator;
+import de.schegge.bank.validator.Check;
 import de.schegge.bank.validator.IBAN;
 import de.schegge.bank.validator.IbanValidator;
 import es.uma.Utils;
@@ -13,18 +14,20 @@ import es.uma.Metrics.Utilities;
 
 public class Bank implements IMetrics {
 
-    private int validIbans, validBics, validCountries;
+    private int realIbans, validIbans, validBics, validCountries;
     private int totalIbans, totalBics, totalCountries;
-    private ArrayList<String> failedIbans, failedBics, failedCountries;
+    private ArrayList<String> failedRealIbans, failedIbans, failedBics, failedCountries;
 
     public Bank() {
         validIbans = 0;
+        realIbans = 0;
         validBics = 0;
         validCountries = 0;
         totalIbans = 0;
         totalBics = 0;
         totalCountries = 0;
 
+        failedRealIbans = new ArrayList<>();
         failedIbans = new ArrayList<>();
         failedBics = new ArrayList<>();
         failedCountries = new ArrayList<>();
@@ -51,22 +54,30 @@ public class Bank implements IMetrics {
      * It is valid in pragmatic mode, when it is valid in strict mode with an existing BankService implementation or valid in lenient mode without an existing BankService implementation.
      */
     // Empty methods for annotation extraction
-    void pragmaticBIC(@BIC String bic) {}
-    void pragmaticIBAN(@IBAN String iban) {}
+    void leinentBIC(@BIC(check = Check.LENIENT) String bic) {}
+    void leinentIBAN(@IBAN(check = Check.LENIENT) String iban) {}
 
-    private int validateIbans(List<String> ibans) {
-        int valid = 0;
+    private int[] validateIbans(List<String> ibans) {
+        int[] valid = {0,0};
         IbanValidator ibanValidator = new IbanValidator();
         try {
-            ibanValidator.initialize((IBAN) getClass().getDeclaredMethod("pragmaticIBAN", String.class).getParameterAnnotations()[0][0]);
+            ibanValidator.initialize((IBAN) getClass().getDeclaredMethod("leinentIBAN", String.class).getParameterAnnotations()[0][0]);
         } catch (Exception e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
 
         for (String iban : ibans) {
+            // Remove spaces, hyphens, dots and convert to uppercase
+            iban = iban.replaceAll("[\\s\\-.]", "").toUpperCase().trim();
             if (ibanValidator.isValid(iban, null)){
-                valid++;
+                valid[0]++;
+            } else {
+                failedRealIbans.add(iban);
+            } 
+            
+            if (Utils.validMatch(iban, "([A-Z]{2})(\\d{2})([A-Z0-9]{11,30})")) {
+                valid[1]++;  
             } else {
                 failedIbans.add(iban);
             }
@@ -80,12 +91,13 @@ public class Bank implements IMetrics {
         int valid = 0;
         BicValidator bicValidator = new BicValidator();
         try {
-            bicValidator.initialize((BIC)getClass().getDeclaredMethod("pragmaticBIC", String.class).getParameterAnnotations()[0][0]);
+            bicValidator.initialize((BIC)getClass().getDeclaredMethod("leinentBIC", String.class).getParameterAnnotations()[0][0]);
         } catch (Exception e) {
             e.printStackTrace();
         }
 
         for (String bic : bics) {
+            bic = bic.replaceAll("[\\s\\-.]", "").toUpperCase().trim();
             if (bicValidator.isValid(bic, null)) {
                 valid++;
             } else {
@@ -112,7 +124,8 @@ public class Bank implements IMetrics {
     private void calculateIbans(String diagram, String instance) {
         // Implementation that updates validIbans and totalIbans
         List<String> ibans = getIbans(instance);
-        this.validIbans = validateIbans(ibans);
+        this.realIbans = validateIbans(ibans)[0];
+        this.validIbans = validateIbans(ibans)[1];
         this.totalIbans = ibans.size();
     }
     
@@ -148,6 +161,7 @@ public class Bank implements IMetrics {
         }
         
         Bank other = (Bank) otherMetrics;
+        this.realIbans += other.realIbans;
         this.validIbans += other.validIbans;
         this.validBics += other.validBics;
         this.validCountries += other.validCountries;
@@ -155,6 +169,7 @@ public class Bank implements IMetrics {
         this.totalBics += other.totalBics;
         this.totalCountries += other.totalCountries;
 
+        this.failedRealIbans.addAll(other.failedRealIbans);
         this.failedBics.addAll(other.failedBics);
         this.failedCountries.addAll(other.failedCountries);
         this.failedIbans.addAll(other.failedIbans);
@@ -165,13 +180,15 @@ public class Bank implements IMetrics {
         StringBuilder sb = new StringBuilder();
         sb.append("| Bank | Invalid | Total | Failure (%) | \n");
         sb.append("|---|---|---|---| \n");
-        sb.append(Utilities.formatMetricRow("IBANs", totalIbans - validIbans, totalIbans))
-          .append(Utilities.formatMetricRow("BICs", totalBics - validBics, totalBics))
-          .append(Utilities.formatMetricRow("Countries", totalCountries - validCountries, totalCountries));
+        sb.append(Utilities.formatMetricRow("IBANs (Real)", totalIbans - realIbans, totalIbans))
+          .append(Utilities.formatMetricRow("IBANs (Realistic)", totalIbans - validIbans, totalIbans))
+          .append(Utilities.formatMetricRow("BICs (Realistic)", totalBics - validBics, totalBics))
+          .append(Utilities.formatMetricRow("Countries (Realistic)", totalCountries - validCountries, totalCountries));
 
-        sb.append(Utilities.getStringList("Failed IBANs", failedIbans));
-        sb.append(Utilities.getStringList("Failed BICs", failedBics));
-        sb.append(Utilities.getStringList("Failed Countries", failedCountries));
+        sb.append(Utilities.getStringList("Failed IBANs (Real)", failedRealIbans));
+        sb.append(Utilities.getStringList("Failed IBANs (Realistic)", failedIbans));
+        sb.append(Utilities.getStringList("Failed BICs (Realistic)", failedBics));
+        sb.append(Utilities.getStringList("Failed Countries (Realistic)", failedCountries));
         
         return sb.toString();
     }
