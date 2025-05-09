@@ -10,6 +10,7 @@ import dev.langchain4j.model.googleai.GoogleAiGeminiChatModel;
 import dev.langchain4j.model.openai.OpenAiChatModel;
 import dev.langchain4j.model.openai.OpenAiTokenizer;
 import dev.langchain4j.service.AiServices;
+import io.github.cdimascio.dotenv.Dotenv;
 
 public class Llms {
 
@@ -25,10 +26,12 @@ public class Llms {
     }
 
     public static ChatLanguageModel getModel(Model model) {
+        Dotenv dotenv = Dotenv.load();
+        
         switch (model) {
             case GPT_4O: 
                 return OpenAiChatModel.builder()
-                    .apiKey(System.getenv("OPENAI_KEY"))
+                    .apiKey(dotenv.get("OPENAI_KEY"))
                     .modelName("gpt-4o")
                     .logRequests(true)
                     .logResponses(true)
@@ -41,7 +44,7 @@ public class Llms {
                     .build();
             case GPT_O3_MINI:
                 return OpenAiChatModel.builder()
-                    .apiKey(System.getenv("OPENAI_KEY"))
+                    .apiKey(dotenv.get("OPENAI_KEY"))
                     .modelName("o3-mini-2025-01-31")
                     .logRequests(true)
                     .logResponses(true)
@@ -50,7 +53,7 @@ public class Llms {
             case DEEPSEEK_V3:
                 return OpenAiChatModel.builder()
                     .baseUrl("https://api.deepseek.com")
-                    .apiKey(System.getenv("DEEPSEEK_KEY"))
+                    .apiKey(dotenv.get("DEEPSEEK_KEY"))
                     .modelName("deepseek-chat")
                     .logRequests(true)
                     .logResponses(true)
@@ -61,7 +64,7 @@ public class Llms {
             case DEEPSEEK_R3:
                 return OpenAiChatModel.builder()
                     .baseUrl("https://api.deepseek.com")
-                    .apiKey(System.getenv("DEEPSEEK_KEY"))
+                    .apiKey(dotenv.get("DEEPSEEK_KEY"))
                     .modelName("deepseek-reasoner")
                     .logRequests(true)
                     .logResponses(true)
@@ -71,21 +74,21 @@ public class Llms {
                     .build();
             case GEMINI_2_PRO:
                 return GoogleAiGeminiChatModel.builder()
-                    .apiKey(System.getenv("GEMINI_KEY"))
+                    .apiKey(dotenv.get("GEMINI_KEY"))
                     .modelName("gemini-2.0-pro-exp-02-05")
                     .logRequestsAndResponses(true)
                     .listeners(List.of(new Listener()))
                     .build();
             case GEMINI_2_REASONER:
                 return GoogleAiGeminiChatModel.builder()
-                    .apiKey(System.getenv("GEMINI_KEY"))
+                    .apiKey(dotenv.get("GEMINI_KEY"))
                     .modelName("gemini-2.0-flash-thinking-exp-01-21")
                     .logRequestsAndResponses(true)
                     .listeners(List.of(new Listener()))
                     .build();
             case GEMINI_2_FLASH_LITE:
                 return GoogleAiGeminiChatModel.builder()
-                    .apiKey(System.getenv("GEMINI_KEY"))
+                    .apiKey(dotenv.get("GEMINI_KEY"))
                     .maxOutputTokens(null) // Limit for testing
                     .modelName("gemini-2.0-flash-lite-preview-02-05")
                     .logRequestsAndResponses(true)
