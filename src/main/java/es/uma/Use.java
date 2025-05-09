@@ -29,7 +29,7 @@ public class Use {
             if (javaPath == null) {
                 throw new RuntimeException("Java path not found");
             }
-            pb.environment().put("PATH", javaPath + "/bin");
+            pb.environment().put("PATH", javaPath + "/bin"  + File.pathSeparator + pb.environment().getOrDefault("PATH", ""));
             pb.redirectErrorStream(true);
             process = pb.start();
         } catch (Exception e) {
