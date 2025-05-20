@@ -6,7 +6,7 @@ public class Main {
     public static void main(String[] args) {
         Experiment experiment = new Experiment(Model.GPT_4O, "CoT", "football", 30, Size.NONE);   
         experiment.run();
-        Logger.save(experiment.instancePath);
+        Logger.save(experiment.getInstancePath());
         MetricsRunner metricsRunner = new MetricsRunner();
         metricsRunner.run(experiment);
     }

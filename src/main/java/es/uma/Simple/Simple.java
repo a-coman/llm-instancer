@@ -8,34 +8,36 @@ import es.uma.Use;
 import es.uma.Utils;
 
 public class Simple {
+    
+    private static final int MAX_ATTEMPTS = 2;
+
     public static void run(Experiment experiment) {
-        ISimple simple = Llms.getAgent(ISimple.class, experiment.model);
+        ISimple simple = Llms.getAgent(ISimple.class, experiment.getModel());
 
-        String modelUML = Utils.readFile(experiment.umlPath); 
-        String exampleSOIL = Utils.readFile(experiment.examplePath);
+        String modelUML = Utils.readFile(experiment.getUmlPath()); 
+        String exampleSOIL = Utils.readFile(experiment.getExamplePath());
 
-        for (int gen = 1; gen <= experiment.repetitions; gen++) {
+        for (int gen = 1; gen <= experiment.getRepetitions(); gen++) {
             Listener.setCurrentCategory("gen" + gen);
-            String instancePath = experiment.instancePath + "gen" + gen + "/"; 
+            String instancePath = experiment.getInstancePath() + "gen" + gen + "/"; 
             String instanceSOIL;
             
             if (gen == 1) {
-                instanceSOIL = simple.chat(modelUML, exampleSOIL, experiment.sizePrompt);
+                instanceSOIL = simple.chat(modelUML, exampleSOIL, experiment.getSizePrompt());
             } else {
-                instanceSOIL = simple.chat("Please generate another instance" + experiment.sizePrompt + " that is structurally and semantically different from the previous ones.");
+                instanceSOIL = simple.chat("Please generate another instance" + experiment.getSizePrompt() + " that is structurally and semantically different from the previous ones.");
             }
 
             Utils.saveFile(Utils.removeComments(instanceSOIL), instancePath, "output.soil", false);
 
             // Checks            
-            final int MAX_ATTEMPTS = 2;
             int attempts = 0;
             String syntaxErrors, multiplicitiesErrors, invariantsErrors, check;
             Use use = new Use();
 
             // Check syntax
             do {
-                syntaxErrors = use.checkSyntax(experiment.umlPath, instancePath + "output.soil");
+                syntaxErrors = use.checkSyntax(experiment.getUmlPath(), instancePath + "output.soil");
                 if (!syntaxErrors.equals("OK")) {
                     instanceSOIL = simple.chat("The last output is partially incorrect: \n" + syntaxErrors + "\n\nPlease provide the complete output corrected");
                     Utils.saveFile(Utils.removeComments(instanceSOIL), instancePath, "output.soil", false);
@@ -46,8 +48,8 @@ public class Simple {
             // Check multiplicities and invariants
             attempts = 0;
             do {
-                multiplicitiesErrors = use.checkMultiplicities(experiment.umlPath, instancePath + "output.soil");
-                invariantsErrors = use.checkInvariants(experiment.umlPath, instancePath + "output.soil", "");
+                multiplicitiesErrors = use.checkMultiplicities(experiment.getUmlPath(), instancePath + "output.soil");
+                invariantsErrors = use.checkInvariants(experiment.getUmlPath(), instancePath + "output.soil", "");
                 multiplicitiesErrors = multiplicitiesErrors.equals("OK") ? "" : multiplicitiesErrors + "\n";
                 invariantsErrors = invariantsErrors.equals("OK") ? "" : invariantsErrors;
                 check = multiplicitiesErrors + invariantsErrors;

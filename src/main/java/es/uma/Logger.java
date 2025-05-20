@@ -1,5 +1,6 @@
 package es.uma;
 
+import java.util.List;
 import java.util.ArrayList;
 
 public class Logger {
@@ -8,7 +9,7 @@ public class Logger {
     private static int sumOfTotalTokens = 0;
     private static double genTime = 0;
     private static Experiment experiment;
-    private static ArrayList<String> logs = new ArrayList<>();
+    private static List<String> logs = new ArrayList<>();
 
     public static void addLog(String log) {
         logs.add(log);
@@ -44,11 +45,11 @@ public class Logger {
         metrics.append("\n# Summary for all generations\n");
         metrics.append("| Metric | Value |\n");
         metrics.append("| --- | --- |\n");
-        metrics.append("| Model | " + experiment.modelName + " |\n");
-        metrics.append("| Type | " + experiment.type + " |\n");
-        metrics.append("| System | " + experiment.system + " |\n");
+        metrics.append("| Model | " + experiment.getModelName() + " |\n");
+        metrics.append("| Type | " + experiment.getType() + " |\n");
+        metrics.append("| System | " + experiment.getSystem() + " |\n");
         metrics.append("| Context window tokens | " + Llms.MAX_TOKENS + " |\n");
-        metrics.append("| Number of generations | " + experiment.repetitions + " |\n");
+        metrics.append("| Number of generations | " + experiment.getRepetitions() + " |\n");
         metrics.append("| Generations time | " + String.format("%.2f", genTime) + " seconds |\n");
         metrics.append("| Sum of input tokens | " + sumOfInputTokens + " |\n");
         metrics.append("| Sum of output tokens | " + sumOfOutputTokens + " |\n");

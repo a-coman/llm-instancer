@@ -24,14 +24,14 @@ public class ListCreator implements Runnable {
 
     @Override
     public void run() {
-        IListCreator listCreator = Llms.getAgent(IListCreator.class, experiment.model);
-        for (int gen = 1; gen <= experiment.repetitions; gen++) {
+        IListCreator listCreator = Llms.getAgent(IListCreator.class, experiment.getModel());
+        for (int gen = 1; gen <= experiment.getRepetitions(); gen++) {
             Listener.setCurrentCategory(categoryId + gen);
             String value;
             if(gen == 1) {
                 value = listCreator.chat(categoryPrompt, modelDescription);
             } else {
-                value = listCreator.chat("For the same category and model description, generate another instance" + experiment.sizePrompt + " that is structurally and semantically different from the previous ones");
+                value = listCreator.chat("For the same category and model description, generate another instance" + experiment.getSizePrompt() + " that is structurally and semantically different from the previous ones");
             }
             
             List list = new List(gen, categoryId, value);        

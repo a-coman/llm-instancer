@@ -12,19 +12,19 @@ public class MetricsRunner {
     public void run(Experiment experiment) {
         StringBuilder sb = new StringBuilder();
         General sumGeneral = new General();
-        IMetrics sumSpecific = MetricsFactory.createMetrics(experiment.system);
+        IMetrics sumSpecific = MetricsFactory.createMetrics(experiment.getSystem());
 
         // For each generation
-        for (int gen = 1; gen <= experiment.repetitions; gen++) {
+        for (int gen = 1; gen <= experiment.getRepetitions(); gen++) {
             sb.append("# Generation ").append(gen).append("\n");
             General genGeneral = new General();
-            IMetrics genSpecific = MetricsFactory.createMetrics(experiment.system);
+            IMetrics genSpecific = MetricsFactory.createMetrics(experiment.getSystem());
 
-            if (experiment.type.equals("CoT")) {
-                CategoryPrompts categoryPrompts = new CategoryPrompts(experiment.sizePrompt);
+            if (experiment.getType().equals("CoT")) {
+                CategoryPrompts categoryPrompts = new CategoryPrompts(experiment.getSizePrompt());
                 for (String category : categoryPrompts.list.keySet()) {
-                    String diagramPath = experiment.umlPath;
-                    String instancePath = experiment.instancePath + "gen" + gen + "/" + category + ".soil";
+                    String diagramPath = experiment.getUmlPath();
+                    String instancePath = experiment.getInstancePath() + "gen" + gen + "/" + category + ".soil";
                     
                     sb.append("## Category ").append(category).append("\n");
                     String instance = Utils.readFile(instancePath);
@@ -32,7 +32,7 @@ public class MetricsRunner {
 
                     // Calculate category-level metrics
                     General catGeneral = new General();
-                    IMetrics catSpecific = MetricsFactory.createMetrics(experiment.system);
+                    IMetrics catSpecific = MetricsFactory.createMetrics(experiment.getSystem());
 
                     // Calculate and output category metrics
                     switch (category) {
@@ -59,18 +59,18 @@ public class MetricsRunner {
                 }
             }
 
-            if (experiment.type.equals("Simple")) {
-                String diagramPath = experiment.umlPath;
-                String instancePath = experiment.instancePath + "gen" + gen + "/output.soil";
+            if (experiment.getType().equals("Simple")) {
+                String diagramPath = experiment.getUmlPath();
+                String instancePath = experiment.getInstancePath() + "gen" + gen + "/output.soil";
                 genGeneral.calculate(diagramPath, instancePath);
                 genSpecific.calculate(diagramPath, instancePath);
                 String instance = Utils.readFile(instancePath);
                 sb.append("```\n").append(instance).append("\n```\n");
             }
 
-            if (experiment.type.isEmpty()) {
-                String diagramPath = experiment.umlPath;
-                String instancePath = experiment.instancePath;
+            if (experiment.getType().isEmpty()) {
+                String diagramPath = experiment.getUmlPath();
+                String instancePath = experiment.getInstancePath();
                 genGeneral.calculate(diagramPath, instancePath);
                 genSpecific.calculate(diagramPath, instancePath);
                 String instance = Utils.readFile(instancePath);
@@ -85,7 +85,7 @@ public class MetricsRunner {
             sb.append("## Generation ").append(gen).append(" summary\n");
             sb.append(genGeneral.toString()).append("\n");
 
-            if (experiment.type.equals("CoT")) {
+            if (experiment.getType().equals("CoT")) {
                 sb.append(genGeneral.invalidToString()).append("\n");    
             }
             
@@ -95,19 +95,19 @@ public class MetricsRunner {
         // Output summary metrics and save
         sb.append("# Summary for all generations\n");
         sb.append("| Summary | Value | \n").append("|---|---| \n");
-        sb.append("| Model | ").append(experiment.modelName).append(" | \n");
-        sb.append("| Type | ").append(experiment.type).append(" | \n");
-        sb.append("| System | ").append(experiment.system).append(" | \n");
-        sb.append("| Number of generations | ").append(experiment.repetitions).append(" | \n\n");
+        sb.append("| Model | ").append(experiment.getModelName()).append(" | \n");
+        sb.append("| Type | ").append(experiment.getType()).append(" | \n");
+        sb.append("| System | ").append(experiment.getSystem()).append(" | \n");
+        sb.append("| Number of generations | ").append(experiment.getRepetitions()).append(" | \n\n");
         sb.append(sumGeneral.toString()).append("\n");
         
-        if (experiment.type.equals("CoT")) {
+        if (experiment.getType().equals("CoT")) {
             sb.append(sumGeneral.invalidToString()).append("\n");
         }
 
         sb.append(sumSpecific.toString()).append("\n");
 
-        Utils.saveFile(sb.toString(), experiment.instancePath, "metrics.md", false);
+        Utils.saveFile(sb.toString(), experiment.getInstancePath(), "metrics.md", false);
     }
 
     // Run metrics for specific experiment

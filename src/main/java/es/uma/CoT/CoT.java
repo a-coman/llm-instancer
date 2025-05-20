@@ -13,16 +13,19 @@ import java.util.concurrent.LinkedBlockingQueue;
 //import org.apache.logging.log4j.LogManager;
 
 public class CoT {
+
+    private static final int MAX_ATTEMPTS = 2;
+
     public static void run(Experiment experiment) {
         
         // Load propmts, get modelUML, exampleSOIL and use shell
-        final CategoryPrompts CATEGORY_PROMPTS = new CategoryPrompts(experiment.sizePrompt);
-        final String modelUML = Utils.readFile(experiment.umlPath); 
-        final String exampleSOIL = Utils.readFile(experiment.examplePath);
+        final CategoryPrompts CATEGORY_PROMPTS = new CategoryPrompts(experiment.getSizePrompt());
+        final String modelUML = Utils.readFile(experiment.getUmlPath()); 
+        final String exampleSOIL = Utils.readFile(experiment.getExamplePath());
         Use use = new Use();
 
         // Create class diagram modelDescription in plain English
-        IModelAnalyzer modelAnalyzer = Llms.getAgent(IModelAnalyzer.class, experiment.model);
+        IModelAnalyzer modelAnalyzer = Llms.getAgent(IModelAnalyzer.class, experiment.getModel());
         String modelDescription = modelAnalyzer.chat(modelUML);
         String invariants = modelDescription.substring(modelDescription.indexOf("Invariants"));
 
@@ -36,8 +39,8 @@ public class CoT {
         });
         
         // Instantiate all generated lists
-        IListInstantiator listInstantiator = Llms.getAgent(IListInstantiator.class, experiment.model);
-        int totalLists = CATEGORY_PROMPTS.list.size() * experiment.repetitions;
+        IListInstantiator listInstantiator = Llms.getAgent(IListInstantiator.class, experiment.getModel());
+        int totalLists = CATEGORY_PROMPTS.list.size() * experiment.getRepetitions();
         
         for(int i = 0; i < totalLists; i++) {
             List list = getListFromQueue(queue);
@@ -59,7 +62,7 @@ public class CoT {
     private static void instantiateList(String modelUML, int i, List list, IListInstantiator listInstantiator, Experiment experiment, Use use, String invariants, String exampleSOIL) {
         Listener.setCurrentCategory(list.id() + list.gen());
         // Generate and save temp instance
-        String instancePath = experiment.instancePath + "gen" + list.gen() + "/";
+        String instancePath = experiment.getInstancePath() + "gen" + list.gen() + "/";
         String instanceSOIL;
         
         if (i == 0) {
@@ -76,7 +79,7 @@ public class CoT {
         final int MAX_ATTEMPTS = 2;
 
         do {
-            syntaxErrors = use.checkSyntax(experiment.umlPath, instancePath + "temp.soil");
+            syntaxErrors = use.checkSyntax(experiment.getUmlPath(), instancePath + "temp.soil");
             if (!syntaxErrors.equals("OK")) {
                 instanceSOIL = listInstantiator.chat("The last output is partially incorrect: \n" + syntaxErrors + "\n\nPlease provide the complete output corrected");
                 Utils.saveFile(Utils.removeComments(instanceSOIL), instancePath, "temp.soil", false);
@@ -99,16 +102,15 @@ public class CoT {
 
     private static String validateConstraints(String instanceSOIL, IListInstantiator listInstantiator, List list, Experiment experiment, Use use, String invariants) {
         
-        String instancePath = experiment.instancePath + "gen" + list.gen() + "/";
+        String instancePath = experiment.getInstancePath() + "gen" + list.gen() + "/";
         String multiplicitiesErrors;
         String invariantsErrors;
         String check;
         int attempts = 0;
-        final int MAX_ATTEMPTS = 2;
 
         do {
-            multiplicitiesErrors = use.checkMultiplicities(experiment.umlPath, instancePath + "temp.soil");
-            invariantsErrors = use.checkInvariants(experiment.umlPath, instancePath + "temp.soil", invariants);
+            multiplicitiesErrors = use.checkMultiplicities(experiment.getUmlPath(), instancePath + "temp.soil");
+            invariantsErrors = use.checkInvariants(experiment.getUmlPath(), instancePath + "temp.soil", invariants);
 
             multiplicitiesErrors = multiplicitiesErrors.equals("OK") ? "" : multiplicitiesErrors + "\n";
             invariantsErrors = invariantsErrors.equals("OK") ? "" : invariantsErrors;
