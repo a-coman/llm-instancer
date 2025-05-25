@@ -1,8 +1,5 @@
 package es.uma.Metrics;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-
 import es.uma.Experiment;
 import es.uma.Model;
 import es.uma.Utils;
