@@ -1,0 +1,54 @@
+-- Plants and ProductionLines
+!new Plant('plant1')
+!plant1.name := 'Main Plant'
+!plant1.address := '123 Industrial Rd, Madrid'
+
+!new ProductionLine('line1')
+!line1.lineNumber := 1
+
+-- Machines
+!new Molder('molder1')
+!molder1.serialNumber := 'M123'
+!molder1.state := #IDLE
+!molder1.material := 'Plastic'
+!molder1.temperature := 200.0
+
+!new Assembler('assembler1')
+!assembler1.serialNumber := 'A456'
+!assembler1.state := #RUNNING
+
+-- Trays
+
+!new Tray('trayOut1')
+!trayOut1.capacity := 5
+
+!new Tray('trayOut2')
+!trayOut2.capacity := 3
+
+-- Pieces
+!new Head('head1')
+!head1.weight := 0.5
+
+!new Handle('handle1')
+!handle1.weight := 0.7
+
+!new Hammer('hammer1')
+!hammer1.weight := 1.2
+!hammer1.productionDate := ProductionDate('2025-05-10')
+
+-- Associations
+!insert (plant1, line1) into PlantProductionLine
+
+!insert (line1, molder1) into ProductionLineMachine
+!insert (line1, assembler1) into ProductionLineMachine
+
+!insert (molder1, trayOut1) into OutputMachineTray
+
+!insert (trayOut1, head1) into TrayPiece
+!insert (trayOut1, handle1) into TrayPiece
+
+!insert (trayOut1, assembler1) into InputTrayMachine
+
+!insert (assembler1, trayOut2) into OutputMachineTray
+
+!insert (trayOut2, hammer1) into TrayPiece

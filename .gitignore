@@ -4,3 +4,4 @@ target/
 src/main/resources/use-7.1.1/
 src/main/resources/instances/
 Test
+src/main/resources/prompts/examples

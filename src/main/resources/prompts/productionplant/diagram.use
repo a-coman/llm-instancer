@@ -1,0 +1,123 @@
+model Plant
+
+enum MachineState { IDLE, RUNNING, MAINTENANCE, STOPPED }
+
+dataType ProductionDate
+operations
+    ProductionDate(date : String)
+end
+
+abstract class IMaintenance
+operations
+    performMaintenance()
+end
+
+abstract class Machine
+attributes
+    serialNumber : String
+    state : MachineState
+operations
+    start()
+    stop()
+end
+
+class Molder < Machine, IMaintenance
+attributes
+    material : String
+    temperature : Real
+operations
+    moldHead()
+    moldHandle()
+end
+
+class Assembler < Machine, IMaintenance
+operations
+    assemble(p1 : Piece, p2 : Piece)
+end
+
+class Plant
+attributes
+    name : String
+    address : String
+end
+
+class ProductionLine
+attributes
+    lineNumber : Integer
+end
+
+class Tray
+attributes
+    capacity : Integer
+end
+
+abstract class Piece
+attributes
+    weight : Real
+end
+
+class Handle < Piece
+end
+
+class Head < Piece
+end
+
+class Hammer < Piece
+attributes
+    productionDate : ProductionDate
+end
+
+
+-- Relationships
+
+association PlantProductionLine between
+    Plant [1]
+    ProductionLine [0..*] role manage
+end
+
+composition ProductionLineMachine between
+    ProductionLine [1] role partOf
+    Machine [1..*]  role consistsOf
+end
+
+association InputTrayMachine between
+    Tray [*] role feedsFrom
+    Machine [*] role consumedBy
+end
+
+association OutputMachineTray between
+    Machine [1] role receivesFrom
+    Tray [1] role dropsTo
+end
+
+aggregation TrayPiece between
+    Tray [1] role storedIn
+    Piece  [1..*] role has
+end
+
+
+constraints
+
+-- Tray capacity must be positive
+context Tray inv PositiveCapacity:
+    self.capacity >= 0
+
+-- Tray may never hold more pieces than its capacity
+context Tray inv NotOverfilled:
+    self.has->size() <= self.capacity
+
+-- Piece should have weight
+context Piece inv PositiveWeight:
+    self.weight > 0
+
+-- Molder is already full of material. Molder should not feed from trays
+context Molder inv MolderNotFeedTrays:
+    self.feedsFrom->isEmpty()
+
+-- Molder produces only heads or handles
+context Molder inv OnlyHeadsOrHandlesProduced:
+    self.dropsTo.has->forAll(p | p.oclIsTypeOf(Head) or p.oclIsTypeOf(Handle))
+
+-- Assembler only produces hammers
+context Assembler inv OnlyHammersProduced:
+    self.dropsTo.has->forAll(p | p.oclIsTypeOf(Hammer))
