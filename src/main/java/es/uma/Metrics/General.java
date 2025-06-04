@@ -187,6 +187,12 @@ public class General implements IMetrics {
     public String invalidToString() {
         StringBuilder sb = new StringBuilder();
         
+        // TODO: Check implementation
+        // In General metrics summary we take in account the invalid category syntax errors and we don't include conformance errors.
+        // We should also print here the syntax errors, because they will appear on the Summary, but we wont know from where they came from.
+        // sb.append(Utilities.formatMetricRow("Syntax Errors (Included on General)", syntaxErrors, totalSyntax));
+        // sb.append(Utilities.getStringList("[Overconstraints Detection] Syntax Errors (Included on General)", syntaxErrorsList));
+
         sb.append("| [Overconstraints Detection] | Errors | Total | Failure (%) | \n");
         sb.append("|---|---|---|---| \n");
         sb.append(Utilities.formatMetricRow("Multiplicities Errors (Not included on General)", invalidMultiplicitiesErrors, totalInvalidMultiplicities));
