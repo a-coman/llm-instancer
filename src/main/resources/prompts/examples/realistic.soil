@@ -1,0 +1,25 @@
+
+!new Location('location1')
+!location1.address := 'Shibuya Crossing, Shibuya City, Tokyo 150-8010, Japan'
+!location1.latitude := 35.6590
+!location1.longitude := 139.7037
+
+!new Location('location2')
+!location2.address := 'Lal Qila, Netaji Subhash Marg, Old Delhi, New Delhi, Delhi 110006, India'
+!location2.latitude := 28.6562
+!location2.longitude := 77.2410
+
+!new Location('location3')
+!location3.address := 'Copacabana Beach, Rio de Janeiro - State of Rio de Janeiro, Brazil'
+!location3.latitude := -22.9710
+!location3.longitude := -43.1818
+
+!new Location('location4')
+!location4.address := 'Table Mountain, Cape Town, 8001, South Africa'
+!location4.latitude := -33.9625
+!location4.longitude := 18.4109
+
+!new Location('location5')
+!location5.address := 'La Constitucion, 43, 29001 Málaga, España'
+!location5.latitude := 31.2054
+!location5.longitude := 4.0832

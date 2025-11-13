@@ -396,19 +396,6 @@
                 </strategy>
                 <hidden>false</hidden>
             </edgeproperty>
-            <edgeproperty id="RestaurantOwner::source::rolename"
-                sizeCalculated="true" type="rolename" userDefined="true" visible="true">
-                <name>restaurant</name>
-                <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyRelativeToAttached">
-                    <userOffsetX>3.0</userOffsetX>
-                    <userOffsetY>-10.0</userOffsetY>
-                    <attached>RestaurantOwner::WayPoint::0</attached>
-                    <offset_x>8</offset_x>
-                    <offset_y>8</offset_y>
-                    <placement>TOP</placement>
-                </strategy>
-                <hidden>false</hidden>
-            </edgeproperty>
             <edgeproperty id="RestaurantOwner::source::multiplicity"
                 sizeCalculated="true" type="multiplicity"
                 userDefined="true" visible="true">
@@ -420,6 +407,19 @@
                     <offset_x>8</offset_x>
                     <offset_y>8</offset_y>
                     <placement>BOTTOM</placement>
+                </strategy>
+                <hidden>false</hidden>
+            </edgeproperty>
+            <edgeproperty id="RestaurantOwner::source::rolename"
+                sizeCalculated="true" type="rolename" userDefined="true" visible="true">
+                <name>restaurant</name>
+                <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyRelativeToAttached">
+                    <userOffsetX>3.0</userOffsetX>
+                    <userOffsetY>-10.0</userOffsetY>
+                    <attached>RestaurantOwner::WayPoint::0</attached>
+                    <offset_x>8</offset_x>
+                    <offset_y>8</offset_y>
+                    <placement>TOP</placement>
                 </strategy>
                 <hidden>false</hidden>
             </edgeproperty>
@@ -501,19 +501,6 @@
                 </strategy>
                 <hidden>false</hidden>
             </edgeproperty>
-            <edgeproperty id="RestaurantReservation::source::rolename"
-                sizeCalculated="true" type="rolename" userDefined="true" visible="true">
-                <name>restaurant</name>
-                <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyRelativeToAttached">
-                    <userOffsetX>65.0</userOffsetX>
-                    <userOffsetY>3.0</userOffsetY>
-                    <attached>RestaurantReservation::WayPoint::0</attached>
-                    <offset_x>8</offset_x>
-                    <offset_y>8</offset_y>
-                    <placement>TOP</placement>
-                </strategy>
-                <hidden>false</hidden>
-            </edgeproperty>
             <edgeproperty
                 id="RestaurantReservation::source::multiplicity"
                 sizeCalculated="true" type="multiplicity"
@@ -526,6 +513,19 @@
                     <offset_x>8</offset_x>
                     <offset_y>8</offset_y>
                     <placement>BOTTOM</placement>
+                </strategy>
+                <hidden>false</hidden>
+            </edgeproperty>
+            <edgeproperty id="RestaurantReservation::source::rolename"
+                sizeCalculated="true" type="rolename" userDefined="true" visible="true">
+                <name>restaurant</name>
+                <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyRelativeToAttached">
+                    <userOffsetX>65.0</userOffsetX>
+                    <userOffsetY>3.0</userOffsetY>
+                    <attached>RestaurantReservation::WayPoint::0</attached>
+                    <offset_x>8</offset_x>
+                    <offset_y>8</offset_y>
+                    <placement>TOP</placement>
                 </strategy>
                 <hidden>false</hidden>
             </edgeproperty>
@@ -606,6 +606,19 @@
                 </strategy>
                 <hidden>false</hidden>
             </edgeproperty>
+            <edgeproperty id="ChefCook::source::rolename"
+                sizeCalculated="true" type="rolename" userDefined="true" visible="true">
+                <name>underSupervisionOf</name>
+                <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyRelativeToAttached">
+                    <userOffsetX>0.0</userOffsetX>
+                    <userOffsetY>10.0</userOffsetY>
+                    <attached>ChefCook::WayPoint::0</attached>
+                    <offset_x>8</offset_x>
+                    <offset_y>8</offset_y>
+                    <placement>TOP</placement>
+                </strategy>
+                <hidden>false</hidden>
+            </edgeproperty>
             <edgeproperty id="ChefCook::source::multiplicity"
                 sizeCalculated="true" type="multiplicity"
                 userDefined="true" visible="true">
@@ -617,19 +630,6 @@
                     <offset_x>8</offset_x>
                     <offset_y>8</offset_y>
                     <placement>BOTTOM</placement>
-                </strategy>
-                <hidden>false</hidden>
-            </edgeproperty>
-            <edgeproperty id="ChefCook::source::rolename"
-                sizeCalculated="true" type="rolename" userDefined="true" visible="true">
-                <name>underSupervisionOf</name>
-                <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyRelativeToAttached">
-                    <userOffsetX>0.0</userOffsetX>
-                    <userOffsetY>10.0</userOffsetY>
-                    <attached>ChefCook::WayPoint::0</attached>
-                    <offset_x>8</offset_x>
-                    <offset_y>8</offset_y>
-                    <placement>TOP</placement>
                 </strategy>
                 <hidden>false</hidden>
             </edgeproperty>
@@ -787,19 +787,6 @@
         <target>BusDriver</target>
         <name>BanquetBusDriver</name>
         <properties>
-            <edgeproperty id="BanquetBusDriver::target::rolename"
-                sizeCalculated="true" type="rolename" userDefined="true" visible="true">
-                <name>busDriver</name>
-                <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyRelativeToAttached">
-                    <userOffsetX>1.0</userOffsetX>
-                    <userOffsetY>3.0</userOffsetY>
-                    <attached>BanquetBusDriver::WayPoint::1</attached>
-                    <offset_x>8</offset_x>
-                    <offset_y>8</offset_y>
-                    <placement>TOP</placement>
-                </strategy>
-                <hidden>false</hidden>
-            </edgeproperty>
             <edgeproperty id="BanquetBusDriver::target::multiplicity"
                 sizeCalculated="true" type="multiplicity"
                 userDefined="true" visible="true">
@@ -811,6 +798,19 @@
                     <offset_x>8</offset_x>
                     <offset_y>8</offset_y>
                     <placement>BOTTOM</placement>
+                </strategy>
+                <hidden>false</hidden>
+            </edgeproperty>
+            <edgeproperty id="BanquetBusDriver::target::rolename"
+                sizeCalculated="true" type="rolename" userDefined="true" visible="true">
+                <name>busDriver</name>
+                <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyRelativeToAttached">
+                    <userOffsetX>1.0</userOffsetX>
+                    <userOffsetY>3.0</userOffsetY>
+                    <attached>BanquetBusDriver::WayPoint::1</attached>
+                    <offset_x>8</offset_x>
+                    <offset_y>8</offset_y>
+                    <placement>TOP</placement>
                 </strategy>
                 <hidden>false</hidden>
             </edgeproperty>
@@ -918,19 +918,6 @@
                 </strategy>
                 <hidden>false</hidden>
             </edgeproperty>
-            <edgeproperty id="ReservationCustomer::source::rolename"
-                sizeCalculated="true" type="rolename" userDefined="true" visible="true">
-                <name>reservation</name>
-                <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyRelativeToAttached">
-                    <userOffsetX>2.0</userOffsetX>
-                    <userOffsetY>4.0</userOffsetY>
-                    <attached>ReservationCustomer::WayPoint::0</attached>
-                    <offset_x>8</offset_x>
-                    <offset_y>8</offset_y>
-                    <placement>TOP</placement>
-                </strategy>
-                <hidden>false</hidden>
-            </edgeproperty>
             <edgeproperty id="ReservationCustomer::source::multiplicity"
                 sizeCalculated="true" type="multiplicity"
                 userDefined="true" visible="true">
@@ -942,6 +929,19 @@
                     <offset_x>8</offset_x>
                     <offset_y>8</offset_y>
                     <placement>BOTTOM</placement>
+                </strategy>
+                <hidden>false</hidden>
+            </edgeproperty>
+            <edgeproperty id="ReservationCustomer::source::rolename"
+                sizeCalculated="true" type="rolename" userDefined="true" visible="true">
+                <name>reservation</name>
+                <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyRelativeToAttached">
+                    <userOffsetX>2.0</userOffsetX>
+                    <userOffsetY>4.0</userOffsetY>
+                    <attached>ReservationCustomer::WayPoint::0</attached>
+                    <offset_x>8</offset_x>
+                    <offset_y>8</offset_y>
+                    <placement>TOP</placement>
                 </strategy>
                 <hidden>false</hidden>
             </edgeproperty>
@@ -1099,19 +1099,6 @@
         <target>Waiter</target>
         <name>HeadWaiterWaiter</name>
         <properties>
-            <edgeproperty id="HeadWaiterWaiter::target::rolename"
-                sizeCalculated="true" type="rolename" userDefined="true" visible="true">
-                <name>responsibleFor</name>
-                <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyRelativeToAttached">
-                    <userOffsetX>5.0</userOffsetX>
-                    <userOffsetY>10.0</userOffsetY>
-                    <attached>HeadWaiterWaiter::WayPoint::1</attached>
-                    <offset_x>8</offset_x>
-                    <offset_y>8</offset_y>
-                    <placement>TOP</placement>
-                </strategy>
-                <hidden>false</hidden>
-            </edgeproperty>
             <edgeproperty id="HeadWaiterWaiter::target::multiplicity"
                 sizeCalculated="true" type="multiplicity"
                 userDefined="true" visible="true">
@@ -1126,13 +1113,13 @@
                 </strategy>
                 <hidden>false</hidden>
             </edgeproperty>
-            <edgeproperty id="HeadWaiterWaiter::source::rolename"
+            <edgeproperty id="HeadWaiterWaiter::target::rolename"
                 sizeCalculated="true" type="rolename" userDefined="true" visible="true">
-                <name>headWaiter</name>
+                <name>responsibleFor</name>
                 <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyRelativeToAttached">
-                    <userOffsetX>60.0</userOffsetX>
-                    <userOffsetY>-12.0</userOffsetY>
-                    <attached>HeadWaiterWaiter::WayPoint::0</attached>
+                    <userOffsetX>5.0</userOffsetX>
+                    <userOffsetY>10.0</userOffsetY>
+                    <attached>HeadWaiterWaiter::WayPoint::1</attached>
                     <offset_x>8</offset_x>
                     <offset_y>8</offset_y>
                     <placement>TOP</placement>
@@ -1150,6 +1137,19 @@
                     <offset_x>8</offset_x>
                     <offset_y>8</offset_y>
                     <placement>BOTTOM</placement>
+                </strategy>
+                <hidden>false</hidden>
+            </edgeproperty>
+            <edgeproperty id="HeadWaiterWaiter::source::rolename"
+                sizeCalculated="true" type="rolename" userDefined="true" visible="true">
+                <name>headWaiter</name>
+                <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyRelativeToAttached">
+                    <userOffsetX>60.0</userOffsetX>
+                    <userOffsetY>-12.0</userOffsetY>
+                    <attached>HeadWaiterWaiter::WayPoint::0</attached>
+                    <offset_x>8</offset_x>
+                    <offset_y>8</offset_y>
+                    <placement>TOP</placement>
                 </strategy>
                 <hidden>false</hidden>
             </edgeproperty>
@@ -1203,19 +1203,6 @@
         <target>Chef</target>
         <name>MenuItemChef</name>
         <properties>
-            <edgeproperty id="MenuItemChef::target::rolename"
-                sizeCalculated="true" type="rolename" userDefined="true" visible="true">
-                <name>designedBy</name>
-                <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyRelativeToAttached">
-                    <userOffsetX>79.0</userOffsetX>
-                    <userOffsetY>-4.0</userOffsetY>
-                    <attached>MenuItemChef::WayPoint::1</attached>
-                    <offset_x>8</offset_x>
-                    <offset_y>8</offset_y>
-                    <placement>TOP</placement>
-                </strategy>
-                <hidden>false</hidden>
-            </edgeproperty>
             <edgeproperty id="MenuItemChef::target::multiplicity"
                 sizeCalculated="true" type="multiplicity"
                 userDefined="true" visible="true">
@@ -1227,6 +1214,19 @@
                     <offset_x>8</offset_x>
                     <offset_y>8</offset_y>
                     <placement>BOTTOM</placement>
+                </strategy>
+                <hidden>false</hidden>
+            </edgeproperty>
+            <edgeproperty id="MenuItemChef::target::rolename"
+                sizeCalculated="true" type="rolename" userDefined="true" visible="true">
+                <name>designedBy</name>
+                <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyRelativeToAttached">
+                    <userOffsetX>79.0</userOffsetX>
+                    <userOffsetY>-4.0</userOffsetY>
+                    <attached>MenuItemChef::WayPoint::1</attached>
+                    <offset_x>8</offset_x>
+                    <offset_y>8</offset_y>
+                    <placement>TOP</placement>
                 </strategy>
                 <hidden>false</hidden>
             </edgeproperty>
@@ -1411,6 +1411,19 @@
         <target>FoodItem</target>
         <name>MenuItemFoodItem</name>
         <properties>
+            <edgeproperty id="MenuItemFoodItem::target::rolename"
+                sizeCalculated="true" type="rolename" userDefined="true" visible="true">
+                <name>utilizes</name>
+                <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyRelativeToAttached">
+                    <userOffsetX>5.0</userOffsetX>
+                    <userOffsetY>9.0</userOffsetY>
+                    <attached>MenuItemFoodItem::WayPoint::1</attached>
+                    <offset_x>8</offset_x>
+                    <offset_y>8</offset_y>
+                    <placement>TOP</placement>
+                </strategy>
+                <hidden>false</hidden>
+            </edgeproperty>
             <edgeproperty id="MenuItemFoodItem::target::multiplicity"
                 sizeCalculated="true" type="multiplicity"
                 userDefined="true" visible="true">
@@ -1425,16 +1438,17 @@
                 </strategy>
                 <hidden>false</hidden>
             </edgeproperty>
-            <edgeproperty id="MenuItemFoodItem::target::rolename"
-                sizeCalculated="true" type="rolename" userDefined="true" visible="true">
-                <name>utilizes</name>
+            <edgeproperty id="MenuItemFoodItem::source::multiplicity"
+                sizeCalculated="true" type="multiplicity"
+                userDefined="true" visible="true">
+                <name>*</name>
                 <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyRelativeToAttached">
-                    <userOffsetX>5.0</userOffsetX>
-                    <userOffsetY>9.0</userOffsetY>
-                    <attached>MenuItemFoodItem::WayPoint::1</attached>
+                    <userOffsetX>23.0</userOffsetX>
+                    <userOffsetY>-21.0</userOffsetY>
+                    <attached>MenuItemFoodItem::WayPoint::0</attached>
                     <offset_x>8</offset_x>
                     <offset_y>8</offset_y>
-                    <placement>TOP</placement>
+                    <placement>BOTTOM</placement>
                 </strategy>
                 <hidden>false</hidden>
             </edgeproperty>
@@ -1448,20 +1462,6 @@
                     <offset_x>8</offset_x>
                     <offset_y>8</offset_y>
                     <placement>TOP</placement>
-                </strategy>
-                <hidden>false</hidden>
-            </edgeproperty>
-            <edgeproperty id="MenuItemFoodItem::source::multiplicity"
-                sizeCalculated="true" type="multiplicity"
-                userDefined="true" visible="true">
-                <name>*</name>
-                <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyRelativeToAttached">
-                    <userOffsetX>23.0</userOffsetX>
-                    <userOffsetY>-21.0</userOffsetY>
-                    <attached>MenuItemFoodItem::WayPoint::0</attached>
-                    <offset_x>8</offset_x>
-                    <offset_y>8</offset_y>
-                    <placement>BOTTOM</placement>
                 </strategy>
                 <hidden>false</hidden>
             </edgeproperty>
@@ -1515,19 +1515,6 @@
         <target>Waiter</target>
         <name>ReservationWaiter</name>
         <properties>
-            <edgeproperty id="ReservationWaiter::target::rolename"
-                sizeCalculated="true" type="rolename" userDefined="true" visible="true">
-                <name>servedBy</name>
-                <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyRelativeToAttached">
-                    <userOffsetX>64.0</userOffsetX>
-                    <userOffsetY>6.0</userOffsetY>
-                    <attached>ReservationWaiter::WayPoint::1</attached>
-                    <offset_x>8</offset_x>
-                    <offset_y>8</offset_y>
-                    <placement>TOP</placement>
-                </strategy>
-                <hidden>false</hidden>
-            </edgeproperty>
             <edgeproperty id="ReservationWaiter::target::multiplicity"
                 sizeCalculated="true" type="multiplicity"
                 userDefined="true" visible="true">
@@ -1539,6 +1526,19 @@
                     <offset_x>8</offset_x>
                     <offset_y>8</offset_y>
                     <placement>BOTTOM</placement>
+                </strategy>
+                <hidden>false</hidden>
+            </edgeproperty>
+            <edgeproperty id="ReservationWaiter::target::rolename"
+                sizeCalculated="true" type="rolename" userDefined="true" visible="true">
+                <name>servedBy</name>
+                <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyRelativeToAttached">
+                    <userOffsetX>64.0</userOffsetX>
+                    <userOffsetY>6.0</userOffsetY>
+                    <attached>ReservationWaiter::WayPoint::1</attached>
+                    <offset_x>8</offset_x>
+                    <offset_y>8</offset_y>
+                    <placement>TOP</placement>
                 </strategy>
                 <hidden>false</hidden>
             </edgeproperty>

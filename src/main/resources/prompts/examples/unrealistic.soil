@@ -1,0 +1,21 @@
+
+!new Location('location1')
+!location1.address := 'Av. de Cervantes, 29016 Málaga, España'
+!location1.latitude := 33.7250
+!location1.longitude := -6.4210
+
+!new Location('location2')
+!location2.address := 'La Constitucion, 43, 29001 Málaga, España'
+!location2.latitude := 31.2054
+!location2.longitude := 4.0832
+
+!new Location('location3')
+!location3.address := 'La Constitucion, 42, 29001 Málaga, España'
+!location3.latitude := 31.1024
+!location23.longitude := 4.1052
+
+!new Location('location4')
+!location4.address := 'Av. de José Ortega y Gasset, 42, 29006 Málaga, España'
+!location4.latitude := 36.2054
+!location4.longitude := -4.4832
+

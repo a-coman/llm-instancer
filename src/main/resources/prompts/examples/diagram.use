@@ -1,0 +1,12 @@
+model Example
+
+class Cat
+attributes
+    name: String
+    age: Integer
+    weight: Real
+    isHungry: Boolean
+operations
+    meow()
+    play()
+end

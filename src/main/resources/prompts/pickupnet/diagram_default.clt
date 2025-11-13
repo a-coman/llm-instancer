@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<diagram_Layout version="13">
+<?xml version="1.0" encoding="UTF-8"?><diagram_Layout version="13">
     <diagramOptions>
         <autolayout>false</autolayout>
         <antialiasing>true</antialiasing>
@@ -71,22 +70,7 @@
         <target>Shipment</target>
         <name>DriverShipment</name>
         <properties>
-            <edgeproperty id="DriverShipment::target::rolename"
-                sizeCalculated="true" type="rolename" userDefined="true" visible="true">
-                <name>assignments</name>
-                <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyRelativeToAttached">
-                    <userOffsetX>7.0</userOffsetX>
-                    <userOffsetY>9.0</userOffsetY>
-                    <attached>DriverShipment::WayPoint::1</attached>
-                    <offset_x>8</offset_x>
-                    <offset_y>8</offset_y>
-                    <placement>TOP</placement>
-                </strategy>
-                <hidden>false</hidden>
-            </edgeproperty>
-            <edgeproperty id="DriverShipment::target::multiplicity"
-                sizeCalculated="true" type="multiplicity"
-                userDefined="true" visible="true">
+            <edgeproperty id="DriverShipment::target::multiplicity" sizeCalculated="true" type="multiplicity" userDefined="true" visible="true">
                 <name>*</name>
                 <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyRelativeToAttached">
                     <userOffsetX>2.0</userOffsetX>
@@ -98,22 +82,19 @@
                 </strategy>
                 <hidden>false</hidden>
             </edgeproperty>
-            <edgeproperty id="DriverShipment::source::multiplicity"
-                sizeCalculated="true" type="multiplicity"
-                userDefined="true" visible="true">
-                <name>0..1</name>
+            <edgeproperty id="DriverShipment::target::rolename" sizeCalculated="true" type="rolename" userDefined="true" visible="true">
+                <name>assignments</name>
                 <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyRelativeToAttached">
-                    <userOffsetX>6.0</userOffsetX>
-                    <userOffsetY>11.0</userOffsetY>
-                    <attached>DriverShipment::WayPoint::0</attached>
+                    <userOffsetX>7.0</userOffsetX>
+                    <userOffsetY>9.0</userOffsetY>
+                    <attached>DriverShipment::WayPoint::1</attached>
                     <offset_x>8</offset_x>
                     <offset_y>8</offset_y>
-                    <placement>BOTTOM</placement>
+                    <placement>TOP</placement>
                 </strategy>
                 <hidden>false</hidden>
             </edgeproperty>
-            <edgeproperty id="DriverShipment::source::rolename"
-                sizeCalculated="true" type="rolename" userDefined="true" visible="true">
+            <edgeproperty id="DriverShipment::source::rolename" sizeCalculated="true" type="rolename" userDefined="true" visible="true">
                 <name>driver</name>
                 <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyRelativeToAttached">
                     <userOffsetX>2.0</userOffsetX>
@@ -125,9 +106,19 @@
                 </strategy>
                 <hidden>false</hidden>
             </edgeproperty>
-            <edgeproperty id="DriverShipment::AssociationName"
-                sizeCalculated="true" type="associationName"
-                userDefined="false" visible="true">
+            <edgeproperty id="DriverShipment::source::multiplicity" sizeCalculated="true" type="multiplicity" userDefined="true" visible="true">
+                <name>0..1</name>
+                <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyRelativeToAttached">
+                    <userOffsetX>6.0</userOffsetX>
+                    <userOffsetY>11.0</userOffsetY>
+                    <attached>DriverShipment::WayPoint::0</attached>
+                    <offset_x>8</offset_x>
+                    <offset_y>8</offset_y>
+                    <placement>BOTTOM</placement>
+                </strategy>
+                <hidden>false</hidden>
+            </edgeproperty>
+            <edgeproperty id="DriverShipment::AssociationName" sizeCalculated="true" type="associationName" userDefined="false" visible="true">
                 <name>DriverShipment</name>
                 <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyInBetween">
                     <userOffsetX>0.0</userOffsetX>
@@ -143,9 +134,7 @@
             </edgeproperty>
         </properties>
         <waypoints>
-            <edgeproperty id="DriverShipment::WayPoint::0"
-                sizeCalculated="true" type="WayPoint"
-                userDefined="false" visible="true">
+            <edgeproperty id="DriverShipment::WayPoint::0" sizeCalculated="true" type="WayPoint" userDefined="false" visible="true">
                 <name>0</name>
                 <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyAttachedIntersection">
                     <userOffsetX>0.0</userOffsetX>
@@ -155,9 +144,7 @@
                 <specialid>1</specialid>
                 <hidden>false</hidden>
             </edgeproperty>
-            <edgeproperty id="DriverShipment::WayPoint::1"
-                sizeCalculated="true" type="WayPoint"
-                userDefined="false" visible="true">
+            <edgeproperty id="DriverShipment::WayPoint::1" sizeCalculated="true" type="WayPoint" userDefined="false" visible="true">
                 <name>1</name>
                 <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyAttachedIntersection">
                     <userOffsetX>0.0</userOffsetX>
@@ -175,9 +162,7 @@
         <target>Address</target>
         <name>ShipmentContainsDeliveryAddress</name>
         <properties>
-            <edgeproperty
-                id="ShipmentContainsDeliveryAddress::target::rolename"
-                sizeCalculated="true" type="rolename" userDefined="true" visible="true">
+            <edgeproperty id="ShipmentContainsDeliveryAddress::target::rolename" sizeCalculated="true" type="rolename" userDefined="true" visible="true">
                 <name>shipToAddress</name>
                 <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyRelativeToAttached">
                     <userOffsetX>-3.0</userOffsetX>
@@ -189,10 +174,7 @@
                 </strategy>
                 <hidden>false</hidden>
             </edgeproperty>
-            <edgeproperty
-                id="ShipmentContainsDeliveryAddress::target::multiplicity"
-                sizeCalculated="true" type="multiplicity"
-                userDefined="true" visible="true">
+            <edgeproperty id="ShipmentContainsDeliveryAddress::target::multiplicity" sizeCalculated="true" type="multiplicity" userDefined="true" visible="true">
                 <name>1</name>
                 <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyRelativeToAttached">
                     <userOffsetX>-33.0</userOffsetX>
@@ -204,9 +186,7 @@
                 </strategy>
                 <hidden>false</hidden>
             </edgeproperty>
-            <edgeproperty
-                id="ShipmentContainsDeliveryAddress::source::rolename"
-                sizeCalculated="true" type="rolename" userDefined="true" visible="true">
+            <edgeproperty id="ShipmentContainsDeliveryAddress::source::rolename" sizeCalculated="true" type="rolename" userDefined="true" visible="true">
                 <name>hasDeliveryShipment</name>
                 <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyRelativeToAttached">
                     <userOffsetX>17.0</userOffsetX>
@@ -218,10 +198,7 @@
                 </strategy>
                 <hidden>false</hidden>
             </edgeproperty>
-            <edgeproperty
-                id="ShipmentContainsDeliveryAddress::source::multiplicity"
-                sizeCalculated="true" type="multiplicity"
-                userDefined="true" visible="true">
+            <edgeproperty id="ShipmentContainsDeliveryAddress::source::multiplicity" sizeCalculated="true" type="multiplicity" userDefined="true" visible="true">
                 <name>*</name>
                 <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyRelativeToAttached">
                     <userOffsetX>67.0</userOffsetX>
@@ -233,10 +210,7 @@
                 </strategy>
                 <hidden>false</hidden>
             </edgeproperty>
-            <edgeproperty
-                id="ShipmentContainsDeliveryAddress::AssociationName"
-                sizeCalculated="true" type="associationName"
-                userDefined="false" visible="true">
+            <edgeproperty id="ShipmentContainsDeliveryAddress::AssociationName" sizeCalculated="true" type="associationName" userDefined="false" visible="true">
                 <name>ShipmentContainsDeliveryAddress</name>
                 <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyInBetween">
                     <userOffsetX>0.0</userOffsetX>
@@ -252,10 +226,7 @@
             </edgeproperty>
         </properties>
         <waypoints>
-            <edgeproperty
-                id="ShipmentContainsDeliveryAddress::WayPoint::0"
-                sizeCalculated="true" type="WayPoint"
-                userDefined="false" visible="true">
+            <edgeproperty id="ShipmentContainsDeliveryAddress::WayPoint::0" sizeCalculated="true" type="WayPoint" userDefined="false" visible="true">
                 <name>0</name>
                 <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyAttachedIntersection">
                     <userOffsetX>0.0</userOffsetX>
@@ -265,10 +236,7 @@
                 <specialid>1</specialid>
                 <hidden>false</hidden>
             </edgeproperty>
-            <edgeproperty
-                id="ShipmentContainsDeliveryAddress::WayPoint::1"
-                sizeCalculated="true" type="WayPoint"
-                userDefined="false" visible="true">
+            <edgeproperty id="ShipmentContainsDeliveryAddress::WayPoint::1" sizeCalculated="true" type="WayPoint" userDefined="false" visible="true">
                 <name>1</name>
                 <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyAttachedIntersection">
                     <userOffsetX>0.0</userOffsetX>
@@ -286,9 +254,7 @@
         <target>Shipment</target>
         <name>CustomerConsistsOfShipment</name>
         <properties>
-            <edgeproperty
-                id="CustomerConsistsOfShipment::target::rolename"
-                sizeCalculated="true" type="rolename" userDefined="true" visible="true">
+            <edgeproperty id="CustomerConsistsOfShipment::target::rolename" sizeCalculated="true" type="rolename" userDefined="true" visible="true">
                 <name>orders</name>
                 <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyRelativeToAttached">
                     <userOffsetX>-3.0</userOffsetX>
@@ -300,10 +266,7 @@
                 </strategy>
                 <hidden>false</hidden>
             </edgeproperty>
-            <edgeproperty
-                id="CustomerConsistsOfShipment::target::multiplicity"
-                sizeCalculated="true" type="multiplicity"
-                userDefined="true" visible="true">
+            <edgeproperty id="CustomerConsistsOfShipment::target::multiplicity" sizeCalculated="true" type="multiplicity" userDefined="true" visible="true">
                 <name>*</name>
                 <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyRelativeToAttached">
                     <userOffsetX>5.0</userOffsetX>
@@ -315,9 +278,7 @@
                 </strategy>
                 <hidden>false</hidden>
             </edgeproperty>
-            <edgeproperty
-                id="CustomerConsistsOfShipment::source::rolename"
-                sizeCalculated="true" type="rolename" userDefined="true" visible="true">
+            <edgeproperty id="CustomerConsistsOfShipment::source::rolename" sizeCalculated="true" type="rolename" userDefined="true" visible="true">
                 <name>orderer</name>
                 <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyRelativeToAttached">
                     <userOffsetX>-8.0</userOffsetX>
@@ -329,10 +290,7 @@
                 </strategy>
                 <hidden>false</hidden>
             </edgeproperty>
-            <edgeproperty
-                id="CustomerConsistsOfShipment::source::multiplicity"
-                sizeCalculated="true" type="multiplicity"
-                userDefined="false" visible="true">
+            <edgeproperty id="CustomerConsistsOfShipment::source::multiplicity" sizeCalculated="true" type="multiplicity" userDefined="false" visible="true">
                 <name>1</name>
                 <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyRelativeToAttached">
                     <userOffsetX>0.0</userOffsetX>
@@ -344,10 +302,7 @@
                 </strategy>
                 <hidden>false</hidden>
             </edgeproperty>
-            <edgeproperty
-                id="CustomerConsistsOfShipment::AssociationName"
-                sizeCalculated="true" type="associationName"
-                userDefined="false" visible="true">
+            <edgeproperty id="CustomerConsistsOfShipment::AssociationName" sizeCalculated="true" type="associationName" userDefined="false" visible="true">
                 <name>CustomerConsistsOfShipment</name>
                 <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyInBetween">
                     <userOffsetX>0.0</userOffsetX>
@@ -363,9 +318,7 @@
             </edgeproperty>
         </properties>
         <waypoints>
-            <edgeproperty id="CustomerConsistsOfShipment::WayPoint::0"
-                sizeCalculated="true" type="WayPoint"
-                userDefined="false" visible="true">
+            <edgeproperty id="CustomerConsistsOfShipment::WayPoint::0" sizeCalculated="true" type="WayPoint" userDefined="false" visible="true">
                 <name>0</name>
                 <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyAttachedIntersection">
                     <userOffsetX>0.0</userOffsetX>
@@ -375,9 +328,7 @@
                 <specialid>1</specialid>
                 <hidden>false</hidden>
             </edgeproperty>
-            <edgeproperty id="CustomerConsistsOfShipment::WayPoint::1"
-                sizeCalculated="true" type="WayPoint"
-                userDefined="false" visible="true">
+            <edgeproperty id="CustomerConsistsOfShipment::WayPoint::1" sizeCalculated="true" type="WayPoint" userDefined="false" visible="true">
                 <name>1</name>
                 <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyAttachedIntersection">
                     <userOffsetX>0.0</userOffsetX>
@@ -395,10 +346,7 @@
         <target>Driver</target>
         <name>StationContainsDriver</name>
         <properties>
-            <edgeproperty
-                id="StationContainsDriver::target::multiplicity"
-                sizeCalculated="true" type="multiplicity"
-                userDefined="true" visible="true">
+            <edgeproperty id="StationContainsDriver::target::multiplicity" sizeCalculated="true" type="multiplicity" userDefined="true" visible="true">
                 <name>*</name>
                 <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyRelativeToAttached">
                     <userOffsetX>-10.0</userOffsetX>
@@ -410,8 +358,7 @@
                 </strategy>
                 <hidden>false</hidden>
             </edgeproperty>
-            <edgeproperty id="StationContainsDriver::target::rolename"
-                sizeCalculated="true" type="rolename" userDefined="true" visible="true">
+            <edgeproperty id="StationContainsDriver::target::rolename" sizeCalculated="true" type="rolename" userDefined="true" visible="true">
                 <name>drivers</name>
                 <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyRelativeToAttached">
                     <userOffsetX>3.0</userOffsetX>
@@ -423,10 +370,7 @@
                 </strategy>
                 <hidden>false</hidden>
             </edgeproperty>
-            <edgeproperty
-                id="StationContainsDriver::source::multiplicity"
-                sizeCalculated="true" type="multiplicity"
-                userDefined="false" visible="true">
+            <edgeproperty id="StationContainsDriver::source::multiplicity" sizeCalculated="true" type="multiplicity" userDefined="false" visible="true">
                 <name>1</name>
                 <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyRelativeToAttached">
                     <userOffsetX>0.0</userOffsetX>
@@ -438,8 +382,7 @@
                 </strategy>
                 <hidden>false</hidden>
             </edgeproperty>
-            <edgeproperty id="StationContainsDriver::source::rolename"
-                sizeCalculated="true" type="rolename" userDefined="true" visible="true">
+            <edgeproperty id="StationContainsDriver::source::rolename" sizeCalculated="true" type="rolename" userDefined="true" visible="true">
                 <name>station</name>
                 <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyRelativeToAttached">
                     <userOffsetX>-8.0</userOffsetX>
@@ -451,9 +394,7 @@
                 </strategy>
                 <hidden>false</hidden>
             </edgeproperty>
-            <edgeproperty id="StationContainsDriver::AssociationName"
-                sizeCalculated="true" type="associationName"
-                userDefined="false" visible="true">
+            <edgeproperty id="StationContainsDriver::AssociationName" sizeCalculated="true" type="associationName" userDefined="false" visible="true">
                 <name>StationContainsDriver</name>
                 <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyInBetween">
                     <userOffsetX>0.0</userOffsetX>
@@ -469,9 +410,7 @@
             </edgeproperty>
         </properties>
         <waypoints>
-            <edgeproperty id="StationContainsDriver::WayPoint::0"
-                sizeCalculated="true" type="WayPoint"
-                userDefined="false" visible="true">
+            <edgeproperty id="StationContainsDriver::WayPoint::0" sizeCalculated="true" type="WayPoint" userDefined="false" visible="true">
                 <name>0</name>
                 <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyAttachedIntersection">
                     <userOffsetX>0.0</userOffsetX>
@@ -481,9 +420,7 @@
                 <specialid>1</specialid>
                 <hidden>false</hidden>
             </edgeproperty>
-            <edgeproperty id="StationContainsDriver::WayPoint::1"
-                sizeCalculated="true" type="WayPoint"
-                userDefined="false" visible="true">
+            <edgeproperty id="StationContainsDriver::WayPoint::1" sizeCalculated="true" type="WayPoint" userDefined="false" visible="true">
                 <name>1</name>
                 <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyAttachedIntersection">
                     <userOffsetX>0.0</userOffsetX>
@@ -501,10 +438,7 @@
         <target>Address</target>
         <name>ShipmentContainsPickUpAddress</name>
         <properties>
-            <edgeproperty
-                id="ShipmentContainsPickUpAddress::target::multiplicity"
-                sizeCalculated="true" type="multiplicity"
-                userDefined="true" visible="true">
+            <edgeproperty id="ShipmentContainsPickUpAddress::target::multiplicity" sizeCalculated="true" type="multiplicity" userDefined="true" visible="true">
                 <name>1</name>
                 <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyRelativeToAttached">
                     <userOffsetX>-38.0</userOffsetX>
@@ -516,9 +450,7 @@
                 </strategy>
                 <hidden>false</hidden>
             </edgeproperty>
-            <edgeproperty
-                id="ShipmentContainsPickUpAddress::target::rolename"
-                sizeCalculated="true" type="rolename" userDefined="true" visible="true">
+            <edgeproperty id="ShipmentContainsPickUpAddress::target::rolename" sizeCalculated="true" type="rolename" userDefined="true" visible="true">
                 <name>pickUpAddress</name>
                 <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyRelativeToAttached">
                     <userOffsetX>-5.0</userOffsetX>
@@ -530,10 +462,7 @@
                 </strategy>
                 <hidden>false</hidden>
             </edgeproperty>
-            <edgeproperty
-                id="ShipmentContainsPickUpAddress::source::multiplicity"
-                sizeCalculated="true" type="multiplicity"
-                userDefined="true" visible="true">
+            <edgeproperty id="ShipmentContainsPickUpAddress::source::multiplicity" sizeCalculated="true" type="multiplicity" userDefined="true" visible="true">
                 <name>*</name>
                 <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyRelativeToAttached">
                     <userOffsetX>64.0</userOffsetX>
@@ -545,9 +474,7 @@
                 </strategy>
                 <hidden>false</hidden>
             </edgeproperty>
-            <edgeproperty
-                id="ShipmentContainsPickUpAddress::source::rolename"
-                sizeCalculated="true" type="rolename" userDefined="true" visible="true">
+            <edgeproperty id="ShipmentContainsPickUpAddress::source::rolename" sizeCalculated="true" type="rolename" userDefined="true" visible="true">
                 <name>hasPickUpShipment</name>
                 <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyRelativeToAttached">
                     <userOffsetX>18.0</userOffsetX>
@@ -559,10 +486,7 @@
                 </strategy>
                 <hidden>false</hidden>
             </edgeproperty>
-            <edgeproperty
-                id="ShipmentContainsPickUpAddress::AssociationName"
-                sizeCalculated="true" type="associationName"
-                userDefined="false" visible="true">
+            <edgeproperty id="ShipmentContainsPickUpAddress::AssociationName" sizeCalculated="true" type="associationName" userDefined="false" visible="true">
                 <name>ShipmentContainsPickUpAddress</name>
                 <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyInBetween">
                     <userOffsetX>0.0</userOffsetX>
@@ -578,10 +502,7 @@
             </edgeproperty>
         </properties>
         <waypoints>
-            <edgeproperty
-                id="ShipmentContainsPickUpAddress::WayPoint::0"
-                sizeCalculated="true" type="WayPoint"
-                userDefined="false" visible="true">
+            <edgeproperty id="ShipmentContainsPickUpAddress::WayPoint::0" sizeCalculated="true" type="WayPoint" userDefined="false" visible="true">
                 <name>0</name>
                 <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyAttachedIntersection">
                     <userOffsetX>0.0</userOffsetX>
@@ -591,10 +512,7 @@
                 <specialid>1</specialid>
                 <hidden>false</hidden>
             </edgeproperty>
-            <edgeproperty
-                id="ShipmentContainsPickUpAddress::WayPoint::1"
-                sizeCalculated="true" type="WayPoint"
-                userDefined="false" visible="true">
+            <edgeproperty id="ShipmentContainsPickUpAddress::WayPoint::1" sizeCalculated="true" type="WayPoint" userDefined="false" visible="true">
                 <name>1</name>
                 <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyAttachedIntersection">
                     <userOffsetX>0.0</userOffsetX>
@@ -612,8 +530,7 @@
         <target>Shipment</target>
         <name>StationShipment</name>
         <properties>
-            <edgeproperty id="StationShipment::target::rolename"
-                sizeCalculated="true" type="rolename" userDefined="true" visible="true">
+            <edgeproperty id="StationShipment::target::rolename" sizeCalculated="true" type="rolename" userDefined="true" visible="true">
                 <name>shipments</name>
                 <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyRelativeToAttached">
                     <userOffsetX>-16.0</userOffsetX>
@@ -625,9 +542,7 @@
                 </strategy>
                 <hidden>false</hidden>
             </edgeproperty>
-            <edgeproperty id="StationShipment::target::multiplicity"
-                sizeCalculated="true" type="multiplicity"
-                userDefined="true" visible="true">
+            <edgeproperty id="StationShipment::target::multiplicity" sizeCalculated="true" type="multiplicity" userDefined="true" visible="true">
                 <name>*</name>
                 <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyRelativeToAttached">
                     <userOffsetX>-40.0</userOffsetX>
@@ -639,8 +554,7 @@
                 </strategy>
                 <hidden>false</hidden>
             </edgeproperty>
-            <edgeproperty id="StationShipment::source::rolename"
-                sizeCalculated="true" type="rolename" userDefined="true" visible="true">
+            <edgeproperty id="StationShipment::source::rolename" sizeCalculated="true" type="rolename" userDefined="true" visible="true">
                 <name>station</name>
                 <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyRelativeToAttached">
                     <userOffsetX>14.0</userOffsetX>
@@ -652,9 +566,7 @@
                 </strategy>
                 <hidden>false</hidden>
             </edgeproperty>
-            <edgeproperty id="StationShipment::source::multiplicity"
-                sizeCalculated="true" type="multiplicity"
-                userDefined="true" visible="true">
+            <edgeproperty id="StationShipment::source::multiplicity" sizeCalculated="true" type="multiplicity" userDefined="true" visible="true">
                 <name>1</name>
                 <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyRelativeToAttached">
                     <userOffsetX>11.0</userOffsetX>
@@ -666,9 +578,7 @@
                 </strategy>
                 <hidden>false</hidden>
             </edgeproperty>
-            <edgeproperty id="StationShipment::AssociationName"
-                sizeCalculated="true" type="associationName"
-                userDefined="false" visible="true">
+            <edgeproperty id="StationShipment::AssociationName" sizeCalculated="true" type="associationName" userDefined="false" visible="true">
                 <name>StationShipment</name>
                 <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyInBetween">
                     <userOffsetX>0.0</userOffsetX>
@@ -684,9 +594,7 @@
             </edgeproperty>
         </properties>
         <waypoints>
-            <edgeproperty id="StationShipment::WayPoint::0"
-                sizeCalculated="true" type="WayPoint"
-                userDefined="false" visible="true">
+            <edgeproperty id="StationShipment::WayPoint::0" sizeCalculated="true" type="WayPoint" userDefined="false" visible="true">
                 <name>0</name>
                 <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyAttachedIntersection">
                     <userOffsetX>0.0</userOffsetX>
@@ -696,9 +604,7 @@
                 <specialid>1</specialid>
                 <hidden>false</hidden>
             </edgeproperty>
-            <edgeproperty id="StationShipment::WayPoint::1"
-                sizeCalculated="true" type="WayPoint"
-                userDefined="false" visible="true">
+            <edgeproperty id="StationShipment::WayPoint::1" sizeCalculated="true" type="WayPoint" userDefined="false" visible="true">
                 <name>1</name>
                 <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyAttachedIntersection">
                     <userOffsetX>0.0</userOffsetX>
@@ -716,9 +622,7 @@
         <target>GeoLocation</target>
         <name>AddressContainsGeoLocation</name>
         <properties>
-            <edgeproperty
-                id="AddressContainsGeoLocation::target::rolename"
-                sizeCalculated="true" type="rolename" userDefined="true" visible="true">
+            <edgeproperty id="AddressContainsGeoLocation::target::rolename" sizeCalculated="true" type="rolename" userDefined="true" visible="true">
                 <name>geoLocation</name>
                 <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyRelativeToAttached">
                     <userOffsetX>-5.0</userOffsetX>
@@ -730,10 +634,7 @@
                 </strategy>
                 <hidden>false</hidden>
             </edgeproperty>
-            <edgeproperty
-                id="AddressContainsGeoLocation::target::multiplicity"
-                sizeCalculated="true" type="multiplicity"
-                userDefined="true" visible="true">
+            <edgeproperty id="AddressContainsGeoLocation::target::multiplicity" sizeCalculated="true" type="multiplicity" userDefined="true" visible="true">
                 <name>1</name>
                 <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyRelativeToAttached">
                     <userOffsetX>5.0</userOffsetX>
@@ -745,24 +646,7 @@
                 </strategy>
                 <hidden>false</hidden>
             </edgeproperty>
-            <edgeproperty
-                id="AddressContainsGeoLocation::source::rolename"
-                sizeCalculated="true" type="rolename" userDefined="true" visible="true">
-                <name>address</name>
-                <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyRelativeToAttached">
-                    <userOffsetX>60.0</userOffsetX>
-                    <userOffsetY>14.0</userOffsetY>
-                    <attached>AddressContainsGeoLocation::WayPoint::0</attached>
-                    <offset_x>8</offset_x>
-                    <offset_y>8</offset_y>
-                    <placement>TOP</placement>
-                </strategy>
-                <hidden>false</hidden>
-            </edgeproperty>
-            <edgeproperty
-                id="AddressContainsGeoLocation::source::multiplicity"
-                sizeCalculated="true" type="multiplicity"
-                userDefined="true" visible="true">
+            <edgeproperty id="AddressContainsGeoLocation::source::multiplicity" sizeCalculated="true" type="multiplicity" userDefined="true" visible="true">
                 <name>1</name>
                 <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyRelativeToAttached">
                     <userOffsetX>70.0</userOffsetX>
@@ -774,10 +658,19 @@
                 </strategy>
                 <hidden>false</hidden>
             </edgeproperty>
-            <edgeproperty
-                id="AddressContainsGeoLocation::AssociationName"
-                sizeCalculated="true" type="associationName"
-                userDefined="false" visible="true">
+            <edgeproperty id="AddressContainsGeoLocation::source::rolename" sizeCalculated="true" type="rolename" userDefined="true" visible="true">
+                <name>address</name>
+                <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyRelativeToAttached">
+                    <userOffsetX>60.0</userOffsetX>
+                    <userOffsetY>14.0</userOffsetY>
+                    <attached>AddressContainsGeoLocation::WayPoint::0</attached>
+                    <offset_x>8</offset_x>
+                    <offset_y>8</offset_y>
+                    <placement>TOP</placement>
+                </strategy>
+                <hidden>false</hidden>
+            </edgeproperty>
+            <edgeproperty id="AddressContainsGeoLocation::AssociationName" sizeCalculated="true" type="associationName" userDefined="false" visible="true">
                 <name>AddressContainsGeoLocation</name>
                 <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyInBetween">
                     <userOffsetX>0.0</userOffsetX>
@@ -793,9 +686,7 @@
             </edgeproperty>
         </properties>
         <waypoints>
-            <edgeproperty id="AddressContainsGeoLocation::WayPoint::0"
-                sizeCalculated="true" type="WayPoint"
-                userDefined="false" visible="true">
+            <edgeproperty id="AddressContainsGeoLocation::WayPoint::0" sizeCalculated="true" type="WayPoint" userDefined="false" visible="true">
                 <name>0</name>
                 <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyAttachedIntersection">
                     <userOffsetX>0.0</userOffsetX>
@@ -805,9 +696,7 @@
                 <specialid>1</specialid>
                 <hidden>false</hidden>
             </edgeproperty>
-            <edgeproperty id="AddressContainsGeoLocation::WayPoint::1"
-                sizeCalculated="true" type="WayPoint"
-                userDefined="false" visible="true">
+            <edgeproperty id="AddressContainsGeoLocation::WayPoint::1" sizeCalculated="true" type="WayPoint" userDefined="false" visible="true">
                 <name>1</name>
                 <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyAttachedIntersection">
                     <userOffsetX>0.0</userOffsetX>
@@ -825,10 +714,7 @@
         <target>Customer</target>
         <name>StationContainsCustomer</name>
         <properties>
-            <edgeproperty
-                id="StationContainsCustomer::target::multiplicity"
-                sizeCalculated="true" type="multiplicity"
-                userDefined="true" visible="true">
+            <edgeproperty id="StationContainsCustomer::target::multiplicity" sizeCalculated="true" type="multiplicity" userDefined="true" visible="true">
                 <name>*</name>
                 <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyRelativeToAttached">
                     <userOffsetX>-18.0</userOffsetX>
@@ -840,8 +726,7 @@
                 </strategy>
                 <hidden>false</hidden>
             </edgeproperty>
-            <edgeproperty id="StationContainsCustomer::target::rolename"
-                sizeCalculated="true" type="rolename" userDefined="true" visible="true">
+            <edgeproperty id="StationContainsCustomer::target::rolename" sizeCalculated="true" type="rolename" userDefined="true" visible="true">
                 <name>customers</name>
                 <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyRelativeToAttached">
                     <userOffsetX>6.0</userOffsetX>
@@ -853,23 +738,7 @@
                 </strategy>
                 <hidden>false</hidden>
             </edgeproperty>
-            <edgeproperty
-                id="StationContainsCustomer::source::multiplicity"
-                sizeCalculated="true" type="multiplicity"
-                userDefined="true" visible="true">
-                <name>1</name>
-                <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyRelativeToAttached">
-                    <userOffsetX>29.0</userOffsetX>
-                    <userOffsetY>26.0</userOffsetY>
-                    <attached>StationContainsCustomer::WayPoint::0</attached>
-                    <offset_x>8</offset_x>
-                    <offset_y>8</offset_y>
-                    <placement>BOTTOM</placement>
-                </strategy>
-                <hidden>false</hidden>
-            </edgeproperty>
-            <edgeproperty id="StationContainsCustomer::source::rolename"
-                sizeCalculated="true" type="rolename" userDefined="true" visible="true">
+            <edgeproperty id="StationContainsCustomer::source::rolename" sizeCalculated="true" type="rolename" userDefined="true" visible="true">
                 <name>station</name>
                 <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyRelativeToAttached">
                     <userOffsetX>16.0</userOffsetX>
@@ -881,9 +750,19 @@
                 </strategy>
                 <hidden>false</hidden>
             </edgeproperty>
-            <edgeproperty id="StationContainsCustomer::AssociationName"
-                sizeCalculated="true" type="associationName"
-                userDefined="false" visible="true">
+            <edgeproperty id="StationContainsCustomer::source::multiplicity" sizeCalculated="true" type="multiplicity" userDefined="true" visible="true">
+                <name>1</name>
+                <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyRelativeToAttached">
+                    <userOffsetX>29.0</userOffsetX>
+                    <userOffsetY>26.0</userOffsetY>
+                    <attached>StationContainsCustomer::WayPoint::0</attached>
+                    <offset_x>8</offset_x>
+                    <offset_y>8</offset_y>
+                    <placement>BOTTOM</placement>
+                </strategy>
+                <hidden>false</hidden>
+            </edgeproperty>
+            <edgeproperty id="StationContainsCustomer::AssociationName" sizeCalculated="true" type="associationName" userDefined="false" visible="true">
                 <name>StationContainsCustomer</name>
                 <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyInBetween">
                     <userOffsetX>0.0</userOffsetX>
@@ -899,8 +778,7 @@
             </edgeproperty>
         </properties>
         <waypoints>
-            <edgeproperty id="StationContainsCustomer::WayPoint::0"
-                sizeCalculated="true" type="WayPoint" userDefined="true" visible="true">
+            <edgeproperty id="StationContainsCustomer::WayPoint::0" sizeCalculated="true" type="WayPoint" userDefined="true" visible="true">
                 <name>0</name>
                 <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyRelativeToCorner">
                     <userOffsetX>64.0</userOffsetX>
@@ -918,9 +796,7 @@
                 <specialid>1</specialid>
                 <hidden>false</hidden>
             </edgeproperty>
-            <edgeproperty id="StationContainsCustomer::WayPoint::1"
-                sizeCalculated="true" type="WayPoint"
-                userDefined="false" visible="true">
+            <edgeproperty id="StationContainsCustomer::WayPoint::1" sizeCalculated="true" type="WayPoint" userDefined="false" visible="true">
                 <name>1</name>
                 <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyAttachedIntersection">
                     <userOffsetX>0.0</userOffsetX>

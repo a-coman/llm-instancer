@@ -1,0 +1,11 @@
+!new Cat('whiskers')
+!whiskers.name := 'Whiskers'
+!whiskers.age := 2
+!whiskers.weight := 4.1
+!whiskers.isHungry := false
+
+!new Cat('luna')
+!luna.name := 'Luna'
+!luna.age := 3
+!luna.weight := 4.7
+!luna.isHungry := false

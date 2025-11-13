@@ -1,0 +1,90 @@
+!new SustainableCity('city2')
+!city2.name := 'Malaga'
+!city2.country := 'Spain'
+
+!new BikeStation('station3')
+!station3.name := 'Soho Bike Malaga'
+!station3.address := 'C. Cordoba, 17, Distrito Centro'
+!station3.spots := 42
+
+!new Bike('bike4')
+!bike4.code := 421
+!bike4.priceHour := 4.50
+
+!new User('user3')
+!user3.id := 1
+!user3.name := 'Antonio Jimenez'
+!user3.creditCard := '4634672187608213'
+
+!new Rental('rental5')
+!rental5.startDate := Date('2024-11-17')
+!rental5.endDate := Date('2024-11-17')
+
+!insert (user3, rental5) into UserRental
+!insert (rental5, bike4) into RentalBike
+!insert (bike4, station3) into Parked
+!insert (rental5, station3) into Pickup
+!insert (station3, city2) into StationsCity
+!insert (rental5, station3) into Dropoff
+
+------
+
+!new SustainableCity('city3')
+!city3.name := 'Hannover'
+!city3.country := 'Germany'
+
+!new BikeStation('station4')
+!station4.name := 'Bike Hannover'
+!station4.address := 'St. Lange Laube, 17, Hannover'
+!station4.spots := 121
+
+!new Bike('bike5')
+!bike5.code := 14
+!bike5.priceHour := 8.50
+
+!new User('user4')
+!user4.id := 1
+!user4.name := 'Hannah Schmidt'
+!user4.creditCard := '3558210919155905'
+
+!new Rental('rental6')
+!rental6.startDate := Date('2024-02-04')
+!rental6.endDate := Date('2024-02-04')
+
+!insert (user4, rental6) into UserRental
+!insert (rental6, bike5) into RentalBike
+!insert (bike5, station4) into Parked
+!insert (rental6, station4) into Pickup
+!insert (station4, city3) into StationsCity
+!insert (rental6, station4) into Dropoff
+
+------
+
+!new SustainableCity('city58')
+!city58.name := 'Paris'
+!city58.country := 'France'
+
+!new BikeStation('station5')
+!station5.name := 'Rivoli velo'
+!station5.address := 'Rue de Rivoli, 6, Paris'
+!station5.spots := 97
+
+!new Bike('bike6')
+!bike6.code := 66
+!bike6.priceHour := 6.43
+
+!new User('user5')
+!user5.id := 1
+!user5.name := 'Charlotte Thomas'
+!user5.creditCard := '5597794716434338'
+
+!new Rental('rental7')
+!rental7.startDate := Date('2025-06-24')
+!rental7.endDate := Date('2025-06-24')
+
+!insert (user5, rental7) into UserRental
+!insert (rental7, bike6) into RentalBike
+!insert (bike6, station5) into Parked
+!insert (rental7, station5) into Pickup
+!insert (station5, city58) into StationsCity
+!insert (rental7, station5) into Dropoff
