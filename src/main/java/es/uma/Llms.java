@@ -5,30 +5,40 @@ import java.util.List;
 
 import dev.langchain4j.memory.ChatMemory;
 import dev.langchain4j.memory.chat.TokenWindowChatMemory;
-import dev.langchain4j.model.chat.ChatLanguageModel;
+import dev.langchain4j.model.chat.ChatModel;
 import dev.langchain4j.model.googleai.GoogleAiGeminiChatModel;
 import dev.langchain4j.model.openai.OpenAiChatModel;
-import dev.langchain4j.model.openai.OpenAiTokenizer;
+import dev.langchain4j.model.openai.OpenAiTokenCountEstimator;
 import dev.langchain4j.service.AiServices;
 import io.github.cdimascio.dotenv.Dotenv;
 
 public class Llms {
 
-    public static final int MAX_TOKENS = 64000;
+    public static final int MAX_TOKENS = 400000;
 
-    public static <T> T getAgent(Class<T> agent, ChatLanguageModel model) {
+    public static <T> T getAgent(Class<T> agent, ChatModel model) {
         Listener.setCurrentAgent(agent.getSimpleName());
-        ChatMemory memory = TokenWindowChatMemory.withMaxTokens(MAX_TOKENS, new OpenAiTokenizer("gpt-4o"));
+        ChatMemory memory = TokenWindowChatMemory.withMaxTokens(MAX_TOKENS, new OpenAiTokenCountEstimator("gpt-5"));
         return AiServices.builder(agent)
-                .chatLanguageModel(model)
+                .chatModel(model)
                 .chatMemory(memory)
                 .build();
     }
 
-    public static ChatLanguageModel getModel(Model model) {
+    public static ChatModel getModel(Model model) {
         Dotenv dotenv = Dotenv.load();
         
         switch (model) {
+            case GPT_5_2:
+                return OpenAiChatModel.builder()
+                    .apiKey(dotenv.get("OPENROUTER_API_KEY"))
+                    .baseUrl("https://openrouter.ai/api/v1")
+                    .modelName("openai/gpt-5.2")
+                    .logRequests(true)
+                    .logResponses(true)
+                    .listeners(List.of(new Listener()))
+                    .timeout(Duration.ofSeconds(180))
+                    .build();
             case GPT_4O: 
                 return OpenAiChatModel.builder()
                     .apiKey(dotenv.get("OPENAI_KEY"))

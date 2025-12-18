@@ -141,7 +141,7 @@ public class MetricsRunner {
             
         // }
 
-        Experiment experiment = new Experiment(Model.GPT_4O, "Simple", "bank", 30, "21-03-2025--15-41-00");
+        Experiment experiment = new Experiment(Model.GPT_5_2, "Simple", "restaurant", 19, "13-12-2025--00-08-22");
         MetricsRunner metricsRunner = new MetricsRunner();
         metricsRunner.run(experiment);
     }
