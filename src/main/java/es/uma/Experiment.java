@@ -1,6 +1,6 @@
 package es.uma;
 
-import dev.langchain4j.model.chat.ChatLanguageModel;
+import dev.langchain4j.model.chat.ChatModel;
 import es.uma.CoT.CategoryPrompts;
 import es.uma.CoT.CoT;
 import es.uma.Simple.Simple;
@@ -10,7 +10,7 @@ public class Experiment {
     private String umlPath;
     private String examplePath; // Syntax example
     private String instancePath;
-    private ChatLanguageModel model;
+    private ChatModel model;
     private int repetitions;
     private String system; // Name of the folder where the domain to be run is
     private String type; // CoT or Simple
@@ -72,7 +72,7 @@ public class Experiment {
         return instancePath;
     }
 
-    public ChatLanguageModel getModel() {
+    public ChatModel getModel() {
         return model;
     }
 
