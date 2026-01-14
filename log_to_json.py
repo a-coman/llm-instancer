@@ -50,6 +50,8 @@ def parse_logs_markdown(file_path):
     parts = re.split(header_pattern, content, flags=re.MULTILINE)
     
     # parts[0] is preamble
+    current_sys_prompt = ""
+    last_seen_prompt = ""
     i = 1
     while i < len(parts):
         io_type = parts[i]
@@ -75,12 +77,26 @@ def parse_logs_markdown(file_path):
             }
             
         if io_type == "Input":
+            # Check for SystemMessage
+            sys_match_inner = re.search(r'SystemMessage \{ text = "(.*?)" \}', body, re.DOTALL)
+            if sys_match_inner:
+                current_sys_prompt = sys_match_inner.group(1).replace('\\"', '"').replace('\n', ' ')
+
             # Extract prompt
             user_match = re.search(r'UserMessage \{.*?text = (["\'])(.*?)\1 \}\] \}', body, re.DOTALL)
             if user_match:
                 prompt_text = user_match.group(2).replace('\\"', '"').replace('\\n', '\n')
                 data_map[key]["current_prompt"] = prompt_text
+                last_seen_prompt = prompt_text
+            
+            # Store system prompt for this key
+            data_map[key]["system_prompt"] = current_sys_prompt
+
         elif io_type == "Output":
+            # Inherit system prompt if not set (e.g. if Input is missing or interleaved)
+            if "system_prompt" not in data_map[key]:
+                data_map[key]["system_prompt"] = current_sys_prompt
+
             # Extract response and metrics
             response_text = ""
             output_code_match = re.search(r'```(.*?)```', body, re.DOTALL)
@@ -94,8 +110,13 @@ def parse_logs_markdown(file_path):
             total_tokens = re.search(r'Total Tokens:\s*(\d+)', body)
             time_seconds = re.search(r'Generation Time:\s*([\d\.]+)', body)
             
+            # Use specific prompt for this key, or fallback to last seen prompt if missing (orphaned output)
+            eff_prompt = data_map[key].get("current_prompt", "")
+            if not eff_prompt:
+                eff_prompt = last_seen_prompt
+            
             attempt = {
-                "prompt": data_map[key].get("current_prompt", ""),
+                "prompt": eff_prompt,
                 "response": response_text,
                 "input_tokens": int(input_tokens.group(1)) if input_tokens else 0,
                 "output_tokens": int(output_tokens.group(1)) if output_tokens else 0,
@@ -144,7 +165,8 @@ def parse_logs_markdown(file_path):
     if ("IModelAnalyzer", "") in data_map:
         ma = data_map[("IModelAnalyzer", "")]
         final_experiment["IModelAnalyzer"] = {
-            "prompt": ma["prompt"],
+            "system_prompt": ma.get("system_prompt", system_prompt), # Use granular or global fallback
+            "prompt": ma.get("current_prompt", ""),
             "response": ma["attempts_data"][0]["response"] if ma["attempts_data"] else "",
             "input_tokens": ma["attempts_data"][0]["input_tokens"] if ma["attempts_data"] else 0,
             "output_tokens": ma["attempts_data"][0]["output_tokens"] if ma["attempts_data"] else 0,
@@ -183,7 +205,11 @@ def parse_logs_markdown(file_path):
             if cn not in gen_map[gn]: gen_map[gn][cn] = {}
             
             if ph not in gen_map[gn][cn]:
-                 gen_map[gn][cn][ph] = { "prompt": b["prompt"], "attempts": [] }
+                 gen_map[gn][cn][ph] = { 
+                     "prompt": b["prompt"], 
+                     "system_prompt": b.get("system_prompt", ""),
+                     "attempts": [] 
+                 }
             else:
                  if not gen_map[gn][cn][ph]["prompt"]:
                      gen_map[gn][cn][ph]["prompt"] = b["prompt"]
@@ -213,7 +239,10 @@ def parse_logs_markdown(file_path):
                 for ph in ["IListCreator", "IListInstantiator"]:
                     if ph in gen_map[gn][cn]:
                         phase_data = gen_map[gn][cn][ph]
-                        cat_obj[ph] = { "attempts": phase_data["attempts"] }
+                        cat_obj[ph] = { 
+                            "system_prompt": phase_data.get("system_prompt", ""),
+                            "attempts": phase_data["attempts"] 
+                        }
                 
                 cats_list.append(cat_obj)
             
