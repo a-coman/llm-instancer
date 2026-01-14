@@ -1,0 +1,1856 @@
+{
+  "metrics": [
+    {
+      "experiment_id": "Simple-bank-21-03-2025--15-41-00",
+      "generations": [
+        {
+          "generation_id": "1",
+          "attempt_id": "1",
+          "metrics": {
+            "syntax": {
+              "errors": 0,
+              "total": 59,
+              "str": [
+                ""
+              ]
+            },
+            "multiplicities": {
+              "errors": 0,
+              "total": 16,
+              "str": [
+                ""
+              ]
+            },
+            "invariants": {
+              "errors": 0,
+              "total": 2,
+              "str": [
+                ""
+              ]
+            },
+            "specific": {
+              "iban": {
+                "errors": 5,
+                "total": 5,
+                "str": [
+                  "US123456789",
+                  "US987654321",
+                  "DE1122334455",
+                  "DE5544332211",
+                  "DE0099887766",
+                  "US123456789",
+                  "US987654321",
+                  "DE1122334455",
+                  "DE5544332211",
+                  "DE0099887766"
+                ]
+              },
+              "bic": {
+                "errors": 0,
+                "total": 2,
+                "str": [
+                  ""
+                ]
+              },
+              "countries": {
+                "errors": 0,
+                "total": 2,
+                "str": [
+                  ""
+                ]
+              }
+            }
+          }
+        },
+        {
+          "generation_id": "2",
+          "attempt_id": "1",
+          "metrics": {
+            "syntax": {
+              "errors": 0,
+              "total": 36,
+              "str": [
+                ""
+              ]
+            },
+            "multiplicities": {
+              "errors": 0,
+              "total": 10,
+              "str": [
+                ""
+              ]
+            },
+            "invariants": {
+              "errors": 0,
+              "total": 2,
+              "str": [
+                ""
+              ]
+            },
+            "specific": {
+              "iban": {
+                "errors": 2,
+                "total": 2,
+                "str": [
+                  "CA123456789012",
+                  "CA987654321098",
+                  "CA123456789012",
+                  "CA987654321098"
+                ]
+              },
+              "bic": {
+                "errors": 0,
+                "total": 1,
+                "str": [
+                  ""
+                ]
+              },
+              "countries": {
+                "errors": 0,
+                "total": 1,
+                "str": [
+                  ""
+                ]
+              }
+            }
+          }
+        },
+        {
+          "generation_id": "3",
+          "attempt_id": "1",
+          "metrics": {
+            "syntax": {
+              "errors": 0,
+              "total": 37,
+              "str": [
+                ""
+              ]
+            },
+            "multiplicities": {
+              "errors": 0,
+              "total": 12,
+              "str": [
+                ""
+              ]
+            },
+            "invariants": {
+              "errors": 0,
+              "total": 2,
+              "str": [
+                ""
+              ]
+            },
+            "specific": {
+              "iban": {
+                "errors": 3,
+                "total": 3,
+                "str": [
+                  "AU765432109876",
+                  "AU123123123123",
+                  "AU999888777666",
+                  "AU765432109876",
+                  "AU123123123123",
+                  "AU999888777666"
+                ]
+              },
+              "bic": {
+                "errors": 0,
+                "total": 1,
+                "str": [
+                  ""
+                ]
+              },
+              "countries": {
+                "errors": 0,
+                "total": 1,
+                "str": [
+                  ""
+                ]
+              }
+            }
+          }
+        },
+        {
+          "generation_id": "4",
+          "attempt_id": "1",
+          "metrics": {
+            "syntax": {
+              "errors": 0,
+              "total": 36,
+              "str": [
+                ""
+              ]
+            },
+            "multiplicities": {
+              "errors": 0,
+              "total": 10,
+              "str": [
+                ""
+              ]
+            },
+            "invariants": {
+              "errors": 0,
+              "total": 2,
+              "str": [
+                ""
+              ]
+            },
+            "specific": {
+              "iban": {
+                "errors": 2,
+                "total": 2,
+                "str": [
+                  "JP123456789012345",
+                  "JP543210987654321",
+                  "JP123456789012345",
+                  "JP543210987654321"
+                ]
+              },
+              "bic": {
+                "errors": 0,
+                "total": 1,
+                "str": [
+                  ""
+                ]
+              },
+              "countries": {
+                "errors": 0,
+                "total": 1,
+                "str": [
+                  ""
+                ]
+              }
+            }
+          }
+        },
+        {
+          "generation_id": "5",
+          "attempt_id": "2",
+          "metrics": {
+            "syntax": {
+              "errors": 0,
+              "total": 38,
+              "str": [
+                ""
+              ]
+            },
+            "multiplicities": {
+              "errors": 0,
+              "total": 13,
+              "str": [
+                ""
+              ]
+            },
+            "invariants": {
+              "errors": 0,
+              "total": 2,
+              "str": [
+                ""
+              ]
+            },
+            "specific": {
+              "iban": {
+                "errors": 3,
+                "total": 3,
+                "str": [
+                  "IN5013370001000000",
+                  "IN6013370002000001",
+                  "IN7013370003000002",
+                  "IN5013370001000000",
+                  "IN6013370002000001",
+                  "IN7013370003000002"
+                ]
+              },
+              "bic": {
+                "errors": 1,
+                "total": 1,
+                "str": [
+                  "SBINAINBB"
+                ]
+              },
+              "countries": {
+                "errors": 0,
+                "total": 1,
+                "str": [
+                  ""
+                ]
+              }
+            }
+          }
+        },
+        {
+          "generation_id": "6",
+          "attempt_id": "1",
+          "metrics": {
+            "syntax": {
+              "errors": 0,
+              "total": 38,
+              "str": [
+                ""
+              ]
+            },
+            "multiplicities": {
+              "errors": 0,
+              "total": 13,
+              "str": [
+                ""
+              ]
+            },
+            "invariants": {
+              "errors": 0,
+              "total": 2,
+              "str": [
+                ""
+              ]
+            },
+            "specific": {
+              "iban": {
+                "errors": 3,
+                "total": 3,
+                "str": [
+                  "BR1800000000000012345678901",
+                  "BR1900000000000012345678902",
+                  "BR2000000000000012345678903",
+                  "BR1800000000000012345678901",
+                  "BR1900000000000012345678902",
+                  "BR2000000000000012345678903"
+                ]
+              },
+              "bic": {
+                "errors": 0,
+                "total": 1,
+                "str": [
+                  ""
+                ]
+              },
+              "countries": {
+                "errors": 0,
+                "total": 1,
+                "str": [
+                  ""
+                ]
+              }
+            }
+          }
+        },
+        {
+          "generation_id": "7",
+          "attempt_id": "1",
+          "metrics": {
+            "syntax": {
+              "errors": 0,
+              "total": 38,
+              "str": [
+                ""
+              ]
+            },
+            "multiplicities": {
+              "errors": 0,
+              "total": 13,
+              "str": [
+                ""
+              ]
+            },
+            "invariants": {
+              "errors": 0,
+              "total": 2,
+              "str": [
+                ""
+              ]
+            },
+            "specific": {
+              "iban": {
+                "errors": 2,
+                "total": 3,
+                "str": [
+                  "FR7630006000021234567890188",
+                  "FR7630006000031234567890187",
+                  "FR7630006000021234567890188",
+                  "FR7630006000031234567890187"
+                ]
+              },
+              "bic": {
+                "errors": 0,
+                "total": 1,
+                "str": [
+                  ""
+                ]
+              },
+              "countries": {
+                "errors": 0,
+                "total": 1,
+                "str": [
+                  ""
+                ]
+              }
+            }
+          }
+        },
+        {
+          "generation_id": "8",
+          "attempt_id": "2",
+          "metrics": {
+            "syntax": {
+              "errors": 0,
+              "total": 38,
+              "str": [
+                ""
+              ]
+            },
+            "multiplicities": {
+              "errors": 0,
+              "total": 13,
+              "str": [
+                ""
+              ]
+            },
+            "invariants": {
+              "errors": 0,
+              "total": 2,
+              "str": [
+                ""
+              ]
+            },
+            "specific": {
+              "iban": {
+                "errors": 3,
+                "total": 3,
+                "str": [
+                  "IT6003600001001234567890123",
+                  "IT6003600002001234567890122",
+                  "IT6003600003001234567890121",
+                  "IT6003600001001234567890123",
+                  "IT6003600002001234567890122",
+                  "IT6003600003001234567890121"
+                ]
+              },
+              "bic": {
+                "errors": 0,
+                "total": 1,
+                "str": [
+                  ""
+                ]
+              },
+              "countries": {
+                "errors": 0,
+                "total": 1,
+                "str": [
+                  ""
+                ]
+              }
+            }
+          }
+        },
+        {
+          "generation_id": "9",
+          "attempt_id": "1",
+          "metrics": {
+            "syntax": {
+              "errors": 0,
+              "total": 38,
+              "str": [
+                ""
+              ]
+            },
+            "multiplicities": {
+              "errors": 0,
+              "total": 13,
+              "str": [
+                ""
+              ]
+            },
+            "invariants": {
+              "errors": 0,
+              "total": 2,
+              "str": [
+                ""
+              ]
+            },
+            "specific": {
+              "iban": {
+                "errors": 3,
+                "total": 3,
+                "str": [
+                  "CA000123450067890",
+                  "CA000987650032165",
+                  "CA000555550012345",
+                  "CA000123450067890",
+                  "CA000987650032165",
+                  "CA000555550012345"
+                ]
+              },
+              "bic": {
+                "errors": 0,
+                "total": 1,
+                "str": [
+                  ""
+                ]
+              },
+              "countries": {
+                "errors": 0,
+                "total": 1,
+                "str": [
+                  ""
+                ]
+              }
+            }
+          }
+        },
+        {
+          "generation_id": "10",
+          "attempt_id": "1",
+          "metrics": {
+            "syntax": {
+              "errors": 0,
+              "total": 38,
+              "str": [
+                ""
+              ]
+            },
+            "multiplicities": {
+              "errors": 0,
+              "total": 13,
+              "str": [
+                ""
+              ]
+            },
+            "invariants": {
+              "errors": 0,
+              "total": 2,
+              "str": [
+                ""
+              ]
+            },
+            "specific": {
+              "iban": {
+                "errors": 3,
+                "total": 3,
+                "str": [
+                  "AU123456789012345678",
+                  "AU987654321098765432",
+                  "AU321123456789654789",
+                  "AU123456789012345678",
+                  "AU987654321098765432",
+                  "AU321123456789654789"
+                ]
+              },
+              "bic": {
+                "errors": 0,
+                "total": 1,
+                "str": [
+                  ""
+                ]
+              },
+              "countries": {
+                "errors": 0,
+                "total": 1,
+                "str": [
+                  ""
+                ]
+              }
+            }
+          }
+        },
+        {
+          "generation_id": "11",
+          "attempt_id": "1",
+          "metrics": {
+            "syntax": {
+              "errors": 0,
+              "total": 38,
+              "str": [
+                ""
+              ]
+            },
+            "multiplicities": {
+              "errors": 0,
+              "total": 13,
+              "str": [
+                ""
+              ]
+            },
+            "invariants": {
+              "errors": 0,
+              "total": 2,
+              "str": [
+                ""
+              ]
+            },
+            "specific": {
+              "iban": {
+                "errors": 2,
+                "total": 3,
+                "str": [
+                  "SE3550000000069480000004",
+                  "SE3550000000071230000005",
+                  "SE3550000000069480000004",
+                  "SE3550000000071230000005"
+                ]
+              },
+              "bic": {
+                "errors": 0,
+                "total": 1,
+                "str": [
+                  ""
+                ]
+              },
+              "countries": {
+                "errors": 0,
+                "total": 1,
+                "str": [
+                  ""
+                ]
+              }
+            }
+          }
+        },
+        {
+          "generation_id": "12",
+          "attempt_id": "1",
+          "metrics": {
+            "syntax": {
+              "errors": 0,
+              "total": 38,
+              "str": [
+                ""
+              ]
+            },
+            "multiplicities": {
+              "errors": 0,
+              "total": 13,
+              "str": [
+                ""
+              ]
+            },
+            "invariants": {
+              "errors": 0,
+              "total": 2,
+              "str": [
+                ""
+              ]
+            },
+            "specific": {
+              "iban": {
+                "errors": 3,
+                "total": 3,
+                "str": [
+                  "SG12345678901234567890",
+                  "SG09876543210987654321",
+                  "SG11122233344455566677",
+                  "SG12345678901234567890",
+                  "SG09876543210987654321",
+                  "SG11122233344455566677"
+                ]
+              },
+              "bic": {
+                "errors": 0,
+                "total": 1,
+                "str": [
+                  ""
+                ]
+              },
+              "countries": {
+                "errors": 0,
+                "total": 1,
+                "str": [
+                  ""
+                ]
+              }
+            }
+          }
+        },
+        {
+          "generation_id": "13",
+          "attempt_id": "1",
+          "metrics": {
+            "syntax": {
+              "errors": 0,
+              "total": 38,
+              "str": [
+                ""
+              ]
+            },
+            "multiplicities": {
+              "errors": 0,
+              "total": 13,
+              "str": [
+                ""
+              ]
+            },
+            "invariants": {
+              "errors": 0,
+              "total": 2,
+              "str": [
+                ""
+              ]
+            },
+            "specific": {
+              "iban": {
+                "errors": 3,
+                "total": 3,
+                "str": [
+                  "NZ123456789012345678901",
+                  "NZ987654321098765432109",
+                  "NZ555666777888999000123",
+                  "NZ123456789012345678901",
+                  "NZ987654321098765432109",
+                  "NZ555666777888999000123"
+                ]
+              },
+              "bic": {
+                "errors": 0,
+                "total": 1,
+                "str": [
+                  ""
+                ]
+              },
+              "countries": {
+                "errors": 0,
+                "total": 1,
+                "str": [
+                  ""
+                ]
+              }
+            }
+          }
+        },
+        {
+          "generation_id": "14",
+          "attempt_id": "1",
+          "metrics": {
+            "syntax": {
+              "errors": 0,
+              "total": 38,
+              "str": [
+                ""
+              ]
+            },
+            "multiplicities": {
+              "errors": 0,
+              "total": 13,
+              "str": [
+                ""
+              ]
+            },
+            "invariants": {
+              "errors": 0,
+              "total": 2,
+              "str": [
+                ""
+              ]
+            },
+            "specific": {
+              "iban": {
+                "errors": 3,
+                "total": 3,
+                "str": [
+                  "ZA123456789012345678",
+                  "ZA876543210987654321",
+                  "ZA192837465091827364",
+                  "ZA123456789012345678",
+                  "ZA876543210987654321",
+                  "ZA192837465091827364"
+                ]
+              },
+              "bic": {
+                "errors": 0,
+                "total": 1,
+                "str": [
+                  ""
+                ]
+              },
+              "countries": {
+                "errors": 0,
+                "total": 1,
+                "str": [
+                  ""
+                ]
+              }
+            }
+          }
+        },
+        {
+          "generation_id": "15",
+          "attempt_id": "1",
+          "metrics": {
+            "syntax": {
+              "errors": 0,
+              "total": 38,
+              "str": [
+                ""
+              ]
+            },
+            "multiplicities": {
+              "errors": 0,
+              "total": 13,
+              "str": [
+                ""
+              ]
+            },
+            "invariants": {
+              "errors": 0,
+              "total": 2,
+              "str": [
+                ""
+              ]
+            },
+            "specific": {
+              "iban": {
+                "errors": 3,
+                "total": 3,
+                "str": [
+                  "MX12345678901234567890",
+                  "MX09876543210987654321",
+                  "MX11121314151617181920",
+                  "MX12345678901234567890",
+                  "MX09876543210987654321",
+                  "MX11121314151617181920"
+                ]
+              },
+              "bic": {
+                "errors": 0,
+                "total": 1,
+                "str": [
+                  ""
+                ]
+              },
+              "countries": {
+                "errors": 0,
+                "total": 1,
+                "str": [
+                  ""
+                ]
+              }
+            }
+          }
+        },
+        {
+          "generation_id": "16",
+          "attempt_id": "1",
+          "metrics": {
+            "syntax": {
+              "errors": 0,
+              "total": 38,
+              "str": [
+                ""
+              ]
+            },
+            "multiplicities": {
+              "errors": 0,
+              "total": 13,
+              "str": [
+                ""
+              ]
+            },
+            "invariants": {
+              "errors": 0,
+              "total": 2,
+              "str": [
+                ""
+              ]
+            },
+            "specific": {
+              "iban": {
+                "errors": 3,
+                "total": 3,
+                "str": [
+                  "KR12345678901234567890",
+                  "KR09876543210987654321",
+                  "KR56789012345678901234",
+                  "KR12345678901234567890",
+                  "KR09876543210987654321",
+                  "KR56789012345678901234"
+                ]
+              },
+              "bic": {
+                "errors": 0,
+                "total": 1,
+                "str": [
+                  ""
+                ]
+              },
+              "countries": {
+                "errors": 0,
+                "total": 1,
+                "str": [
+                  ""
+                ]
+              }
+            }
+          }
+        },
+        {
+          "generation_id": "17",
+          "attempt_id": "1",
+          "metrics": {
+            "syntax": {
+              "errors": 0,
+              "total": 38,
+              "str": [
+                ""
+              ]
+            },
+            "multiplicities": {
+              "errors": 0,
+              "total": 13,
+              "str": [
+                ""
+              ]
+            },
+            "invariants": {
+              "errors": 0,
+              "total": 2,
+              "str": [
+                ""
+              ]
+            },
+            "specific": {
+              "iban": {
+                "errors": 2,
+                "total": 3,
+                "str": [
+                  "NL91ABNA0417164301",
+                  "NL91ABNA0417164302",
+                  "NL91ABNA0417164301",
+                  "NL91ABNA0417164302"
+                ]
+              },
+              "bic": {
+                "errors": 0,
+                "total": 1,
+                "str": [
+                  ""
+                ]
+              },
+              "countries": {
+                "errors": 0,
+                "total": 1,
+                "str": [
+                  ""
+                ]
+              }
+            }
+          }
+        },
+        {
+          "generation_id": "18",
+          "attempt_id": "1",
+          "metrics": {
+            "syntax": {
+              "errors": 0,
+              "total": 38,
+              "str": [
+                ""
+              ]
+            },
+            "multiplicities": {
+              "errors": 0,
+              "total": 13,
+              "str": [
+                ""
+              ]
+            },
+            "invariants": {
+              "errors": 0,
+              "total": 2,
+              "str": [
+                ""
+              ]
+            },
+            "specific": {
+              "iban": {
+                "errors": 3,
+                "total": 3,
+                "str": [
+                  "IN50101345678912345678",
+                  "IN60111345678912345679",
+                  "IN70121345678912345680",
+                  "IN50101345678912345678",
+                  "IN60111345678912345679",
+                  "IN70121345678912345680"
+                ]
+              },
+              "bic": {
+                "errors": 0,
+                "total": 1,
+                "str": [
+                  ""
+                ]
+              },
+              "countries": {
+                "errors": 0,
+                "total": 1,
+                "str": [
+                  ""
+                ]
+              }
+            }
+          }
+        },
+        {
+          "generation_id": "19",
+          "attempt_id": "1",
+          "metrics": {
+            "syntax": {
+              "errors": 0,
+              "total": 38,
+              "str": [
+                ""
+              ]
+            },
+            "multiplicities": {
+              "errors": 0,
+              "total": 13,
+              "str": [
+                ""
+              ]
+            },
+            "invariants": {
+              "errors": 0,
+              "total": 2,
+              "str": [
+                ""
+              ]
+            },
+            "specific": {
+              "iban": {
+                "errors": 2,
+                "total": 3,
+                "str": [
+                  "TR330006100519786457841327",
+                  "TR330006100519786457841328",
+                  "TR330006100519786457841327",
+                  "TR330006100519786457841328"
+                ]
+              },
+              "bic": {
+                "errors": 0,
+                "total": 1,
+                "str": [
+                  ""
+                ]
+              },
+              "countries": {
+                "errors": 0,
+                "total": 1,
+                "str": [
+                  ""
+                ]
+              }
+            }
+          }
+        },
+        {
+          "generation_id": "20",
+          "attempt_id": "1",
+          "metrics": {
+            "syntax": {
+              "errors": 0,
+              "total": 38,
+              "str": [
+                ""
+              ]
+            },
+            "multiplicities": {
+              "errors": 0,
+              "total": 13,
+              "str": [
+                ""
+              ]
+            },
+            "invariants": {
+              "errors": 0,
+              "total": 2,
+              "str": [
+                ""
+              ]
+            },
+            "specific": {
+              "iban": {
+                "errors": 3,
+                "total": 3,
+                "str": [
+                  "BR1800000000001012345678901B",
+                  "BR1800000000002012345678902B",
+                  "BR1800000000003012345678903B",
+                  "BR1800000000001012345678901B",
+                  "BR1800000000002012345678902B",
+                  "BR1800000000003012345678903B"
+                ]
+              },
+              "bic": {
+                "errors": 0,
+                "total": 1,
+                "str": [
+                  ""
+                ]
+              },
+              "countries": {
+                "errors": 0,
+                "total": 1,
+                "str": [
+                  ""
+                ]
+              }
+            }
+          }
+        },
+        {
+          "generation_id": "21",
+          "attempt_id": "1",
+          "metrics": {
+            "syntax": {
+              "errors": 0,
+              "total": 38,
+              "str": [
+                ""
+              ]
+            },
+            "multiplicities": {
+              "errors": 0,
+              "total": 13,
+              "str": [
+                ""
+              ]
+            },
+            "invariants": {
+              "errors": 0,
+              "total": 2,
+              "str": [
+                ""
+              ]
+            },
+            "specific": {
+              "iban": {
+                "errors": 2,
+                "total": 3,
+                "str": [
+                  "ES9121000418450200051333",
+                  "ES9121000418450200051334",
+                  "ES9121000418450200051333",
+                  "ES9121000418450200051334"
+                ]
+              },
+              "bic": {
+                "errors": 0,
+                "total": 1,
+                "str": [
+                  ""
+                ]
+              },
+              "countries": {
+                "errors": 0,
+                "total": 1,
+                "str": [
+                  ""
+                ]
+              }
+            }
+          }
+        },
+        {
+          "generation_id": "22",
+          "attempt_id": "1",
+          "metrics": {
+            "syntax": {
+              "errors": 0,
+              "total": 38,
+              "str": [
+                ""
+              ]
+            },
+            "multiplicities": {
+              "errors": 0,
+              "total": 13,
+              "str": [
+                ""
+              ]
+            },
+            "invariants": {
+              "errors": 0,
+              "total": 2,
+              "str": [
+                ""
+              ]
+            },
+            "specific": {
+              "iban": {
+                "errors": 3,
+                "total": 3,
+                "str": [
+                  "NG1234567890123456789012",
+                  "NG0987654321098765432101",
+                  "NG1122334455667788990000",
+                  "NG1234567890123456789012",
+                  "NG0987654321098765432101",
+                  "NG1122334455667788990000"
+                ]
+              },
+              "bic": {
+                "errors": 0,
+                "total": 1,
+                "str": [
+                  ""
+                ]
+              },
+              "countries": {
+                "errors": 0,
+                "total": 1,
+                "str": [
+                  ""
+                ]
+              }
+            }
+          }
+        },
+        {
+          "generation_id": "23",
+          "attempt_id": "1",
+          "metrics": {
+            "syntax": {
+              "errors": 0,
+              "total": 38,
+              "str": [
+                ""
+              ]
+            },
+            "multiplicities": {
+              "errors": 0,
+              "total": 13,
+              "str": [
+                ""
+              ]
+            },
+            "invariants": {
+              "errors": 0,
+              "total": 2,
+              "str": [
+                ""
+              ]
+            },
+            "specific": {
+              "iban": {
+                "errors": 2,
+                "total": 3,
+                "str": [
+                  "AE070331234567890123457",
+                  "AE070331234567890123458",
+                  "AE070331234567890123457",
+                  "AE070331234567890123458"
+                ]
+              },
+              "bic": {
+                "errors": 0,
+                "total": 1,
+                "str": [
+                  ""
+                ]
+              },
+              "countries": {
+                "errors": 0,
+                "total": 1,
+                "str": [
+                  ""
+                ]
+              }
+            }
+          }
+        },
+        {
+          "generation_id": "24",
+          "attempt_id": "1",
+          "metrics": {
+            "syntax": {
+              "errors": 0,
+              "total": 38,
+              "str": [
+                ""
+              ]
+            },
+            "multiplicities": {
+              "errors": 0,
+              "total": 13,
+              "str": [
+                ""
+              ]
+            },
+            "invariants": {
+              "errors": 0,
+              "total": 2,
+              "str": [
+                ""
+              ]
+            },
+            "specific": {
+              "iban": {
+                "errors": 2,
+                "total": 3,
+                "str": [
+                  "CH5604835012345678010",
+                  "CH5604835012345678011",
+                  "CH5604835012345678010",
+                  "CH5604835012345678011"
+                ]
+              },
+              "bic": {
+                "errors": 0,
+                "total": 1,
+                "str": [
+                  ""
+                ]
+              },
+              "countries": {
+                "errors": 0,
+                "total": 1,
+                "str": [
+                  ""
+                ]
+              }
+            }
+          }
+        },
+        {
+          "generation_id": "25",
+          "attempt_id": "1",
+          "metrics": {
+            "syntax": {
+              "errors": 0,
+              "total": 38,
+              "str": [
+                ""
+              ]
+            },
+            "multiplicities": {
+              "errors": 0,
+              "total": 13,
+              "str": [
+                ""
+              ]
+            },
+            "invariants": {
+              "errors": 0,
+              "total": 2,
+              "str": [
+                ""
+              ]
+            },
+            "specific": {
+              "iban": {
+                "errors": 3,
+                "total": 3,
+                "str": [
+                  "JP890000000000123456789",
+                  "JP890000000000987654321",
+                  "JP890000000000567890123",
+                  "JP890000000000123456789",
+                  "JP890000000000987654321",
+                  "JP890000000000567890123"
+                ]
+              },
+              "bic": {
+                "errors": 0,
+                "total": 1,
+                "str": [
+                  ""
+                ]
+              },
+              "countries": {
+                "errors": 0,
+                "total": 1,
+                "str": [
+                  ""
+                ]
+              }
+            }
+          }
+        },
+        {
+          "generation_id": "26",
+          "attempt_id": "1",
+          "metrics": {
+            "syntax": {
+              "errors": 0,
+              "total": 38,
+              "str": [
+                ""
+              ]
+            },
+            "multiplicities": {
+              "errors": 0,
+              "total": 13,
+              "str": [
+                ""
+              ]
+            },
+            "invariants": {
+              "errors": 0,
+              "total": 2,
+              "str": [
+                ""
+              ]
+            },
+            "specific": {
+              "iban": {
+                "errors": 3,
+                "total": 3,
+                "str": [
+                  "CN123456789012345678901",
+                  "CN987654321098765432109",
+                  "CN192837465091827364550",
+                  "CN123456789012345678901",
+                  "CN987654321098765432109",
+                  "CN192837465091827364550"
+                ]
+              },
+              "bic": {
+                "errors": 0,
+                "total": 1,
+                "str": [
+                  ""
+                ]
+              },
+              "countries": {
+                "errors": 0,
+                "total": 1,
+                "str": [
+                  ""
+                ]
+              }
+            }
+          }
+        },
+        {
+          "generation_id": "27",
+          "attempt_id": "1",
+          "metrics": {
+            "syntax": {
+              "errors": 0,
+              "total": 38,
+              "str": [
+                ""
+              ]
+            },
+            "multiplicities": {
+              "errors": 0,
+              "total": 13,
+              "str": [
+                ""
+              ]
+            },
+            "invariants": {
+              "errors": 0,
+              "total": 2,
+              "str": [
+                ""
+              ]
+            },
+            "specific": {
+              "iban": {
+                "errors": 3,
+                "total": 3,
+                "str": [
+                  "RU1234567890123456789012",
+                  "RU2345678901234567890123",
+                  "RU3456789012345678901234",
+                  "RU1234567890123456789012",
+                  "RU2345678901234567890123",
+                  "RU3456789012345678901234"
+                ]
+              },
+              "bic": {
+                "errors": 0,
+                "total": 1,
+                "str": [
+                  ""
+                ]
+              },
+              "countries": {
+                "errors": 0,
+                "total": 1,
+                "str": [
+                  ""
+                ]
+              }
+            }
+          }
+        },
+        {
+          "generation_id": "28",
+          "attempt_id": "1",
+          "metrics": {
+            "syntax": {
+              "errors": 0,
+              "total": 38,
+              "str": [
+                ""
+              ]
+            },
+            "multiplicities": {
+              "errors": 0,
+              "total": 13,
+              "str": [
+                ""
+              ]
+            },
+            "invariants": {
+              "errors": 0,
+              "total": 2,
+              "str": [
+                ""
+              ]
+            },
+            "specific": {
+              "iban": {
+                "errors": 3,
+                "total": 3,
+                "str": [
+                  "AR123456789012345678901",
+                  "AR987654321098765432101",
+                  "AR192837465091827364501",
+                  "AR123456789012345678901",
+                  "AR987654321098765432101",
+                  "AR192837465091827364501"
+                ]
+              },
+              "bic": {
+                "errors": 0,
+                "total": 1,
+                "str": [
+                  ""
+                ]
+              },
+              "countries": {
+                "errors": 0,
+                "total": 1,
+                "str": [
+                  ""
+                ]
+              }
+            }
+          }
+        },
+        {
+          "generation_id": "29",
+          "attempt_id": "1",
+          "metrics": {
+            "syntax": {
+              "errors": 0,
+              "total": 38,
+              "str": [
+                ""
+              ]
+            },
+            "multiplicities": {
+              "errors": 0,
+              "total": 13,
+              "str": [
+                ""
+              ]
+            },
+            "invariants": {
+              "errors": 0,
+              "total": 2,
+              "str": [
+                ""
+              ]
+            },
+            "specific": {
+              "iban": {
+                "errors": 3,
+                "total": 3,
+                "str": [
+                  "TH123456789012345678901",
+                  "TH987654321098765432109",
+                  "TH543217890123456789012",
+                  "TH123456789012345678901",
+                  "TH987654321098765432109",
+                  "TH543217890123456789012"
+                ]
+              },
+              "bic": {
+                "errors": 0,
+                "total": 1,
+                "str": [
+                  ""
+                ]
+              },
+              "countries": {
+                "errors": 0,
+                "total": 1,
+                "str": [
+                  ""
+                ]
+              }
+            }
+          }
+        },
+        {
+          "generation_id": "30",
+          "attempt_id": "1",
+          "metrics": {
+            "syntax": {
+              "errors": 0,
+              "total": 38,
+              "str": [
+                ""
+              ]
+            },
+            "multiplicities": {
+              "errors": 0,
+              "total": 13,
+              "str": [
+                ""
+              ]
+            },
+            "invariants": {
+              "errors": 0,
+              "total": 2,
+              "str": [
+                ""
+              ]
+            },
+            "specific": {
+              "iban": {
+                "errors": 3,
+                "total": 3,
+                "str": [
+                  "KR700110000747123456789",
+                  "KR700110000747987654321",
+                  "KR700110000747567890123",
+                  "KR700110000747123456789",
+                  "KR700110000747987654321",
+                  "KR700110000747567890123"
+                ]
+              },
+              "bic": {
+                "errors": 0,
+                "total": 1,
+                "str": [
+                  ""
+                ]
+              },
+              "countries": {
+                "errors": 0,
+                "total": 1,
+                "str": [
+                  ""
+                ]
+              }
+            }
+          }
+        }
+      ],
+      "metrics": {
+        "syntax": {
+          "errors": 0,
+          "total": 1156,
+          "str": [
+            ""
+          ]
+        },
+        "multiplicities": {
+          "errors": 0,
+          "total": 386,
+          "str": [
+            ""
+          ]
+        },
+        "invariants": {
+          "errors": 0,
+          "total": 60,
+          "str": [
+            ""
+          ]
+        },
+        "specific": {
+          "iban": {
+            "errors": 83,
+            "total": 90,
+            "str": [
+              "US123456789",
+              "US987654321",
+              "DE1122334455",
+              "DE5544332211",
+              "DE0099887766",
+              "US123456789",
+              "US987654321",
+              "DE1122334455",
+              "DE5544332211",
+              "DE0099887766",
+              "CA123456789012",
+              "CA987654321098",
+              "CA123456789012",
+              "CA987654321098",
+              "AU765432109876",
+              "AU123123123123",
+              "AU999888777666",
+              "AU765432109876",
+              "AU123123123123",
+              "AU999888777666",
+              "JP123456789012345",
+              "JP543210987654321",
+              "JP123456789012345",
+              "JP543210987654321",
+              "IN5013370001000000",
+              "IN6013370002000001",
+              "IN7013370003000002",
+              "IN5013370001000000",
+              "IN6013370002000001",
+              "IN7013370003000002",
+              "BR1800000000000012345678901",
+              "BR1900000000000012345678902",
+              "BR2000000000000012345678903",
+              "BR1800000000000012345678901",
+              "BR1900000000000012345678902",
+              "BR2000000000000012345678903",
+              "FR7630006000021234567890188",
+              "FR7630006000031234567890187",
+              "FR7630006000021234567890188",
+              "FR7630006000031234567890187",
+              "IT6003600001001234567890123",
+              "IT6003600002001234567890122",
+              "IT6003600003001234567890121",
+              "IT6003600001001234567890123",
+              "IT6003600002001234567890122",
+              "IT6003600003001234567890121",
+              "CA000123450067890",
+              "CA000987650032165",
+              "CA000555550012345",
+              "CA000123450067890",
+              "CA000987650032165",
+              "CA000555550012345",
+              "AU123456789012345678",
+              "AU987654321098765432",
+              "AU321123456789654789",
+              "AU123456789012345678",
+              "AU987654321098765432",
+              "AU321123456789654789",
+              "SE3550000000069480000004",
+              "SE3550000000071230000005",
+              "SE3550000000069480000004",
+              "SE3550000000071230000005",
+              "SG12345678901234567890",
+              "SG09876543210987654321",
+              "SG11122233344455566677",
+              "SG12345678901234567890",
+              "SG09876543210987654321",
+              "SG11122233344455566677",
+              "NZ123456789012345678901",
+              "NZ987654321098765432109",
+              "NZ555666777888999000123",
+              "NZ123456789012345678901",
+              "NZ987654321098765432109",
+              "NZ555666777888999000123",
+              "ZA123456789012345678",
+              "ZA876543210987654321",
+              "ZA192837465091827364",
+              "ZA123456789012345678",
+              "ZA876543210987654321",
+              "ZA192837465091827364",
+              "MX12345678901234567890",
+              "MX09876543210987654321",
+              "MX11121314151617181920",
+              "MX12345678901234567890",
+              "MX09876543210987654321",
+              "MX11121314151617181920",
+              "KR12345678901234567890",
+              "KR09876543210987654321",
+              "KR56789012345678901234",
+              "KR12345678901234567890",
+              "KR09876543210987654321",
+              "KR56789012345678901234",
+              "NL91ABNA0417164301",
+              "NL91ABNA0417164302",
+              "NL91ABNA0417164301",
+              "NL91ABNA0417164302",
+              "IN50101345678912345678",
+              "IN60111345678912345679",
+              "IN70121345678912345680",
+              "IN50101345678912345678",
+              "IN60111345678912345679",
+              "IN70121345678912345680",
+              "TR330006100519786457841327",
+              "TR330006100519786457841328",
+              "TR330006100519786457841327",
+              "TR330006100519786457841328",
+              "BR1800000000001012345678901B",
+              "BR1800000000002012345678902B",
+              "BR1800000000003012345678903B",
+              "BR1800000000001012345678901B",
+              "BR1800000000002012345678902B",
+              "BR1800000000003012345678903B",
+              "ES9121000418450200051333",
+              "ES9121000418450200051334",
+              "ES9121000418450200051333",
+              "ES9121000418450200051334",
+              "NG1234567890123456789012",
+              "NG0987654321098765432101",
+              "NG1122334455667788990000",
+              "NG1234567890123456789012",
+              "NG0987654321098765432101",
+              "NG1122334455667788990000",
+              "AE070331234567890123457",
+              "AE070331234567890123458",
+              "AE070331234567890123457",
+              "AE070331234567890123458",
+              "CH5604835012345678010",
+              "CH5604835012345678011",
+              "CH5604835012345678010",
+              "CH5604835012345678011",
+              "JP890000000000123456789",
+              "JP890000000000987654321",
+              "JP890000000000567890123",
+              "JP890000000000123456789",
+              "JP890000000000987654321",
+              "JP890000000000567890123",
+              "CN123456789012345678901",
+              "CN987654321098765432109",
+              "CN192837465091827364550",
+              "CN123456789012345678901",
+              "CN987654321098765432109",
+              "CN192837465091827364550",
+              "RU1234567890123456789012",
+              "RU2345678901234567890123",
+              "RU3456789012345678901234",
+              "RU1234567890123456789012",
+              "RU2345678901234567890123",
+              "RU3456789012345678901234",
+              "AR123456789012345678901",
+              "AR987654321098765432101",
+              "AR192837465091827364501",
+              "AR123456789012345678901",
+              "AR987654321098765432101",
+              "AR192837465091827364501",
+              "TH123456789012345678901",
+              "TH987654321098765432109",
+              "TH543217890123456789012",
+              "TH123456789012345678901",
+              "TH987654321098765432109",
+              "TH543217890123456789012",
+              "KR700110000747123456789",
+              "KR700110000747987654321",
+              "KR700110000747567890123",
+              "KR700110000747123456789",
+              "KR700110000747987654321",
+              "KR700110000747567890123"
+            ]
+          },
+          "bic": {
+            "errors": 1,
+            "total": 31,
+            "str": [
+              "SBINAINBB"
+            ]
+          },
+          "countries": {
+            "errors": 0,
+            "total": 31,
+            "str": [
+              ""
+            ]
+          }
+        }
+      }
+    }
+  ]
+}

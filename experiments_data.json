@@ -1,0 +1,558 @@
+{
+  "experiments": [
+    {
+      "id": "Simple-bank-21-03-2025--15-41-00",
+      "type": "simple",
+      "date": "2025-03-21",
+      "time": "15:41:00",
+      "model": {
+        "name": "GPT_4O",
+        "provider": "unknown",
+        "version": "unknown"
+      },
+      "domain_name": "bank",
+      "system_prompt": "Given a conceptual model expressed in the UML-based Specification Environment (USE) and a syntax example for instance creation, your task is to generate valid instances that conform to the provided model.  ### Requirements - Instances must be syntactically correct according to the USE syntax example. - Avoid unnecessary comments and output the instance in plain text (i.e., not markdown). - Make sure instances fulfil all the model's constraints, and that multiplicities, relatinoships and attributes are valid. - Provide multiple instances with diverse data values and structure. - Additionally provide instances that cover corner cases for constraints, multiplicities, and attribute values. ",
+      "number_generations": 30,
+      "input_tokens": 238553,
+      "output_tokens": 13014,
+      "total_tokens": 251567,
+      "time_seconds": 183.87,
+      "generations": [
+        {
+          "id": "1",
+          "attempts": [
+            {
+              "id": "1",
+              "status": "success",
+              "prompt": "Create instances for the following UML model:\nmodel BankAccount\n\nclass Bank\nattributes\n country:String\n name:String\n bic:String\nend\n\nclass Account\nattributes\n iban: String\n balance : Integer\nend\n\nclass Person\nattributes\n firstName:String\n lastName:String\n age : Integer\nend\n\nassociation Ownership between\nPerson [1..2] role owner\nAccount [*] role accounts\nend\n\nassociation Use between\nPerson [*] role user\nAccount [*] role usedAccounts\nend\n\n\ncomposition AccountOfBanks between\nBank [1] role bank\nAccount [*] role accounts\nend\n\n\nconstraints\ncontext Account inv AdultOwners:\n    self.owner->forAll(p | p.age >= 18)\n\t\ncontext Account inv positiveBalance:\n    self.balance >= 0\n\nHere is an example of the language syntax for creating instances:\n-- This is a comment example\n\n-- Primitive data types:\n- Integer i.e. 1, 2, 3, etc.\n- Real i.e. 1.0, 21.89, 322.05556, etc.\n- Boolean i.e. true or false\n- String i.e. 'Hello World'\n\n-- You can create instances with the following syntax:\n!new <instance type>('<instance name>')\n-- Example:\n!new Client('client1')\n!new Store('store4')\n\n-- You can assign values to attributes for an created instance with the following syntax:\n!<instance name>.<attribute name> := <value>\n-- Example for different data types:\n!client1.clientId := 1 -- For Integer\n!client1.balance := 1123.45 -- For Real\n!client1.name := 'Jhon' -- For Strings\n!store4.available := true -- For Boolean\n\n-- You can create associations between instances with the following syntax:\n!insert (<instance name1>, <instance name2>) into <association name>\n-- Example:\n!insert (client1, store4) into ClientStore\n\n-- Custom data types usage:\n    -- dataType Location\n    -- operations\n    --   Location(x : Real, y : Real)\n    --   some other operations\n    -- end\n-- You can create custom data types calling the constructor directly, in this case, the constructor of Location requires two arguments: x and y of type Real. So it can be used as follows:\n!store4.location := Location(14.0, 289.0)\n\n-- Enums usage:\n    -- enum Type { Clothes, Shoes }\n-- Can be used as follows:\nstore4.type := #Clothes\n",
+              "response": "!new Bank('bank1')\n!bank1.country := 'USA'\n!bank1.name := 'Bank of America'\n!bank1.bic := 'BOFAUS3N'\n\n!new Bank('bank2')\n!bank2.country := 'Germany'\n!bank2.name := 'Deutsche Bank'\n!bank2.bic := 'DEUTDEFF'\n\n!new Account('account1')\n!account1.iban := 'US123456789'\n!account1.balance := 5000\n\n!new Account('account2')\n!account2.iban := 'US987654321'\n!account2.balance := 1500\n\n!new Account('account3')\n!account3.iban := 'DE1122334455'\n!account3.balance := 0\n\n!new Account('account4')\n!account4.iban := 'DE5544332211'\n!account4.balance := 7500\n\n!new Person('person1')\n!person1.firstName := 'John'\n!person1.lastName := 'Doe'\n!person1.age := 30\n\n!new Person('person2')\n!person2.firstName := 'Jane'\n!person2.lastName := 'Smith'\n!person2.age := 45\n\n!new Person('person3')\n!person3.firstName := 'Max'\n!person3.lastName := 'Mustermann'\n!person3.age := 32\n\n!new Person('person4')\n!person4.firstName := 'Anna'\n!person4.lastName := 'Schmidt'\n!person4.age := 28\n\n-- Associations\n!insert (bank1, account1) into AccountOfBanks\n!insert (bank1, account2) into AccountOfBanks\n!insert (bank2, account3) into AccountOfBanks\n!insert (bank2, account4) into AccountOfBanks\n\n!insert (person1, account1) into Ownership\n!insert (person2, account1) into Ownership\n!insert (person3, account2) into Ownership\n\n!insert (person4, account3) into Ownership\n!insert (person3, account3) into Ownership\n!insert (person3, account4) into Ownership\n\n!insert (person1, account2) into Use\n!insert (person2, account2) into Use\n\n!insert (person3, account1) into Use\n!insert (person4, account4) into Use\n\n-- Corner cases\n!new Account('account5')\n!account5.iban := 'DE0099887766'\n!account5.balance := 0\n\n!new Person('person5')\n!person5.firstName := 'Tim'\n!person5.lastName := 'Brown'\n!person5.age := 18\n\n!insert (bank2, account5) into AccountOfBanks\n!insert (person5, account5) into Ownership",
+              "instance_name": "output",
+              "input_tokens": 670,
+              "output_tokens": 592,
+              "total_tokens": 1262,
+              "finish_reason": "stop",
+              "time_seconds": 9.04
+            }
+          ]
+        },
+        {
+          "id": "2",
+          "attempts": [
+            {
+              "id": "1",
+              "status": "success",
+              "prompt": "Please, generate another instance that is structurally and semantically different from the previous ones",
+              "response": "!new Bank('bank3')\n!bank3.country := 'Canada'\n!bank3.name := 'Royal Bank of Canada'\n!bank3.bic := 'ROYCCAT2'\n\n!new Account('account6')\n!account6.iban := 'CA123456789012'\n!account6.balance := 2000\n\n!new Account('account7')\n!account7.iban := 'CA987654321098'\n!account7.balance := 3000\n\n!new Person('person6')\n!person6.firstName := 'Alice'\n!person6.lastName := 'Wong'\n!person6.age := 40\n\n!new Person('person7')\n!person7.firstName := 'Bob'\n!person7.lastName := 'Johnson'\n!person7.age := 29\n\n!new Person('person8')\n!person8.firstName := 'Carl'\n!person8.lastName := 'Nguyen'\n!person8.age := 25\n\n!new Person('person9')\n!person9.firstName := 'Sara'\n!person9.lastName := 'Lee'\n!person9.age := 50\n\n-- Associations\n!insert (bank3, account6) into AccountOfBanks\n!insert (bank3, account7) into AccountOfBanks\n\n!insert (person6, account6) into Ownership\n!insert (person7, account6) into Ownership\n\n!insert (person8, account7) into Ownership\n!insert (person9, account7) into Ownership\n\n!insert (person6, account7) into Use\n!insert (person7, account7) into Use\n\n!insert (person8, account6) into Use\n!insert (person9, account6) into Use",
+              "instance_name": "output",
+              "input_tokens": 1286,
+              "output_tokens": 357,
+              "total_tokens": 1643,
+              "finish_reason": "stop",
+              "time_seconds": 4.49
+            }
+          ]
+        },
+        {
+          "id": "3",
+          "attempts": [
+            {
+              "id": "1",
+              "status": "success",
+              "prompt": "Please, generate another instance that is structurally and semantically different from the previous ones",
+              "response": "!new Bank('bank4')\n!bank4.country := 'Australia'\n!bank4.name := 'Commonwealth Bank'\n!bank4.bic := 'CTBAAU2S'\n\n!new Account('account8')\n!account8.iban := 'AU765432109876'\n!account8.balance := 10000\n\n!new Account('account9')\n!account9.iban := 'AU123123123123'\n!account9.balance := 2500\n\n!new Account('account10')\n!account10.iban := 'AU999888777666'\n!account10.balance := 0\n\n!new Person('person10')\n!person10.firstName := 'Emma'\n!person10.lastName := 'Brown'\n!person10.age := 37\n\n!new Person('person11')\n!person11.firstName := 'Lucas'\n!person11.lastName := 'Davis'\n!person11.age := 22\n\n!new Person('person12')\n!person12.firstName := 'Sophia'\n!person12.lastName := 'Wilson'\n!person12.age := 19\n\n-- Associations\n!insert (bank4, account8) into AccountOfBanks\n!insert (bank4, account9) into AccountOfBanks\n!insert (bank4, account10) into AccountOfBanks\n\n!insert (person10, account8) into Ownership\n!insert (person11, account8) into Ownership\n\n!insert (person11, account9) into Ownership\n!insert (person12, account9) into Ownership\n\n!insert (person12, account10) into Ownership\n!insert (person11, account10) into Ownership\n\n!insert (person10, account9) into Use\n!insert (person10, account10) into Use\n\n!insert (person12, account8) into Use",
+              "instance_name": "output",
+              "input_tokens": 1667,
+              "output_tokens": 378,
+              "total_tokens": 2045,
+              "finish_reason": "stop",
+              "time_seconds": 6.05
+            }
+          ]
+        },
+        {
+          "id": "4",
+          "attempts": [
+            {
+              "id": "1",
+              "status": "success",
+              "prompt": "Please, generate another instance that is structurally and semantically different from the previous ones",
+              "response": "!new Bank('bank5')\n!bank5.country := 'Japan'\n!bank5.name := 'Mitsubishi UFJ Financial Group'\n!bank5.bic := 'BOTKJPJT'\n\n!new Account('account11')\n!account11.iban := 'JP123456789012345'\n!account11.balance := 3500\n\n!new Account('account12')\n!account12.iban := 'JP543210987654321'\n!account12.balance := 500\n\n!new Person('person13')\n!person13.firstName := 'Yuuto'\n!person13.lastName := 'Tanaka'\n!person13.age := 33\n\n!new Person('person14')\n!person14.firstName := 'Hana'\n!person14.lastName := 'Sato'\n!person14.age := 21\n\n!new Person('person15')\n!person15.firstName := 'Kaito'\n!person15.lastName := 'Matsumoto'\n!person15.age := 45\n\n!new Person('person16')\n!person16.firstName := 'Yuki'\n!person16.lastName := 'Miyazaki'\n!person16.age := 38\n\n-- Associations\n!insert (bank5, account11) into AccountOfBanks\n!insert (bank5, account12) into AccountOfBanks\n\n!insert (person13, account11) into Ownership\n!insert (person14, account11) into Ownership\n\n!insert (person15, account12) into Ownership\n\n!insert (person16, account12) into Ownership\n\n!insert (person13, account12) into Use\n!insert (person14, account12) into Use\n!insert (person15, account11) into Use\n!insert (person16, account11) into Use",
+              "instance_name": "output",
+              "input_tokens": 2069,
+              "output_tokens": 371,
+              "total_tokens": 2440,
+              "finish_reason": "stop",
+              "time_seconds": 5.02
+            }
+          ]
+        },
+        {
+          "id": "5",
+          "attempts": [
+            {
+              "id": "1",
+              "status": "failed",
+              "prompt": "Please, generate another instance that is structurally and semantically different from the previous ones",
+              "response": "!new Bank('bank6')\n!bank6.country := 'India'\n!bank6.name := 'State Bank of India'\n!bank6.bic := 'SBINAINBB'\n\n!new Account('account13')\n!account13.iban := 'IN5013370001000000'\n!account13.balance := 8000\n\n!new Account('account14')\n!account14.iban := 'IN6013370002000001'\n!account14.balance := 1200\n\n!new Account('account15')\n!account15.iban := 'IN7013370003000002'\n!account15.balance := 2100\n\n!new Person('person17')\n!person17.firstName := 'Raj'\n!person17.lastName := 'Gupta'\n!person17.age := 29\n\n!new Person('person18')\n!person18.firstName := 'Simran'\n!person18.lastName := 'Kaur'\n!person18.age := 23\n\n!new Person('person19')\n!person19.firstName := 'Vikram'\n!person19.lastName := 'Rao'\n!person19.age := 50\n\n-- Associations\n!insert (bank6, account13) into AccountOfBanks\n!insert (bank6, account14) into AccountOfBanks\n!insert (bank6, account15) into AccountOfBanks\n\n!insert (person17, account13) into Ownership\n!insert (person18, account13) into Ownership\n\n!insert (person18, account14) into Ownership\n!insert (person19, account14) into Ownership\n\n!insert (person17, account15) into Ownership\n!insert (person19, account15) into Ownership\n\n!insert (person18, account15) into Use\n!insert (person19, account13) into Use\n\n!insert (person17, account14) into Use\n!insert (person19, account13) into Use",
+              "instance_name": "output",
+              "input_tokens": 2464,
+              "output_tokens": 401,
+              "total_tokens": 2865,
+              "finish_reason": "stop",
+              "time_seconds": 4.8
+            },
+            {
+              "id": "2",
+              "status": "success",
+              "prompt": "The last output had some syntax errors: \n output.soil> !insert (person17, account14) into Use\noutput.soil> !insert (person19, account13) into Use\nError: Link `Use' between (person19,account13) already exist.\n\n\n Please provide it corrected",
+              "response": "!new Bank('bank6')\n!bank6.country := 'India'\n!bank6.name := 'State Bank of India'\n!bank6.bic := 'SBINAINBB'\n\n!new Account('account13')\n!account13.iban := 'IN5013370001000000'\n!account13.balance := 8000\n\n!new Account('account14')\n!account14.iban := 'IN6013370002000001'\n!account14.balance := 1200\n\n!new Account('account15')\n!account15.iban := 'IN7013370003000002'\n!account15.balance := 2100\n\n!new Person('person17')\n!person17.firstName := 'Raj'\n!person17.lastName := 'Gupta'\n!person17.age := 29\n\n!new Person('person18')\n!person18.firstName := 'Simran'\n!person18.lastName := 'Kaur'\n!person18.age := 23\n\n!new Person('person19')\n!person19.firstName := 'Vikram'\n!person19.lastName := 'Rao'\n!person19.age := 50\n\n-- Associations\n!insert (bank6, account13) into AccountOfBanks\n!insert (bank6, account14) into AccountOfBanks\n!insert (bank6, account15) into AccountOfBanks\n\n!insert (person17, account13) into Ownership\n!insert (person18, account13) into Ownership\n\n!insert (person18, account14) into Ownership\n!insert (person19, account14) into Ownership\n\n!insert (person17, account15) into Ownership\n!insert (person19, account15) into Ownership\n\n!insert (person18, account15) into Use\n!insert (person19, account13) into Use\n\n-- Ensure unique usage relationships\n!insert (person17, account14) into Use\n!insert (person19, account15) into Use",
+              "instance_name": "output",
+              "input_tokens": 2934,
+              "output_tokens": 407,
+              "total_tokens": 3341,
+              "finish_reason": "stop",
+              "time_seconds": 5.29
+            }
+          ]
+        },
+        {
+          "id": "6",
+          "attempts": [
+            {
+              "id": "1",
+              "status": "success",
+              "prompt": "Please, generate another instance that is structurally and semantically different from the previous ones",
+              "response": "!new Bank('bank7')\n!bank7.country := 'Brazil'\n!bank7.name := 'Banco do Brasil'\n!bank7.bic := 'BRASBRRJ'\n\n!new Account('account16')\n!account16.iban := 'BR1800000000000012345678901'\n!account16.balance := 4500\n\n!new Account('account17')\n!account17.iban := 'BR1900000000000012345678902'\n!account17.balance := 600\n\n!new Account('account18')\n!account18.iban := 'BR2000000000000012345678903'\n!account18.balance := 10000\n\n!new Person('person20')\n!person20.firstName := 'Carlos'\n!person20.lastName := 'Silva'\n!person20.age := 42\n\n!new Person('person21')\n!person21.firstName := 'Maria'\n!person21.lastName := 'Fernandes'\n!person21.age := 31\n\n!new Person('person22')\n!person22.firstName := 'Jo\u00e3o'\n!person22.lastName := 'Pereira'\n!person22.age := 28\n\n-- Associations\n!insert (bank7, account16) into AccountOfBanks\n!insert (bank7, account17) into AccountOfBanks\n!insert (bank7, account18) into AccountOfBanks\n\n!insert (person20, account16) into Ownership\n!insert (person21, account16) into Ownership\n\n!insert (person21, account17) into Ownership\n!insert (person22, account17) into Ownership\n\n!insert (person22, account18) into Ownership\n!insert (person20, account18) into Ownership\n\n!insert (person20, account17) into Use\n!insert (person21, account18) into Use\n\n!insert (person21, account16) into Use\n!insert (person22, account16) into Use",
+              "instance_name": "output",
+              "input_tokens": 3365,
+              "output_tokens": 407,
+              "total_tokens": 3772,
+              "finish_reason": "stop",
+              "time_seconds": 4.99
+            }
+          ]
+        },
+        {
+          "id": "7",
+          "attempts": [
+            {
+              "id": "1",
+              "status": "success",
+              "prompt": "Please, generate another instance that is structurally and semantically different from the previous ones",
+              "response": "!new Bank('bank8')\n!bank8.country := 'France'\n!bank8.name := 'BNP Paribas'\n!bank8.bic := 'BNPAFRPP'\n\n!new Account('account19')\n!account19.iban := 'FR7630006000011234567890189'\n!account19.balance := 7500\n\n!new Account('account20')\n!account20.iban := 'FR7630006000021234567890188'\n!account20.balance := 250\n\n!new Account('account21')\n!account21.iban := 'FR7630006000031234567890187'\n!account21.balance := 5000\n\n!new Person('person23')\n!person23.firstName := 'Jean'\n!person23.lastName := 'Dupont'\n!person23.age := 47\n\n!new Person('person24')\n!person24.firstName := 'Lucie'\n!person24.lastName := 'Martin'\n!person24.age := 35\n\n!new Person('person25')\n!person25.firstName := 'Pierre'\n!person25.lastName := 'Leclerc'\n!person25.age := 54\n\n-- Associations\n!insert (bank8, account19) into AccountOfBanks\n!insert (bank8, account20) into AccountOfBanks\n!insert (bank8, account21) into AccountOfBanks\n\n!insert (person23, account19) into Ownership\n!insert (person24, account19) into Ownership\n\n!insert (person24, account20) into Ownership\n!insert (person25, account20) into Ownership\n\n!insert (person25, account21) into Ownership\n!insert (person23, account21) into Ownership\n\n!insert (person24, account21) into Use\n!insert (person23, account20) into Use\n\n!insert (person25, account19) into Use\n!insert (person24, account19) into Use",
+              "instance_name": "output",
+              "input_tokens": 3796,
+              "output_tokens": 406,
+              "total_tokens": 4202,
+              "finish_reason": "stop",
+              "time_seconds": 5.66
+            }
+          ]
+        },
+        {
+          "id": "8",
+          "attempts": [
+            {
+              "id": "1",
+              "status": "failed",
+              "prompt": "Please, generate another instance that is structurally and semantically different from the previous ones",
+              "response": "!new Bank('bank9')\n!bank9.country := 'Italy'\n!bank9.name := 'UniCredit'\n!bank9.bic := 'UNCRITMM'\n\n!new Account('account22')\n!account22.iban := 'IT6003600001001234567890123'\n!account22.balance := 10000\n\n!new Account('account23')\n!account23.iban := 'IT6003600002001234567890122'\n!account23.balance := 1500\n\n!new Account('account24')\n!account24.iban := 'IT6003600003001234567890121'\n!account24.balance := 3200\n\n!new Person('person26')\n!person26.firstName := 'Marco'\n!person26.lastName := 'Rossi'\n!person26.age := 39\n\n!new Person('person27')\n!person27.firstName := 'Giulia'\n!person27.lastName := 'Bianchi'\n!person27.age := 33\n\n!new Person('person28')\n!person28.firstName := 'Luca'\n!person28.lastName := 'Conti'\n!person28.age := 25\n\n-- Associations\n!insert (bank9, account22) into AccountOfBanks\n!insert (bank9, account23) into AccountOfBanks\n!insert (bank9, account24) into AccountOfBanks\n\n!insert (person26, account22) into Ownership\n!insert (person27, account22) into Ownership\n\n!insert (person27, account23) into Ownership\n!insert (person28, account23) into Ownership\n\n!insert (person28, account24) into Ownership\n!insert (person26, account24) into Ownership\n\n!insert (person26, account23) into Use\n!insert (person27, account24) into Use\n\n!insert (person28, account22) into Use\n!insert (person27, account24) into Use",
+              "instance_name": "output",
+              "input_tokens": 4226,
+              "output_tokens": 407,
+              "total_tokens": 4633,
+              "finish_reason": "stop",
+              "time_seconds": 7.5
+            },
+            {
+              "id": "2",
+              "status": "success",
+              "prompt": "The last output had some syntax errors: \n output.soil> !insert (person28, account22) into Use\noutput.soil> !insert (person27, account24) into Use\nError: Link `Use' between (person27,account24) already exist.\n\n\n Please provide it corrected",
+              "response": "!new Bank('bank9')\n!bank9.country := 'Italy'\n!bank9.name := 'UniCredit'\n!bank9.bic := 'UNCRITMM'\n\n!new Account('account22')\n!account22.iban := 'IT6003600001001234567890123'\n!account22.balance := 10000\n\n!new Account('account23')\n!account23.iban := 'IT6003600002001234567890122'\n!account23.balance := 1500\n\n!new Account('account24')\n!account24.iban := 'IT6003600003001234567890121'\n!account24.balance := 3200\n\n!new Person('person26')\n!person26.firstName := 'Marco'\n!person26.lastName := 'Rossi'\n!person26.age := 39\n\n!new Person('person27')\n!person27.firstName := 'Giulia'\n!person27.lastName := 'Bianchi'\n!person27.age := 33\n\n!new Person('person28')\n!person28.firstName := 'Luca'\n!person28.lastName := 'Conti'\n!person28.age := 25\n\n-- Associations\n!insert (bank9, account22) into AccountOfBanks\n!insert (bank9, account23) into AccountOfBanks\n!insert (bank9, account24) into AccountOfBanks\n\n!insert (person26, account22) into Ownership\n!insert (person27, account22) into Ownership\n\n!insert (person27, account23) into Ownership\n!insert (person28, account23) into Ownership\n\n!insert (person28, account24) into Ownership\n!insert (person26, account24) into Ownership\n\n!insert (person26, account23) into Use\n!insert (person27, account24) into Use\n\n!insert (person28, account22) into Use\n!insert (person27, account22) into Use",
+              "instance_name": "output",
+              "input_tokens": 4702,
+              "output_tokens": 407,
+              "total_tokens": 5109,
+              "finish_reason": "stop",
+              "time_seconds": 4.91
+            }
+          ]
+        },
+        {
+          "id": "9",
+          "attempts": [
+            {
+              "id": "1",
+              "status": "success",
+              "prompt": "Please, generate another instance that is structurally and semantically different from the previous ones",
+              "response": "!new Bank('bank10')\n!bank10.country := 'Canada'\n!bank10.name := 'Scotiabank'\n!bank10.bic := 'NOSCCATT'\n\n!new Account('account25')\n!account25.iban := 'CA000123450067890'\n!account25.balance := 2500\n\n!new Account('account26')\n!account26.iban := 'CA000987650032165'\n!account26.balance := 4000\n\n!new Account('account27')\n!account27.iban := 'CA000555550012345'\n!account27.balance := 0\n\n!new Person('person29')\n!person29.firstName := 'Ava'\n!person29.lastName := 'Johnson'\n!person29.age := 45\n\n!new Person('person30')\n!person30.firstName := 'Ethan'\n!person30.lastName := 'Williams'\n!person30.age := 30\n\n!new Person('person31')\n!person31.firstName := 'Olivia'\n!person31.lastName := 'Brown'\n!person31.age := 27\n\n-- Associations\n!insert (bank10, account25) into AccountOfBanks\n!insert (bank10, account26) into AccountOfBanks\n!insert (bank10, account27) into AccountOfBanks\n\n!insert (person29, account25) into Ownership\n!insert (person30, account25) into Ownership\n\n!insert (person30, account26) into Ownership\n!insert (person31, account26) into Ownership\n\n!insert (person31, account27) into Ownership\n!insert (person29, account27) into Ownership\n\n!insert (person29, account26) into Use\n!insert (person30, account27) into Use\n\n!insert (person31, account25) into Use\n!insert (person30, account25) into Use",
+              "instance_name": "output",
+              "input_tokens": 5133,
+              "output_tokens": 393,
+              "total_tokens": 5526,
+              "finish_reason": "stop",
+              "time_seconds": 7.02
+            }
+          ]
+        },
+        {
+          "id": "10",
+          "attempts": [
+            {
+              "id": "1",
+              "status": "success",
+              "prompt": "Please, generate another instance that is structurally and semantically different from the previous ones",
+              "response": "!new Bank('bank11')\n!bank11.country := 'Australia'\n!bank11.name := 'Westpac'\n!bank11.bic := 'WPACAU2S'\n\n!new Account('account28')\n!account28.iban := 'AU123456789012345678'\n!account28.balance := 6700\n\n!new Account('account29')\n!account29.iban := 'AU987654321098765432'\n!account29.balance := 1300\n\n!new Account('account30')\n!account30.iban := 'AU321123456789654789'\n!account30.balance := 2200\n\n!new Person('person32')\n!person32.firstName := 'James'\n!person32.lastName := 'Smith'\n!person32.age := 52\n\n!new Person('person33')\n!person33.firstName := 'Emma'\n!person33.lastName := 'Taylor'\n!person33.age := 34\n\n!new Person('person34')\n!person34.firstName := 'Liam'\n!person34.lastName := 'Moore'\n!person34.age := 26\n\n-- Associations\n!insert (bank11, account28) into AccountOfBanks\n!insert (bank11, account29) into AccountOfBanks\n!insert (bank11, account30) into AccountOfBanks\n\n!insert (person32, account28) into Ownership\n!insert (person33, account28) into Ownership\n\n!insert (person33, account29) into Ownership\n!insert (person34, account29) into Ownership\n\n!insert (person34, account30) into Ownership\n!insert (person32, account30) into Ownership\n\n!insert (person32, account29) into Use\n!insert (person33, account30) into Use\n\n!insert (person34, account28) into Use\n!insert (person33, account28) into Use",
+              "instance_name": "output",
+              "input_tokens": 5550,
+              "output_tokens": 396,
+              "total_tokens": 5946,
+              "finish_reason": "stop",
+              "time_seconds": 3.55
+            }
+          ]
+        },
+        {
+          "id": "11",
+          "attempts": [
+            {
+              "id": "1",
+              "status": "success",
+              "prompt": "Please, generate another instance that is structurally and semantically different from the previous ones",
+              "response": "!new Bank('bank12')\n!bank12.country := 'Sweden'\n!bank12.name := 'SEB'\n!bank12.bic := 'ESSESESS'\n\n!new Account('account31')\n!account31.iban := 'SE3550000000054910000003'\n!account31.balance := 4800\n\n!new Account('account32')\n!account32.iban := 'SE3550000000069480000004'\n!account32.balance := 900\n\n!new Account('account33')\n!account33.iban := 'SE3550000000071230000005'\n!account33.balance := 12000\n\n!new Person('person35')\n!person35.firstName := 'Ingrid'\n!person35.lastName := 'Larsson'\n!person35.age := 41\n\n!new Person('person36')\n!person36.firstName := 'Erik'\n!person36.lastName := 'Svensson'\n!person36.age := 38\n\n!new Person('person37')\n!person37.firstName := 'Karin'\n!person37.lastName := 'Nilsson'\n!person37.age := 29\n\n-- Associations\n!insert (bank12, account31) into AccountOfBanks\n!insert (bank12, account32) into AccountOfBanks\n!insert (bank12, account33) into AccountOfBanks\n\n!insert (person35, account31) into Ownership\n!insert (person36, account31) into Ownership\n\n!insert (person36, account32) into Ownership\n!insert (person37, account32) into Ownership\n\n!insert (person37, account33) into Ownership\n!insert (person35, account33) into Ownership\n\n!insert (person35, account32) into Use\n!insert (person36, account33) into Use\n\n!insert (person37, account31) into Use\n!insert (person36, account31) into Use",
+              "instance_name": "output",
+              "input_tokens": 5970,
+              "output_tokens": 406,
+              "total_tokens": 6376,
+              "finish_reason": "stop",
+              "time_seconds": 3.63
+            }
+          ]
+        },
+        {
+          "id": "12",
+          "attempts": [
+            {
+              "id": "1",
+              "status": "success",
+              "prompt": "Please, generate another instance that is structurally and semantically different from the previous ones",
+              "response": "!new Bank('bank13')\n!bank13.country := 'Singapore'\n!bank13.name := 'DBS Bank'\n!bank13.bic := 'DBSSSGSG'\n\n!new Account('account34')\n!account34.iban := 'SG12345678901234567890'\n!account34.balance := 5200\n\n!new Account('account35')\n!account35.iban := 'SG09876543210987654321'\n!account35.balance := 300\n\n!new Account('account36')\n!account36.iban := 'SG11122233344455566677'\n!account36.balance := 7500\n\n!new Person('person38')\n!person38.firstName := 'Wei'\n!person38.lastName := 'Tan'\n!person38.age := 27\n\n!new Person('person39')\n!person39.firstName := 'Li'\n!person39.lastName := 'Huang'\n!person39.age := 22\n\n!new Person('person40')\n!person40.firstName := 'Siti'\n!person40.lastName := 'Abdul'\n!person40.age := 35\n\n-- Associations\n!insert (bank13, account34) into AccountOfBanks\n!insert (bank13, account35) into AccountOfBanks\n!insert (bank13, account36) into AccountOfBanks\n\n!insert (person38, account34) into Ownership\n!insert (person39, account34) into Ownership\n\n!insert (person39, account35) into Ownership\n!insert (person40, account35) into Ownership\n\n!insert (person40, account36) into Ownership\n!insert (person38, account36) into Ownership\n\n!insert (person38, account35) into Use\n!insert (person39, account36) into Use\n\n!insert (person40, account34) into Use\n!insert (person39, account34) into Use",
+              "instance_name": "output",
+              "input_tokens": 6400,
+              "output_tokens": 399,
+              "total_tokens": 6799,
+              "finish_reason": "stop",
+              "time_seconds": 4.3
+            }
+          ]
+        },
+        {
+          "id": "13",
+          "attempts": [
+            {
+              "id": "1",
+              "status": "success",
+              "prompt": "Please, generate another instance that is structurally and semantically different from the previous ones",
+              "response": "!new Bank('bank14')\n!bank14.country := 'New Zealand'\n!bank14.name := 'ANZ Bank'\n!bank14.bic := 'ANZBNZ22'\n\n!new Account('account37')\n!account37.iban := 'NZ123456789012345678901'\n!account37.balance := 4400\n\n!new Account('account38')\n!account38.iban := 'NZ987654321098765432109'\n!account38.balance := 6000\n\n!new Account('account39')\n!account39.iban := 'NZ555666777888999000123'\n!account39.balance := 150\n\n!new Person('person41')\n!person41.firstName := 'Sophie'\n!person41.lastName := 'Wilson'\n!person41.age := 29\n\n!new Person('person42')\n!person42.firstName := 'Oliver'\n!person42.lastName := 'Jackson'\n!person42.age := 42\n\n!new Person('person43')\n!person43.firstName := 'Charlotte'\n!person43.lastName := 'Harris'\n!person43.age := 31\n\n-- Associations\n!insert (bank14, account37) into AccountOfBanks\n!insert (bank14, account38) into AccountOfBanks\n!insert (bank14, account39) into AccountOfBanks\n\n!insert (person41, account37) into Ownership\n!insert (person42, account37) into Ownership\n\n!insert (person42, account38) into Ownership\n!insert (person43, account38) into Ownership\n\n!insert (person43, account39) into Ownership\n!insert (person41, account39) into Ownership\n\n!insert (person41, account38) into Use\n!insert (person42, account39) into Use\n\n!insert (person43, account37) into Use\n!insert (person42, account37) into Use",
+              "instance_name": "output",
+              "input_tokens": 6823,
+              "output_tokens": 400,
+              "total_tokens": 7223,
+              "finish_reason": "stop",
+              "time_seconds": 4.66
+            }
+          ]
+        },
+        {
+          "id": "14",
+          "attempts": [
+            {
+              "id": "1",
+              "status": "success",
+              "prompt": "Please, generate another instance that is structurally and semantically different from the previous ones",
+              "response": "!new Bank('bank15')\n!bank15.country := 'South Africa'\n!bank15.name := 'FirstRand Bank'\n!bank15.bic := 'FIRNZAJJ'\n\n!new Account('account40')\n!account40.iban := 'ZA123456789012345678'\n!account40.balance := 5500\n\n!new Account('account41')\n!account41.iban := 'ZA876543210987654321'\n!account41.balance := 800\n\n!new Account('account42')\n!account42.iban := 'ZA192837465091827364'\n!account42.balance := 3100\n\n!new Person('person44')\n!person44.firstName := 'Thandi'\n!person44.lastName := 'Nkosi'\n!person44.age := 36\n\n!new Person('person45')\n!person45.firstName := 'Sipho'\n!person45.lastName := 'Moyo'\n!person45.age := 28\n\n!new Person('person46')\n!person46.firstName := 'Lerato'\n!person46.lastName := 'Dlamini'\n!person46.age := 40\n\n-- Associations\n!insert (bank15, account40) into AccountOfBanks\n!insert (bank15, account41) into AccountOfBanks\n!insert (bank15, account42) into AccountOfBanks\n\n!insert (person44, account40) into Ownership\n!insert (person45, account40) into Ownership\n\n!insert (person45, account41) into Ownership\n!insert (person46, account41) into Ownership\n\n!insert (person46, account42) into Ownership\n!insert (person44, account42) into Ownership\n\n!insert (person44, account41) into Use\n!insert (person45, account42) into Use\n\n!insert (person46, account40) into Use\n!insert (person45, account40) into Use",
+              "instance_name": "output",
+              "input_tokens": 7247,
+              "output_tokens": 403,
+              "total_tokens": 7650,
+              "finish_reason": "stop",
+              "time_seconds": 9.76
+            }
+          ]
+        },
+        {
+          "id": "15",
+          "attempts": [
+            {
+              "id": "1",
+              "status": "success",
+              "prompt": "Please, generate another instance that is structurally and semantically different from the previous ones",
+              "response": "!new Bank('bank16')\n!bank16.country := 'Mexico'\n!bank16.name := 'Banorte'\n!bank16.bic := 'BNMXMXMM'\n\n!new Account('account43')\n!account43.iban := 'MX12345678901234567890'\n!account43.balance := 1200\n\n!new Account('account44')\n!account44.iban := 'MX09876543210987654321'\n!account44.balance := 3300\n\n!new Account('account45')\n!account45.iban := 'MX11121314151617181920'\n!account45.balance := 7200\n\n!new Person('person47')\n!person47.firstName := 'Juan'\n!person47.lastName := 'Lopez'\n!person47.age := 45\n\n!new Person('person48')\n!person48.firstName := 'Ana'\n!person48.lastName := 'Garcia'\n!person48.age := 32\n\n!new Person('person49')\n!person49.firstName := 'Carlos'\n!person49.lastName := 'Martinez'\n!person49.age := 25\n\n-- Associations\n!insert (bank16, account43) into AccountOfBanks\n!insert (bank16, account44) into AccountOfBanks\n!insert (bank16, account45) into AccountOfBanks\n\n!insert (person47, account43) into Ownership\n!insert (person48, account43) into Ownership\n\n!insert (person48, account44) into Ownership\n!insert (person49, account44) into Ownership\n\n!insert (person49, account45) into Ownership\n!insert (person47, account45) into Ownership\n\n!insert (person47, account44) into Use\n!insert (person48, account45) into Use\n\n!insert (person49, account43) into Use\n!insert (person48, account43) into Use",
+              "instance_name": "output",
+              "input_tokens": 7674,
+              "output_tokens": 399,
+              "total_tokens": 8073,
+              "finish_reason": "stop",
+              "time_seconds": 6.03
+            }
+          ]
+        },
+        {
+          "id": "16",
+          "attempts": [
+            {
+              "id": "1",
+              "status": "success",
+              "prompt": "Please, generate another instance that is structurally and semantically different from the previous ones",
+              "response": "!new Bank('bank17')\n!bank17.country := 'South Korea'\n!bank17.name := 'Kookmin Bank'\n!bank17.bic := 'KOOKKRSE'\n\n!new Account('account46')\n!account46.iban := 'KR12345678901234567890'\n!account46.balance := 2400\n\n!new Account('account47')\n!account47.iban := 'KR09876543210987654321'\n!account47.balance := 5400\n\n!new Account('account48')\n!account48.iban := 'KR56789012345678901234'\n!account48.balance := 100\n\n!new Person('person50')\n!person50.firstName := 'Hyun'\n!person50.lastName := 'Kim'\n!person50.age := 50\n\n!new Person('person51')\n!person51.firstName := 'Minji'\n!person51.lastName := 'Park'\n!person51.age := 29\n\n!new Person('person52')\n!person52.firstName := 'Jisoo'\n!person52.lastName := 'Lee'\n!person52.age := 41\n\n-- Associations\n!insert (bank17, account46) into AccountOfBanks\n!insert (bank17, account47) into AccountOfBanks\n!insert (bank17, account48) into AccountOfBanks\n\n!insert (person50, account46) into Ownership\n!insert (person51, account46) into Ownership\n\n!insert (person51, account47) into Ownership\n!insert (person52, account47) into Ownership\n\n!insert (person52, account48) into Ownership\n!insert (person50, account48) into Ownership\n\n!insert (person50, account47) into Use\n!insert (person51, account48) into Use\n\n!insert (person52, account46) into Use\n!insert (person51, account46) into Use",
+              "instance_name": "output",
+              "input_tokens": 8097,
+              "output_tokens": 402,
+              "total_tokens": 8499,
+              "finish_reason": "stop",
+              "time_seconds": 5.64
+            }
+          ]
+        },
+        {
+          "id": "17",
+          "attempts": [
+            {
+              "id": "1",
+              "status": "success",
+              "prompt": "Please, generate another instance that is structurally and semantically different from the previous ones",
+              "response": "!new Bank('bank18')\n!bank18.country := 'Netherlands'\n!bank18.name := 'ING Bank'\n!bank18.bic := 'INGBNL2A'\n\n!new Account('account49')\n!account49.iban := 'NL91ABNA0417164300'\n!account49.balance := 6500\n\n!new Account('account50')\n!account50.iban := 'NL91ABNA0417164301'\n!account50.balance := 2000\n\n!new Account('account51')\n!account51.iban := 'NL91ABNA0417164302'\n!account51.balance := 450\n\n!new Person('person53')\n!person53.firstName := 'Sander'\n!person53.lastName := 'Janssen'\n!person53.age := 38\n\n!new Person('person54')\n!person54.firstName := 'Eva'\n!person54.lastName := 'Meijer'\n!person54.age := 30\n\n!new Person('person55')\n!person55.firstName := 'Tom'\n!person55.lastName := 'Willems'\n!person55.age := 44\n\n-- Associations\n!insert (bank18, account49) into AccountOfBanks\n!insert (bank18, account50) into AccountOfBanks\n!insert (bank18, account51) into AccountOfBanks\n\n!insert (person53, account49) into Ownership\n!insert (person54, account49) into Ownership\n\n!insert (person54, account50) into Ownership\n!insert (person55, account50) into Ownership\n\n!insert (person55, account51) into Ownership\n!insert (person53, account51) into Ownership\n\n!insert (person53, account50) into Use\n!insert (person54, account51) into Use\n\n!insert (person55, account49) into Use\n!insert (person54, account49) into Use",
+              "instance_name": "output",
+              "input_tokens": 8523,
+              "output_tokens": 403,
+              "total_tokens": 8926,
+              "finish_reason": "stop",
+              "time_seconds": 6.34
+            }
+          ]
+        },
+        {
+          "id": "18",
+          "attempts": [
+            {
+              "id": "1",
+              "status": "success",
+              "prompt": "Please, generate another instance that is structurally and semantically different from the previous ones",
+              "response": "!new Bank('bank19')\n!bank19.country := 'India'\n!bank19.name := 'HDFC Bank'\n!bank19.bic := 'HDFCINBB'\n\n!new Account('account52')\n!account52.iban := 'IN50101345678912345678'\n!account52.balance := 6800\n\n!new Account('account53')\n!account53.iban := 'IN60111345678912345679'\n!account53.balance := 1500\n\n!new Account('account54')\n!account54.iban := 'IN70121345678912345680'\n!account54.balance := 2900\n\n!new Person('person56')\n!person56.firstName := 'Aarav'\n!person56.lastName := 'Sharma'\n!person56.age := 39\n\n!new Person('person57')\n!person57.firstName := 'Priya'\n!person57.lastName := 'Verma'\n!person57.age := 35\n\n!new Person('person58')\n!person58.firstName := 'Rajesh'\n!person58.lastName := 'Patel'\n!person58.age := 43\n\n-- Associations\n!insert (bank19, account52) into AccountOfBanks\n!insert (bank19, account53) into AccountOfBanks\n!insert (bank19, account54) into AccountOfBanks\n\n!insert (person56, account52) into Ownership\n!insert (person57, account52) into Ownership\n\n!insert (person57, account53) into Ownership\n!insert (person58, account53) into Ownership\n\n!insert (person58, account54) into Ownership\n!insert (person56, account54) into Ownership\n\n!insert (person56, account53) into Use\n!insert (person57, account54) into Use\n\n!insert (person58, account52) into Use\n!insert (person57, account52) into Use",
+              "instance_name": "output",
+              "input_tokens": 8950,
+              "output_tokens": 404,
+              "total_tokens": 9354,
+              "finish_reason": "stop",
+              "time_seconds": 4.83
+            }
+          ]
+        },
+        {
+          "id": "19",
+          "attempts": [
+            {
+              "id": "1",
+              "status": "success",
+              "prompt": "Please, generate another instance that is structurally and semantically different from the previous ones",
+              "response": "!new Bank('bank20')\n!bank20.country := 'Turkey'\n!bank20.name := 'Garanti BBVA'\n!bank20.bic := 'TGBATRIS'\n\n!new Account('account55')\n!account55.iban := 'TR330006100519786457841326'\n!account55.balance := 5500\n\n!new Account('account56')\n!account56.iban := 'TR330006100519786457841327'\n!account56.balance := 1200\n\n!new Account('account57')\n!account57.iban := 'TR330006100519786457841328'\n!account57.balance := 4000\n\n!new Person('person59')\n!person59.firstName := 'Elif'\n!person59.lastName := 'Yilmaz'\n!person59.age := 34\n\n!new Person('person60')\n!person60.firstName := 'Murat'\n!person60.lastName := 'Ozturk'\n!person60.age := 48\n\n!new Person('person61')\n!person61.firstName := 'Selin'\n!person61.lastName := 'Demir'\n!person61.age := 28\n\n-- Associations\n!insert (bank20, account55) into AccountOfBanks\n!insert (bank20, account56) into AccountOfBanks\n!insert (bank20, account57) into AccountOfBanks\n\n!insert (person59, account55) into Ownership\n!insert (person60, account55) into Ownership\n\n!insert (person60, account56) into Ownership\n!insert (person61, account56) into Ownership\n\n!insert (person61, account57) into Ownership\n!insert (person59, account57) into Ownership\n\n!insert (person59, account56) into Use\n!insert (person60, account57) into Use\n\n!insert (person61, account55) into Use\n!insert (person60, account55) into Use",
+              "instance_name": "output",
+              "input_tokens": 9378,
+              "output_tokens": 409,
+              "total_tokens": 9787,
+              "finish_reason": "stop",
+              "time_seconds": 5.87
+            }
+          ]
+        },
+        {
+          "id": "20",
+          "attempts": [
+            {
+              "id": "1",
+              "status": "success",
+              "prompt": "Please, generate another instance that is structurally and semantically different from the previous ones",
+              "response": "!new Bank('bank21')\n!bank21.country := 'Brazil'\n!bank21.name := 'Banco Bradesco'\n!bank21.bic := 'BBDEBRSPSPO'\n\n!new Account('account58')\n!account58.iban := 'BR1800000000001012345678901B'\n!account58.balance := 7500\n\n!new Account('account59')\n!account59.iban := 'BR1800000000002012345678902B'\n!account59.balance := 500\n\n!new Account('account60')\n!account60.iban := 'BR1800000000003012345678903B'\n!account60.balance := 6000\n\n!new Person('person62')\n!person62.firstName := 'Lucas'\n!person62.lastName := 'Santos'\n!person62.age := 42\n\n!new Person('person63')\n!person63.firstName := 'Mariana'\n!person63.lastName := 'Costa'\n!person63.age := 37\n\n!new Person('person64')\n!person64.firstName := 'Felipe'\n!person64.lastName := 'Almeida'\n!person64.age := 29\n\n-- Associations\n!insert (bank21, account58) into AccountOfBanks\n!insert (bank21, account59) into AccountOfBanks\n!insert (bank21, account60) into AccountOfBanks\n\n!insert (person62, account58) into Ownership\n!insert (person63, account58) into Ownership\n\n!insert (person63, account59) into Ownership\n!insert (person64, account59) into Ownership\n\n!insert (person64, account60) into Ownership\n!insert (person62, account60) into Ownership\n\n!insert (person62, account59) into Use\n!insert (person63, account60) into Use\n\n!insert (person64, account58) into Use\n!insert (person63, account58) into Use",
+              "instance_name": "output",
+              "input_tokens": 9811,
+              "output_tokens": 412,
+              "total_tokens": 10223,
+              "finish_reason": "stop",
+              "time_seconds": 5.17
+            }
+          ]
+        },
+        {
+          "id": "21",
+          "attempts": [
+            {
+              "id": "1",
+              "status": "success",
+              "prompt": "Please, generate another instance that is structurally and semantically different from the previous ones",
+              "response": "!new Bank('bank22')\n!bank22.country := 'Spain'\n!bank22.name := 'Santander Bank'\n!bank22.bic := 'BSCHESMM'\n\n!new Account('account61')\n!account61.iban := 'ES9121000418450200051332'\n!account61.balance := 5200\n\n!new Account('account62')\n!account62.iban := 'ES9121000418450200051333'\n!account62.balance := 1800\n\n!new Account('account63')\n!account63.iban := 'ES9121000418450200051334'\n!account63.balance := 7700\n\n!new Person('person65')\n!person65.firstName := 'Antonio'\n!person65.lastName := 'Garc\u00eda'\n!person65.age := 36\n\n!new Person('person66')\n!person66.firstName := 'Sofia'\n!person66.lastName := 'Martinez'\n!person66.age := 31\n\n!new Person('person67')\n!person67.firstName := 'Miguel'\n!person67.lastName := 'Torres'\n!person67.age := 39\n\n-- Associations\n!insert (bank22, account61) into AccountOfBanks\n!insert (bank22, account62) into AccountOfBanks\n!insert (bank22, account63) into AccountOfBanks\n\n!insert (person65, account61) into Ownership\n!insert (person66, account61) into Ownership\n\n!insert (person66, account62) into Ownership\n!insert (person67, account62) into Ownership\n\n!insert (person67, account63) into Ownership\n!insert (person65, account63) into Ownership\n\n!insert (person65, account62) into Use\n!insert (person66, account63) into Use\n\n!insert (person67, account61) into Use\n!insert (person66, account61) into Use",
+              "instance_name": "output",
+              "input_tokens": 10247,
+              "output_tokens": 406,
+              "total_tokens": 10653,
+              "finish_reason": "stop",
+              "time_seconds": 6.06
+            }
+          ]
+        },
+        {
+          "id": "22",
+          "attempts": [
+            {
+              "id": "1",
+              "status": "success",
+              "prompt": "Please, generate another instance that is structurally and semantically different from the previous ones",
+              "response": "!new Bank('bank23')\n!bank23.country := 'Nigeria'\n!bank23.name := 'Zenith Bank'\n!bank23.bic := 'ZEIBNGLA'\n\n!new Account('account64')\n!account64.iban := 'NG1234567890123456789012'\n!account64.balance := 3000\n\n!new Account('account65')\n!account65.iban := 'NG0987654321098765432101'\n!account65.balance := 4500\n\n!new Account('account66')\n!account66.iban := 'NG1122334455667788990000'\n!account66.balance := 0\n\n!new Person('person68')\n!person68.firstName := 'Chinwe'\n!person68.lastName := 'Okeke'\n!person68.age := 40\n\n!new Person('person69')\n!person69.firstName := 'Ibrahim'\n!person69.lastName := 'Mohammed'\n!person69.age := 45\n\n!new Person('person70')\n!person70.firstName := 'Amina'\n!person70.lastName := 'Bello'\n!person70.age := 33\n\n-- Associations\n!insert (bank23, account64) into AccountOfBanks\n!insert (bank23, account65) into AccountOfBanks\n!insert (bank23, account66) into AccountOfBanks\n\n!insert (person68, account64) into Ownership\n!insert (person69, account64) into Ownership\n\n!insert (person69, account65) into Ownership\n!insert (person70, account65) into Ownership\n\n!insert (person70, account66) into Ownership\n!insert (person68, account66) into Ownership\n\n!insert (person68, account65) into Use\n!insert (person69, account66) into Use\n\n!insert (person70, account64) into Use\n!insert (person69, account64) into Use",
+              "instance_name": "output",
+              "input_tokens": 10677,
+              "output_tokens": 407,
+              "total_tokens": 11084,
+              "finish_reason": "stop",
+              "time_seconds": 5.82
+            }
+          ]
+        },
+        {
+          "id": "23",
+          "attempts": [
+            {
+              "id": "1",
+              "status": "success",
+              "prompt": "Please, generate another instance that is structurally and semantically different from the previous ones",
+              "response": "!new Bank('bank24')\n!bank24.country := 'United Arab Emirates'\n!bank24.name := 'Emirates NBD'\n!bank24.bic := 'EBILAEAD'\n\n!new Account('account67')\n!account67.iban := 'AE070331234567890123456'\n!account67.balance := 9500\n\n!new Account('account68')\n!account68.iban := 'AE070331234567890123457'\n!account68.balance := 3400\n\n!new Account('account69')\n!account69.iban := 'AE070331234567890123458'\n!account69.balance := 600\n\n!new Person('person71')\n!person71.firstName := 'Fatima'\n!person71.lastName := 'Al Zahara'\n!person71.age := 29\n\n!new Person('person72')\n!person72.firstName := 'Ahmed'\n!person72.lastName := 'Khan'\n!person72.age := 36\n\n!new Person('person73')\n!person73.firstName := 'Sara'\n!person73.lastName := 'Al Mansouri'\n!person73.age := 42\n\n-- Associations\n!insert (bank24, account67) into AccountOfBanks\n!insert (bank24, account68) into AccountOfBanks\n!insert (bank24, account69) into AccountOfBanks\n\n!insert (person71, account67) into Ownership\n!insert (person72, account67) into Ownership\n\n!insert (person72, account68) into Ownership\n!insert (person73, account68) into Ownership\n\n!insert (person73, account69) into Ownership\n!insert (person71, account69) into Ownership\n\n!insert (person71, account68) into Use\n!insert (person72, account69) into Use\n\n!insert (person73, account67) into Use\n!insert (person72, account67) into Use",
+              "instance_name": "output",
+              "input_tokens": 11108,
+              "output_tokens": 406,
+              "total_tokens": 11514,
+              "finish_reason": "stop",
+              "time_seconds": 5.02
+            }
+          ]
+        },
+        {
+          "id": "24",
+          "attempts": [
+            {
+              "id": "1",
+              "status": "success",
+              "prompt": "Please, generate another instance that is structurally and semantically different from the previous ones",
+              "response": "!new Bank('bank25')\n!bank25.country := 'Switzerland'\n!bank25.name := 'Credit Suisse'\n!bank25.bic := 'CRESCHZZ80A'\n\n!new Account('account70')\n!account70.iban := 'CH5604835012345678009'\n!account70.balance := 7800\n\n!new Account('account71')\n!account71.iban := 'CH5604835012345678010'\n!account71.balance := 150\n\n!new Account('account72')\n!account72.iban := 'CH5604835012345678011'\n!account72.balance := 5000\n\n!new Person('person74')\n!person74.firstName := 'Lukas'\n!person74.lastName := 'M\u00fcller'\n!person74.age := 48\n\n!new Person('person75')\n!person75.firstName := 'Nina'\n!person75.lastName := 'Schneider'\n!person75.age := 33\n\n!new Person('person76')\n!person76.firstName := 'Fabian'\n!person76.lastName := 'Bernhard'\n!person76.age := 29\n\n-- Associations\n!insert (bank25, account70) into AccountOfBanks\n!insert (bank25, account71) into AccountOfBanks\n!insert (bank25, account72) into AccountOfBanks\n\n!insert (person74, account70) into Ownership\n!insert (person75, account70) into Ownership\n\n!insert (person75, account71) into Ownership\n!insert (person76, account71) into Ownership\n\n!insert (person76, account72) into Ownership\n!insert (person74, account72) into Ownership\n\n!insert (person74, account71) into Use\n!insert (person75, account72) into Use\n\n!insert (person76, account70) into Use\n!insert (person75, account70) into Use",
+              "instance_name": "output",
+              "input_tokens": 11538,
+              "output_tokens": 405,
+              "total_tokens": 11943,
+              "finish_reason": "stop",
+              "time_seconds": 11.17
+            }
+          ]
+        },
+        {
+          "id": "25",
+          "attempts": [
+            {
+              "id": "1",
+              "status": "success",
+              "prompt": "Please, generate another instance that is structurally and semantically different from the previous ones",
+              "response": "!new Bank('bank26')\n!bank26.country := 'Japan'\n!bank26.name := 'Sumitomo Mitsui Banking Corporation'\n!bank26.bic := 'SMBCJPJT'\n\n!new Account('account73')\n!account73.iban := 'JP890000000000123456789'\n!account73.balance := 6250\n\n!new Account('account74')\n!account74.iban := 'JP890000000000987654321'\n!account74.balance := 400\n\n!new Account('account75')\n!account75.iban := 'JP890000000000567890123'\n!account75.balance := 2700\n\n!new Person('person77')\n!person77.firstName := 'Haruto'\n!person77.lastName := 'Suzuki'\n!person77.age := 38\n\n!new Person('person78')\n!person78.firstName := 'Yua'\n!person78.lastName := 'Takahashi'\n!person78.age := 34\n\n!new Person('person79')\n!person79.firstName := 'Satoshi'\n!person79.lastName := 'Yamamoto'\n!person79.age := 41\n\n-- Associations\n!insert (bank26, account73) into AccountOfBanks\n!insert (bank26, account74) into AccountOfBanks\n!insert (bank26, account75) into AccountOfBanks\n\n!insert (person77, account73) into Ownership\n!insert (person78, account73) into Ownership\n\n!insert (person78, account74) into Ownership\n!insert (person79, account74) into Ownership\n\n!insert (person79, account75) into Ownership\n!insert (person77, account75) into Ownership\n\n!insert (person77, account74) into Use\n!insert (person78, account75) into Use\n\n!insert (person79, account73) into Use\n!insert (person78, account73) into Use",
+              "instance_name": "output",
+              "input_tokens": 11967,
+              "output_tokens": 408,
+              "total_tokens": 12375,
+              "finish_reason": "stop",
+              "time_seconds": 5.33
+            }
+          ]
+        },
+        {
+          "id": "26",
+          "attempts": [
+            {
+              "id": "1",
+              "status": "success",
+              "prompt": "Please, generate another instance that is structurally and semantically different from the previous ones",
+              "response": "!new Bank('bank27')\n!bank27.country := 'China'\n!bank27.name := 'Industrial and Commercial Bank of China'\n!bank27.bic := 'ICBKCNBJ'\n\n!new Account('account76')\n!account76.iban := 'CN123456789012345678901'\n!account76.balance := 8900\n\n!new Account('account77')\n!account77.iban := 'CN987654321098765432109'\n!account77.balance := 3200\n\n!new Account('account78')\n!account78.iban := 'CN192837465091827364550'\n!account78.balance := 700\n\n!new Person('person80')\n!person80.firstName := 'Wei'\n!person80.lastName := 'Zhang'\n!person80.age := 50\n\n!new Person('person81')\n!person81.firstName := 'Lina'\n!person81.lastName := 'Wang'\n!person81.age := 27\n\n!new Person('person82')\n!person82.firstName := 'Hao'\n!person82.lastName := 'Li'\n!person82.age := 35\n\n-- Associations\n!insert (bank27, account76) into AccountOfBanks\n!insert (bank27, account77) into AccountOfBanks\n!insert (bank27, account78) into AccountOfBanks\n\n!insert (person80, account76) into Ownership\n!insert (person81, account76) into Ownership\n\n!insert (person81, account77) into Ownership\n!insert (person82, account77) into Ownership\n\n!insert (person82, account78) into Ownership\n!insert (person80, account78) into Ownership\n\n!insert (person80, account77) into Use\n!insert (person81, account78) into Use\n\n!insert (person82, account76) into Use\n!insert (person81, account76) into Use",
+              "instance_name": "output",
+              "input_tokens": 12399,
+              "output_tokens": 403,
+              "total_tokens": 12802,
+              "finish_reason": "stop",
+              "time_seconds": 4.73
+            }
+          ]
+        },
+        {
+          "id": "27",
+          "attempts": [
+            {
+              "id": "1",
+              "status": "success",
+              "prompt": "Please, generate another instance that is structurally and semantically different from the previous ones",
+              "response": "!new Bank('bank28')\n!bank28.country := 'Russia'\n!bank28.name := 'Sberbank'\n!bank28.bic := 'SABRRUMM'\n\n!new Account('account79')\n!account79.iban := 'RU1234567890123456789012'\n!account79.balance := 8400\n\n!new Account('account80')\n!account80.iban := 'RU2345678901234567890123'\n!account80.balance := 3100\n\n!new Account('account81')\n!account81.iban := 'RU3456789012345678901234'\n!account81.balance := 200\n\n!new Person('person83')\n!person83.firstName := 'Ivan'\n!person83.lastName := 'Petrov'\n!person83.age := 45\n\n!new Person('person84')\n!person84.firstName := 'Anastasia'\n!person84.lastName := 'Ivanova'\n!person84.age := 32\n\n!new Person('person85')\n!person85.firstName := 'Dmitri'\n!person85.lastName := 'Sokolov'\n!person85.age := 28\n\n-- Associations\n!insert (bank28, account79) into AccountOfBanks\n!insert (bank28, account80) into AccountOfBanks\n!insert (bank28, account81) into AccountOfBanks\n\n!insert (person83, account79) into Ownership\n!insert (person84, account79) into Ownership\n\n!insert (person84, account80) into Ownership\n!insert (person85, account80) into Ownership\n\n!insert (person85, account81) into Ownership\n!insert (person83, account81) into Ownership\n\n!insert (person83, account80) into Use\n!insert (person84, account81) into Use\n\n!insert (person85, account79) into Use\n!insert (person84, account79) into Use",
+              "instance_name": "output",
+              "input_tokens": 12826,
+              "output_tokens": 408,
+              "total_tokens": 13234,
+              "finish_reason": "stop",
+              "time_seconds": 4.39
+            }
+          ]
+        },
+        {
+          "id": "28",
+          "attempts": [
+            {
+              "id": "1",
+              "status": "success",
+              "prompt": "Please, generate another instance that is structurally and semantically different from the previous ones",
+              "response": "!new Bank('bank29')\n!bank29.country := 'Argentina'\n!bank29.name := 'Banco Galicia'\n!bank29.bic := 'GALICARX'\n\n!new Account('account82')\n!account82.iban := 'AR123456789012345678901'\n!account82.balance := 5600\n\n!new Account('account83')\n!account83.iban := 'AR987654321098765432101'\n!account83.balance := 1200\n\n!new Account('account84')\n!account84.iban := 'AR192837465091827364501'\n!account84.balance := 3600\n\n!new Person('person86')\n!person86.firstName := 'Diego'\n!person86.lastName := 'Fernandez'\n!person86.age := 44\n\n!new Person('person87')\n!person87.firstName := 'Lucia'\n!person87.lastName := 'Gonzalez'\n!person87.age := 29\n\n!new Person('person88')\n!person88.firstName := 'Mateo'\n!person88.lastName := 'Rodriguez'\n!person88.age := 33\n\n-- Associations\n!insert (bank29, account82) into AccountOfBanks\n!insert (bank29, account83) into AccountOfBanks\n!insert (bank29, account84) into AccountOfBanks\n\n!insert (person86, account82) into Ownership\n!insert (person87, account82) into Ownership\n\n!insert (person87, account83) into Ownership\n!insert (person88, account83) into Ownership\n\n!insert (person88, account84) into Ownership\n!insert (person86, account84) into Ownership\n\n!insert (person86, account83) into Use\n!insert (person87, account84) into Use\n\n!insert (person88, account82) into Use\n!insert (person87, account82) into Use",
+              "instance_name": "output",
+              "input_tokens": 13258,
+              "output_tokens": 404,
+              "total_tokens": 13662,
+              "finish_reason": "stop",
+              "time_seconds": 4.49
+            }
+          ]
+        },
+        {
+          "id": "29",
+          "attempts": [
+            {
+              "id": "1",
+              "status": "success",
+              "prompt": "Please, generate another instance that is structurally and semantically different from the previous ones",
+              "response": "!new Bank('bank30')\n!bank30.country := 'Thailand'\n!bank30.name := 'Bangkok Bank'\n!bank30.bic := 'BKKBTHBK'\n\n!new Account('account85')\n!account85.iban := 'TH123456789012345678901'\n!account85.balance := 7700\n\n!new Account('account86')\n!account86.iban := 'TH987654321098765432109'\n!account86.balance := 900\n\n!new Account('account87')\n!account87.iban := 'TH543217890123456789012'\n!account87.balance := 4100\n\n!new Person('person89')\n!person89.firstName := 'Apinya'\n!person89.lastName := 'Somchai'\n!person89.age := 37\n\n!new Person('person90')\n!person90.firstName := 'Niran'\n!person90.lastName := 'Chatri'\n!person90.age := 41\n\n!new Person('person91')\n!person91.firstName := 'Arisa'\n!person91.lastName := 'Kamon'\n!person91.age := 28\n\n-- Associations\n!insert (bank30, account85) into AccountOfBanks\n!insert (bank30, account86) into AccountOfBanks\n!insert (bank30, account87) into AccountOfBanks\n\n!insert (person89, account85) into Ownership\n!insert (person90, account85) into Ownership\n\n!insert (person90, account86) into Ownership\n!insert (person91, account86) into Ownership\n\n!insert (person91, account87) into Ownership\n!insert (person89, account87) into Ownership\n\n!insert (person89, account86) into Use\n!insert (person90, account87) into Use\n\n!insert (person91, account85) into Use\n!insert (person90, account85) into Use",
+              "instance_name": "output",
+              "input_tokens": 13686,
+              "output_tokens": 402,
+              "total_tokens": 14088,
+              "finish_reason": "stop",
+              "time_seconds": 7.81
+            }
+          ]
+        },
+        {
+          "id": "30",
+          "attempts": [
+            {
+              "id": "1",
+              "status": "success",
+              "prompt": "Please, generate another instance that is structurally and semantically different from the previous ones",
+              "response": "!new Bank('bank31')\n!bank31.country := 'South Korea'\n!bank31.name := 'Woori Bank'\n!bank31.bic := 'HVBKKRSE'\n\n!new Account('account88')\n!account88.iban := 'KR700110000747123456789'\n!account88.balance := 9300\n\n!new Account('account89')\n!account89.iban := 'KR700110000747987654321'\n!account89.balance := 2100\n\n!new Account('account90')\n!account90.iban := 'KR700110000747567890123'\n!account90.balance := 1000\n\n!new Person('person92')\n!person92.firstName := 'Minseo'\n!person92.lastName := 'Park'\n!person92.age := 39\n\n!new Person('person93')\n!person93.firstName := 'Jisoo'\n!person93.lastName := 'Kim'\n!person93.age := 30\n\n!new Person('person94')\n!person94.firstName := 'Sujin'\n!person94.lastName := 'Choi'\n!person94.age := 27\n\n-- Associations\n!insert (bank31, account88) into AccountOfBanks\n!insert (bank31, account89) into AccountOfBanks\n!insert (bank31, account90) into AccountOfBanks\n\n!insert (person92, account88) into Ownership\n!insert (person93, account88) into Ownership\n\n!insert (person93, account89) into Ownership\n!insert (person94, account89) into Ownership\n\n!insert (person94, account90) into Ownership\n!insert (person92, account90) into Ownership\n\n!insert (person92, account89) into Use\n!insert (person93, account90) into Use\n\n!insert (person94, account88) into Use\n!insert (person93, account88) into Use",
+              "instance_name": "output",
+              "input_tokens": 14112,
+              "output_tokens": 406,
+              "total_tokens": 14518,
+              "finish_reason": "stop",
+              "time_seconds": 4.55
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
