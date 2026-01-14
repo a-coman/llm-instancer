@@ -3,24 +3,21 @@ import json
 import os
 from datetime import datetime
 
-def get_experiment_info(json_path, experiment_id):
+def get_experiment_info(loaded_data, experiment_id):
     """
-    Reads experiments_data.json and finds the experiment by ID.
+    Finds the experiment by ID in the already loaded JSON data.
     Returns (experiment_type, generations_data)
     """
-    if not os.path.exists(json_path):
+    if not loaded_data:
         return None, []
 
-    with open(json_path, 'r', encoding='utf-8') as f:
-        data = json.load(f)
-
-    for exp in data.get("experiments", []):
+    for exp in loaded_data.get("experiments", []):
         if exp["id"] == experiment_id:
              return exp.get("type", "simple"), exp.get("generations", [])
              
     return None, []
 
-def parse_metrics_markdown(metrics_path, json_path):
+def parse_metrics_markdown(metrics_path, loaded_experiments_data):
     with open(metrics_path, 'r', encoding='utf-8') as f:
         content = f.read()
 
@@ -43,11 +40,11 @@ def parse_metrics_markdown(metrics_path, json_path):
     except:
         experiment_id = "unknown"
 
-    # Get structure from existing JSON
-    exp_type, generations_data = get_experiment_info(json_path, experiment_id)
+    # Get structure from pre-loaded JSON
+    exp_type, generations_data = get_experiment_info(loaded_experiments_data, experiment_id)
     
     if not generations_data and exp_type is None:
-        print(f"Warning: Experiment ID {experiment_id} not found in {json_path}. Skipping lookup logic.")
+        print(f"Warning: Experiment ID {experiment_id} not found. Skipping lookup logic.")
         # Default defaults
         exp_type = "simple"
         generations_data = []
@@ -230,20 +227,17 @@ def parse_single_metric_block(text):
     }
 
     # 1. Parse General Table (Syntax, Multiplicities, Invariants)
-    match_syn = re.search(r'\|\s*Syntax Errors\s*\|\s*(\d+)\s*\|\s*(\d+)', text)
-    if match_syn:
-        data["syntax"]["errors"] = int(match_syn.group(1))
-        data["syntax"]["total"] = int(match_syn.group(2))
-
-    match_mul = re.search(r'\|\s*Multiplicities Errors\s*\|\s*(\d+)\s*\|\s*(\d+)', text)
-    if match_mul:
-        data["multiplicities"]["errors"] = int(match_mul.group(1))
-        data["multiplicities"]["total"] = int(match_mul.group(2))
-
-    match_inv = re.search(r'\|\s*Invariants Errors\s*\|\s*(\d+)\s*\|\s*(\d+)', text)
-    if match_inv:
-        data["invariants"]["errors"] = int(match_inv.group(1))
-        data["invariants"]["total"] = int(match_inv.group(2))
+    metric_types = {
+        "Syntax Errors": "syntax",
+        "Multiplicities Errors": "multiplicities",
+        "Invariants Errors": "invariants"
+    }
+    
+    for label, key in metric_types.items():
+        match = re.search(r'\|\s*' + label + r'\s*\|\s*(\d+)\s*\|\s*(\d+)', text)
+        if match:
+            data[key]["errors"] = int(match.group(1))
+            data[key]["total"] = int(match.group(2))
 
     # 2. Identify the "Specific Metrics" Table
     # The General table usually ends with Invariants Errors or similar. 
@@ -357,6 +351,12 @@ def parse_single_metric_block(text):
 
 if __name__ == "__main__":
     target_json_source = "experiments_data.json"
+    
+    loaded_data = {}
+    if os.path.exists(target_json_source):
+        with open(target_json_source, 'r', encoding='utf-8') as f:
+            loaded_data = json.load(f)
+
     files = [
         "/home/aac/Repos/llm-instancer/src/main/resources/instances/Simple/bank/GPT_4O/21-03-2025--15-41-00/metrics.md",
         "/home/aac/Repos/llm-instancer/src/main/resources/instances/CoT/bank/GPT_4O/24-03-2025--21-13-02/metrics.md"
@@ -367,7 +367,7 @@ if __name__ == "__main__":
     for m_path in files:
         if os.path.exists(m_path):
             try:
-                result = parse_metrics_markdown(m_path, target_json_source)
+                result = parse_metrics_markdown(m_path, loaded_data)
                 all_metrics.extend(result["metrics"])
                 print(f"Processed metrics for: {m_path}")
             except Exception as e:
