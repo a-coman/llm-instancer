@@ -82,44 +82,106 @@ def parse_metrics_markdown(metrics_path, json_path):
             
             if gen_data_json:
                 if exp_type == "cot":
-                    # CoT Structure: Generation -> Categories
-                    # Split body by Category header: ## Category <name>
+                    # CoT Structure: Generation -> Categories ... -> Generation Summary
+                    
+                    # 1. Extract Generation Summary (usually at the end)
+                    # We split by "## Generation <ID> summary"
+                    # Note: ID might be simple number or match gen_id
+                    
+                    summary_split = re.split(r'^## Generation .*? summary', body, flags=re.MULTILINE)
+                    
+                    if len(summary_split) > 1:
+                        categories_text = summary_split[0]
+                        summary_text = summary_split[1]
+                        gen_metrics = parse_single_metric_block(summary_text)
+                    else:
+                        # Fallback: maybe summary is missing or format differs
+                        categories_text = body
+                        gen_metrics = parse_single_metric_block("") # Empty/Zeros
+                    
+                    # 2. Split Categories
+                    category_split = re.split(r'(^## Category [a-zA-Z0-9_]+)', categories_text, flags=re.MULTILINE)
                     
                     categories_list = []
-                    cat_parts = re.split(r'^## Category ([a-zA-Z0-9_]+)', body, flags=re.MULTILINE)
+                    current_parsed_cats = []
+
+                    # category_split[0] is text before first category (should be empty/whitespace)
+                    # We iterate from index 1: [Header1, Body1, Header2, Body2...]
                     
                     j = 1
-                    while j < len(cat_parts):
-                        cat_name = cat_parts[j]
-                        cat_body = cat_parts[j+1]
+                    while j < len(category_split) - 1:
+                        cat_header = category_split[j] # e.g. ## Category baseline
+                        cat_body = category_split[j+1]
                         
-                        # CLEAN NAME: remove trailing digits if present (e.g. baseline1 -> baseline)
+                        cat_name_match = re.search(r'## Category ([a-zA-Z0-9_]+)', cat_header)
+                        cat_name = cat_name_match.group(1).strip() if cat_name_match else "unknown"
+                        
+                        # CLEAN NAME: remove trailing digits (baseline1 -> baseline)
                         clean_name = re.sub(r'\d+$', '', cat_name)
                         
                         # Find attempt ID logic
                         success_attempt_id = "1"
-                        
-                        # Find matching category in JSON (by name)
                         json_cat = next((c for c in gen_data_json.get("categories", []) if c["name"] == clean_name), None)
-                        
                         if json_cat:
-                             # Logic: Last attempt in IListInstantiator is the one.
                              attempts = json_cat.get("IListInstantiator", {}).get("attempts", [])
                              if attempts:
                                  success_attempt_id = str(attempts[-1]["id"])
                         
+                        # Parse Metrics
                         cat_metrics = parse_single_metric_block(cat_body)
                         
-                        categories_list.append({
+                        # Special handling for 'invalid' category Overconstraints
+                        # Special handling for 'invalid' category Overconstraints
+                        if clean_name == "invalid":
+                             # Regex fix: use [^|]* to avoid greedy matching across columns
+                             # Format: | Multiplicities Errors ... | Errors | Total |
+                             
+                             match_mul_over = re.search(r'\|\s*Multiplicities Errors[^|]*\|\s*(\d+)\s*\|\s*(\d+)', cat_body)
+                             if match_mul_over:
+                                 cat_metrics["multiplicities"]["errors"] = int(match_mul_over.group(1))
+                                 cat_metrics["multiplicities"]["total"] = int(match_mul_over.group(2))
+                                 
+                             match_inv_over = re.search(r'\|\s*Invariants Errors[^|]*\|\s*(\d+)\s*\|\s*(\d+)', cat_body)
+                             if match_inv_over:
+                                 cat_metrics["invariants"]["errors"] = int(match_inv_over.group(1))
+                                 cat_metrics["invariants"]["total"] = int(match_inv_over.group(2))
+                             
+                             # Remove these from 'specific' if they were auto-detected there
+                             keys_to_remove = [k for k in cat_metrics["specific"] if "not_included_on_general" in k]
+                             for k in keys_to_remove:
+                                 del cat_metrics["specific"][k]
+
+                        current_parsed_cats.append({
                             "name": clean_name,
                             "attempt_id": success_attempt_id,
                             "metrics": cat_metrics
                         })
                         j += 2
                     
+                    # Post-processing for 'invalid' category syntax derivation
+                    # Syntax Invalid = GenSyntax - Sum(OtherCatsSyntax)
+                    invalid_cat_obj = next((c for c in current_parsed_cats if c["name"] == "invalid"), None)
+                    
+                    if invalid_cat_obj:
+                        sum_errors = 0
+                        sum_total = 0
+                        for c in current_parsed_cats:
+                            if c["name"] != "invalid":
+                                sum_errors += c["metrics"]["syntax"]["errors"]
+                                sum_total += c["metrics"]["syntax"]["total"]
+                        
+                        # Calculate derived syntax
+                        derived_errors = gen_metrics["syntax"]["errors"] - sum_errors
+                        derived_total = gen_metrics["syntax"]["total"] - sum_total
+                        
+                        # Assign (ensure non-negative just in case)
+                        invalid_cat_obj["metrics"]["syntax"]["errors"] = max(0, derived_errors)
+                        invalid_cat_obj["metrics"]["syntax"]["total"] = max(0, derived_total)
+
                     result_generations.append({
                         "generation_id": gen_id,
-                        "categories": categories_list
+                        "categories": current_parsed_cats,
+                        "metrics": gen_metrics
                     })
                     
                 else:
@@ -235,7 +297,8 @@ def parse_single_metric_block(text):
             if row_match:
                 metric_name_raw = row_match.group(1).strip()
                 # If metric name is just "Total" or something aggregation-like, skip?? Usually rows are specific metrics.
-                
+                if "Not included on General" in metric_name_raw:
+                    continue                
                 invalid_count = int(row_match.group(2))
                 total_count = int(row_match.group(3))
                 

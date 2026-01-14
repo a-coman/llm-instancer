@@ -2354,40 +2354,26 @@
               "metrics": {
                 "syntax": {
                   "errors": 0,
-                  "total": 157,
+                  "total": 31,
                   "str": [
                     ""
                   ]
                 },
                 "multiplicities": {
                   "errors": 0,
-                  "total": 39,
+                  "total": 9,
                   "str": [
                     ""
                   ]
                 },
                 "invariants": {
                   "errors": 0,
-                  "total": 8,
+                  "total": 2,
                   "str": [
                     ""
                   ]
                 },
                 "specific": {
-                  "multiplicities_errors_not_included_on_general": {
-                    "errors": 0,
-                    "total": 9,
-                    "str": [
-                      ""
-                    ]
-                  },
-                  "invariants_errors_not_included_on_general": {
-                    "errors": 0,
-                    "total": 2,
-                    "str": [
-                      ""
-                    ]
-                  },
                   "ibans_real": {
                     "errors": 1,
                     "total": 2,
@@ -2420,7 +2406,73 @@
                 }
               }
             }
-          ]
+          ],
+          "metrics": {
+            "syntax": {
+              "errors": 0,
+              "total": 157,
+              "str": [
+                ""
+              ]
+            },
+            "multiplicities": {
+              "errors": 0,
+              "total": 39,
+              "str": [
+                ""
+              ]
+            },
+            "invariants": {
+              "errors": 0,
+              "total": 8,
+              "str": [
+                ""
+              ]
+            },
+            "specific": {
+              "ibans_real": {
+                "errors": 7,
+                "total": 11,
+                "str": [
+                  "GL57ARCT00000000000001",
+                  "GL57ARCT00000000000002",
+                  "GL57ARCT00000000000001",
+                  "GL57ARCT00000000000002",
+                  "IT60X0542811101000000654321",
+                  "IT60X0542811101000000987654",
+                  "IT60X0542811101000000654321",
+                  "IT60X0542811101000000987654",
+                  "AX1234567890123456",
+                  "AX9876543210987654",
+                  "AX1234567890123456",
+                  "AX9876543210987654",
+                  "DE89370400440532013001",
+                  "DE89370400440532013001"
+                ]
+              },
+              "ibans_realistic": {
+                "errors": 0,
+                "total": 11,
+                "str": [
+                  ""
+                ]
+              },
+              "bics_realistic": {
+                "errors": 0,
+                "total": 5,
+                "str": [
+                  ""
+                ]
+              },
+              "countries_realistic": {
+                "errors": 0,
+                "total": 5,
+                "str": [
+                  ""
+                ]
+              }
+            }
+          }
         },
         {
           "generation_id": "2",
@@ -2677,40 +2729,26 @@
               "metrics": {
                 "syntax": {
                   "errors": 0,
-                  "total": 190,
+                  "total": 34,
                   "str": [
                     ""
                   ]
                 },
                 "multiplicities": {
                   "errors": 0,
-                  "total": 47,
+                  "total": 8,
                   "str": [
                     ""
                   ]
                 },
                 "invariants": {
                   "errors": 0,
-                  "total": 8,
+                  "total": 2,
                   "str": [
                     ""
                   ]
                 },
                 "specific": {
-                  "multiplicities_errors_not_included_on_general": {
-                    "errors": 0,
-                    "total": 8,
-                    "str": [
-                      ""
-                    ]
-                  },
-                  "invariants_errors_not_included_on_general": {
-                    "errors": 0,
-                    "total": 2,
-                    "str": [
-                      ""
-                    ]
-                  },
                   "ibans_real": {
                     "errors": 2,
                     "total": 2,
@@ -2732,7 +2770,7 @@
                     "errors": 0,
                     "total": 1,
                     "str": [
-                      "CRBVMVXXXX"
+                      ""
                     ]
                   },
                   "countries_realistic": {
@@ -2745,7 +2783,85 @@
                 }
               }
             }
-          ]
+          ],
+          "metrics": {
+            "syntax": {
+              "errors": 0,
+              "total": 190,
+              "str": [
+                ""
+              ]
+            },
+            "multiplicities": {
+              "errors": 0,
+              "total": 47,
+              "str": [
+                ""
+              ]
+            },
+            "invariants": {
+              "errors": 0,
+              "total": 8,
+              "str": [
+                ""
+              ]
+            },
+            "specific": {
+              "ibans_real": {
+                "errors": 13,
+                "total": 13,
+                "str": [
+                  "JP234000123456789012345",
+                  "CA000100200300400500600",
+                  "JP098765432109876543210",
+                  "JP234000123456789012345",
+                  "CA000100200300400500600",
+                  "JP098765432109876543210",
+                  "AU45SSBU12345678901234",
+                  "AU45SSBU23456789012345",
+                  "AU45SSBU34567890123456",
+                  "AU45SSBU12345678901234",
+                  "AU45SSBU23456789012345",
+                  "AU45SSBU34567890123456",
+                  "IN68113600040500123456",
+                  "IN68113600040500432109",
+                  "IN68113600040500789012",
+                  "IN68113600040500987654",
+                  "IN68113600040500123456",
+                  "IN68113600040500432109",
+                  "IN68113600040500789012",
+                  "IN68113600040500987654",
+                  "MV1111111111111111",
+                  "MV1111111111111111",
+                  "JP12345678901234567890",
+                  "JP09876543210987654321",
+                  "JP12345678901234567890",
+                  "JP09876543210987654321"
+                ]
+              },
+              "ibans_realistic": {
+                "errors": 0,
+                "total": 13,
+                "str": [
+                  ""
+                ]
+              },
+              "bics_realistic": {
+                "errors": 1,
+                "total": 6,
+                "str": [
+                  "CRBVMVXXXX"
+                ]
+              },
+              "countries_realistic": {
+                "errors": 0,
+                "total": 6,
+                "str": [
+                  ""
+                ]
+              }
+            }
+          }
         },
         {
           "generation_id": "3",
@@ -3004,44 +3120,53 @@
               "metrics": {
                 "syntax": {
                   "errors": 0,
-                  "total": 203,
+                  "total": 35,
                   "str": [
                     ""
                   ]
                 },
                 "multiplicities": {
                   "errors": 0,
-                  "total": 52,
+                  "total": 9,
                   "str": [
                     ""
                   ]
                 },
                 "invariants": {
-                  "errors": 0,
-                  "total": 8,
+                  "errors": 1,
+                  "total": 2,
                   "str": [
                     ""
                   ]
                 },
-                "specific": {
-                  "multiplicities_errors_not_included_on_general": {
-                    "errors": 0,
-                    "total": 9,
-                    "str": [
-                      ""
-                    ]
-                  },
-                  "invariants_errors_not_included_on_general": {
-                    "errors": 1,
-                    "total": 2,
-                    "str": [
-                      ""
-                    ]
-                  }
-                }
+                "specific": {}
               }
             }
-          ]
+          ],
+          "metrics": {
+            "syntax": {
+              "errors": 0,
+              "total": 203,
+              "str": [
+                ""
+              ]
+            },
+            "multiplicities": {
+              "errors": 0,
+              "total": 52,
+              "str": [
+                ""
+              ]
+            },
+            "invariants": {
+              "errors": 0,
+              "total": 8,
+              "str": [
+                ""
+              ]
+            },
+            "specific": {}
+          }
         },
         {
           "generation_id": "4",
@@ -3300,40 +3425,26 @@
               "metrics": {
                 "syntax": {
                   "errors": 0,
-                  "total": 202,
+                  "total": 33,
                   "str": [
                     ""
                   ]
                 },
                 "multiplicities": {
                   "errors": 0,
-                  "total": 53,
+                  "total": 7,
                   "str": [
                     ""
                   ]
                 },
                 "invariants": {
                   "errors": 0,
-                  "total": 8,
+                  "total": 2,
                   "str": [
                     ""
                   ]
                 },
                 "specific": {
-                  "multiplicities_errors_not_included_on_general": {
-                    "errors": 0,
-                    "total": 7,
-                    "str": [
-                      ""
-                    ]
-                  },
-                  "invariants_errors_not_included_on_general": {
-                    "errors": 0,
-                    "total": 2,
-                    "str": [
-                      ""
-                    ]
-                  },
                   "ibans_real": {
                     "errors": 2,
                     "total": 2,
@@ -3368,7 +3479,87 @@
                 }
               }
             }
-          ]
+          ],
+          "metrics": {
+            "syntax": {
+              "errors": 0,
+              "total": 202,
+              "str": [
+                ""
+              ]
+            },
+            "multiplicities": {
+              "errors": 0,
+              "total": 53,
+              "str": [
+                ""
+              ]
+            },
+            "invariants": {
+              "errors": 0,
+              "total": 8,
+              "str": [
+                ""
+              ]
+            },
+            "specific": {
+              "ibans_real": {
+                "errors": 14,
+                "total": 14,
+                "str": [
+                  "IN30109876543210987654",
+                  "IN50234567890123456789",
+                  "IN70987654321098765432",
+                  "IN30109876543210987654",
+                  "IN50234567890123456789",
+                  "IN70987654321098765432",
+                  "CH93ALPS0000123456789",
+                  "CH93ALPS9876543210987",
+                  "CH93ALPS1111222233339",
+                  "CH93ALPS0000123456789",
+                  "CH93ALPS9876543210987",
+                  "CH93ALPS1111222233339",
+                  "AU132962003000123456",
+                  "AU132962003000654321",
+                  "AU132962003000987654",
+                  "AU132962003000543210",
+                  "AU132962003000123456",
+                  "AU132962003000654321",
+                  "AU132962003000987654",
+                  "AU132962003000543210",
+                  "DK4444444444444444",
+                  "DK5555555555555555",
+                  "DK4444444444444444",
+                  "DK5555555555555555",
+                  "CA56473829106473598265",
+                  "CA82736481920456719384",
+                  "CA56473829106473598265",
+                  "CA82736481920456719384"
+                ]
+              },
+              "ibans_realistic": {
+                "errors": 0,
+                "total": 14,
+                "str": [
+                  ""
+                ]
+              },
+              "bics_realistic": {
+                "errors": 0,
+                "total": 5,
+                "str": [
+                  ""
+                ]
+              },
+              "countries_realistic": {
+                "errors": 0,
+                "total": 5,
+                "str": [
+                  ""
+                ]
+              }
+            }
+          }
         },
         {
           "generation_id": "5",
@@ -3623,40 +3814,26 @@
               "metrics": {
                 "syntax": {
                   "errors": 0,
-                  "total": 193,
+                  "total": 33,
                   "str": [
                     ""
                   ]
                 },
                 "multiplicities": {
                   "errors": 0,
-                  "total": 51,
+                  "total": 7,
                   "str": [
                     ""
                   ]
                 },
                 "invariants": {
                   "errors": 0,
-                  "total": 8,
+                  "total": 2,
                   "str": [
                     ""
                   ]
                 },
                 "specific": {
-                  "multiplicities_errors_not_included_on_general": {
-                    "errors": 0,
-                    "total": 7,
-                    "str": [
-                      ""
-                    ]
-                  },
-                  "invariants_errors_not_included_on_general": {
-                    "errors": 0,
-                    "total": 2,
-                    "str": [
-                      ""
-                    ]
-                  },
                   "ibans_real": {
                     "errors": 2,
                     "total": 2,
@@ -3691,7 +3868,83 @@
                 }
               }
             }
-          ]
+          ],
+          "metrics": {
+            "syntax": {
+              "errors": 0,
+              "total": 193,
+              "str": [
+                ""
+              ]
+            },
+            "multiplicities": {
+              "errors": 0,
+              "total": 51,
+              "str": [
+                ""
+              ]
+            },
+            "invariants": {
+              "errors": 0,
+              "total": 8,
+              "str": [
+                ""
+              ]
+            },
+            "specific": {
+              "ibans_real": {
+                "errors": 12,
+                "total": 13,
+                "str": [
+                  "FR7630006000029876543210123",
+                  "FR7630006000029876543210123",
+                  "AE99DOBA00009876543210",
+                  "AE99DOBA11112222333344",
+                  "AE99DOBA00009876543210",
+                  "AE99DOBA11112222333344",
+                  "ZA653010000000012345",
+                  "ZA653010000000067890",
+                  "ZA653010000000054321",
+                  "ZA653010000000076432",
+                  "ZA653010000000098765",
+                  "ZA653010000000012345",
+                  "ZA653010000000067890",
+                  "ZA653010000000054321",
+                  "ZA653010000000076432",
+                  "ZA653010000000098765",
+                  "JP6666666666666666",
+                  "JP7777777777777777",
+                  "JP6666666666666666",
+                  "JP7777777777777777",
+                  "IT6012345678901234567890",
+                  "IT8098765432109876543210",
+                  "IT6012345678901234567890",
+                  "IT8098765432109876543210"
+                ]
+              },
+              "ibans_realistic": {
+                "errors": 0,
+                "total": 13,
+                "str": [
+                  ""
+                ]
+              },
+              "bics_realistic": {
+                "errors": 0,
+                "total": 5,
+                "str": [
+                  ""
+                ]
+              },
+              "countries_realistic": {
+                "errors": 0,
+                "total": 5,
+                "str": [
+                  ""
+                ]
+              }
+            }
+          }
         },
         {
           "generation_id": "6",
@@ -3948,44 +4201,53 @@
               "metrics": {
                 "syntax": {
                   "errors": 0,
-                  "total": 215,
+                  "total": 33,
                   "str": [
                     ""
                   ]
                 },
                 "multiplicities": {
                   "errors": 0,
-                  "total": 58,
+                  "total": 7,
                   "str": [
                     ""
                   ]
                 },
                 "invariants": {
-                  "errors": 0,
-                  "total": 8,
+                  "errors": 1,
+                  "total": 2,
                   "str": [
                     ""
                   ]
                 },
-                "specific": {
-                  "multiplicities_errors_not_included_on_general": {
-                    "errors": 0,
-                    "total": 7,
-                    "str": [
-                      ""
-                    ]
-                  },
-                  "invariants_errors_not_included_on_general": {
-                    "errors": 1,
-                    "total": 2,
-                    "str": [
-                      ""
-                    ]
-                  }
-                }
+                "specific": {}
               }
             }
-          ]
+          ],
+          "metrics": {
+            "syntax": {
+              "errors": 0,
+              "total": 215,
+              "str": [
+                ""
+              ]
+            },
+            "multiplicities": {
+              "errors": 0,
+              "total": 58,
+              "str": [
+                ""
+              ]
+            },
+            "invariants": {
+              "errors": 0,
+              "total": 8,
+              "str": [
+                ""
+              ]
+            },
+            "specific": {}
+          }
         }
       ],
       "metrics": {
@@ -4010,22 +4272,7 @@
             ""
           ]
         },
-        "specific": {
-          "multiplicities_errors_not_included_on_general": {
-            "errors": 0,
-            "total": 47,
-            "str": [
-              ""
-            ]
-          },
-          "invariants_errors_not_included_on_general": {
-            "errors": 2,
-            "total": 12,
-            "str": [
-              ""
-            ]
-          }
-        }
+        "specific": {}
       }
     }
   ]
