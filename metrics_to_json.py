@@ -3,97 +3,150 @@ import json
 import os
 from datetime import datetime
 
-def get_generation_ids_from_json(json_path):
+def get_experiment_info(json_path):
     """
-    Reads experiments_data.json to get the list of generation IDs and their successful attempt IDs.
-    Returns a list of dicts: [{"id": "1", "attempt_id": 1}, ...]
+    Reads experiments_data.json to get the experiment type and structure.
+    Returns (experiment_type, generations_data)
     """
     if not os.path.exists(json_path):
-        return []
+        return None, []
 
     with open(json_path, 'r', encoding='utf-8') as f:
         data = json.load(f)
 
     if not data.get("experiments"):
-        return []
+        return None, []
         
     experiment = data["experiments"][0]
-    gen_info = []
+    exp_type = experiment.get("type", "simple")
+    generations = experiment.get("generations", [])
     
-    for gen in experiment.get("generations", []):
-        group_id = gen["id"]
-        # Find the successful attempt ID (or the last one if none marked success, though log_to_json guarantees one)
-        successful_attempt_id = "1"
-        for attempt in gen.get("attempts", []):
-            if attempt.get("status") == "success":
-                successful_attempt_id = str(attempt["id"])
-                break
-        else:
-             # Fallback: take the last one if loop finishes without break
-             if gen.get("attempts"):
-                 successful_attempt_id = str(gen["attempts"][-1]["id"])
-
-        gen_info.append({"id": group_id, "attempt_id": successful_attempt_id})
-            
-    return gen_info
+    return exp_type, generations
 
 def parse_metrics_markdown(metrics_path, json_path):
+    # Get structure from existing JSON
+    exp_type, generations_data = get_experiment_info(json_path)
+    
     with open(metrics_path, 'r', encoding='utf-8') as f:
         content = f.read()
 
-    # Get IDs from the already processed JSON source of truth
-    generation_info_list = get_generation_ids_from_json(json_path)
-    
     # Extract metadata for experiment_id
     path_parts = metrics_path.split(os.sep)
     try:
         timestamp_dir = path_parts[-2]
         domain_name = path_parts[-4]
-        type_name = path_parts[-5]
+        type_name = path_parts[-5] # Raw type name from folder
         experiment_id = f"{type_name}-{domain_name}-{timestamp_dir}"
     except:
         experiment_id = "unknown"
 
-    experiment_metrics = {
-        "experiment_id": experiment_id,
-        "generations": [],
-        "metrics": None
-    }
+    result_generations = []
+    
+    # Split by Generation header
+    # Matches "# Generation 1", "# Generation 5.1", etc.
+    gen_parts = re.split(r'^# Generation (\d+(?:\.\d+)?)', content, flags=re.MULTILINE)
+    
+    # Handle Global Summary separately (at end usually)
+    global_metrics = None
+    summary_match = re.search(r'^# Summary for all generations\n(.*?)$', content, re.DOTALL|re.MULTILINE)
+    if summary_match:
+        global_metrics = parse_single_metric_block(summary_match.group(1))
 
-    # Split into blocks
-    parts = re.split(r'^# (Generation \d+|Summary for all generations)', content, flags=re.MULTILINE)
+    # Map iterations to JSON structure
+    # gen_parts: [preamble, id, body, id, body, ...]
     
-    gen_block_counter = 0
+    # Create a lookup for generations data to easily find attempt_ids
+    # For CoT, generations_data is list of {id, categories: [...]}
+    # For Simple, generations_data is list of {id, attempts: [...]}
+    gen_lookup = {g["id"]: g for g in generations_data}
     
-    for i in range(1, len(parts), 2):
-        header = parts[i].strip()
-        body = parts[i+1]
+    i = 1
+    while i < len(gen_parts):
+        gen_id = gen_parts[i]
+        gen_body = gen_parts[i+1]
         
-        if header.startswith("Generation"):
-             # Get the corresponding info from our mapping
-             if gen_block_counter < len(generation_info_list):
-                 info = generation_info_list[gen_block_counter]
-                 mapped_id = info["id"]
-                 attempt_id = info["attempt_id"]
-             else:
-                 mapped_id = f"unknown-{gen_block_counter}"
-                 attempt_id = "1"
-             
-             gen_metrics_obj = parse_single_metric_block(body)
-             
-             wrapper = {
-                 "generation_id": mapped_id,
-                 "attempt_id": attempt_id,
-                 "metrics": gen_metrics_obj
-             }
-             experiment_metrics["generations"].append(wrapper)
-             gen_block_counter += 1
-             
-        elif header.startswith("Summary"):
-             # Parse Overall Summary -> "metrics" field at root
-             experiment_metrics["metrics"] = parse_single_metric_block(body)
+        # Check if we have data for this generation in our structure
+        if gen_id in gen_lookup:
+            gen_data_json = gen_lookup[gen_id]
+            
+            if exp_type == "cot":
+                # CoT Structure: Generation -> Categories
+                # We need to parse sub-headers in gen_body: ## Category <name>
+                
+                categories_list = []
+                
+                # Split body by Category header
+                cat_parts = re.split(r'^## Category ([a-zA-Z0-9_]+)', gen_body, flags=re.MULTILINE)
+                
+                # cat_parts: [preamble, name, body, name, body...]
+                j = 1
+                while j < len(cat_parts):
+                    cat_name = cat_parts[j]
+                    cat_body = cat_parts[j+1]
+                    
+                    # Find attempt ID for this category in JSON
+                    # In CoT, categories list contains objects with "name" and "IListInstantiator"
+                    success_attempt_id = "1"
+                    
+                    # Find matching category in JSON
+                    json_cat = next((c for c in gen_data_json.get("categories", []) if c["name"] == cat_name), None)
+                    
+                    if json_cat:
+                        attempts = json_cat.get("IListInstantiator", {}).get("attempts", [])
+                        # Use last attempt as successful one per logic
+                        if attempts:
+                            success_attempt_id = str(attempts[-1]["id"])
+                    
+                    cat_metrics = parse_single_metric_block(cat_body)
+                    
+                    categories_list.append({
+                        "name": cat_name,
+                        "attempt_id": success_attempt_id,
+                        "metrics": cat_metrics
+                    })
+                    j += 2
+                
+                result_generations.append({
+                    "generation_id": gen_id,
+                    "categories": categories_list
+                })
+                
+            else:
+                # Simple Structure: Flat Generation
+                # Find successful attempt ID
+                success_attempt_id = "1"
+                attempts = gen_data_json.get("attempts", [])
+                
+                # Logic: find marked success or last one
+                found = False
+                for att in attempts:
+                    if att.get("status") == "success":
+                        success_attempt_id = str(att["id"])
+                        found = True
+                        break
+                if not found and attempts:
+                    success_attempt_id = str(attempts[-1]["id"])
+                
+                gen_metrics = parse_single_metric_block(gen_body)
+                
+                result_generations.append({
+                    "generation_id": gen_id,
+                    "attempt_id": success_attempt_id,
+                    "metrics": gen_metrics
+                })
+        
+        i += 2
 
-    return {"metrics": [experiment_metrics]}
+    # Construct final object
+    final_output = {
+        "experiment_id": experiment_id,
+        "generations": result_generations,
+    }
+    
+    if global_metrics:
+        final_output["metrics"] = global_metrics
+
+    return {"metrics": [final_output]}
 
 def parse_single_metric_block(text):
     data = {
@@ -145,12 +198,8 @@ def parse_single_metric_block(text):
 
     # Parse Failed Strings
     def extract_failed_strings(header_regex):
-        # Capture strictly until the next section start or end of block
-        # Lookahead for: 
-        # 1. Newline + Pipe + "Failed" (start of next failed section)
-        # 2. Newline + "#" (start of next markdown header, though usually body is passed in)
-        # 3. End of string ($)
-        pattern = header_regex + r'(.*?)(?=\n\|\s*Failed|\n#|$)'
+        # Lookahead for next header (start of line pipe OR start of line #)
+        pattern = header_regex + r'(.*?)(?=\n\||\n#|$)'
         
         section_match = re.search(pattern, text, re.DOTALL)
         if not section_match:
@@ -161,15 +210,20 @@ def parse_single_metric_block(text):
         # Extract content between code fences
         found = re.findall(r'```\s*(.*?)\s*```', section_text, re.DOTALL)
         
-        # Clean up whitespace and filter empty strings
-        found = [s.strip() for s in found if s.strip()]
-        
-        return found if found else [""]
+        cleaned_items = []
+        for block in found:
+             lines = block.split('\n')
+             for line in lines:
+                 s = line.strip()
+                 if s: cleaned_items.append(s)
+                 
+        return cleaned_items if cleaned_items else [""]
 
     data["specific"]["iban"]["str"] = extract_failed_strings(r'\|\s*Failed IBANs \(Real\)\s*\|')
     data["specific"]["bic"]["str"] = extract_failed_strings(r'\|\s*Failed BICs \(Realistic\)\s*\|')
+    data["specific"]["countries"]["str"] = extract_failed_strings(r'\|\s*Failed Countries \(Realistic\)\s*\|')
     
-    # Fallback to [""] if empty list meant "no errors" in user structure?
+    # Fallback to [""] if empty
     for cat in ["syntax", "multiplicities", "invariants"]:
         if not data[cat]["str"]: data[cat]["str"] = [""]
     
@@ -180,10 +234,11 @@ def parse_single_metric_block(text):
     return data
 
 if __name__ == "__main__":
-    target_metrics = "/home/aac/Repos/llm-instancer/src/main/resources/instances/Simple/bank/GPT_4O/21-03-2025--15-41-00/metrics.md"
-    target_json_source = "experiments_data.json" # Use the output from the previous script
+    target_json_source = "experiments_data.json"
+    # target_metrics = "/home/aac/Repos/llm-instancer/src/main/resources/instances/CoT/bank/GPT_4O/24-03-2025--21-13-02/metrics.md"
+    target_metrics = "src/main/resources/instances/Simple/bank/GPT_4O/21-03-2025--15-41-00/metrics.md"
     
-    if os.path.exists(target_metrics):
+    if os.path.exists(target_metrics) and os.path.exists(target_json_source):
         result = parse_metrics_markdown(target_metrics, target_json_source)
         
         output_path = "metrics_data.json"
@@ -192,4 +247,4 @@ if __name__ == "__main__":
             
         print(f"Successfully converted metrics to {output_path}")
     else:
-        print(f"File not found: {target_metrics}")
+        print(f"Files not found: {target_metrics} or {target_json_source}")
