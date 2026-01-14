@@ -164,79 +164,131 @@ def parse_single_metric_block(text):
         "syntax": {"errors": 0, "total": 0, "str": []},
         "multiplicities": {"errors": 0, "total": 0, "str": []},
         "invariants": {"errors": 0, "total": 0, "str": []},
-        "specific": {
-            "iban": {"errors": 0, "total": 0, "str": []},
-            "bic": {"errors": 0, "total": 0, "str": []},
-            "countries": {"errors": 0, "total": 0, "str": []}
-        }
+        "specific": {} 
     }
 
-    # Regex patterns for tables
+    # 1. Parse General Table (Syntax, Multiplicities, Invariants)
+    match_syn = re.search(r'\|\s*Syntax Errors\s*\|\s*(\d+)\s*\|\s*(\d+)', text)
+    if match_syn:
+        data["syntax"]["errors"] = int(match_syn.group(1))
+        data["syntax"]["total"] = int(match_syn.group(2))
+
+    match_mul = re.search(r'\|\s*Multiplicities Errors\s*\|\s*(\d+)\s*\|\s*(\d+)', text)
+    if match_mul:
+        data["multiplicities"]["errors"] = int(match_mul.group(1))
+        data["multiplicities"]["total"] = int(match_mul.group(2))
+
+    match_inv = re.search(r'\|\s*Invariants Errors\s*\|\s*(\d+)\s*\|\s*(\d+)', text)
+    if match_inv:
+        data["invariants"]["errors"] = int(match_inv.group(1))
+        data["invariants"]["total"] = int(match_inv.group(2))
+
+    # 2. Identify the "Specific Metrics" Table
+    # The General table usually ends with Invariants Errors or similar. 
+    # We look for the NEXT table start. A table starts with | <Name> | Invalid | Total | ... 
+    # We skip the General table itself.
     
-    # 1. Syntax
-    match = re.search(r'\|\s*Syntax Errors\s*\|\s*(\d+)\s*\|\s*(\d+)', text)
-    if match:
-        data["syntax"]["errors"] = int(match.group(1))
-        data["syntax"]["total"] = int(match.group(2))
-
-    # 2. Multiplicities
-    match = re.search(r'\|\s*Multiplicities Errors\s*\|\s*(\d+)\s*\|\s*(\d+)', text)
-    if match:
-        data["multiplicities"]["errors"] = int(match.group(1))
-        data["multiplicities"]["total"] = int(match.group(2))
-
-    # 3. Invariants
-    match = re.search(r'\|\s*Invariants Errors\s*\|\s*(\d+)\s*\|\s*(\d+)', text)
-    if match:
-        data["invariants"]["errors"] = int(match.group(1))
-        data["invariants"]["total"] = int(match.group(2))
-
-    # 4. Specifics
-    match = re.search(r'\|\s*IBANs \(Real\)\s*\|\s*(\d+)\s*\|\s*(\d+)', text)
-    if match:
-        data["specific"]["iban"]["errors"] = int(match.group(1))
-        data["specific"]["iban"]["total"] = int(match.group(2))
+    # Find all table headers: | Col1 | Col2 | Col3 | ...
+    # We assume specific metrics table has header format: | <DomainName> | Invalid | Total | ...
+    # AND it is NOT "General" and NOT "Failed..."
     
-    match = re.search(r'\|\s*BICs \(Realistic\)\s*\|\s*(\d+)\s*\|\s*(\d+)', text)
-    if match:
-        data["specific"]["bic"]["errors"] = int(match.group(1))
-        data["specific"]["bic"]["total"] = int(match.group(2))
-        
-    match = re.search(r'\|\s*Countries \(Realistic\)\s*\|\s*(\d+)\s*\|\s*(\d+)', text)
-    if match:
-        data["specific"]["countries"]["errors"] = int(match.group(1))
-        data["specific"]["countries"]["total"] = int(match.group(2))
-
-    # Parse Failed Strings
-    def extract_failed_strings(header_regex):
-        # Capture strictly until the next section start (failed table) or end of block (header or EOF)
-        pattern = header_regex + r'(.*?)(?=\n\|\s*Failed|\n#|$)'
-        
-        section_match = re.search(pattern, text, re.DOTALL)
-        if not section_match:
-            return [""] 
-        
-        section_text = section_match.group(1)
-        
-        # Extract content between code fences
-        found = re.findall(r'```\s*(.*?)\s*```', section_text, re.DOTALL)
-        
-        # Clean up whitespace and filter empty strings (USER LOGIC)
-        found = [s.strip() for s in found if s.strip()]
-        
-        return found if found else [""]
-
-    data["specific"]["iban"]["str"] = extract_failed_strings(r'\|\s*Failed IBANs \(Real\)\s*\|')
-    data["specific"]["bic"]["str"] = extract_failed_strings(r'\|\s*Failed BICs \(Realistic\)\s*\|')
-    data["specific"]["countries"]["str"] = extract_failed_strings(r'\|\s*Failed Countries \(Realistic\)\s*\|')
+    # Find all table headers: | DomainName | ...
+    # Specific metrics table usually follows General table.
+    # It has a header row. We look for a header row that is NOT the General one.
+    # The General table has headers: | General | Errors | Total | Failure (%) |
+    # The Specific table has headers: | <Domain> | Invalid/Errors | Total | Failure (%) |
     
-    # Fallback to [""] if empty
+    # We look for lines starting with | that have "Total" and ("Invalid" or "Errors") in them
+    # and the first column is NOT "General" and NOT starting with "Failed"
+    
+    header_matches = re.finditer(r'^\|\s*([^|]+?)\s*\|\s*(?:Invalid|Errors)\s*\|\s*Total', text, re.MULTILINE)
+    
+    specific_metrics_map = {} # Maps normalized_key -> original_row_name
+    
+    for match in header_matches:
+        header_name = match.group(1).strip()
+        if "General" in header_name or "Failed" in header_name or "Invalid" in header_name:
+            continue
+            
+        # Found the specific table header. Now parse its rows.
+        start_pos = match.end() # This is end of match in reference to 'Total', we need end of line really
+        
+        # Advance start_pos to end of this line
+        params_end = text.find('\n', start_pos)
+        if params_end != -1:
+             start_pos = params_end + 1
+        else:
+             break # No rows?
+        
+        rest_of_text = text[start_pos:]
+        lines = rest_of_text.split('\n')
+        
+        for line in lines:
+            line = line.strip()
+            if not line: continue 
+            if "---" in line: continue # Separator line
+            if not line.startswith("|"): break # End of table
+            
+            # Row format: | Metric Name | Invalid Count | Total Count | ...
+            # Regex: | Name | Number | Number | ...
+            row_match = re.match(r'\|\s*([^|]+?)\s*\|\s*(\d+)\s*\|\s*(\d+)', line)
+            if row_match:
+                metric_name_raw = row_match.group(1).strip()
+                # If metric name is just "Total" or something aggregation-like, skip?? Usually rows are specific metrics.
+                
+                invalid_count = int(row_match.group(2))
+                total_count = int(row_match.group(3))
+                
+                # Normalize key: "IBANs (Real)" -> "ibans_real"
+                normalized_key = re.sub(r'[()]', '', metric_name_raw).strip().lower().replace(' ', '_')
+                
+                data["specific"][normalized_key] = {
+                    "errors": invalid_count,
+                    "total": total_count,
+                    "str": []
+                }
+                specific_metrics_map[normalized_key] = metric_name_raw
+        
+        # We only expect one such specific table per block, so break after processing it
+        break
+        
+    # 3. Parse Failed Strings for each specific metric found
+    # Look for tables like: | Failed <Original Name> | or | Invalid <Original Name> |
+    
+    def extract_failed_strings(metric_raw_name):
+        # Escape for regex
+        escaped_name = re.escape(metric_raw_name)
+        
+        # We need to handle cases where the failure table header might slightly differ, 
+        # e.g. "Addresses" vs "Invalid Addresses" vs "Failed Addresses"
+        # The prompt says patterns are "| Failed IBANs (Real) |" or "| Invalid Addresses |"
+        
+        patterns = [
+            r'\|\s*Failed ' + escaped_name + r'\s*\|',
+            r'\|\s*Invalid ' + escaped_name + r'\s*\|',
+            # Fallback for just the name if it's unique enough? No, "Addresses" is too common.
+            # Maybe check for "Failed" + partial match?
+        ]
+        
+        for header_regex in patterns:
+            pattern = header_regex + r'(.*?)(?=\n\|\s*(?:Failed|Invalid|General|[A-Z])|\n#|$)'
+            section_match = re.search(pattern, text, re.DOTALL)
+            if section_match:
+                section_text = section_match.group(1)
+                found = re.findall(r'```\s*(.*?)\s*```', section_text, re.DOTALL)
+                found = [s.strip() for s in found if s.strip()]
+                return found
+        
+        return [""]
+
+    for key, raw_name in specific_metrics_map.items():
+        data["specific"][key]["str"] = extract_failed_strings(raw_name)
+        if not data["specific"][key]["str"]:
+             data["specific"][key]["str"] = [""]
+
+    # Fallback to [""] if empty for General metrics
     for cat in ["syntax", "multiplicities", "invariants"]:
         if not data[cat]["str"]: data[cat]["str"] = [""]
-    
-    if not data["specific"]["iban"]["str"]: data["specific"]["iban"]["str"] = [""]
-    if not data["specific"]["bic"]["str"]: data["specific"]["bic"]["str"] = [""]
-    if not data["specific"]["countries"]["str"]: data["specific"]["countries"]["str"] = [""]
 
     return data
 

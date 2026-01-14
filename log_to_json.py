@@ -291,8 +291,26 @@ def parse_logs_markdown(file_path):
 
 if __name__ == "__main__":
     files = [
-        "/home/aac/Repos/llm-instancer/src/main/resources/instances/Simple/bank/GPT_4O/21-03-2025--15-41-00/logs.md",
+        "/home/aac/Repos/llm-instancer/src/main/resources/instances/Simple/addressbook/GPT_4O/21-03-2025--17-36-43/logs.md",
+        "/home/aac/Repos/llm-instancer/src/main/resources/instances/Simple/bank/GPT_4O/21-03-2025--15-41-00/logs.md"
+        "/home/aac/Repos/llm-instancer/src/main/resources/instances/Simple/football/GPT_4O/02-04-2025--15-50-01/logs.md"
+        "/home/aac/Repos/llm-instancer/src/main/resources/instances/Simple/hotelmanagement/GPT_4O/22-03-2025--18-31-34/logs.md"
+        "/home/aac/Repos/llm-instancer/src/main/resources/instances/Simple/myexpenses/GPT_4O/22-03-2025--17-12-34/logs.md"
+        "/home/aac/Repos/llm-instancer/src/main/resources/instances/Simple/pickupnet/GPT_4O/21-03-2025--15-53-43/logs.md"
+        "/home/aac/Repos/llm-instancer/src/main/resources/instances/Simple/restaurant/GPT_4O/02-04-2025--16-10-47/logs.md"
+        "/home/aac/Repos/llm-instancer/src/main/resources/instances/Simple/statemachine/GPT_4O/22-03-2025--18-08-16/logs.md"
+        "/home/aac/Repos/llm-instancer/src/main/resources/instances/Simple/vehiclerental/GPT_4O/21-03-2025--16-07-51/logs.md"
+        "/home/aac/Repos/llm-instancer/src/main/resources/instances/Simple/videoclub/GPT_4O/21-03-2025--16-37-44/logs.md"
+        "/home/aac/Repos/llm-instancer/src/main/resources/instances/CoT/addressbook/GPT_4O/25-03-2025--10-38-22/logs.md"
         "/home/aac/Repos/llm-instancer/src/main/resources/instances/CoT/bank/GPT_4O/24-03-2025--21-13-02/logs.md"
+        "/home/aac/Repos/llm-instancer/src/main/resources/instances/CoT/football/GPT_4O/02-04-2025--19-03-28/logs.md"
+        "/home/aac/Repos/llm-instancer/src/main/resources/instances/CoT/hotelmanagement/GPT_4O/25-03-2025--11-38-06"
+        "/home/aac/Repos/llm-instancer/src/main/resources/instances/CoT/myexpenses/GPT_4O/25-03-2025--13-12-54/logs.md"
+        "/home/aac/Repos/llm-instancer/src/main/resources/instances/CoT/pickupnet/GPT_4O/25-03-2025--13-32-07/logs.md"
+        "/home/aac/Repos/llm-instancer/src/main/resources/instances/CoT/restaurant/GPT_4O/02-04-2025--18-15-54/logs.md"
+        "/home/aac/Repos/llm-instancer/src/main/resources/instances/CoT/statemachine/GPT_4O/25-03-2025--13-49-01/logs.md"
+        "/home/aac/Repos/llm-instancer/src/main/resources/instances/CoT/vehiclerental/GPT_4O/25-03-2025--14-02-01/logs.md"
+        "/home/aac/Repos/llm-instancer/src/main/resources/instances/CoT/videoclub/GPT_4O/25-03-2025--14-18-14/logs.md"
     ]
     
     experiments = []
