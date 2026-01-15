@@ -8,20 +8,47 @@ def get_experiment_info(loaded_data, experiment_id):
     Finds the experiment by ID in the already loaded JSON data.
     Returns (experiment_type, generations_data)
     """
-    if not loaded_data:
-        return None, []
+    if not loaded_data or "experiments" not in loaded_data:
+        # Fallback for old legacy format if present (optional) or just return
+        # Attempt to see if it's the old format for backward compat, or just fail safe
+        simple_old = loaded_data.get("simple", {}).get("experiments", [])
+        if simple_old:
+             # It is the old format
+             pass 
+        else:
+             return None, []
 
-    # Check Simple
-    simple_data = loaded_data.get("simple", {}).get("experiments", [])
-    for exp in simple_data:
-        if exp["id"] == experiment_id:
-            return exp.get("type", "simple"), exp.get("generations", [])
+    # Helper to search inside a simple/cot block
+    def search_in_block(block_experiments):
+        for exp in block_experiments:
+            if exp["id"] == experiment_id:
+                return exp.get("type", "simple"), exp.get("generations", [])
+        return None, None
 
-    # Check CoT
-    cot_data = loaded_data.get("cot", {}).get("experiments", [])
-    for exp in cot_data:
-        if exp["id"] == experiment_id:
-            return exp.get("type", "cot"), exp.get("generations", [])
+    # Iterate over top-level experiments (e.g. GPT_4O_exp1)
+    # The loaded_data is expected to be { "experiments": [ { "id": "...", "simple": ..., "cot": ... } ] }
+    outer_experiments = loaded_data.get("experiments", [])
+    
+    # If empty or old format fallback:
+    if not outer_experiments:
+         # Try reading as old format
+         res_type, res_gen = search_in_block(loaded_data.get("simple", {}).get("experiments", []))
+         if res_type: return res_type, res_gen
+         
+         res_type, res_gen = search_in_block(loaded_data.get("cot", {}).get("experiments", []))
+         if res_type: return res_type, res_gen
+         return None, []
+
+    for outer_exp in outer_experiments:
+        # Check Simple in this outer exp
+        simple_exps = outer_exp.get("simple", {}).get("experiments", [])
+        res_type, res_gen = search_in_block(simple_exps)
+        if res_type: return res_type, res_gen
+        
+        # Check CoT in this outer exp
+        cot_exps = outer_exp.get("cot", {}).get("experiments", [])
+        res_type, res_gen = search_in_block(cot_exps)
+        if res_type: return res_type, res_gen
 
     return None, []
 
@@ -396,24 +423,62 @@ if __name__ == "__main__":
     ]
     
     output_metrics = {
-        "simple": {"experiments": []},
-        "cot": {"experiments": []}
+        "simple": {
+            "metrics": {
+                "syntax": {"errors": 0, "total": 0, "str": []},
+                "multiplicities": {"errors": 0, "total": 0, "str": []},
+                "invariants": {"errors": 0, "total": 0, "str": []},
+                "specific": {}
+            },
+            "number_experiments": 0,
+            "experiments": []
+        },
+        "cot": {
+            "metrics": {
+                "syntax": {"errors": 0, "total": 0, "str": []},
+                "multiplicities": {"errors": 0, "total": 0, "str": []},
+                "invariants": {"errors": 0, "total": 0, "str": []},
+                "specific": {}
+            },
+            "number_experiments": 0,
+            "experiments": []
+        }
     }
     
     for m_path in files:
         if os.path.exists(m_path):
             try:
                 result = parse_metrics_markdown(m_path, loaded_data)
-                # result["metrics"] matches the structure returned by parse_metrics_markdown
-                # which returns [{"experiment_id": ..., "generations": ...}]
                 for m_exp in result["metrics"]:
-                    # We need to decide where to put it. 
-                    # We can use get_experiment_info again or infer from ID
                     eid = m_exp["experiment_id"]
-                    if eid.lower().startswith("cot"):
-                        output_metrics["cot"]["experiments"].append(m_exp)
-                    else:
-                        output_metrics["simple"]["experiments"].append(m_exp)
+                    group_name = "cot" if eid.lower().startswith("cot") else "simple"
+                    
+                    output_metrics[group_name]["experiments"].append(m_exp)
+                    output_metrics[group_name]["number_experiments"] += 1
+                    
+                    # Aggregation
+                    if "metrics" in m_exp:
+                        m_data = m_exp["metrics"]
+                        target_agg = output_metrics[group_name]["metrics"]
+                        
+                        for k, v in m_data.items():
+                            if k == "specific":
+                                for spec_key, spec_val in v.items():
+                                    if spec_key not in target_agg["specific"]:
+                                        target_agg["specific"][spec_key] = {"errors": 0, "total": 0, "str": []}
+                                    
+                                    target_agg["specific"][spec_key]["errors"] += spec_val.get("errors", 0)
+                                    target_agg["specific"][spec_key]["total"] += spec_val.get("total", 0)
+                                    m_strs = [s for s in spec_val.get("str", []) if s]
+                                    target_agg["specific"][spec_key]["str"].extend(m_strs)
+                            else:
+                                if k not in target_agg:
+                                    target_agg[k] = {"errors": 0, "total": 0, "str": []}
+                                
+                                target_agg[k]["errors"] += v.get("errors", 0)
+                                target_agg[k]["total"] += v.get("total", 0)
+                                m_strs = [s for s in v.get("str", []) if s]
+                                target_agg[k]["str"].extend(m_strs)
                         
                 print(f"Processed metrics for: {m_path}")
             except Exception as e:
@@ -423,7 +488,30 @@ if __name__ == "__main__":
         else:
             # print(f"Metrics file not found: {m_path}")
             pass
+    
+    # Final cleanup of aggregation strings (ensure [""] if empty)
+    for group in ["simple", "cot"]:
+        agg_metrics = output_metrics[group]["metrics"]
+        for k, v in agg_metrics.items():
+            if k == "specific":
+                for sk, sv in v.items():
+                    if not sv["str"]: sv["str"] = [""]
+            else:
+                if not v["str"]: v["str"] = [""]
+            
+    # Final output structure
+    exp_id = "GPT_4O_exp1"
+    
+    final_output = {
+        "experiments": [
+            {
+                "id": exp_id, # Aligned with logs.json "id"
+                "simple": output_metrics["simple"],
+                "cot": output_metrics["cot"]
+            }
+        ]
+    }
             
     output_path = "metrics.json"
     with open(output_path, 'w', encoding='utf-8') as f:
-        json.dump(output_metrics, f, indent=2)
+        json.dump(final_output, f, indent=2)

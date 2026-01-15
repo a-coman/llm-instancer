@@ -367,5 +367,18 @@ if __name__ == "__main__":
     output_data["simple"]["time_seconds"] = round(output_data["simple"]["time_seconds"], 2)
     output_data["cot"]["time_seconds"] = round(output_data["cot"]["time_seconds"], 2)
 
+    # Final output structure
+    exp_id = "GPT_4O_exp1"
+    
+    final_output = {
+        "experiments": [
+            {
+                "id": exp_id,
+                "simple": output_data["simple"],
+                "cot": output_data["cot"]
+            }
+        ]
+    }
+
     with open("logs.json", 'w') as f:
-        json.dump(output_data, f, indent=2)
+        json.dump(final_output, f, indent=2)
