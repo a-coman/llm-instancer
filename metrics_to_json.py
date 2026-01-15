@@ -52,10 +52,8 @@ def parse_metrics_markdown(metrics_path, loaded_experiments_data):
     exp_type, generations_data = get_experiment_info(loaded_experiments_data, experiment_id)
     
     if not generations_data and exp_type is None:
-        print(f"Warning: Experiment ID {experiment_id} not found. Skipping lookup logic.")
-        # Default defaults
-        exp_type = "simple"
-        generations_data = []
+        print(f"Warning: Experiment ID {experiment_id} not found. Skipping metrics parsing.")
+        return {"metrics": []}
 
     result_generations = []
     global_metrics = None
@@ -247,35 +245,19 @@ def parse_single_metric_block(text):
             data[key]["errors"] = int(match.group(1))
             data[key]["total"] = int(match.group(2))
 
-    # 2. Identify the "Specific Metrics" Table
-    # The General table usually ends with Invariants Errors or similar. 
-    # We look for the NEXT table start. A table starts with | <Name> | Invalid | Total | ... 
-    # We skip the General table itself.
-    
-    # Find all table headers: | Col1 | Col2 | Col3 | ...
-    # We assume specific metrics table has header format: | <DomainName> | Invalid | Total | ...
-    # AND it is NOT "General" and NOT "Failed..."
-    
-    # Find all table headers: | DomainName | ...
-    # Specific metrics table usually follows General table.
-    # It has a header row. We look for a header row that is NOT the General one.
-    # The General table has headers: | General | Errors | Total | Failure (%) |
-    # The Specific table has headers: | <Domain> | Invalid/Errors | Total | Failure (%) |
-    
-    # We look for lines starting with | that have "Total" and ("Invalid" or "Errors") in them
-    # and the first column is NOT "General" and NOT starting with "Failed"
-    
+    # 2. Identify the "Specific Metrics" Tables
     header_matches = re.finditer(r'^\|\s*([^|]+?)\s*\|\s*(?:Invalid|Errors)\s*\|\s*Total', text, re.MULTILINE)
     
     specific_metrics_map = {} # Maps normalized_key -> original_row_name
+    redirect_metrics_map = {} # Maps data_key -> original_row_name for non-specific items
     
     for match in header_matches:
         header_name = match.group(1).strip()
         if "General" in header_name or "Failed" in header_name or "Invalid" in header_name:
             continue
             
-        # Found the specific table header. Now parse its rows.
-        start_pos = match.end() # This is end of match in reference to 'Total', we need end of line really
+        # Found a specific table header. Now parse its rows.
+        start_pos = match.end() # This is end of match in reference to 'Total'
         
         # Advance start_pos to end of this line
         params_end = text.find('\n', start_pos)
@@ -294,16 +276,36 @@ def parse_single_metric_block(text):
             if not line.startswith("|"): break # End of table
             
             # Row format: | Metric Name | Invalid Count | Total Count | ...
-            # Regex: | Name | Number | Number | ...
             row_match = re.match(r'\|\s*([^|]+?)\s*\|\s*(\d+)\s*\|\s*(\d+)', line)
             if row_match:
                 metric_name_raw = row_match.group(1).strip()
-                # If metric name is just "Total" or something aggregation-like, skip?? Usually rows are specific metrics.
-                if "Not included on General" in metric_name_raw:
-                    continue                
                 invalid_count = int(row_match.group(2))
                 total_count = int(row_match.group(3))
                 
+                # Check for special redirects for "Not included on General"
+                if "Multiplicities Errors (Not included on General)" in metric_name_raw:
+                    if "multiplicities_category_invalid" not in data:
+                        data["multiplicities_category_invalid"] = {"errors": 0, "total": 0, "str": []}
+                    data["multiplicities_category_invalid"]["errors"] = invalid_count
+                    data["multiplicities_category_invalid"]["total"] = total_count
+                    redirect_metrics_map["multiplicities_category_invalid"] = metric_name_raw
+                    continue
+                
+                if "Invariants Errors (Not included on General)" in metric_name_raw:
+                    if "invariants_category_invalid" not in data:
+                        data["invariants_category_invalid"] = {"errors": 0, "total": 0, "str": []}
+                    data["invariants_category_invalid"]["errors"] = invalid_count
+                    data["invariants_category_invalid"]["total"] = total_count
+                    redirect_metrics_map["invariants_category_invalid"] = metric_name_raw
+                    continue
+
+                if "Not included on General" in metric_name_raw:
+                    # Ignore other unknown "Not included" types or handle as specific?
+                    # Current instructions say handle multiplicities/invariants. 
+                    # If there's others, we can treat them as specific or skip.
+                    # Let's treat them as specific if they don't match the above.
+                    pass
+
                 # Normalize key: "IBANs (Real)" -> "ibans_real"
                 normalized_key = re.sub(r'[()]', '', metric_name_raw).strip().lower().replace(' ', '_')
                 
@@ -314,25 +316,16 @@ def parse_single_metric_block(text):
                 }
                 specific_metrics_map[normalized_key] = metric_name_raw
         
-        # We only expect one such specific table per block, so break after processing it
-        break
-        
+        # We process all tables found.
+
     # 3. Parse Failed Strings for each specific metric found
-    # Look for tables like: | Failed <Original Name> | or | Invalid <Original Name> |
-    
     def extract_failed_strings(metric_raw_name):
-        # Escape for regex
         escaped_name = re.escape(metric_raw_name)
-        
-        # We need to handle cases where the failure table header might slightly differ, 
-        # e.g. "Addresses" vs "Invalid Addresses" vs "Failed Addresses"
-        # The prompt says patterns are "| Failed IBANs (Real) |" or "| Invalid Addresses |"
-        
         patterns = [
             r'\|\s*Failed ' + escaped_name + r'\s*\|',
             r'\|\s*Invalid ' + escaped_name + r'\s*\|',
-            # Fallback for just the name if it's unique enough? No, "Addresses" is too common.
-            # Maybe check for "Failed" + partial match?
+            # Handle [Overconstraints Detection] or similar prefixes
+            r'\|\s*\[.*?\] ' + escaped_name + r'\s*\|', 
         ]
         
         for header_regex in patterns:
@@ -346,16 +339,30 @@ def parse_single_metric_block(text):
         
         return [""]
 
+    # Populate string for specific
     for key, raw_name in specific_metrics_map.items():
         data["specific"][key]["str"] = extract_failed_strings(raw_name)
         if not data["specific"][key]["str"]:
              data["specific"][key]["str"] = [""]
 
-    # Fallback to [""] if empty for General metrics
-    for cat in ["syntax", "multiplicities", "invariants"]:
-        if not data[cat]["str"]: data[cat]["str"] = [""]
+    # Populate string for redirected metrics
+    for key, raw_name in redirect_metrics_map.items():
+        data[key]["str"] = extract_failed_strings(raw_name)
+        if not data[key]["str"]:
+             data[key]["str"] = [""]
 
-    return data
+    # Fallback to [""] if empty for General metrics
+    for cat in ["syntax", "multiplicities", "invariants", "multiplicities_category_invalid", "invariants_category_invalid"]:
+        if cat in data and not data[cat]["str"]: data[cat]["str"] = [""]
+
+    return {k: data[k] for k in [
+        "syntax", 
+        "multiplicities", 
+        "invariants", 
+        "multiplicities_category_invalid", 
+        "invariants_category_invalid", 
+        "specific"
+    ] if k in data}
 
 if __name__ == "__main__":
     target_json_source = "logs.json"
@@ -366,7 +373,7 @@ if __name__ == "__main__":
             loaded_data = json.load(f)
 
     files = [
-        #"/home/aac/Repos/llm-instancer/src/main/resources/instances/Simple/addressbook/GPT_4O/21-03-2025--17-36-43/metrics.md",
+        # "/home/aac/Repos/llm-instancer/src/main/resources/instances/Simple/addressbook/GPT_4O/21-03-2025--17-36-43/metrics.md",
         "/home/aac/Repos/llm-instancer/src/main/resources/instances/Simple/bank/GPT_4O/21-03-2025--15-41-00/metrics.md",
         # "/home/aac/Repos/llm-instancer/src/main/resources/instances/Simple/football/GPT_4O/02-04-2025--15-50-01/metrics.md",
         # "/home/aac/Repos/llm-instancer/src/main/resources/instances/Simple/hotelmanagement/GPT_4O/22-03-2025--18-31-34/metrics.md",
