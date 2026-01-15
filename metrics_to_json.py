@@ -11,10 +11,18 @@ def get_experiment_info(loaded_data, experiment_id):
     if not loaded_data:
         return None, []
 
-    for exp in loaded_data.get("experiments", []):
+    # Check Simple
+    simple_data = loaded_data.get("simple", {}).get("experiments", [])
+    for exp in simple_data:
         if exp["id"] == experiment_id:
-             return exp.get("type", "simple"), exp.get("generations", [])
-             
+            return exp.get("type", "simple"), exp.get("generations", [])
+
+    # Check CoT
+    cot_data = loaded_data.get("cot", {}).get("experiments", [])
+    for exp in cot_data:
+        if exp["id"] == experiment_id:
+            return exp.get("type", "cot"), exp.get("generations", [])
+
     return None, []
 
 def parse_metrics_markdown(metrics_path, loaded_experiments_data):
@@ -350,7 +358,7 @@ def parse_single_metric_block(text):
     return data
 
 if __name__ == "__main__":
-    target_json_source = "experiments_data.json"
+    target_json_source = "logs.json"
     
     loaded_data = {}
     if os.path.exists(target_json_source):
@@ -358,25 +366,57 @@ if __name__ == "__main__":
             loaded_data = json.load(f)
 
     files = [
+        #"/home/aac/Repos/llm-instancer/src/main/resources/instances/Simple/addressbook/GPT_4O/21-03-2025--17-36-43/metrics.md",
         "/home/aac/Repos/llm-instancer/src/main/resources/instances/Simple/bank/GPT_4O/21-03-2025--15-41-00/metrics.md",
-        "/home/aac/Repos/llm-instancer/src/main/resources/instances/CoT/bank/GPT_4O/24-03-2025--21-13-02/metrics.md"
+        # "/home/aac/Repos/llm-instancer/src/main/resources/instances/Simple/football/GPT_4O/02-04-2025--15-50-01/metrics.md",
+        # "/home/aac/Repos/llm-instancer/src/main/resources/instances/Simple/hotelmanagement/GPT_4O/22-03-2025--18-31-34/metrics.md",
+        # "/home/aac/Repos/llm-instancer/src/main/resources/instances/Simple/myexpenses/GPT_4O/22-03-2025--17-12-34/metrics.md",
+        # "/home/aac/Repos/llm-instancer/src/main/resources/instances/Simple/pickupnet/GPT_4O/21-03-2025--15-53-43/metrics.md",
+        # "/home/aac/Repos/llm-instancer/src/main/resources/instances/Simple/restaurant/GPT_4O/02-04-2025--16-10-47/metrics.md",
+        # "/home/aac/Repos/llm-instancer/src/main/resources/instances/Simple/statemachine/GPT_4O/22-03-2025--18-08-16/metrics.md",
+        # "/home/aac/Repos/llm-instancer/src/main/resources/instances/Simple/vehiclerental/GPT_4O/21-03-2025--16-07-51/metrics.md",
+        # "/home/aac/Repos/llm-instancer/src/main/resources/instances/Simple/videoclub/GPT_4O/21-03-2025--16-37-44/metrics.md",
+        # "/home/aac/Repos/llm-instancer/src/main/resources/instances/CoT/addressbook/GPT_4O/25-03-2025--10-38-22/metrics.md",
+        "/home/aac/Repos/llm-instancer/src/main/resources/instances/CoT/bank/GPT_4O/24-03-2025--21-13-02/metrics.md",
+        # "/home/aac/Repos/llm-instancer/src/main/resources/instances/CoT/football/GPT_4O/02-04-2025--19-03-28/metrics.md",
+        # "/home/aac/Repos/llm-instancer/src/main/resources/instances/CoT/hotelmanagement/GPT_4O/25-03-2025--11-38-06/metrics.md",
+        # "/home/aac/Repos/llm-instancer/src/main/resources/instances/CoT/myexpenses/GPT_4O/25-03-2025--13-12-54/metrics.md",
+        # "/home/aac/Repos/llm-instancer/src/main/resources/instances/CoT/pickupnet/GPT_4O/25-03-2025--13-32-07/metrics.md",
+        # "/home/aac/Repos/llm-instancer/src/main/resources/instances/CoT/restaurant/GPT_4O/02-04-2025--18-15-54/metrics.md",
+        # "/home/aac/Repos/llm-instancer/src/main/resources/instances/CoT/statemachine/GPT_4O/25-03-2025--13-49-01/metrics.md",
+        # "/home/aac/Repos/llm-instancer/src/main/resources/instances/CoT/vehiclerental/GPT_4O/25-03-2025--14-02-01/metrics.md",
+        # "/home/aac/Repos/llm-instancer/src/main/resources/instances/CoT/videoclub/GPT_4O/25-03-2025--14-18-14/metrics.md",
     ]
     
-    all_metrics = []
+    output_metrics = {
+        "simple": {"experiments": []},
+        "cot": {"experiments": []}
+    }
     
     for m_path in files:
         if os.path.exists(m_path):
             try:
                 result = parse_metrics_markdown(m_path, loaded_data)
-                all_metrics.extend(result["metrics"])
+                # result["metrics"] matches the structure returned by parse_metrics_markdown
+                # which returns [{"experiment_id": ..., "generations": ...}]
+                for m_exp in result["metrics"]:
+                    # We need to decide where to put it. 
+                    # We can use get_experiment_info again or infer from ID
+                    eid = m_exp["experiment_id"]
+                    if eid.lower().startswith("cot"):
+                        output_metrics["cot"]["experiments"].append(m_exp)
+                    else:
+                        output_metrics["simple"]["experiments"].append(m_exp)
+                        
                 print(f"Processed metrics for: {m_path}")
             except Exception as e:
                 print(f"Error processing metrics {m_path}: {e}")
+                import traceback
+                traceback.print_exc()
         else:
-            print(f"Metrics file not found: {m_path}")
+            # print(f"Metrics file not found: {m_path}")
+            pass
             
-    output_path = "metrics_data.json"
+    output_path = "metrics.json"
     with open(output_path, 'w', encoding='utf-8') as f:
-        json.dump({"metrics": all_metrics}, f, indent=2)
-        
-    print(f"Successfully converted all metrics to {output_path}")
+        json.dump(output_metrics, f, indent=2)

@@ -290,45 +290,82 @@ def parse_logs_markdown(file_path):
     return {"experiments": [final_experiment]}
 
 if __name__ == "__main__":
-    # files = [
-    #     "/home/aac/Repos/llm-instancer/src/main/resources/instances/Simple/addressbook/GPT_4O/21-03-2025--17-36-43/logs.md",
-    #     "/home/aac/Repos/llm-instancer/src/main/resources/instances/Simple/bank/GPT_4O/21-03-2025--15-41-00/logs.md",
-    #     "/home/aac/Repos/llm-instancer/src/main/resources/instances/Simple/football/GPT_4O/02-04-2025--15-50-01/logs.md",
-    #     "/home/aac/Repos/llm-instancer/src/main/resources/instances/Simple/hotelmanagement/GPT_4O/22-03-2025--18-31-34/logs.md",
-    #     "/home/aac/Repos/llm-instancer/src/main/resources/instances/Simple/myexpenses/GPT_4O/22-03-2025--17-12-34/logs.md",
-    #     "/home/aac/Repos/llm-instancer/src/main/resources/instances/Simple/pickupnet/GPT_4O/21-03-2025--15-53-43/logs.md",
-    #     "/home/aac/Repos/llm-instancer/src/main/resources/instances/Simple/restaurant/GPT_4O/02-04-2025--16-10-47/logs.md",
-    #     "/home/aac/Repos/llm-instancer/src/main/resources/instances/Simple/statemachine/GPT_4O/22-03-2025--18-08-16/logs.md",
-    #     "/home/aac/Repos/llm-instancer/src/main/resources/instances/Simple/vehiclerental/GPT_4O/21-03-2025--16-07-51/logs.md",
-    #     "/home/aac/Repos/llm-instancer/src/main/resources/instances/Simple/videoclub/GPT_4O/21-03-2025--16-37-44/logs.md",
-    #     "/home/aac/Repos/llm-instancer/src/main/resources/instances/CoT/addressbook/GPT_4O/25-03-2025--10-38-22/logs.md",
-    #     "/home/aac/Repos/llm-instancer/src/main/resources/instances/CoT/bank/GPT_4O/24-03-2025--21-13-02/logs.md",
-    #     "/home/aac/Repos/llm-instancer/src/main/resources/instances/CoT/football/GPT_4O/02-04-2025--19-03-28/logs.md",
-    #     "/home/aac/Repos/llm-instancer/src/main/resources/instances/CoT/hotelmanagement/GPT_4O/25-03-2025--11-38-06/logs.md",
-    #     "/home/aac/Repos/llm-instancer/src/main/resources/instances/CoT/myexpenses/GPT_4O/25-03-2025--13-12-54/logs.md",
-    #     "/home/aac/Repos/llm-instancer/src/main/resources/instances/CoT/pickupnet/GPT_4O/25-03-2025--13-32-07/logs.md",
-    #     "/home/aac/Repos/llm-instancer/src/main/resources/instances/CoT/restaurant/GPT_4O/02-04-2025--18-15-54/logs.md",
-    #     "/home/aac/Repos/llm-instancer/src/main/resources/instances/CoT/statemachine/GPT_4O/25-03-2025--13-49-01/logs.md",
-    #     "/home/aac/Repos/llm-instancer/src/main/resources/instances/CoT/vehiclerental/GPT_4O/25-03-2025--14-02-01/logs.md",
-    #     "/home/aac/Repos/llm-instancer/src/main/resources/instances/CoT/videoclub/GPT_4O/25-03-2025--14-18-14/logs.md",
-    # ]
-    
     files = [
+        # "/home/aac/Repos/llm-instancer/src/main/resources/instances/Simple/addressbook/GPT_4O/21-03-2025--17-36-43/logs.md",
         "/home/aac/Repos/llm-instancer/src/main/resources/instances/Simple/bank/GPT_4O/21-03-2025--15-41-00/logs.md",
+        # "/home/aac/Repos/llm-instancer/src/main/resources/instances/Simple/football/GPT_4O/02-04-2025--15-50-01/logs.md",
+        # "/home/aac/Repos/llm-instancer/src/main/resources/instances/Simple/hotelmanagement/GPT_4O/22-03-2025--18-31-34/logs.md",
+        # "/home/aac/Repos/llm-instancer/src/main/resources/instances/Simple/myexpenses/GPT_4O/22-03-2025--17-12-34/logs.md",
+        # "/home/aac/Repos/llm-instancer/src/main/resources/instances/Simple/pickupnet/GPT_4O/21-03-2025--15-53-43/logs.md",
+        # "/home/aac/Repos/llm-instancer/src/main/resources/instances/Simple/restaurant/GPT_4O/02-04-2025--16-10-47/logs.md",
+        # "/home/aac/Repos/llm-instancer/src/main/resources/instances/Simple/statemachine/GPT_4O/22-03-2025--18-08-16/logs.md",
+        # "/home/aac/Repos/llm-instancer/src/main/resources/instances/Simple/vehiclerental/GPT_4O/21-03-2025--16-07-51/logs.md",
+        # "/home/aac/Repos/llm-instancer/src/main/resources/instances/Simple/videoclub/GPT_4O/21-03-2025--16-37-44/logs.md",
+        # "/home/aac/Repos/llm-instancer/src/main/resources/instances/CoT/addressbook/GPT_4O/25-03-2025--10-38-22/logs.md",
         "/home/aac/Repos/llm-instancer/src/main/resources/instances/CoT/bank/GPT_4O/24-03-2025--21-13-02/logs.md",
+        # "/home/aac/Repos/llm-instancer/src/main/resources/instances/CoT/football/GPT_4O/02-04-2025--19-03-28/logs.md",
+        # "/home/aac/Repos/llm-instancer/src/main/resources/instances/CoT/hotelmanagement/GPT_4O/25-03-2025--11-38-06/logs.md",
+        # "/home/aac/Repos/llm-instancer/src/main/resources/instances/CoT/myexpenses/GPT_4O/25-03-2025--13-12-54/logs.md",
+        # "/home/aac/Repos/llm-instancer/src/main/resources/instances/CoT/pickupnet/GPT_4O/25-03-2025--13-32-07/logs.md",
+        # "/home/aac/Repos/llm-instancer/src/main/resources/instances/CoT/restaurant/GPT_4O/02-04-2025--18-15-54/logs.md",
+        # "/home/aac/Repos/llm-instancer/src/main/resources/instances/CoT/statemachine/GPT_4O/25-03-2025--13-49-01/logs.md",
+        # "/home/aac/Repos/llm-instancer/src/main/resources/instances/CoT/vehiclerental/GPT_4O/25-03-2025--14-02-01/logs.md",
+        # "/home/aac/Repos/llm-instancer/src/main/resources/instances/CoT/videoclub/GPT_4O/25-03-2025--14-18-14/logs.md",
     ]
     
-    experiments = []
+    # Prepare Output Structure
+    output_data = {
+        "simple": {
+            "input_tokens": 0,
+            "output_tokens": 0,
+            "total_tokens": 0,
+            "time_seconds": 0.0,
+            "number_experiments": 0,
+            "experiments": []
+        },
+        "cot": {
+            "input_tokens": 0,
+            "output_tokens": 0,
+            "total_tokens": 0,
+            "time_seconds": 0.0,
+            "number_experiments": 0,
+            "experiments": []
+        }
+    }
+
     for fpath in files:
         if os.path.exists(fpath):
             try:
                 result = parse_logs_markdown(fpath)
-                experiments.extend(result["experiments"])
+                # result["experiments"] is a list, usually containing 1 experiment
+                for exp in result["experiments"]:
+                    # Determine type (simple or cot) based on exp['type']
+                    # logic in parse_logs_markdown sets type to "simple" or "cot" (lowercase)
+                    etype = exp["type"]
+                    if etype not in output_data:
+                        etype = "simple" # Fallback
+                    
+                    output_data[etype]["experiments"].append(exp)
+                    
+                    # Accumulate stats
+                    output_data[etype]["input_tokens"] += exp.get("input_tokens", 0)
+                    output_data[etype]["output_tokens"] += exp.get("output_tokens", 0)
+                    output_data[etype]["total_tokens"] += exp.get("total_tokens", 0)
+                    output_data[etype]["time_seconds"] += exp.get("time_seconds", 0.0)
+                    
                 print(f"Processed: {fpath}")
             except Exception as e:
                 print(f"Error processing {fpath}: {e}")
                 import traceback
                 traceback.print_exc()
 
-    with open("experiments_data.json", 'w') as f:
-        json.dump({"experiments": experiments}, f, indent=2)
+    # Update Counts
+    output_data["simple"]["number_experiments"] = len(output_data["simple"]["experiments"])
+    output_data["cot"]["number_experiments"] = len(output_data["cot"]["experiments"])
+
+    # Round time
+    output_data["simple"]["time_seconds"] = round(output_data["simple"]["time_seconds"], 2)
+    output_data["cot"]["time_seconds"] = round(output_data["cot"]["time_seconds"], 2)
+
+    with open("logs.json", 'w') as f:
+        json.dump(output_data, f, indent=2)
