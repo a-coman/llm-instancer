@@ -98,6 +98,9 @@ public class CoT {
         String processedInstance = Utils.removeComments(instanceSOIL);
         Utils.saveFile(processedInstance + "\n\n", instancePath, "output.soil");
         Utils.saveFile(processedInstance, instancePath, list.id() + ".soil");
+
+        // Generate PDF
+        use.instanceToPdf(experiment.getUmlPath(), instancePath + list.id() + ".soil");
     }
 
     private static String validateConstraints(String instanceSOIL, IListInstantiator listInstantiator, List list, Experiment experiment, Use use, String invariants) {

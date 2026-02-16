@@ -23,13 +23,15 @@ public class Use {
                 pb = new ProcessBuilder("bash", "-c", "java -jar use-gui.jar -nogui");
             }
 
-            pb.directory(new File("./src/main/resources/use-7.1.1/lib/"));
+            // pb.directory(new File("./src/main/resources/use-7.1.1/lib/"));
+            pb.directory(new File("./src/main/resources/use-7.5.0/lib/"));
             // Check and add JAVA to path
             String javaPath = System.getenv("JAVA_HOME");
             if (javaPath == null) {
                 throw new RuntimeException("Java path not found");
             }
-            pb.environment().put("PATH", javaPath + "/bin"  + File.pathSeparator + pb.environment().getOrDefault("PATH", ""));
+            pb.environment().put("PATH",
+                    javaPath + "/bin" + File.pathSeparator + pb.environment().getOrDefault("PATH", ""));
             pb.redirectErrorStream(true);
             process = pb.start();
         } catch (Exception e) {
@@ -73,7 +75,18 @@ public class Use {
             while ((line = reader.readLine()) != null && !line.contains(marker)) {
                 output.append(line + "\n");
             }
-            return output.toString();
+
+            String outputText = output.toString();
+            String expectedUnknownCommand = "Unknown command";
+            boolean hasAdditionalErrors = outputText.lines().anyMatch(
+                    currentLine -> currentLine.toLowerCase().contains("use> error:")
+                            && !currentLine.contains(expectedUnknownCommand));
+
+            if (hasAdditionalErrors) {
+                System.err.println("Error in USE output: \n" + outputText);
+            }
+
+            return outputText;
         } catch (IOException e) {
             System.err.println("Error reading output");
             throw new RuntimeException(e);
@@ -81,7 +94,7 @@ public class Use {
     }
 
     private void open(String diagramPath, String instancePath) {
-        // Open diagram and instance files     
+        // Open diagram and instance files
         File diagramFile = new File(diagramPath).getAbsoluteFile();
         File instanceFile = new File(instancePath).getAbsoluteFile();
 
@@ -95,17 +108,17 @@ public class Use {
         StringBuffer errors = new StringBuffer();
         open(diagramPath, instancePath);
         String output = readOutput("Open finalized");
-    
+
         String pattern = "(.*?\\n)?(.*?\\n)?(<input>:.*?\\n|Error:.*?\\n|Warning:.*?\\n|INTERNAL ERROR:.*?\\n)";
-    
+
         Pattern regex = Pattern.compile(pattern);
         Matcher matcher = regex.matcher(output);
-    
+
         while (matcher.find()) {
-            String previousLine1 = matcher.group(1);  // First previous line (optional)
-            String previousLine2 = matcher.group(2);  // Second previous line (optional)
-            String errorLine = matcher.group(3);      // Error line
-    
+            String previousLine1 = matcher.group(1); // First previous line (optional)
+            String previousLine2 = matcher.group(2); // Second previous line (optional)
+            String errorLine = matcher.group(3); // Error line
+
             if (errorLine != null && !errorLine.contains("GNUReadline in java.library.path")) {
                 if (previousLine1 != null && !previousLine1.equals("\n")) {
                     errors.append(previousLine1);
@@ -116,7 +129,7 @@ public class Use {
                 errors.append(errorLine).append("\n");
             }
         }
-    
+
         String syntaxErrors = errors.toString().trim().isEmpty() ? "OK" : errors.toString().trim();
         System.out.println(syntaxErrors);
         return syntaxErrors;
@@ -126,9 +139,9 @@ public class Use {
         open(diagramPath, instancePath);
         runCommand("check");
         runCommand("Check finalized"); // Marker
-        
+
         String output = readOutput("Check finalized");
-        
+
         // Trim result and return errors
         int start = output.indexOf("checking structure...");
         int end = output.indexOf("checked structure");
@@ -148,9 +161,9 @@ public class Use {
         open(diagramPath, instancePath);
         runCommand("check");
         runCommand("Check finalized"); // Marker
-        
+
         String output = readOutput("Check finalized");
-        
+
         // Trim result and return errors
         int start = output.indexOf("checking invariants...");
         output = output.substring(start);
@@ -167,10 +180,21 @@ public class Use {
         return invariantsErrors;
     }
 
+    public void instanceToPdf(String diagramPath, String instancePath) {
+        System.out.println("Generating PDF for instance: " + instancePath + " with diagram: " + diagramPath);
+        open(diagramPath, instancePath);
+        File instanceFile = new File(instancePath).getAbsoluteFile(); // Use works with absolute paths
+        instancePath = instanceFile.getPath().replace(".soil", ""); // Remove .soil extension
+        runCommand("export --hierarchical --spaceH 350 --spaceV 150 " + instancePath + ".pdf");
+        runCommand("InstanceToPdf finalized"); // Marker
+        readOutput("InstanceToPdf finalized");
+        System.out.println("PDF generated at: " + instancePath + ".pdf");
+    }
+
     // Main for testing purposes
     public static void main(String[] args) {
         String testDiagram = "./src/main/resources/prompts/bank/diagram.use";
-        String testInstance = "./src/main/resources/instances/CoT/bank/GPT_4O/11-03-2025--18-41-54/gen2/outputValid.soil";
+        String testInstance = "./src/main/resources/instances/Simple/bank/GEMINI_3_FLASH/16-02-2026--11-18-49/gen1/output.soil";
 
         Use use = new Use();
         use.checkSyntax(testDiagram, testInstance);
@@ -181,6 +205,10 @@ public class Use {
 
         use.checkInvariants(testDiagram, testInstance, "");
         System.out.println("\n\n");
+
+        use.instanceToPdf(testDiagram, testInstance);
+        System.out.println("\n\n");
+
         use.close();
     }
 }
