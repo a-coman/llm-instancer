@@ -11,7 +11,7 @@ public class CategoryPrompts {
         String baselinePrompt = 
             """
             # Category: Baseline Instances
-            Create a baseline instance{{size}}. This is an instance that represents a typical/standard scenario. Ensure every class and relationship is present in the instance at least once.
+            Create a baseline instance{{size}}. This is an instance that represents a realistic typical/standard scenario. Ensure every class and relationship is present in the instance at least once.
             """;
 
         String boundaryPrompt = 
@@ -26,7 +26,7 @@ public class CategoryPrompts {
         String complexPrompt = 
             """
             # Category: Complex Instances
-            Create a complex instance{{size}} that contains multiple interrelated entities and/or entities that are involved in multiple constraints.
+            Create a complex instance{{size}} that is realistic and contains multiple interrelated entities and/or entities that are involved in multiple constraints.
             """;
 
         String edgePrompt = 
