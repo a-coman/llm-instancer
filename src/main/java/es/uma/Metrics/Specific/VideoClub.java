@@ -18,6 +18,8 @@ import io.github.cdimascio.dotenv.Dotenv;
 
 public class VideoClub implements IMetrics {
 
+    private static final Pattern YEAR_PATTERN = Pattern.compile("(\\d{4})");
+
     private int validYear, validTitle, validGenre, validActors, validType;
     private int totalYear, totalTitle, totalGenre, totalActors, totalType;
     private ArrayList<String> invalidYears, invalidTitles, invalidGenres, invalidActors, invalidTypes;
@@ -52,7 +54,7 @@ public class VideoClub implements IMetrics {
         // Process each line
         for (String line : input.split("\n")) {
             line = line.trim();
-            
+
             if (line.startsWith("!new ")) {
                 processNewObject(line, items);
             } else if (line.startsWith("!") && line.contains(":=")) {
@@ -71,7 +73,7 @@ public class VideoClub implements IMetrics {
                 }
             }
         });
-        
+
         return results;
     }
 
@@ -84,17 +86,17 @@ public class VideoClub implements IMetrics {
         }
     }
 
-    private static void processProperty(String line, Map<String, Map<String, String>> items, 
-                                        Map<String, String> rentalDates) {
+    private static void processProperty(String line, Map<String, Map<String, String>> items,
+            Map<String, String> rentalDates) {
         Matcher matcher = Pattern.compile("!(\\w+)\\.(\\w+) := (.+)").matcher(line);
         if (matcher.find()) {
             String id = matcher.group(1);
             String prop = matcher.group(2);
             String rawValue = matcher.group(3).trim().replaceAll("['\"]", "");
-            
+
             // Process the value outside lambda to maintain effective finality
             final String processedValue = processValue(rawValue, id, rentalDates);
-            
+
             items.computeIfPresent(id, (k, v) -> {
                 v.put(prop, processedValue);
                 return v;
@@ -114,12 +116,12 @@ public class VideoClub implements IMetrics {
     }
 
     private static void processRelationship(String line, Map<String, List<String>> movieToActors,
-                                          Map<String, String> movieToRental) {
+            Map<String, String> movieToRental) {
         if (line.contains("into CassetteActor")) {
             Matcher matcher = Pattern.compile("!insert \\((\\w+), (\\w+)\\) into CassetteActor").matcher(line);
             if (matcher.find()) {
                 movieToActors.computeIfAbsent(matcher.group(1), k -> new ArrayList<>())
-                            .add(matcher.group(2));
+                        .add(matcher.group(2));
             }
         } else if (line.contains("into RentalCassette")) {
             Matcher matcher = Pattern.compile("!insert \\((\\w+), (\\w+)\\) into RentalCassette").matcher(line);
@@ -137,18 +139,20 @@ public class VideoClub implements IMetrics {
         return type != null && (type.equals("movie") || type.equals("series"));
     }
 
-    private static MovieRecord createMovieRecord(String id, Map<String, String> item, Map<String, Map<String, String>> items, Map<String, List<String>> movieToActors, Map<String, String> movieToRental,Map<String, String> rentalDates) {
+    private static MovieRecord createMovieRecord(String id, Map<String, String> item,
+            Map<String, Map<String, String>> items, Map<String, List<String>> movieToActors,
+            Map<String, String> movieToRental, Map<String, String> rentalDates) {
         String title = item.get("title");
         String genre = item.get("genre");
         String type = item.get("type");
-        
+
         // Get all actors if they exist
         List<String> actorNames = new ArrayList<>();
         if (movieToActors.containsKey(id)) {
             for (String actorId : movieToActors.get(id)) {
                 String actorName = Optional.ofNullable(items.get(actorId))
-                                         .map(actor -> actor.get("name"))
-                                         .orElse(null);
+                        .map(actor -> actor.get("name"))
+                        .orElse(null);
                 if (actorName != null) {
                     actorNames.add(actorName);
                 }
@@ -157,17 +161,29 @@ public class VideoClub implements IMetrics {
 
         // Get year from rental date if it exists
         String year = Optional.ofNullable(movieToRental.get(id))
-                             .map(rentalDates::get)
-                             .map(date -> date.substring(0, 4))
-                             .orElse(null);
+                .map(rentalDates::get)
+                .map(VideoClub::extractYear)
+                .orElse(null);
 
         return new MovieRecord(
-            title,
-            year,
-            genre,
-            actorNames.isEmpty() ? null : String.join(", ", actorNames),
-            type
-        );
+                title,
+                year,
+                genre,
+                actorNames.isEmpty() ? null : String.join(", ", actorNames),
+                type);
+    }
+
+    private static String extractYear(String rentalDate) {
+        if (rentalDate == null || rentalDate.isBlank()) {
+            return null;
+        }
+
+        Matcher matcher = YEAR_PATTERN.matcher(rentalDate);
+        if (matcher.find()) {
+            return matcher.group(1);
+        }
+
+        return null;
     }
 
     private MovieRecord getMovieRecord(String movieTitle) {
@@ -188,10 +204,10 @@ public class VideoClub implements IMetrics {
             totalTitle++;
             MovieRecord apiMovieRecord = getMovieRecord(title);
             Utilities.waitForMS(100); // To avoid rate limiting
-    
+
             System.out.println("API   : " + apiMovieRecord);
             System.out.println("Parsed: " + movieRecord);
-    
+
             if (apiMovieRecord != null && apiMovieRecord.Title() != null) {
                 validTitle++;
                 // Compare Year if both exist
@@ -202,23 +218,25 @@ public class VideoClub implements IMetrics {
                         if (Integer.parseInt(movieRecord.Year()) >= Integer.parseInt(apiMovieRecord.Year())) {
                             validYear++;
                         } else {
-                            invalidYears.add("Rental year: " + movieRecord.Year() + " < " + "Release year: " + apiMovieRecord.Year()); 
+                            invalidYears.add("Rental year: " + movieRecord.Year() + " < " + "Release year: "
+                                    + apiMovieRecord.Year());
                         }
                     } catch (NumberFormatException e) {
                         // Skip invalid year formats
                     }
                 }
-    
+
                 // Compare Type if both exist
                 if (movieRecord.Type() != null && apiMovieRecord.Type() != null) {
                     totalType++;
                     if (apiMovieRecord.Type().equalsIgnoreCase(movieRecord.Type())) {
                         validType++;
                     } else {
-                        invalidTypes.add("Parsed type: " + movieRecord.Type() + " != " + "API type: " + apiMovieRecord.Type());
+                        invalidTypes.add(
+                                "Parsed type: " + movieRecord.Type() + " != " + "API type: " + apiMovieRecord.Type());
                     }
                 }
-    
+
                 // Compare Actors if both exist
                 if (movieRecord.getActorsList() != null && apiMovieRecord.getActorsList() != null) {
                     for (String actor : movieRecord.getActorsList()) {
@@ -231,7 +249,7 @@ public class VideoClub implements IMetrics {
                         }
                     }
                 }
-    
+
                 // Compare Genres if both exist
                 if (movieRecord.getGenreList() != null && apiMovieRecord.getGenreList() != null) {
                     for (String genre : movieRecord.getGenreList()) {
@@ -240,17 +258,18 @@ public class VideoClub implements IMetrics {
                                 .anyMatch(apiGenre -> apiGenre.equalsIgnoreCase(genre))) {
                             validGenre++;
                         } else {
-                            invalidGenres.add("Parsed genre: " + genre + " != " + "API genre: " + apiMovieRecord.getGenreList());
+                            invalidGenres.add(
+                                    "Parsed genre: " + genre + " != " + "API genre: " + apiMovieRecord.getGenreList());
                         }
                     }
                 }
             } else {
                 invalidTitles.add(movieRecord.Title());
             }
-            
+
         }
 
-        System.out.println("Valid Title: " + validTitle + "/" + totalTitle); 
+        System.out.println("Valid Title: " + validTitle + "/" + totalTitle);
         System.out.println("Valid Year: " + validYear + "/" + totalYear);
         System.out.println("Valid Genre: " + validGenre + "/" + totalGenre);
         System.out.println("Valid Actors: " + validActors + "/" + totalActors);
@@ -263,8 +282,8 @@ public class VideoClub implements IMetrics {
         if (!(otherMetrics instanceof VideoClub)) {
             return;
         }
-        
-        VideoClub other = (VideoClub) otherMetrics; 
+
+        VideoClub other = (VideoClub) otherMetrics;
         this.validYear += other.validYear;
         this.validTitle += other.validTitle;
         this.validGenre += other.validGenre;
@@ -290,20 +309,21 @@ public class VideoClub implements IMetrics {
         sb.append("| Videoclub | Invalid | Total | Failure (%) | \n");
         sb.append("|---|---|---|---| \n");
         sb.append(Utilities.formatMetricRow("Titles", totalTitle - validTitle, totalTitle))
-          .append(Utilities.formatMetricRow("Types (out of valid Titles)", totalType - validType, totalType))
-          .append(Utilities.formatMetricRow("Genres (out of valid Titles)", totalGenre - validGenre, totalGenre))
-          .append(Utilities.formatMetricRow("Actors (out of valid Titles)", totalActors - validActors, totalActors))
-          .append(Utilities.formatMetricRow("Release year > Rental year (out of valid Titles)", totalYear - validYear, totalYear));
+                .append(Utilities.formatMetricRow("Types (out of valid Titles)", totalType - validType, totalType))
+                .append(Utilities.formatMetricRow("Genres (out of valid Titles)", totalGenre - validGenre, totalGenre))
+                .append(Utilities.formatMetricRow("Actors (out of valid Titles)", totalActors - validActors,
+                        totalActors))
+                .append(Utilities.formatMetricRow("Release year > Rental year (out of valid Titles)",
+                        totalYear - validYear, totalYear));
 
         sb.append(Utilities.getStringList("Failed Titles", invalidTitles))
-          .append(Utilities.getStringList("Failed Types", invalidTypes))
-          .append(Utilities.getStringList("Failed Genres", invalidGenres))
-          .append(Utilities.getStringList("Failed Actors", invalidActors))
-          .append(Utilities.getStringList("Failed Years", invalidYears));
+                .append(Utilities.getStringList("Failed Types", invalidTypes))
+                .append(Utilities.getStringList("Failed Genres", invalidGenres))
+                .append(Utilities.getStringList("Failed Actors", invalidActors))
+                .append(Utilities.getStringList("Failed Years", invalidYears));
 
         return sb.toString();
     }
-    
 
     // Main for testing purposes
     public static void main(String[] args) {
@@ -311,21 +331,21 @@ public class VideoClub implements IMetrics {
         // Dotenv dotenv = Dotenv.load();
         // String apiKey = dotenv.get("OMDB_KEY");
         // String movieTitle = "Guardians of the Galaxy Vol. 2";
-        // String url = "http://www.omdbapi.com/?apikey=" + apiKey + "&t=" + movieTitle.replace(" ", "%20");
+        // String url = "http://www.omdbapi.com/?apikey=" + apiKey + "&t=" +
+        // movieTitle.replace(" ", "%20");
 
         // MovieRecord movie = Utilities.getRequest(url, MovieRecord.class);
         // if (movie != null) {
-        //     System.out.println("Title: " + movie.Title());
-        //     System.out.println("Year: " + movie.Year());
-        //     System.out.println("Genres: " + movie.getGenreList());
-        //     System.out.println("Actors: " + movie.getActorsList());
-        //     System.out.println("Type: " + movie.Type());
+        // System.out.println("Title: " + movie.Title());
+        // System.out.println("Year: " + movie.Year());
+        // System.out.println("Genres: " + movie.getGenreList());
+        // System.out.println("Actors: " + movie.getActorsList());
+        // System.out.println("Type: " + movie.Type());
         // }
 
         VideoClub videoClub = new VideoClub();
         videoClub.calculate("diagramPath", instancePath);
-        System.out.println("\n\n"+videoClub);
-
+        System.out.println("\n\n" + videoClub);
 
     }
 }

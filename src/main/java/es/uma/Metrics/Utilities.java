@@ -114,6 +114,11 @@ public class Utilities {
         
         AddressRecord addressRecord = Utilities.getRequest(url, AddressRecord.class);
         
+        if (addressRecord == null) {
+            System.out.println("API request failed or returned no results for address: " + street + ", " + city + ", " + country);
+            return false;
+        }
+
         System.out.println("GET Address: " + houseNr + ", " + street + ", " + city + ", " + country);
         System.out.println("Latitude: " + addressRecord.latitude());
         System.out.println("Longitude: " + addressRecord.longitude());
@@ -144,6 +149,11 @@ public class Utilities {
         String url = "https://api.geoapify.com/v1/geocode/search?limit=1&format=json&apiKey=" + apiKey + "&text=" + encodedAddress;
         AddressRecord addressRecord = Utilities.getRequest(url, AddressRecord.class);
         
+        if (addressRecord == null) {
+            System.out.println("API request failed or returned no results for address: " + address);
+            return false;
+        }
+
         System.out.println("GET Address: " + address);
         System.out.println("Latitude: " + addressRecord.latitude());
         System.out.println("Longitude: " + addressRecord.longitude());
@@ -168,6 +178,13 @@ public class Utilities {
         String url = "https://api.geoapify.com/v1/geocode/search?format=json&limit=1&apiKey=" + apiKey + "&text=" + encodedAddress;
         AddressRecord addressRecord = Utilities.getRequest(url, AddressRecord.class);
         
+        if (addressRecord == null) {
+            System.err.println("API request failed or returned no results for address: " + address);
+            results.put("validAddress", false);
+            results.put("validLatLon", false);
+            return results;
+        }
+
         System.out.println("GET Address: " + address);
         System.out.println("Latitude: " + addressRecord.latitude() + " ?= " + latitude);
         System.out.println("Longitude: " + addressRecord.longitude() + " ?= " + longitude);
