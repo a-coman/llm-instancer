@@ -62,9 +62,6 @@ public class Simple {
                 attempts++;
             } while (!check.isEmpty() && attempts < MAX_ATTEMPTS);
 
-            // Generate instance PDF
-            use.instanceToPdf(experiment.getUmlPath(), instancePath+"output.soil");
-
             // Utils.waitFor(1); // To avoid rate limiting
         }
     }

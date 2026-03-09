@@ -2,6 +2,7 @@ package es.uma.Metrics;
 
 import es.uma.Experiment;
 import es.uma.Model;
+import es.uma.Use;
 import es.uma.Utils;
 import es.uma.CoT.CategoryPrompts;
 
@@ -53,6 +54,9 @@ public class MetricsRunner {
                     genGeneral.aggregate(catGeneral);
                     genSpecific.aggregate(catSpecific);
                     
+                    // Export Instance PDF
+                    Use use = new Use();
+                    use.instanceToPdf(diagramPath, instancePath);
                 }
             }
 
@@ -63,6 +67,10 @@ public class MetricsRunner {
                 genSpecific.calculate(diagramPath, instancePath);
                 String instance = Utils.readFile(instancePath);
                 sb.append("```\n").append(instance).append("\n```\n");
+
+                // Export Instance PDF
+                Use use = new Use();
+                use.instanceToPdf(diagramPath, instancePath);
             }
 
             if (experiment.getType().isEmpty()) {
