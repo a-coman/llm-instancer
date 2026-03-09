@@ -8,5 +8,6 @@ public enum Model {
     DEEPSEEK_R3,
     GEMINI_2_PRO,
     GEMINI_2_REASONER,
-    GEMINI_2_FLASH_LITE;
+    FREE,
+    GEMINI_3_FLASH;
 }

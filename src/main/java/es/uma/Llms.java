@@ -14,7 +14,7 @@ import io.github.cdimascio.dotenv.Dotenv;
 
 public class Llms {
 
-    public static final int MAX_TOKENS = 400000;
+    public static final int MAX_TOKENS = 128000;
 
     public static <T> T getAgent(Class<T> agent, ChatModel model) {
         Listener.setCurrentAgent(agent.getSimpleName());
@@ -27,83 +27,93 @@ public class Llms {
 
     public static ChatModel getModel(Model model) {
         Dotenv dotenv = Dotenv.load();
-        
+
         switch (model) {
             case GPT_5_2:
                 return OpenAiChatModel.builder()
-                    .apiKey(dotenv.get("OPENROUTER_API_KEY"))
-                    .baseUrl("https://openrouter.ai/api/v1")
-                    .modelName("openai/gpt-5.2")
-                    .logRequests(true)
-                    .logResponses(true)
-                    .listeners(List.of(new Listener()))
-                    .timeout(Duration.ofSeconds(180))
-                    .build();
-            case GPT_4O: 
+                        .apiKey(dotenv.get("OPENROUTER_API_KEY"))
+                        .baseUrl("https://openrouter.ai/api/v1")
+                        .modelName("openai/gpt-5.2")
+                        .logRequests(true)
+                        .logResponses(true)
+                        .listeners(List.of(new Listener()))
+                        .timeout(Duration.ofSeconds(180))
+                        .build();
+            case FREE:
                 return OpenAiChatModel.builder()
-                    .apiKey(dotenv.get("OPENAI_KEY"))
-                    .modelName("gpt-4o")
-                    .logRequests(true)
-                    .logResponses(true)
-                    .listeners(List.of(new Listener()))
-                    .maxCompletionTokens(16384)
-                    .temperature(1.0)
-                    .topP(1.0)
-                    .maxRetries(10)
-                    .timeout(Duration.ofSeconds(180))
-                    .build();
+                        .apiKey(dotenv.get("OPENROUTER_API_KEY"))
+                        .baseUrl("https://openrouter.ai/api/v1")
+                        .modelName("openrouter/free")
+                        .logRequests(true)
+                        .logResponses(true)
+                        .listeners(List.of(new Listener()))
+                        .timeout(Duration.ofSeconds(180))
+                        .build();
+            case GPT_4O:
+                return OpenAiChatModel.builder()
+                        .apiKey(dotenv.get("OPENAI_KEY"))
+                        .modelName("gpt-4o")
+                        .logRequests(true)
+                        .logResponses(true)
+                        .listeners(List.of(new Listener()))
+                        .maxCompletionTokens(16384)
+                        .temperature(1.0)
+                        .topP(1.0)
+                        .maxRetries(10)
+                        .timeout(Duration.ofSeconds(180))
+                        .build();
             case GPT_O3_MINI:
                 return OpenAiChatModel.builder()
-                    .apiKey(dotenv.get("OPENAI_KEY"))
-                    .modelName("o3-mini-2025-01-31")
-                    .logRequests(true)
-                    .logResponses(true)
-                    .listeners(List.of(new Listener()))
-                    .build();
+                        .apiKey(dotenv.get("OPENAI_KEY"))
+                        .modelName("o3-mini-2025-01-31")
+                        .logRequests(true)
+                        .logResponses(true)
+                        .listeners(List.of(new Listener()))
+                        .build();
             case DEEPSEEK_V3:
                 return OpenAiChatModel.builder()
-                    .baseUrl("https://api.deepseek.com")
-                    .apiKey(dotenv.get("DEEPSEEK_KEY"))
-                    .modelName("deepseek-chat")
-                    .logRequests(true)
-                    .logResponses(true)
-                    .listeners(List.of(new Listener()))
-                    .maxRetries(10)
-                    .timeout(Duration.ofSeconds(180))
-                    .build();
+                        .baseUrl("https://api.deepseek.com")
+                        .apiKey(dotenv.get("DEEPSEEK_KEY"))
+                        .modelName("deepseek-chat")
+                        .logRequests(true)
+                        .logResponses(true)
+                        .listeners(List.of(new Listener()))
+                        .maxRetries(10)
+                        .timeout(Duration.ofSeconds(180))
+                        .build();
             case DEEPSEEK_R3:
                 return OpenAiChatModel.builder()
-                    .baseUrl("https://api.deepseek.com")
-                    .apiKey(dotenv.get("DEEPSEEK_KEY"))
-                    .modelName("deepseek-reasoner")
-                    .logRequests(true)
-                    .logResponses(true)
-                    .listeners(List.of(new Listener()))
-                    .maxRetries(10)
-                    .timeout(Duration.ofSeconds(180))
-                    .build();
+                        .baseUrl("https://api.deepseek.com")
+                        .apiKey(dotenv.get("DEEPSEEK_KEY"))
+                        .modelName("deepseek-reasoner")
+                        .logRequests(true)
+                        .logResponses(true)
+                        .listeners(List.of(new Listener()))
+                        .maxRetries(10)
+                        .timeout(Duration.ofSeconds(180))
+                        .build();
             case GEMINI_2_PRO:
                 return GoogleAiGeminiChatModel.builder()
-                    .apiKey(dotenv.get("GEMINI_KEY"))
-                    .modelName("gemini-2.0-pro-exp-02-05")
-                    .logRequestsAndResponses(true)
-                    .listeners(List.of(new Listener()))
-                    .build();
+                        .apiKey(dotenv.get("GEMINI_KEY"))
+                        .modelName("gemini-2.0-pro-exp-02-05")
+                        .logRequestsAndResponses(true)
+                        .listeners(List.of(new Listener()))
+                        .build();
             case GEMINI_2_REASONER:
                 return GoogleAiGeminiChatModel.builder()
-                    .apiKey(dotenv.get("GEMINI_KEY"))
-                    .modelName("gemini-2.0-flash-thinking-exp-01-21")
-                    .logRequestsAndResponses(true)
-                    .listeners(List.of(new Listener()))
-                    .build();
-            case GEMINI_2_FLASH_LITE:
+                        .apiKey(dotenv.get("GEMINI_KEY"))
+                        .modelName("gemini-2.0-flash-thinking-exp-01-21")
+                        .logRequestsAndResponses(true)
+                        .listeners(List.of(new Listener()))
+                        .build();
+            case GEMINI_3_FLASH:
                 return GoogleAiGeminiChatModel.builder()
-                    .apiKey(dotenv.get("GEMINI_KEY"))
-                    .maxOutputTokens(null) // Limit for testing
-                    .modelName("gemini-2.0-flash-lite-preview-02-05")
-                    .logRequestsAndResponses(true)
-                    .listeners(List.of(new Listener()))
-                    .build();
+                        .apiKey(dotenv.get("GEMINI_KEY"))
+                        .maxOutputTokens(null) // Limit for testing
+                        .modelName("gemini-3-flash-preview")
+                        .logRequestsAndResponses(true)
+                        .listeners(List.of(new Listener()))
+                        .build();
             default:
                 throw new IllegalArgumentException("Invalid model name: " + model);
         }

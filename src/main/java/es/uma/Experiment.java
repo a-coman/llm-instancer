@@ -6,7 +6,7 @@ import es.uma.CoT.CoT;
 import es.uma.Simple.Simple;
 
 public class Experiment {
-    
+
     private String umlPath;
     private String examplePath; // Syntax example
     private String instancePath;
@@ -26,17 +26,19 @@ public class Experiment {
         this.sizePrompt = size.getPrompt();
         umlPath = "./src/main/resources/prompts/" + system + "/diagram.use";
         examplePath = "./src/main/resources/prompts/example.soil";
-        
+
         if (size.equals(Size.NONE)) {
-            instancePath = "./src/main/resources/instances/" + type + "/" + system + "/" + model.toString() + "/" + time + "/";    
+            instancePath = "./src/main/resources/instances/" + type + "/" + system + "/" + model.toString() + "/" + time
+                    + "/";
         } else {
-            instancePath = "./src/main/resources/instances/" + type + "/" + system + "/" + model.toString() + "/" + time + "-" + size + "/";
+            instancePath = "./src/main/resources/instances/" + type + "/" + system + "/" + model.toString() + "/" + time
+                    + "-" + size + "/";
         }
-        
+
         Logger.setExperiment(this);
     }
 
-    public Model getModelName(){
+    public Model getModelName() {
         return modelName;
     }
 
@@ -95,9 +97,12 @@ public class Experiment {
     private int calculateRepetitions(String type, int repetitions) {
         switch (type) {
             case "CoT":
-                // If repetitions is less than the number of categories, we generate at least one for each category. Otherwise, we round up to the nearest integer that fits for the number of categories.
+                // If repetitions is less than the number of categories, we generate at least
+                // one for each category. Otherwise, we round up to the nearest integer that
+                // fits for the number of categories.
                 CategoryPrompts CATEGORY_PROMPTS = new CategoryPrompts("");
-                int numberOfGenerations = repetitions < CATEGORY_PROMPTS.list.size() ? 1 : (int) Math.ceil((double) repetitions / CATEGORY_PROMPTS.list.size());
+                int numberOfGenerations = repetitions < CATEGORY_PROMPTS.list.size() ? 1
+                        : (int) Math.ceil((double) repetitions / CATEGORY_PROMPTS.list.size());
                 return numberOfGenerations;
             default:
                 return repetitions;
