@@ -7,7 +7,7 @@ public class Main {
         RawConsoleLogs.run(context -> {
             Experiment experiment = null;
 
-            experiment = new Experiment(Model.FREE, "CoT", "bank", 1, Size.NONE);
+            experiment = new Experiment(Model.GPT_4O, "CoT", "videoclub", 30, Size.NONE);
             context.setOutputPath(experiment.getInstancePath());
             experiment.run();
             Logger.save(experiment.getInstancePath());

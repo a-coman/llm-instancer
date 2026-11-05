@@ -185,7 +185,7 @@ public class Use {
         open(diagramPath, instancePath);
         File instanceFile = new File(instancePath).getAbsoluteFile(); // Use works with absolute paths
         instancePath = instanceFile.getPath().replace(".soil", ""); // Remove .soil extension
-        runCommand("export --hierarchical --spaceH 350 --spaceV 150 " + instancePath + ".pdf");
+        runCommand("export --hierarchical --spaceH 350 --spaceV 150 \"" + instancePath + ".pdf\"");
         runCommand("InstanceToPdf finalized"); // Marker
         readOutput("InstanceToPdf finalized");
         System.out.println("PDF generated at: " + instancePath + ".pdf");

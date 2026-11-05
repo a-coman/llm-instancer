@@ -14,7 +14,10 @@ import io.github.cdimascio.dotenv.Dotenv;
 
 public class Llms {
 
-    public static final int MAX_TOKENS = 128000;
+    public static final int MAX_TOKENS = 100000;
+    // Max GPT-4o => 128k tokens, but we set lower because:
+    // - tokenizer is not exact
+    // - input + output tokens count against the limit, ie. max output = 16384
 
     public static <T> T getAgent(Class<T> agent, ChatModel model) {
         Listener.setCurrentAgent(agent.getSimpleName());
@@ -39,6 +42,16 @@ public class Llms {
                         .listeners(List.of(new Listener()))
                         .timeout(Duration.ofSeconds(180))
                         .build();
+            case GPT_4O:
+                return OpenAiChatModel.builder()
+                        .apiKey(dotenv.get("OPENROUTER_API_KEY"))
+                        .baseUrl("https://openrouter.ai/api/v1")
+                        .modelName("openai/gpt-4o")
+                        .logRequests(true)
+                        .logResponses(true)
+                        .listeners(List.of(new Listener()))
+                        .timeout(Duration.ofSeconds(180))
+                        .build();
             case FREE:
                 return OpenAiChatModel.builder()
                         .apiKey(dotenv.get("OPENROUTER_API_KEY"))
@@ -49,19 +62,19 @@ public class Llms {
                         .listeners(List.of(new Listener()))
                         .timeout(Duration.ofSeconds(180))
                         .build();
-            case GPT_4O:
-                return OpenAiChatModel.builder()
-                        .apiKey(dotenv.get("OPENAI_KEY"))
-                        .modelName("gpt-4o")
-                        .logRequests(true)
-                        .logResponses(true)
-                        .listeners(List.of(new Listener()))
-                        .maxCompletionTokens(16384)
-                        .temperature(1.0)
-                        .topP(1.0)
-                        .maxRetries(10)
-                        .timeout(Duration.ofSeconds(180))
-                        .build();
+            // case GPT_4O:
+            //     return OpenAiChatModel.builder()
+            //             .apiKey(dotenv.get("OPENAI_KEY"))
+            //             .modelName("gpt-4o")
+            //             .logRequests(true)
+            //             .logResponses(true)
+            //             .listeners(List.of(new Listener()))
+            //             .maxCompletionTokens(16384)
+            //             .temperature(1.0)
+            //             .topP(1.0)
+            //             .maxRetries(10)
+            //             .timeout(Duration.ofSeconds(180))
+            //             .build();
             case GPT_O3_MINI:
                 return OpenAiChatModel.builder()
                         .apiKey(dotenv.get("OPENAI_KEY"))
