@@ -5,3 +5,5 @@ src/main/resources/use-7.1.1/
 src/main/resources/use-7.5.0/
 src/main/resources/instances/
 Test
+.DS_Store
+src/main/resources/prompts/examples/

@@ -1,8 +1,0 @@
-model Example
-
-class Location
-attributes
-    address : String
-    latitude : Real
-    longitude : Real
-end
