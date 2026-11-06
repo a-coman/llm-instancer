@@ -2,6 +2,7 @@ package es.uma;
 
 import dev.langchain4j.model.chat.ChatModel;
 import es.uma.CoT.CategoryPrompts;
+import es.uma.ProjectPaths.ModelSet;
 import es.uma.CoT.CoT;
 import es.uma.Simple.Simple;
 
@@ -17,23 +18,26 @@ public class Experiment {
     private String sizePrompt;
     private Model modelName;
 
-    public Experiment(Model model, String type, String system, int repetitions, String time, Size size) {
+    public Experiment(Model model, String type, String system, int repetitions, String time, Size size,
+            ModelSet modelSet) {
         this.system = system;
         this.type = type;
         this.modelName = model;
         this.model = Llms.getModel(model);
         this.repetitions = calculateRepetitions(type, repetitions);
         this.sizePrompt = size.getPrompt();
-        umlPath = "./src/main/resources/prompts/" + system + "/diagram.use";
-        examplePath = "./src/main/resources/prompts/example.soil";
+        umlPath = ProjectPaths.diagramPath(system, modelSet);
+        examplePath = ProjectPaths.modelPath("syntax_example.soil");
 
-        if (size.equals(Size.NONE)) {
-            instancePath = "./src/main/resources/instances/" + type + "/" + system + "/" + model.toString() + "/" + time
-                    + "/";
-        } else {
-            instancePath = "./src/main/resources/instances/" + type + "/" + system + "/" + model.toString() + "/" + time
-                    + "-" + size + "/";
+        // Folder name: <time>[-<size>][-ocl]
+        String folder = time;
+        if (!size.equals(Size.NONE)) {
+            folder += "-" + size;
         }
+        if (modelSet == ModelSet.MODELS_WITH_OCL) {
+            folder += "-ocl";
+        }
+        instancePath = ProjectPaths.instancePath(model, type, system, folder);
 
         Logger.setExperiment(this);
     }
@@ -42,24 +46,16 @@ public class Experiment {
         return modelName;
     }
 
-    // For MetricsRunner Scalability
-    public Experiment(String system, String instancePath) {
-        this.umlPath = "./src/main/resources/prompts/" + system + "/diagram.use";
-        this.instancePath = instancePath;
-        this.system = system;
-        this.type = "";
-        this.model = null;
-        this.repetitions = 1;
-        this.sizePrompt = null;
-        this.examplePath = null;
+    public Experiment(Model model, String type, String system, int repetitions, Size size, ModelSet modelSet) {
+        this(model, type, system, repetitions, Utils.getTime(), size, modelSet);
     }
 
     public Experiment(Model model, String type, String system, int repetitions, Size size) {
-        this(model, type, system, repetitions, Utils.getTime(), size);
+        this(model, type, system, repetitions, size, ModelSet.MODELS);
     }
 
     public Experiment(Model model, String type, String system, int repetitions, String time) {
-        this(model, type, system, repetitions, time, Size.NONE);
+        this(model, type, system, repetitions, time, Size.NONE, ModelSet.MODELS);
     }
 
     public String getUmlPath() {

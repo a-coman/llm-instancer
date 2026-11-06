@@ -50,7 +50,7 @@ public class Logger {
         metrics.append("| System | " + experiment.getSystem() + " |\n");
         metrics.append("| Context window tokens | " + Llms.MAX_TOKENS + " |\n");
         metrics.append("| Number of generations | " + experiment.getRepetitions() + " |\n");
-        metrics.append("| Generations time | " + String.format("%.2f", genTime) + " seconds |\n");
+        metrics.append("| Generations time | " + String.format(java.util.Locale.US, "%.2f", genTime) + " seconds |\n");
         metrics.append("| Sum of input tokens | " + sumOfInputTokens + " |\n");
         metrics.append("| Sum of output tokens | " + sumOfOutputTokens + " |\n");
         metrics.append("| Sum of total tokens | " + sumOfTotalTokens + " |\n");

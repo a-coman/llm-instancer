@@ -23,8 +23,7 @@ public class Use {
                 pb = new ProcessBuilder("bash", "-c", "java -jar use-gui.jar -nogui");
             }
 
-            // pb.directory(new File("./src/main/resources/use-7.1.1/lib/"));
-            pb.directory(new File("./src/main/resources/use-7.5.0/lib/"));
+            pb.directory(UseLocator.libDir().toFile());
             // Check and add JAVA to path
             String javaPath = System.getenv("JAVA_HOME");
             if (javaPath == null) {
@@ -193,8 +192,8 @@ public class Use {
 
     // Main for testing purposes
     public static void main(String[] args) {
-        String testDiagram = "./src/main/resources/prompts/bank/diagram.use";
-        String testInstance = "./src/main/resources/instances/Simple/bank/GEMINI_3_FLASH/16-02-2026--11-18-49/gen1/output.soil";
+        String testDiagram = ProjectPaths.diagramPath("bank");
+        String testInstance = ProjectPaths.modelPath("bank/example.soil");
 
         Use use = new Use();
         use.checkSyntax(testDiagram, testInstance);
@@ -204,9 +203,6 @@ public class Use {
         System.out.println("\n\n");
 
         use.checkInvariants(testDiagram, testInstance, "");
-        System.out.println("\n\n");
-
-        use.instanceToPdf(testDiagram, testInstance);
         System.out.println("\n\n");
 
         use.close();
