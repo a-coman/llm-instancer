@@ -1,5 +1,9 @@
 # llm-instancer
 
+**Paper**: "LLM-based Generation of Realistic and Diverse Domain Model Instances". [ArXiv Preprint](https://arxiv.org/pdf/2604.10350)
+
+**Repository**: Main repository with examples [instagen](https://github.com/a-coman/instagen)
+
 This project aims to streamline the generation, and validation of UML/OCL-based instances of class digrams. The main objective is to investigate the feasability of using AI models for these task and assist in the automated creation of instances in `.soil` format, ensuring adherence to constraints and multiplicities defined in the diagrams, while creating diverse intances that cover various scenarios and edge cases. 
 
 The project has two approaches that use the [LangChain4j](https://github.com/langchain4j/langchain4j) library to interact with the OpenAI API and create this two AI pipelines:
