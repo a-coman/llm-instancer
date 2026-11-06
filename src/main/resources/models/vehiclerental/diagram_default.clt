@@ -1,0 +1,737 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<diagram_Layout version="13">
+    <diagramOptions>
+        <autolayout>false</autolayout>
+        <antialiasing>true</antialiasing>
+        <showassocnames>false</showassocnames>
+        <showattributes>true</showattributes>
+        <showmultiplicities>true</showmultiplicities>
+        <showoperations>true</showoperations>
+        <showrolenames>true</showrolenames>
+        <showgrid>false</showgrid>
+    </diagramOptions>
+    <node id="Vehicle" sizeCalculated="true" type="Class">
+        <name>Vehicle</name>
+        <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyFixed">
+            <x>343.92496744791663</x>
+            <y>35.0</y>
+        </strategy>
+        <hidden>false</hidden>
+    </node>
+    <node id="RentalOffice" sizeCalculated="true" type="Class">
+        <name>RentalOffice</name>
+        <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyFixed">
+            <x>86.04557291666666</x>
+            <y>59.5</y>
+        </strategy>
+        <hidden>false</hidden>
+    </node>
+    <node id="Company" sizeCalculated="true" type="Class">
+        <name>Company</name>
+        <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyFixed">
+            <x>393.3177490234375</x>
+            <y>520.5</y>
+        </strategy>
+        <hidden>false</hidden>
+    </node>
+    <node id="Customer" sizeCalculated="true" type="Class">
+        <name>Customer</name>
+        <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyFixed">
+            <x>79.75699869791663</x>
+            <y>434.5</y>
+        </strategy>
+        <hidden>false</hidden>
+    </node>
+    <node id="RentalAgreement" sizeCalculated="true" type="Class">
+        <name>RentalAgreement</name>
+        <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyFixed">
+            <x>56.4168701171875</x>
+            <y>233.0</y>
+        </strategy>
+        <hidden>false</hidden>
+    </node>
+    <node id="Individual" sizeCalculated="true" type="Class">
+        <name>Individual</name>
+        <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyFixed">
+            <x>352.3441162109375</x>
+            <y>373.0</y>
+        </strategy>
+        <hidden>false</hidden>
+    </node>
+    <node id="Truck" sizeCalculated="true" type="Class">
+        <name>Truck</name>
+        <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyFixed">
+            <x>376.75699869791663</x>
+            <y>218.0</y>
+        </strategy>
+        <hidden>false</hidden>
+    </node>
+    <node id="Date" sizeCalculated="true" type="DataType">
+        <name>Date</name>
+        <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyFixed">
+            <x>598.6151123046875</x>
+            <y>37.0</y>
+        </strategy>
+        <hidden>false</hidden>
+    </node>
+    <node id="State" sizeCalculated="true" type="Enumeration">
+        <name>State</name>
+        <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyFixed">
+            <x>606.1234130859375</x>
+            <y>135.0</y>
+        </strategy>
+        <hidden>false</hidden>
+    </node>
+    <node id="VehicleTypeCode" sizeCalculated="true" type="Enumeration">
+        <name>VehicleTypeCode</name>
+        <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyFixed">
+            <x>593.4896240234375</x>
+            <y>357.0</y>
+        </strategy>
+        <hidden>false</hidden>
+    </node>
+    <edge type="BinaryEdge">
+        <source>RentalAgreement</source>
+        <target>Customer</target>
+        <name>RentalAgreementCustomer</name>
+        <properties>
+            <edgeproperty id="RentalAgreementCustomer::target::rolename"
+                sizeCalculated="true" type="rolename" userDefined="true" visible="true">
+                <name>customer</name>
+                <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyRelativeToAttached">
+                    <userOffsetX>2.0</userOffsetX>
+                    <userOffsetY>2.0</userOffsetY>
+                    <attached>RentalAgreementCustomer::WayPoint::1</attached>
+                    <offset_x>8</offset_x>
+                    <offset_y>8</offset_y>
+                    <placement>TOP</placement>
+                </strategy>
+                <hidden>false</hidden>
+            </edgeproperty>
+            <edgeproperty
+                id="RentalAgreementCustomer::target::multiplicity"
+                sizeCalculated="true" type="multiplicity"
+                userDefined="true" visible="true">
+                <name>1</name>
+                <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyRelativeToAttached">
+                    <userOffsetX>-17.0</userOffsetX>
+                    <userOffsetY>-8.0</userOffsetY>
+                    <attached>RentalAgreementCustomer::WayPoint::1</attached>
+                    <offset_x>8</offset_x>
+                    <offset_y>8</offset_y>
+                    <placement>BOTTOM</placement>
+                </strategy>
+                <hidden>false</hidden>
+            </edgeproperty>
+            <edgeproperty id="RentalAgreementCustomer::AssociationName"
+                sizeCalculated="true" type="associationName"
+                userDefined="false" visible="true">
+                <name>RentalAgreementCustomer</name>
+                <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyInBetween">
+                    <userOffsetX>0.0</userOffsetX>
+                    <userOffsetY>0.0</userOffsetY>
+                    <offsetX>0.0</offsetX>
+                    <offsetY>-10.0</offsetY>
+                    <related length="2">
+                        <related0>RentalAgreementCustomer::WayPoint::0</related0>
+                        <related1>RentalAgreementCustomer::WayPoint::1</related1>
+                    </related>
+                </strategy>
+                <hidden>false</hidden>
+            </edgeproperty>
+            <edgeproperty
+                id="RentalAgreementCustomer::source::multiplicity"
+                sizeCalculated="true" type="multiplicity"
+                userDefined="true" visible="true">
+                <name>*</name>
+                <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyRelativeToAttached">
+                    <userOffsetX>56.0</userOffsetX>
+                    <userOffsetY>19.0</userOffsetY>
+                    <attached>RentalAgreementCustomer::WayPoint::0</attached>
+                    <offset_x>8</offset_x>
+                    <offset_y>8</offset_y>
+                    <placement>BOTTOM</placement>
+                </strategy>
+                <hidden>false</hidden>
+            </edgeproperty>
+            <edgeproperty id="RentalAgreementCustomer::source::rolename"
+                sizeCalculated="true" type="rolename" userDefined="true" visible="true">
+                <name>rentalAgreement</name>
+                <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyRelativeToAttached">
+                    <userOffsetX>96.0</userOffsetX>
+                    <userOffsetY>4.0</userOffsetY>
+                    <attached>RentalAgreementCustomer::WayPoint::0</attached>
+                    <offset_x>8</offset_x>
+                    <offset_y>8</offset_y>
+                    <placement>TOP</placement>
+                </strategy>
+                <hidden>false</hidden>
+            </edgeproperty>
+        </properties>
+        <waypoints>
+            <edgeproperty id="RentalAgreementCustomer::WayPoint::0"
+                sizeCalculated="true" type="WayPoint"
+                userDefined="false" visible="true">
+                <name>0</name>
+                <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyAttachedIntersection">
+                    <userOffsetX>0.0</userOffsetX>
+                    <userOffsetY>0.0</userOffsetY>
+                </strategy>
+                <id>0</id>
+                <specialid>1</specialid>
+                <hidden>false</hidden>
+            </edgeproperty>
+            <edgeproperty id="RentalAgreementCustomer::WayPoint::1"
+                sizeCalculated="true" type="WayPoint"
+                userDefined="false" visible="true">
+                <name>1</name>
+                <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyAttachedIntersection">
+                    <userOffsetX>0.0</userOffsetX>
+                    <userOffsetY>0.0</userOffsetY>
+                </strategy>
+                <id>1</id>
+                <specialid>2</specialid>
+                <hidden>false</hidden>
+            </edgeproperty>
+        </waypoints>
+        <hidden>false</hidden>
+    </edge>
+    <edge type="BinaryEdge">
+        <source>RentalOffice</source>
+        <target>Vehicle</target>
+        <name>RentalOfficeVehicle</name>
+        <properties>
+            <edgeproperty id="RentalOfficeVehicle::target::rolename"
+                sizeCalculated="true" type="rolename" userDefined="true" visible="true">
+                <name>vehicle</name>
+                <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyRelativeToAttached">
+                    <userOffsetX>2.0</userOffsetX>
+                    <userOffsetY>-11.0</userOffsetY>
+                    <attached>RentalOfficeVehicle::WayPoint::1</attached>
+                    <offset_x>8</offset_x>
+                    <offset_y>8</offset_y>
+                    <placement>TOP</placement>
+                </strategy>
+                <hidden>false</hidden>
+            </edgeproperty>
+            <edgeproperty id="RentalOfficeVehicle::target::multiplicity"
+                sizeCalculated="true" type="multiplicity"
+                userDefined="true" visible="true">
+                <name>*</name>
+                <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyRelativeToAttached">
+                    <userOffsetX>-12.0</userOffsetX>
+                    <userOffsetY>-23.0</userOffsetY>
+                    <attached>RentalOfficeVehicle::WayPoint::1</attached>
+                    <offset_x>8</offset_x>
+                    <offset_y>8</offset_y>
+                    <placement>BOTTOM</placement>
+                </strategy>
+                <hidden>false</hidden>
+            </edgeproperty>
+            <edgeproperty id="RentalOfficeVehicle::AssociationName"
+                sizeCalculated="true" type="associationName"
+                userDefined="false" visible="true">
+                <name>RentalOfficeVehicle</name>
+                <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyInBetween">
+                    <userOffsetX>0.0</userOffsetX>
+                    <userOffsetY>0.0</userOffsetY>
+                    <offsetX>0.0</offsetX>
+                    <offsetY>-10.0</offsetY>
+                    <related length="2">
+                        <related0>RentalOfficeVehicle::WayPoint::0</related0>
+                        <related1>RentalOfficeVehicle::WayPoint::1</related1>
+                    </related>
+                </strategy>
+                <hidden>false</hidden>
+            </edgeproperty>
+            <edgeproperty id="RentalOfficeVehicle::source::multiplicity"
+                sizeCalculated="true" type="multiplicity"
+                userDefined="true" visible="true">
+                <name>1</name>
+                <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyRelativeToAttached">
+                    <userOffsetX>30.0</userOffsetX>
+                    <userOffsetY>25.0</userOffsetY>
+                    <attached>RentalOfficeVehicle::WayPoint::0</attached>
+                    <offset_x>8</offset_x>
+                    <offset_y>8</offset_y>
+                    <placement>BOTTOM</placement>
+                </strategy>
+                <hidden>false</hidden>
+            </edgeproperty>
+            <edgeproperty id="RentalOfficeVehicle::source::rolename"
+                sizeCalculated="true" type="rolename" userDefined="true" visible="true">
+                <name>homeOffice</name>
+                <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyRelativeToAttached">
+                    <userOffsetX>4.0</userOffsetX>
+                    <userOffsetY>10.0</userOffsetY>
+                    <attached>RentalOfficeVehicle::WayPoint::0</attached>
+                    <offset_x>8</offset_x>
+                    <offset_y>8</offset_y>
+                    <placement>TOP</placement>
+                </strategy>
+                <hidden>false</hidden>
+            </edgeproperty>
+        </properties>
+        <waypoints>
+            <edgeproperty id="RentalOfficeVehicle::WayPoint::0"
+                sizeCalculated="true" type="WayPoint"
+                userDefined="false" visible="true">
+                <name>0</name>
+                <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyAttachedIntersection">
+                    <userOffsetX>0.0</userOffsetX>
+                    <userOffsetY>0.0</userOffsetY>
+                </strategy>
+                <id>0</id>
+                <specialid>1</specialid>
+                <hidden>false</hidden>
+            </edgeproperty>
+            <edgeproperty id="RentalOfficeVehicle::WayPoint::1"
+                sizeCalculated="true" type="WayPoint"
+                userDefined="false" visible="true">
+                <name>1</name>
+                <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyAttachedIntersection">
+                    <userOffsetX>0.0</userOffsetX>
+                    <userOffsetY>0.0</userOffsetY>
+                </strategy>
+                <id>1</id>
+                <specialid>2</specialid>
+                <hidden>false</hidden>
+            </edgeproperty>
+        </waypoints>
+        <hidden>false</hidden>
+    </edge>
+    <edge type="BinaryEdge">
+        <source>RentalAgreement</source>
+        <target>Vehicle</target>
+        <name>RentalAgreementVehicle</name>
+        <properties>
+            <edgeproperty id="RentalAgreementVehicle::target::rolename"
+                sizeCalculated="true" type="rolename"
+                userDefined="false" visible="true">
+                <name>vehicle</name>
+                <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyRelativeToAttached">
+                    <userOffsetX>0.0</userOffsetX>
+                    <userOffsetY>0.0</userOffsetY>
+                    <attached>RentalAgreementVehicle::WayPoint::1</attached>
+                    <offset_x>8</offset_x>
+                    <offset_y>8</offset_y>
+                    <placement>TOP</placement>
+                </strategy>
+                <hidden>false</hidden>
+            </edgeproperty>
+            <edgeproperty
+                id="RentalAgreementVehicle::target::multiplicity"
+                sizeCalculated="true" type="multiplicity"
+                userDefined="true" visible="true">
+                <name>1</name>
+                <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyRelativeToAttached">
+                    <userOffsetX>-14.0</userOffsetX>
+                    <userOffsetY>-10.0</userOffsetY>
+                    <attached>RentalAgreementVehicle::WayPoint::1</attached>
+                    <offset_x>8</offset_x>
+                    <offset_y>8</offset_y>
+                    <placement>BOTTOM</placement>
+                </strategy>
+                <hidden>false</hidden>
+            </edgeproperty>
+            <edgeproperty id="RentalAgreementVehicle::AssociationName"
+                sizeCalculated="true" type="associationName"
+                userDefined="false" visible="true">
+                <name>RentalAgreementVehicle</name>
+                <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyInBetween">
+                    <userOffsetX>0.0</userOffsetX>
+                    <userOffsetY>0.0</userOffsetY>
+                    <offsetX>0.0</offsetX>
+                    <offsetY>-10.0</offsetY>
+                    <related length="2">
+                        <related0>RentalAgreementVehicle::WayPoint::0</related0>
+                        <related1>RentalAgreementVehicle::WayPoint::1</related1>
+                    </related>
+                </strategy>
+                <hidden>false</hidden>
+            </edgeproperty>
+            <edgeproperty id="RentalAgreementVehicle::source::rolename"
+                sizeCalculated="true" type="rolename" userDefined="true" visible="true">
+                <name>rentalAgreement</name>
+                <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyRelativeToAttached">
+                    <userOffsetX>49.0</userOffsetX>
+                    <userOffsetY>34.0</userOffsetY>
+                    <attached>RentalAgreementVehicle::WayPoint::0</attached>
+                    <offset_x>8</offset_x>
+                    <offset_y>8</offset_y>
+                    <placement>TOP</placement>
+                </strategy>
+                <hidden>false</hidden>
+            </edgeproperty>
+            <edgeproperty
+                id="RentalAgreementVehicle::source::multiplicity"
+                sizeCalculated="true" type="multiplicity"
+                userDefined="true" visible="true">
+                <name>*</name>
+                <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyRelativeToAttached">
+                    <userOffsetX>48.0</userOffsetX>
+                    <userOffsetY>0.0</userOffsetY>
+                    <attached>RentalAgreementVehicle::WayPoint::0</attached>
+                    <offset_x>8</offset_x>
+                    <offset_y>8</offset_y>
+                    <placement>BOTTOM</placement>
+                </strategy>
+                <hidden>false</hidden>
+            </edgeproperty>
+        </properties>
+        <waypoints>
+            <edgeproperty id="RentalAgreementVehicle::WayPoint::0"
+                sizeCalculated="true" type="WayPoint"
+                userDefined="false" visible="true">
+                <name>0</name>
+                <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyAttachedIntersection">
+                    <userOffsetX>0.0</userOffsetX>
+                    <userOffsetY>0.0</userOffsetY>
+                </strategy>
+                <id>0</id>
+                <specialid>1</specialid>
+                <hidden>false</hidden>
+            </edgeproperty>
+            <edgeproperty id="RentalAgreementVehicle::WayPoint::1"
+                sizeCalculated="true" type="WayPoint"
+                userDefined="false" visible="true">
+                <name>1</name>
+                <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyAttachedIntersection">
+                    <userOffsetX>0.0</userOffsetX>
+                    <userOffsetY>0.0</userOffsetY>
+                </strategy>
+                <id>1</id>
+                <specialid>2</specialid>
+                <hidden>false</hidden>
+            </edgeproperty>
+        </waypoints>
+        <hidden>false</hidden>
+    </edge>
+    <edge type="BinaryEdge">
+        <source>RentalOffice</source>
+        <target>RentalAgreement</target>
+        <name>RentalOfficeRentalAgreementOrigin</name>
+        <properties>
+            <edgeproperty
+                id="RentalOfficeRentalAgreementOrigin::target::multiplicity"
+                sizeCalculated="true" type="multiplicity"
+                userDefined="true" visible="true">
+                <name>*</name>
+                <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyRelativeToAttached">
+                    <userOffsetX>67.0</userOffsetX>
+                    <userOffsetY>-11.0</userOffsetY>
+                    <attached>RentalOfficeRentalAgreementOrigin::WayPoint::1</attached>
+                    <offset_x>8</offset_x>
+                    <offset_y>8</offset_y>
+                    <placement>BOTTOM</placement>
+                </strategy>
+                <hidden>false</hidden>
+            </edgeproperty>
+            <edgeproperty
+                id="RentalOfficeRentalAgreementOrigin::target::rolename"
+                sizeCalculated="true" type="rolename" userDefined="true" visible="true">
+                <name>originatingAgreement</name>
+                <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyRelativeToAttached">
+                    <userOffsetX>117.0</userOffsetX>
+                    <userOffsetY>1.0</userOffsetY>
+                    <attached>RentalOfficeRentalAgreementOrigin::WayPoint::1</attached>
+                    <offset_x>8</offset_x>
+                    <offset_y>8</offset_y>
+                    <placement>TOP</placement>
+                </strategy>
+                <hidden>false</hidden>
+            </edgeproperty>
+            <edgeproperty
+                id="RentalOfficeRentalAgreementOrigin::AssociationName"
+                sizeCalculated="true" type="associationName"
+                userDefined="false" visible="true">
+                <name>RentalOfficeRentalAgreementOrigin</name>
+                <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyInBetween">
+                    <userOffsetX>0.0</userOffsetX>
+                    <userOffsetY>0.0</userOffsetY>
+                    <offsetX>0.0</offsetX>
+                    <offsetY>-10.0</offsetY>
+                    <related length="2">
+                        <related0>RentalOfficeRentalAgreementOrigin::WayPoint::0</related0>
+                        <related1>RentalOfficeRentalAgreementOrigin::WayPoint::1</related1>
+                    </related>
+                </strategy>
+                <hidden>false</hidden>
+            </edgeproperty>
+            <edgeproperty
+                id="RentalOfficeRentalAgreementOrigin::source::multiplicity"
+                sizeCalculated="true" type="multiplicity"
+                userDefined="true" visible="true">
+                <name>1</name>
+                <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyRelativeToAttached">
+                    <userOffsetX>73.0</userOffsetX>
+                    <userOffsetY>21.0</userOffsetY>
+                    <attached>RentalOfficeRentalAgreementOrigin::WayPoint::0</attached>
+                    <offset_x>8</offset_x>
+                    <offset_y>8</offset_y>
+                    <placement>BOTTOM</placement>
+                </strategy>
+                <hidden>false</hidden>
+            </edgeproperty>
+            <edgeproperty
+                id="RentalOfficeRentalAgreementOrigin::source::rolename"
+                sizeCalculated="true" type="rolename" userDefined="true" visible="true">
+                <name>originatingRentalOffice</name>
+                <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyRelativeToAttached">
+                    <userOffsetX>125.0</userOffsetX>
+                    <userOffsetY>5.0</userOffsetY>
+                    <attached>RentalOfficeRentalAgreementOrigin::WayPoint::0</attached>
+                    <offset_x>8</offset_x>
+                    <offset_y>8</offset_y>
+                    <placement>TOP</placement>
+                </strategy>
+                <hidden>false</hidden>
+            </edgeproperty>
+        </properties>
+        <waypoints>
+            <edgeproperty
+                id="RentalOfficeRentalAgreementOrigin::WayPoint::0"
+                sizeCalculated="true" type="WayPoint"
+                userDefined="false" visible="true">
+                <name>0</name>
+                <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyAttachedIntersection">
+                    <userOffsetX>0.0</userOffsetX>
+                    <userOffsetY>0.0</userOffsetY>
+                </strategy>
+                <id>0</id>
+                <specialid>1</specialid>
+                <hidden>false</hidden>
+            </edgeproperty>
+            <edgeproperty
+                id="RentalOfficeRentalAgreementOrigin::WayPoint::1"
+                sizeCalculated="true" type="WayPoint"
+                userDefined="false" visible="true">
+                <name>1</name>
+                <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyAttachedIntersection">
+                    <userOffsetX>0.0</userOffsetX>
+                    <userOffsetY>0.0</userOffsetY>
+                </strategy>
+                <id>1</id>
+                <specialid>2</specialid>
+                <hidden>false</hidden>
+            </edgeproperty>
+        </waypoints>
+        <hidden>false</hidden>
+    </edge>
+    <edge type="BinaryEdge">
+        <source>RentalOffice</source>
+        <target>RentalAgreement</target>
+        <name>RentalOfficeRentalAgreementDrop</name>
+        <properties>
+            <edgeproperty
+                id="RentalOfficeRentalAgreementDrop::target::rolename"
+                sizeCalculated="true" type="rolename" userDefined="true" visible="true">
+                <name>dropoffAgreement</name>
+                <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyRelativeToAttached">
+                    <userOffsetX>0.0</userOffsetX>
+                    <userOffsetY>3.0</userOffsetY>
+                    <attached>RentalOfficeRentalAgreementDrop::WayPoint::1</attached>
+                    <offset_x>8</offset_x>
+                    <offset_y>8</offset_y>
+                    <placement>TOP</placement>
+                </strategy>
+                <hidden>false</hidden>
+            </edgeproperty>
+            <edgeproperty
+                id="RentalOfficeRentalAgreementDrop::target::multiplicity"
+                sizeCalculated="true" type="multiplicity"
+                userDefined="true" visible="true">
+                <name>*</name>
+                <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyRelativeToAttached">
+                    <userOffsetX>-38.0</userOffsetX>
+                    <userOffsetY>-12.0</userOffsetY>
+                    <attached>RentalOfficeRentalAgreementDrop::WayPoint::1</attached>
+                    <offset_x>8</offset_x>
+                    <offset_y>8</offset_y>
+                    <placement>BOTTOM</placement>
+                </strategy>
+                <hidden>false</hidden>
+            </edgeproperty>
+            <edgeproperty
+                id="RentalOfficeRentalAgreementDrop::AssociationName"
+                sizeCalculated="true" type="associationName"
+                userDefined="false" visible="true">
+                <name>RentalOfficeRentalAgreementDrop</name>
+                <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyInBetween">
+                    <userOffsetX>0.0</userOffsetX>
+                    <userOffsetY>0.0</userOffsetY>
+                    <offsetX>0.0</offsetX>
+                    <offsetY>-10.0</offsetY>
+                    <related length="2">
+                        <related0>RentalOfficeRentalAgreementDrop::WayPoint::0</related0>
+                        <related1>RentalOfficeRentalAgreementDrop::WayPoint::1</related1>
+                    </related>
+                </strategy>
+                <hidden>false</hidden>
+            </edgeproperty>
+            <edgeproperty
+                id="RentalOfficeRentalAgreementDrop::source::multiplicity"
+                sizeCalculated="true" type="multiplicity"
+                userDefined="true" visible="true">
+                <name>1</name>
+                <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyRelativeToAttached">
+                    <userOffsetX>-41.0</userOffsetX>
+                    <userOffsetY>21.0</userOffsetY>
+                    <attached>RentalOfficeRentalAgreementDrop::WayPoint::0</attached>
+                    <offset_x>8</offset_x>
+                    <offset_y>8</offset_y>
+                    <placement>BOTTOM</placement>
+                </strategy>
+                <hidden>false</hidden>
+            </edgeproperty>
+            <edgeproperty
+                id="RentalOfficeRentalAgreementDrop::source::rolename"
+                sizeCalculated="true" type="rolename" userDefined="true" visible="true">
+                <name>droppoffRentalOffice</name>
+                <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyRelativeToAttached">
+                    <userOffsetX>5.0</userOffsetX>
+                    <userOffsetY>5.0</userOffsetY>
+                    <attached>RentalOfficeRentalAgreementDrop::WayPoint::0</attached>
+                    <offset_x>8</offset_x>
+                    <offset_y>8</offset_y>
+                    <placement>TOP</placement>
+                </strategy>
+                <hidden>false</hidden>
+            </edgeproperty>
+        </properties>
+        <waypoints>
+            <edgeproperty
+                id="RentalOfficeRentalAgreementDrop::WayPoint::0"
+                sizeCalculated="true" type="WayPoint"
+                userDefined="false" visible="true">
+                <name>0</name>
+                <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyAttachedIntersection">
+                    <userOffsetX>0.0</userOffsetX>
+                    <userOffsetY>0.0</userOffsetY>
+                </strategy>
+                <id>0</id>
+                <specialid>1</specialid>
+                <hidden>false</hidden>
+            </edgeproperty>
+            <edgeproperty
+                id="RentalOfficeRentalAgreementDrop::WayPoint::1"
+                sizeCalculated="true" type="WayPoint"
+                userDefined="false" visible="true">
+                <name>1</name>
+                <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyAttachedIntersection">
+                    <userOffsetX>0.0</userOffsetX>
+                    <userOffsetY>0.0</userOffsetY>
+                </strategy>
+                <id>1</id>
+                <specialid>2</specialid>
+                <hidden>false</hidden>
+            </edgeproperty>
+        </waypoints>
+        <hidden>false</hidden>
+    </edge>
+    <edge type="Generalization">
+        <source>Individual</source>
+        <target>Customer</target>
+        <name>Inheritance</name>
+        <properties/>
+        <waypoints>
+            <edgeproperty
+                id="Generalization::Individual::Customer::WayPoint::0"
+                sizeCalculated="true" type="WayPoint"
+                userDefined="false" visible="true">
+                <name>0</name>
+                <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyAttachedIntersection">
+                    <userOffsetX>0.0</userOffsetX>
+                    <userOffsetY>0.0</userOffsetY>
+                </strategy>
+                <id>0</id>
+                <specialid>1</specialid>
+                <hidden>false</hidden>
+            </edgeproperty>
+            <edgeproperty
+                id="Generalization::Individual::Customer::WayPoint::1"
+                sizeCalculated="true" type="WayPoint"
+                userDefined="false" visible="true">
+                <name>1</name>
+                <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyAttachedIntersection">
+                    <userOffsetX>0.0</userOffsetX>
+                    <userOffsetY>0.0</userOffsetY>
+                </strategy>
+                <id>1</id>
+                <specialid>2</specialid>
+                <hidden>false</hidden>
+            </edgeproperty>
+        </waypoints>
+        <hidden>false</hidden>
+    </edge>
+    <edge type="Generalization">
+        <source>Company</source>
+        <target>Customer</target>
+        <name>Inheritance</name>
+        <properties/>
+        <waypoints>
+            <edgeproperty
+                id="Generalization::Company::Customer::WayPoint::0"
+                sizeCalculated="true" type="WayPoint"
+                userDefined="false" visible="true">
+                <name>0</name>
+                <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyAttachedIntersection">
+                    <userOffsetX>0.0</userOffsetX>
+                    <userOffsetY>0.0</userOffsetY>
+                </strategy>
+                <id>0</id>
+                <specialid>1</specialid>
+                <hidden>false</hidden>
+            </edgeproperty>
+            <edgeproperty
+                id="Generalization::Company::Customer::WayPoint::1"
+                sizeCalculated="true" type="WayPoint"
+                userDefined="false" visible="true">
+                <name>1</name>
+                <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyAttachedIntersection">
+                    <userOffsetX>0.0</userOffsetX>
+                    <userOffsetY>0.0</userOffsetY>
+                </strategy>
+                <id>1</id>
+                <specialid>2</specialid>
+                <hidden>false</hidden>
+            </edgeproperty>
+        </waypoints>
+        <hidden>false</hidden>
+    </edge>
+    <edge type="Generalization">
+        <source>Truck</source>
+        <target>Vehicle</target>
+        <name>Inheritance</name>
+        <properties/>
+        <waypoints>
+            <edgeproperty
+                id="Generalization::Truck::Vehicle::WayPoint::0"
+                sizeCalculated="true" type="WayPoint"
+                userDefined="false" visible="true">
+                <name>0</name>
+                <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyAttachedIntersection">
+                    <userOffsetX>0.0</userOffsetX>
+                    <userOffsetY>0.0</userOffsetY>
+                </strategy>
+                <id>0</id>
+                <specialid>1</specialid>
+                <hidden>false</hidden>
+            </edgeproperty>
+            <edgeproperty
+                id="Generalization::Truck::Vehicle::WayPoint::1"
+                sizeCalculated="true" type="WayPoint"
+                userDefined="false" visible="true">
+                <name>1</name>
+                <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyAttachedIntersection">
+                    <userOffsetX>0.0</userOffsetX>
+                    <userOffsetY>0.0</userOffsetY>
+                </strategy>
+                <id>1</id>
+                <specialid>2</specialid>
+                <hidden>false</hidden>
+            </edgeproperty>
+        </waypoints>
+        <hidden>false</hidden>
+    </edge>
+</diagram_Layout>

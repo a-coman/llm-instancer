@@ -1,0 +1,140 @@
+model HotelManagement
+
+dataType IsoDate
+operations
+    IsoDate(s : String)
+    year() : Integer =
+        self.s.substring(1, 4).toInteger()
+    month() : Integer =
+        self.s.substring(6, 7).toInteger()
+    day() : Integer =
+        self.s.substring(9, 10).toInteger()
+    dayIndex() : Integer =
+        let a = if self.month() <= 2 then 1 else 0 endif in
+        let y = self.year() + 4800 - a in
+        let m = self.month() + 12 * a - 3 in
+        self.day() + ((153 * m + 2) / 5).floor() + 365 * y + (y / 4).floor() - (y / 100).floor() + (y / 400).floor() - 32045
+    daysUntil(other : IsoDate) : Integer =
+        other.dayIndex() - self.dayIndex()
+end
+
+class Booking
+attributes
+    startDate : String
+    endDate : String
+    canceled : Boolean
+    bookingId : Integer
+    confirmed : Boolean
+end
+
+class Bill
+attributes
+    price : Real
+    billId : Integer
+end
+
+class FreeRoomTypesDTO
+attributes
+    roomTypeDescription : String
+    numBeds : Integer
+    pricePerNight : Real
+    numFreeRooms : Integer
+end
+
+class Customer
+attributes
+    firstName : String
+    lastName : String
+end
+
+class RoomReservation
+attributes
+    checkInDate : String
+    checkOutDate : String
+operations
+    nights() : Integer =
+        IsoDate(self.checkInDate).daysUntil(IsoDate(self.checkOutDate))
+    expectedBillPrice() : Real =
+        self.nights() * self.room->collect(r : Room | r.pricePerNight)->sum()
+        + self.roomExtras->collect(e : RoomExtra | e.price)->sum()
+end
+
+class RoomExtra
+attributes
+    price : Real
+    description : String
+end
+
+class Room
+attributes
+    numBeds : Integer
+    pricePerNight : Real
+    occupied : Boolean
+    blocked : Boolean
+    roomNumber : Integer
+end
+
+association BookingBill between
+    Booking [1]
+    Bill [0..*] role bills
+end
+
+association BookingCustomer between
+    Booking [1]
+    Customer [1] role customer
+end
+
+association BookingRoomReservation between
+    Booking [1]
+    RoomReservation [*] role roomReservations
+end
+
+association RoomReservationExtras between
+    RoomReservation [1]
+    RoomExtra [*] role roomExtras
+end
+
+association RoomReservationRoom between
+    RoomReservation [1]
+    Room [*] role room
+end
+
+association BillRoomReservation between
+    Bill [1]
+    RoomReservation [1] role roomReservation
+end
+
+constraints
+context Bill inv positiveBill:
+    self.price >= 0
+
+context Bill inv uniqueBillId:
+    Bill.allInstances->isUnique(b | b.billId)
+
+context Room inv positiveNumBeds:
+    self.numBeds > 0
+
+context Booking inv ConfirmedNotCanceled:
+    self.confirmed implies not self.canceled
+
+context Booking inv CanceledNotConfirmed:
+    self.canceled implies not self.confirmed
+
+context Room inv RealisticRoomNumber:
+    self.roomNumber > 0 and self.roomNumber <= 9999
+
+context Room inv RealisticPrice:
+    self.pricePerNight >= 0 and self.pricePerNight <= 10000
+
+context RoomExtra inv RealisticPrice:
+    self.price >= 0 and self.price <= 10000
+
+context FreeRoomTypesDTO inv RealisticNumberOfRooms:
+    self.numFreeRooms >= 0 and self.numFreeRooms <= 500
+
+context FreeRoomTypesDTO inv RealisticPrice:
+    self.pricePerNight >= 0 and self.pricePerNight <= 10000
+
+context Bill inv SumOfExpenses:
+    self.roomReservation.isUndefined()
+    or self.price = self.roomReservation.expectedBillPrice()

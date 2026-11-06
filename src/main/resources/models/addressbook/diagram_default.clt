@@ -2,348 +2,174 @@
 <diagram_Layout version="13">
     <diagramOptions>
         <autolayout>false</autolayout>
-        <antialiasing>false</antialiasing>
+        <antialiasing>true</antialiasing>
         <showassocnames>false</showassocnames>
         <showattributes>true</showattributes>
-        <showmultiplicities>false</showmultiplicities>
+        <showmultiplicities>true</showmultiplicities>
         <showoperations>false</showoperations>
         <showrolenames>true</showrolenames>
         <showgrid>false</showgrid>
     </diagramOptions>
-    <node id="SustainableCity" sizeCalculated="true" type="Class">
-        <name>SustainableCity</name>
+    <node id="Company" sizeCalculated="true" type="Class">
+        <name>Company</name>
         <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyFixed">
-            <x>56.571533203125</x>
-            <y>21.0</y>
+            <x>27.4732666015625</x>
+            <y>431.0</y>
         </strategy>
         <hidden>false</hidden>
     </node>
-    <node id="User" sizeCalculated="true" type="Class">
-        <name>User</name>
+    <node id="Address" sizeCalculated="true" type="Class">
+        <name>Address</name>
         <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyFixed">
-            <x>49.0</x>
-            <y>341.0</y>
+            <x>261.0323486328125</x>
+            <y>404.5</y>
         </strategy>
         <hidden>false</hidden>
     </node>
-    <node id="Rental" sizeCalculated="true" type="Class">
-        <name>Rental</name>
+    <node id="AddressBook" sizeCalculated="true" type="Class">
+        <name>AddressBook</name>
         <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyFixed">
-            <x>56.120361328125</x>
-            <y>244.0</y>
+            <x>110.9146728515625</x>
+            <y>50.5</y>
         </strategy>
         <hidden>false</hidden>
     </node>
-    <node id="BikeStation" sizeCalculated="true" type="Class">
-        <name>BikeStation</name>
+    <node id="Note" sizeCalculated="true" type="Class">
+        <name>Note</name>
         <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyFixed">
-            <x>57.0791015625</x>
-            <y>116.0</y>
+            <x>468.8931884765625</x>
+            <y>177.0</y>
         </strategy>
         <hidden>false</hidden>
     </node>
-    <node id="Bike" sizeCalculated="true" type="Class">
-        <name>Bike</name>
+    <node id="Relationship" sizeCalculated="true" type="Class">
+        <name>Relationship</name>
         <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyFixed">
-            <x>251.18212890625</x>
-            <y>188.0</y>
+            <x>437.9410400390625</x>
+            <y>360.5</y>
+        </strategy>
+        <hidden>false</hidden>
+    </node>
+    <node id="Person" sizeCalculated="true" type="Class">
+        <name>Person</name>
+        <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyFixed">
+            <x>142.8931884765625</x>
+            <y>434.0</y>
+        </strategy>
+        <hidden>false</hidden>
+    </node>
+    <node id="Contact" sizeCalculated="true" type="Class">
+        <name>Contact</name>
+        <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyFixed">
+            <x>106.18603515625</x>
+            <y>176.0</y>
         </strategy>
         <hidden>false</hidden>
     </node>
     <node id="Date" sizeCalculated="true" type="DataType">
         <name>Date</name>
         <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyFixed">
-            <x>226.14306640625</x>
-            <y>58.0</y>
+            <x>682.5137939453125</x>
+            <y>51.0</y>
+        </strategy>
+        <hidden>false</hidden>
+    </node>
+    <node id="NoteType" sizeCalculated="true" type="Enumeration">
+        <name>NoteType</name>
+        <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyFixed">
+            <x>682.5137939453125</x>
+            <y>128.0</y>
+        </strategy>
+        <hidden>false</hidden>
+    </node>
+    <node id="RelationshipType" sizeCalculated="true" type="Enumeration">
+        <name>RelationshipType</name>
+        <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyFixed">
+            <x>681.5137939453125</x>
+            <y>238.0</y>
         </strategy>
         <hidden>false</hidden>
     </node>
     <edge type="BinaryEdge">
-        <source>Rental</source>
-        <target>BikeStation</target>
-        <name>Dropoff</name>
+        <source>Relationship</source>
+        <target>Contact</target>
+        <name>RelationshipToContact</name>
         <properties>
-            <edgeproperty id="Dropoff::target::multiplicity"
-                sizeCalculated="true" type="multiplicity"
-                userDefined="false" visible="true">
-                <name>1</name>
-                <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyRelativeToAttached">
-                    <userOffsetX>0.0</userOffsetX>
-                    <userOffsetY>0.0</userOffsetY>
-                    <attached>Dropoff::WayPoint::1</attached>
-                    <offset_x>8</offset_x>
-                    <offset_y>8</offset_y>
-                    <placement>BOTTOM</placement>
-                </strategy>
-                <hidden>false</hidden>
-            </edgeproperty>
-            <edgeproperty id="Dropoff::target::rolename"
+            <edgeproperty id="RelationshipToContact::target::rolename"
                 sizeCalculated="true" type="rolename" userDefined="true" visible="true">
-                <name>dropOffStation</name>
-                <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyRelativeToAttached">
-                    <userOffsetX>100.0</userOffsetX>
-                    <userOffsetY>5.0</userOffsetY>
-                    <attached>Dropoff::WayPoint::1</attached>
-                    <offset_x>8</offset_x>
-                    <offset_y>8</offset_y>
-                    <placement>TOP</placement>
-                </strategy>
-                <hidden>false</hidden>
-            </edgeproperty>
-            <edgeproperty id="Dropoff::source::rolename"
-                sizeCalculated="true" type="rolename" userDefined="true" visible="true">
-                <name>dropOffRentals</name>
-                <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyRelativeToAttached">
-                    <userOffsetX>104.0</userOffsetX>
-                    <userOffsetY>-3.0</userOffsetY>
-                    <attached>Dropoff::WayPoint::0</attached>
-                    <offset_x>8</offset_x>
-                    <offset_y>8</offset_y>
-                    <placement>TOP</placement>
-                </strategy>
-                <hidden>false</hidden>
-            </edgeproperty>
-            <edgeproperty id="Dropoff::source::multiplicity"
-                sizeCalculated="true" type="multiplicity"
-                userDefined="false" visible="true">
-                <name>*</name>
-                <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyRelativeToAttached">
-                    <userOffsetX>0.0</userOffsetX>
-                    <userOffsetY>0.0</userOffsetY>
-                    <attached>Dropoff::WayPoint::0</attached>
-                    <offset_x>8</offset_x>
-                    <offset_y>8</offset_y>
-                    <placement>BOTTOM</placement>
-                </strategy>
-                <hidden>false</hidden>
-            </edgeproperty>
-            <edgeproperty id="Dropoff::AssociationName"
-                sizeCalculated="true" type="associationName"
-                userDefined="false" visible="true">
-                <name>Dropoff</name>
-                <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyInBetween">
-                    <userOffsetX>0.0</userOffsetX>
-                    <userOffsetY>0.0</userOffsetY>
-                    <offsetX>0.0</offsetX>
-                    <offsetY>-10.0</offsetY>
-                    <related length="2">
-                        <related0>Dropoff::WayPoint::0</related0>
-                        <related1>Dropoff::WayPoint::1</related1>
-                    </related>
-                </strategy>
-                <hidden>false</hidden>
-            </edgeproperty>
-        </properties>
-        <waypoints>
-            <edgeproperty id="Dropoff::WayPoint::0"
-                sizeCalculated="true" type="WayPoint"
-                userDefined="false" visible="true">
-                <name>0</name>
-                <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyAttachedIntersection">
-                    <userOffsetX>0.0</userOffsetX>
-                    <userOffsetY>0.0</userOffsetY>
-                </strategy>
-                <id>0</id>
-                <specialid>1</specialid>
-                <hidden>false</hidden>
-            </edgeproperty>
-            <edgeproperty id="Dropoff::WayPoint::1"
-                sizeCalculated="true" type="WayPoint"
-                userDefined="false" visible="true">
-                <name>1</name>
-                <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyAttachedIntersection">
-                    <userOffsetX>0.0</userOffsetX>
-                    <userOffsetY>0.0</userOffsetY>
-                </strategy>
-                <id>1</id>
-                <specialid>2</specialid>
-                <hidden>false</hidden>
-            </edgeproperty>
-        </waypoints>
-        <hidden>false</hidden>
-    </edge>
-    <edge type="BinaryEdge">
-        <source>BikeStation</source>
-        <target>SustainableCity</target>
-        <name>StationsCity</name>
-        <properties>
-            <edgeproperty id="StationsCity::target::rolename"
-                sizeCalculated="true" type="rolename" userDefined="true" visible="true">
-                <name>isIn</name>
+                <name>target</name>
                 <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyRelativeToAttached">
                     <userOffsetX>38.0</userOffsetX>
-                    <userOffsetY>6.0</userOffsetY>
-                    <attached>StationsCity::WayPoint::1</attached>
+                    <userOffsetY>-6.0</userOffsetY>
+                    <attached>RelationshipToContact::WayPoint::1</attached>
                     <offset_x>8</offset_x>
                     <offset_y>8</offset_y>
                     <placement>TOP</placement>
                 </strategy>
                 <hidden>false</hidden>
             </edgeproperty>
-            <edgeproperty id="StationsCity::target::multiplicity"
+            <edgeproperty
+                id="RelationshipToContact::target::multiplicity"
                 sizeCalculated="true" type="multiplicity"
-                userDefined="false" visible="true">
+                userDefined="true" visible="true">
                 <name>1</name>
                 <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyRelativeToAttached">
-                    <userOffsetX>0.0</userOffsetX>
-                    <userOffsetY>0.0</userOffsetY>
-                    <attached>StationsCity::WayPoint::1</attached>
+                    <userOffsetX>48.0</userOffsetX>
+                    <userOffsetY>-5.0</userOffsetY>
+                    <attached>RelationshipToContact::WayPoint::1</attached>
                     <offset_x>8</offset_x>
                     <offset_y>8</offset_y>
                     <placement>BOTTOM</placement>
                 </strategy>
                 <hidden>false</hidden>
             </edgeproperty>
-            <edgeproperty id="StationsCity::source::rolename"
+            <edgeproperty id="RelationshipToContact::source::rolename"
                 sizeCalculated="true" type="rolename" userDefined="true" visible="true">
-                <name>has</name>
+                <name>isRelated</name>
                 <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyRelativeToAttached">
-                    <userOffsetX>6.0</userOffsetX>
-                    <userOffsetY>5.0</userOffsetY>
-                    <attached>StationsCity::WayPoint::0</attached>
+                    <userOffsetX>81.0</userOffsetX>
+                    <userOffsetY>4.0</userOffsetY>
+                    <attached>RelationshipToContact::WayPoint::0</attached>
                     <offset_x>8</offset_x>
                     <offset_y>8</offset_y>
                     <placement>TOP</placement>
                 </strategy>
                 <hidden>false</hidden>
             </edgeproperty>
-            <edgeproperty id="StationsCity::source::multiplicity"
+            <edgeproperty
+                id="RelationshipToContact::source::multiplicity"
                 sizeCalculated="true" type="multiplicity"
-                userDefined="false" visible="true">
-                <name>1..*</name>
-                <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyRelativeToAttached">
-                    <userOffsetX>0.0</userOffsetX>
-                    <userOffsetY>0.0</userOffsetY>
-                    <attached>StationsCity::WayPoint::0</attached>
-                    <offset_x>8</offset_x>
-                    <offset_y>8</offset_y>
-                    <placement>BOTTOM</placement>
-                </strategy>
-                <hidden>false</hidden>
-            </edgeproperty>
-            <edgeproperty id="StationsCity::AssociationName"
-                sizeCalculated="true" type="associationName"
-                userDefined="false" visible="true">
-                <name>StationsCity</name>
-                <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyInBetween">
-                    <userOffsetX>0.0</userOffsetX>
-                    <userOffsetY>0.0</userOffsetY>
-                    <offsetX>0.0</offsetX>
-                    <offsetY>-10.0</offsetY>
-                    <related length="2">
-                        <related0>StationsCity::WayPoint::0</related0>
-                        <related1>StationsCity::WayPoint::1</related1>
-                    </related>
-                </strategy>
-                <hidden>false</hidden>
-            </edgeproperty>
-        </properties>
-        <waypoints>
-            <edgeproperty id="StationsCity::WayPoint::0"
-                sizeCalculated="true" type="WayPoint"
-                userDefined="false" visible="true">
-                <name>0</name>
-                <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyAttachedIntersection">
-                    <userOffsetX>0.0</userOffsetX>
-                    <userOffsetY>0.0</userOffsetY>
-                </strategy>
-                <id>0</id>
-                <specialid>1</specialid>
-                <hidden>false</hidden>
-            </edgeproperty>
-            <edgeproperty id="StationsCity::WayPoint::1"
-                sizeCalculated="true" type="WayPoint"
-                userDefined="false" visible="true">
-                <name>1</name>
-                <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyAttachedIntersection">
-                    <userOffsetX>0.0</userOffsetX>
-                    <userOffsetY>0.0</userOffsetY>
-                </strategy>
-                <id>1</id>
-                <specialid>2</specialid>
-                <hidden>false</hidden>
-            </edgeproperty>
-        </waypoints>
-        <hidden>false</hidden>
-    </edge>
-    <edge type="BinaryEdge">
-        <source>User</source>
-        <target>Rental</target>
-        <name>UserRental</name>
-        <properties>
-            <edgeproperty id="UserRental::target::rolename"
-                sizeCalculated="true" type="rolename" userDefined="true" visible="true">
-                <name>rentals</name>
-                <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyRelativeToAttached">
-                    <userOffsetX>56.0</userOffsetX>
-                    <userOffsetY>3.0</userOffsetY>
-                    <attached>UserRental::WayPoint::1</attached>
-                    <offset_x>8</offset_x>
-                    <offset_y>8</offset_y>
-                    <placement>TOP</placement>
-                </strategy>
-                <hidden>false</hidden>
-            </edgeproperty>
-            <edgeproperty id="UserRental::target::multiplicity"
-                sizeCalculated="true" type="multiplicity"
-                userDefined="false" visible="true">
+                userDefined="true" visible="true">
                 <name>*</name>
                 <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyRelativeToAttached">
-                    <userOffsetX>0.0</userOffsetX>
-                    <userOffsetY>0.0</userOffsetY>
-                    <attached>UserRental::WayPoint::1</attached>
+                    <userOffsetX>58.0</userOffsetX>
+                    <userOffsetY>-7.0</userOffsetY>
+                    <attached>RelationshipToContact::WayPoint::0</attached>
                     <offset_x>8</offset_x>
                     <offset_y>8</offset_y>
                     <placement>BOTTOM</placement>
                 </strategy>
                 <hidden>false</hidden>
             </edgeproperty>
-            <edgeproperty id="UserRental::source::rolename"
-                sizeCalculated="true" type="rolename" userDefined="true" visible="true">
-                <name>user</name>
-                <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyRelativeToAttached">
-                    <userOffsetX>2.0</userOffsetX>
-                    <userOffsetY>3.0</userOffsetY>
-                    <attached>UserRental::WayPoint::0</attached>
-                    <offset_x>8</offset_x>
-                    <offset_y>8</offset_y>
-                    <placement>TOP</placement>
-                </strategy>
-                <hidden>false</hidden>
-            </edgeproperty>
-            <edgeproperty id="UserRental::source::multiplicity"
-                sizeCalculated="true" type="multiplicity"
-                userDefined="false" visible="true">
-                <name>1</name>
-                <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyRelativeToAttached">
-                    <userOffsetX>0.0</userOffsetX>
-                    <userOffsetY>0.0</userOffsetY>
-                    <attached>UserRental::WayPoint::0</attached>
-                    <offset_x>8</offset_x>
-                    <offset_y>8</offset_y>
-                    <placement>BOTTOM</placement>
-                </strategy>
-                <hidden>false</hidden>
-            </edgeproperty>
-            <edgeproperty id="UserRental::AssociationName"
+            <edgeproperty id="RelationshipToContact::AssociationName"
                 sizeCalculated="true" type="associationName"
                 userDefined="false" visible="true">
-                <name>UserRental</name>
+                <name>RelationshipToContact</name>
                 <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyInBetween">
                     <userOffsetX>0.0</userOffsetX>
                     <userOffsetY>0.0</userOffsetY>
                     <offsetX>0.0</offsetX>
                     <offsetY>-10.0</offsetY>
                     <related length="2">
-                        <related0>UserRental::WayPoint::0</related0>
-                        <related1>UserRental::WayPoint::1</related1>
+                        <related0>RelationshipToContact::WayPoint::0</related0>
+                        <related1>RelationshipToContact::WayPoint::1</related1>
                     </related>
                 </strategy>
                 <hidden>false</hidden>
             </edgeproperty>
         </properties>
         <waypoints>
-            <edgeproperty id="UserRental::WayPoint::0"
+            <edgeproperty id="RelationshipToContact::WayPoint::0"
                 sizeCalculated="true" type="WayPoint"
                 userDefined="false" visible="true">
                 <name>0</name>
@@ -355,7 +181,7 @@
                 <specialid>1</specialid>
                 <hidden>false</hidden>
             </edgeproperty>
-            <edgeproperty id="UserRental::WayPoint::1"
+            <edgeproperty id="RelationshipToContact::WayPoint::1"
                 sizeCalculated="true" type="WayPoint"
                 userDefined="false" visible="true">
                 <name>1</name>
@@ -371,188 +197,87 @@
         <hidden>false</hidden>
     </edge>
     <edge type="BinaryEdge">
-        <source>Rental</source>
-        <target>Bike</target>
-        <name>RentalBike</name>
+        <source>Contact</source>
+        <target>Address</target>
+        <name>ContactContainsAddress</name>
         <properties>
-            <edgeproperty id="RentalBike::target::multiplicity"
+            <edgeproperty
+                id="ContactContainsAddress::target::multiplicity"
                 sizeCalculated="true" type="multiplicity"
-                userDefined="false" visible="true">
-                <name>1</name>
-                <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyRelativeToAttached">
-                    <userOffsetX>0.0</userOffsetX>
-                    <userOffsetY>0.0</userOffsetY>
-                    <attached>RentalBike::WayPoint::1</attached>
-                    <offset_x>8</offset_x>
-                    <offset_y>8</offset_y>
-                    <placement>BOTTOM</placement>
-                </strategy>
-                <hidden>false</hidden>
-            </edgeproperty>
-            <edgeproperty id="RentalBike::target::rolename"
-                sizeCalculated="true" type="rolename" userDefined="true" visible="true">
-                <name>rents</name>
-                <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyRelativeToAttached">
-                    <userOffsetX>18.0</userOffsetX>
-                    <userOffsetY>17.0</userOffsetY>
-                    <attached>RentalBike::WayPoint::1</attached>
-                    <offset_x>8</offset_x>
-                    <offset_y>8</offset_y>
-                    <placement>TOP</placement>
-                </strategy>
-                <hidden>false</hidden>
-            </edgeproperty>
-            <edgeproperty id="RentalBike::source::rolename"
-                sizeCalculated="true" type="rolename" userDefined="true" visible="true">
-                <name>rentals</name>
-                <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyRelativeToAttached">
-                    <userOffsetX>7.0</userOffsetX>
-                    <userOffsetY>23.0</userOffsetY>
-                    <attached>RentalBike::WayPoint::0</attached>
-                    <offset_x>8</offset_x>
-                    <offset_y>8</offset_y>
-                    <placement>TOP</placement>
-                </strategy>
-                <hidden>false</hidden>
-            </edgeproperty>
-            <edgeproperty id="RentalBike::source::multiplicity"
-                sizeCalculated="true" type="multiplicity"
-                userDefined="false" visible="true">
+                userDefined="true" visible="true">
                 <name>*</name>
                 <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyRelativeToAttached">
-                    <userOffsetX>0.0</userOffsetX>
-                    <userOffsetY>0.0</userOffsetY>
-                    <attached>RentalBike::WayPoint::0</attached>
+                    <userOffsetX>-14.0</userOffsetX>
+                    <userOffsetY>-5.0</userOffsetY>
+                    <attached>ContactContainsAddress::WayPoint::1</attached>
                     <offset_x>8</offset_x>
                     <offset_y>8</offset_y>
                     <placement>BOTTOM</placement>
                 </strategy>
                 <hidden>false</hidden>
             </edgeproperty>
-            <edgeproperty id="RentalBike::AssociationName"
-                sizeCalculated="true" type="associationName"
-                userDefined="false" visible="true">
-                <name>RentalBike</name>
-                <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyInBetween">
-                    <userOffsetX>0.0</userOffsetX>
-                    <userOffsetY>0.0</userOffsetY>
-                    <offsetX>0.0</offsetX>
-                    <offsetY>-10.0</offsetY>
-                    <related length="2">
-                        <related0>RentalBike::WayPoint::0</related0>
-                        <related1>RentalBike::WayPoint::1</related1>
-                    </related>
-                </strategy>
-                <hidden>false</hidden>
-            </edgeproperty>
-        </properties>
-        <waypoints>
-            <edgeproperty id="RentalBike::WayPoint::0"
-                sizeCalculated="true" type="WayPoint"
-                userDefined="false" visible="true">
-                <name>0</name>
-                <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyAttachedIntersection">
-                    <userOffsetX>0.0</userOffsetX>
-                    <userOffsetY>0.0</userOffsetY>
-                </strategy>
-                <id>0</id>
-                <specialid>1</specialid>
-                <hidden>false</hidden>
-            </edgeproperty>
-            <edgeproperty id="RentalBike::WayPoint::1"
-                sizeCalculated="true" type="WayPoint"
-                userDefined="false" visible="true">
-                <name>1</name>
-                <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyAttachedIntersection">
-                    <userOffsetX>0.0</userOffsetX>
-                    <userOffsetY>0.0</userOffsetY>
-                </strategy>
-                <id>1</id>
-                <specialid>2</specialid>
-                <hidden>false</hidden>
-            </edgeproperty>
-        </waypoints>
-        <hidden>false</hidden>
-    </edge>
-    <edge type="BinaryEdge">
-        <source>Rental</source>
-        <target>BikeStation</target>
-        <name>Pickup</name>
-        <properties>
-            <edgeproperty id="Pickup::target::rolename"
+            <edgeproperty id="ContactContainsAddress::target::rolename"
                 sizeCalculated="true" type="rolename" userDefined="true" visible="true">
-                <name>pickupStation</name>
+                <name>address</name>
                 <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyRelativeToAttached">
                     <userOffsetX>4.0</userOffsetX>
-                    <userOffsetY>34.0</userOffsetY>
-                    <attached>Pickup::WayPoint::1</attached>
+                    <userOffsetY>5.0</userOffsetY>
+                    <attached>ContactContainsAddress::WayPoint::1</attached>
                     <offset_x>8</offset_x>
                     <offset_y>8</offset_y>
                     <placement>TOP</placement>
                 </strategy>
                 <hidden>false</hidden>
             </edgeproperty>
-            <edgeproperty id="Pickup::target::multiplicity"
+            <edgeproperty
+                id="ContactContainsAddress::source::multiplicity"
                 sizeCalculated="true" type="multiplicity"
-                userDefined="false" visible="true">
+                userDefined="true" visible="true">
                 <name>1</name>
                 <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyRelativeToAttached">
-                    <userOffsetX>0.0</userOffsetX>
-                    <userOffsetY>0.0</userOffsetY>
-                    <attached>Pickup::WayPoint::1</attached>
+                    <userOffsetX>11.0</userOffsetX>
+                    <userOffsetY>17.0</userOffsetY>
+                    <attached>ContactContainsAddress::WayPoint::0</attached>
                     <offset_x>8</offset_x>
                     <offset_y>8</offset_y>
                     <placement>BOTTOM</placement>
                 </strategy>
                 <hidden>false</hidden>
             </edgeproperty>
-            <edgeproperty id="Pickup::source::multiplicity"
-                sizeCalculated="true" type="multiplicity"
-                userDefined="false" visible="true">
-                <name>*</name>
-                <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyRelativeToAttached">
-                    <userOffsetX>0.0</userOffsetX>
-                    <userOffsetY>0.0</userOffsetY>
-                    <attached>Pickup::WayPoint::0</attached>
-                    <offset_x>8</offset_x>
-                    <offset_y>8</offset_y>
-                    <placement>BOTTOM</placement>
-                </strategy>
-                <hidden>false</hidden>
-            </edgeproperty>
-            <edgeproperty id="Pickup::source::rolename"
+            <edgeproperty id="ContactContainsAddress::source::rolename"
                 sizeCalculated="true" type="rolename" userDefined="true" visible="true">
-                <name>pickupRentals</name>
+                <name>source</name>
                 <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyRelativeToAttached">
-                    <userOffsetX>7.0</userOffsetX>
-                    <userOffsetY>-32.0</userOffsetY>
-                    <attached>Pickup::WayPoint::0</attached>
+                    <userOffsetX>28.0</userOffsetX>
+                    <userOffsetY>28.0</userOffsetY>
+                    <attached>ContactContainsAddress::WayPoint::0</attached>
                     <offset_x>8</offset_x>
                     <offset_y>8</offset_y>
                     <placement>TOP</placement>
                 </strategy>
                 <hidden>false</hidden>
             </edgeproperty>
-            <edgeproperty id="Pickup::AssociationName"
+            <edgeproperty id="ContactContainsAddress::AssociationName"
                 sizeCalculated="true" type="associationName"
                 userDefined="false" visible="true">
-                <name>Pickup</name>
+                <name>ContactContainsAddress</name>
                 <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyInBetween">
                     <userOffsetX>0.0</userOffsetX>
                     <userOffsetY>0.0</userOffsetY>
                     <offsetX>0.0</offsetX>
                     <offsetY>-10.0</offsetY>
                     <related length="2">
-                        <related0>Pickup::WayPoint::0</related0>
-                        <related1>Pickup::WayPoint::1</related1>
+                        <related0>ContactContainsAddress::WayPoint::0</related0>
+                        <related1>ContactContainsAddress::WayPoint::1</related1>
                     </related>
                 </strategy>
                 <hidden>false</hidden>
             </edgeproperty>
         </properties>
         <waypoints>
-            <edgeproperty id="Pickup::WayPoint::0" sizeCalculated="true"
-                type="WayPoint" userDefined="false" visible="true">
+            <edgeproperty id="ContactContainsAddress::WayPoint::0"
+                sizeCalculated="true" type="WayPoint"
+                userDefined="false" visible="true">
                 <name>0</name>
                 <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyAttachedIntersection">
                     <userOffsetX>0.0</userOffsetX>
@@ -562,8 +287,9 @@
                 <specialid>1</specialid>
                 <hidden>false</hidden>
             </edgeproperty>
-            <edgeproperty id="Pickup::WayPoint::1" sizeCalculated="true"
-                type="WayPoint" userDefined="false" visible="true">
+            <edgeproperty id="ContactContainsAddress::WayPoint::1"
+                sizeCalculated="true" type="WayPoint"
+                userDefined="false" visible="true">
                 <name>1</name>
                 <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyAttachedIntersection">
                     <userOffsetX>0.0</userOffsetX>
@@ -577,84 +303,85 @@
         <hidden>false</hidden>
     </edge>
     <edge type="BinaryEdge">
-        <source>Bike</source>
-        <target>BikeStation</target>
-        <name>Parked</name>
+        <source>Contact</source>
+        <target>Note</target>
+        <name>ContactContainsNote</name>
         <properties>
-            <edgeproperty id="Parked::target::multiplicity"
+            <edgeproperty id="ContactContainsNote::target::multiplicity"
                 sizeCalculated="true" type="multiplicity"
-                userDefined="false" visible="true">
-                <name>0..1</name>
-                <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyRelativeToAttached">
-                    <userOffsetX>0.0</userOffsetX>
-                    <userOffsetY>0.0</userOffsetY>
-                    <attached>Parked::WayPoint::1</attached>
-                    <offset_x>8</offset_x>
-                    <offset_y>8</offset_y>
-                    <placement>BOTTOM</placement>
-                </strategy>
-                <hidden>false</hidden>
-            </edgeproperty>
-            <edgeproperty id="Parked::target::rolename"
-                sizeCalculated="true" type="rolename" userDefined="true" visible="true">
-                <name>parkedIn</name>
-                <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyRelativeToAttached">
-                    <userOffsetX>9.0</userOffsetX>
-                    <userOffsetY>-26.0</userOffsetY>
-                    <attached>Parked::WayPoint::1</attached>
-                    <offset_x>8</offset_x>
-                    <offset_y>8</offset_y>
-                    <placement>TOP</placement>
-                </strategy>
-                <hidden>false</hidden>
-            </edgeproperty>
-            <edgeproperty id="Parked::source::multiplicity"
-                sizeCalculated="true" type="multiplicity"
-                userDefined="false" visible="true">
+                userDefined="true" visible="true">
                 <name>*</name>
                 <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyRelativeToAttached">
-                    <userOffsetX>0.0</userOffsetX>
-                    <userOffsetY>0.0</userOffsetY>
-                    <attached>Parked::WayPoint::0</attached>
+                    <userOffsetX>-6.0</userOffsetX>
+                    <userOffsetY>27.0</userOffsetY>
+                    <attached>ContactContainsNote::WayPoint::1</attached>
                     <offset_x>8</offset_x>
                     <offset_y>8</offset_y>
                     <placement>BOTTOM</placement>
                 </strategy>
                 <hidden>false</hidden>
             </edgeproperty>
-            <edgeproperty id="Parked::source::rolename"
+            <edgeproperty id="ContactContainsNote::target::rolename"
                 sizeCalculated="true" type="rolename" userDefined="true" visible="true">
-                <name>bikesParked</name>
+                <name>note</name>
                 <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyRelativeToAttached">
-                    <userOffsetX>41.0</userOffsetX>
-                    <userOffsetY>-21.0</userOffsetY>
-                    <attached>Parked::WayPoint::0</attached>
+                    <userOffsetX>4.0</userOffsetX>
+                    <userOffsetY>11.0</userOffsetY>
+                    <attached>ContactContainsNote::WayPoint::1</attached>
                     <offset_x>8</offset_x>
                     <offset_y>8</offset_y>
                     <placement>TOP</placement>
                 </strategy>
                 <hidden>false</hidden>
             </edgeproperty>
-            <edgeproperty id="Parked::AssociationName"
+            <edgeproperty id="ContactContainsNote::source::rolename"
+                sizeCalculated="true" type="rolename" userDefined="true" visible="true">
+                <name>contact</name>
+                <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyRelativeToAttached">
+                    <userOffsetX>17.0</userOffsetX>
+                    <userOffsetY>-12.0</userOffsetY>
+                    <attached>ContactContainsNote::WayPoint::0</attached>
+                    <offset_x>8</offset_x>
+                    <offset_y>8</offset_y>
+                    <placement>TOP</placement>
+                </strategy>
+                <hidden>false</hidden>
+            </edgeproperty>
+            <edgeproperty id="ContactContainsNote::source::multiplicity"
+                sizeCalculated="true" type="multiplicity"
+                userDefined="true" visible="true">
+                <name>1</name>
+                <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyRelativeToAttached">
+                    <userOffsetX>31.0</userOffsetX>
+                    <userOffsetY>-24.0</userOffsetY>
+                    <attached>ContactContainsNote::WayPoint::0</attached>
+                    <offset_x>8</offset_x>
+                    <offset_y>8</offset_y>
+                    <placement>BOTTOM</placement>
+                </strategy>
+                <hidden>false</hidden>
+            </edgeproperty>
+            <edgeproperty id="ContactContainsNote::AssociationName"
                 sizeCalculated="true" type="associationName"
                 userDefined="false" visible="true">
-                <name>Parked</name>
+                <name>ContactContainsNote</name>
                 <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyInBetween">
                     <userOffsetX>0.0</userOffsetX>
                     <userOffsetY>0.0</userOffsetY>
                     <offsetX>0.0</offsetX>
                     <offsetY>-10.0</offsetY>
                     <related length="2">
-                        <related0>Parked::WayPoint::0</related0>
-                        <related1>Parked::WayPoint::1</related1>
+                        <related0>ContactContainsNote::WayPoint::0</related0>
+                        <related1>ContactContainsNote::WayPoint::1</related1>
                     </related>
                 </strategy>
                 <hidden>false</hidden>
             </edgeproperty>
         </properties>
         <waypoints>
-            <edgeproperty id="Parked::WayPoint::0" sizeCalculated="true"
-                type="WayPoint" userDefined="false" visible="true">
+            <edgeproperty id="ContactContainsNote::WayPoint::0"
+                sizeCalculated="true" type="WayPoint"
+                userDefined="false" visible="true">
                 <name>0</name>
                 <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyAttachedIntersection">
                     <userOffsetX>0.0</userOffsetX>
@@ -664,8 +391,294 @@
                 <specialid>1</specialid>
                 <hidden>false</hidden>
             </edgeproperty>
-            <edgeproperty id="Parked::WayPoint::1" sizeCalculated="true"
-                type="WayPoint" userDefined="false" visible="true">
+            <edgeproperty id="ContactContainsNote::WayPoint::1"
+                sizeCalculated="true" type="WayPoint"
+                userDefined="false" visible="true">
+                <name>1</name>
+                <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyAttachedIntersection">
+                    <userOffsetX>0.0</userOffsetX>
+                    <userOffsetY>0.0</userOffsetY>
+                </strategy>
+                <id>1</id>
+                <specialid>2</specialid>
+                <hidden>false</hidden>
+            </edgeproperty>
+        </waypoints>
+        <hidden>false</hidden>
+    </edge>
+    <edge type="BinaryEdge">
+        <source>AddressBook</source>
+        <target>Contact</target>
+        <name>AddressBookMadeOfContact</name>
+        <properties>
+            <edgeproperty
+                id="AddressBookMadeOfContact::target::rolename"
+                sizeCalculated="true" type="rolename" userDefined="true" visible="true">
+                <name>contact</name>
+                <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyRelativeToAttached">
+                    <userOffsetX>5.0</userOffsetX>
+                    <userOffsetY>7.0</userOffsetY>
+                    <attached>AddressBookMadeOfContact::WayPoint::1</attached>
+                    <offset_x>8</offset_x>
+                    <offset_y>8</offset_y>
+                    <placement>TOP</placement>
+                </strategy>
+                <hidden>false</hidden>
+            </edgeproperty>
+            <edgeproperty
+                id="AddressBookMadeOfContact::target::multiplicity"
+                sizeCalculated="true" type="multiplicity"
+                userDefined="true" visible="true">
+                <name>*</name>
+                <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyRelativeToAttached">
+                    <userOffsetX>-9.0</userOffsetX>
+                    <userOffsetY>-6.0</userOffsetY>
+                    <attached>AddressBookMadeOfContact::WayPoint::1</attached>
+                    <offset_x>8</offset_x>
+                    <offset_y>8</offset_y>
+                    <placement>BOTTOM</placement>
+                </strategy>
+                <hidden>false</hidden>
+            </edgeproperty>
+            <edgeproperty
+                id="AddressBookMadeOfContact::source::rolename"
+                sizeCalculated="true" type="rolename" userDefined="true" visible="true">
+                <name>addressBook</name>
+                <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyRelativeToAttached">
+                    <userOffsetX>8.0</userOffsetX>
+                    <userOffsetY>19.0</userOffsetY>
+                    <attached>AddressBookMadeOfContact::WayPoint::0</attached>
+                    <offset_x>8</offset_x>
+                    <offset_y>8</offset_y>
+                    <placement>TOP</placement>
+                </strategy>
+                <hidden>false</hidden>
+            </edgeproperty>
+            <edgeproperty
+                id="AddressBookMadeOfContact::source::multiplicity"
+                sizeCalculated="true" type="multiplicity"
+                userDefined="true" visible="true">
+                <name>1</name>
+                <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyRelativeToAttached">
+                    <userOffsetX>-22.0</userOffsetX>
+                    <userOffsetY>7.0</userOffsetY>
+                    <attached>AddressBookMadeOfContact::WayPoint::0</attached>
+                    <offset_x>8</offset_x>
+                    <offset_y>8</offset_y>
+                    <placement>BOTTOM</placement>
+                </strategy>
+                <hidden>false</hidden>
+            </edgeproperty>
+            <edgeproperty id="AddressBookMadeOfContact::AssociationName"
+                sizeCalculated="true" type="associationName"
+                userDefined="false" visible="true">
+                <name>AddressBookMadeOfContact</name>
+                <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyInBetween">
+                    <userOffsetX>0.0</userOffsetX>
+                    <userOffsetY>0.0</userOffsetY>
+                    <offsetX>0.0</offsetX>
+                    <offsetY>-10.0</offsetY>
+                    <related length="2">
+                        <related0>AddressBookMadeOfContact::WayPoint::0</related0>
+                        <related1>AddressBookMadeOfContact::WayPoint::1</related1>
+                    </related>
+                </strategy>
+                <hidden>false</hidden>
+            </edgeproperty>
+        </properties>
+        <waypoints>
+            <edgeproperty id="AddressBookMadeOfContact::WayPoint::0"
+                sizeCalculated="true" type="WayPoint"
+                userDefined="false" visible="true">
+                <name>0</name>
+                <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyAttachedIntersection">
+                    <userOffsetX>0.0</userOffsetX>
+                    <userOffsetY>0.0</userOffsetY>
+                </strategy>
+                <id>0</id>
+                <specialid>1</specialid>
+                <hidden>false</hidden>
+            </edgeproperty>
+            <edgeproperty id="AddressBookMadeOfContact::WayPoint::1"
+                sizeCalculated="true" type="WayPoint"
+                userDefined="false" visible="true">
+                <name>1</name>
+                <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyAttachedIntersection">
+                    <userOffsetX>0.0</userOffsetX>
+                    <userOffsetY>0.0</userOffsetY>
+                </strategy>
+                <id>1</id>
+                <specialid>2</specialid>
+                <hidden>false</hidden>
+            </edgeproperty>
+        </waypoints>
+        <hidden>false</hidden>
+    </edge>
+    <edge type="BinaryEdge">
+        <source>Contact</source>
+        <target>Relationship</target>
+        <name>ContactToRelationship</name>
+        <properties>
+            <edgeproperty id="ContactToRelationship::target::rolename"
+                sizeCalculated="true" type="rolename"
+                userDefined="false" visible="true">
+                <name>relates</name>
+                <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyRelativeToAttached">
+                    <userOffsetX>0.0</userOffsetX>
+                    <userOffsetY>0.0</userOffsetY>
+                    <attached>ContactToRelationship::WayPoint::1</attached>
+                    <offset_x>8</offset_x>
+                    <offset_y>8</offset_y>
+                    <placement>TOP</placement>
+                </strategy>
+                <hidden>false</hidden>
+            </edgeproperty>
+            <edgeproperty
+                id="ContactToRelationship::target::multiplicity"
+                sizeCalculated="true" type="multiplicity"
+                userDefined="true" visible="true">
+                <name>*</name>
+                <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyRelativeToAttached">
+                    <userOffsetX>-10.0</userOffsetX>
+                    <userOffsetY>16.0</userOffsetY>
+                    <attached>ContactToRelationship::WayPoint::1</attached>
+                    <offset_x>8</offset_x>
+                    <offset_y>8</offset_y>
+                    <placement>BOTTOM</placement>
+                </strategy>
+                <hidden>false</hidden>
+            </edgeproperty>
+            <edgeproperty id="ContactToRelationship::source::rolename"
+                sizeCalculated="true" type="rolename" userDefined="true" visible="true">
+                <name>contact</name>
+                <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyRelativeToAttached">
+                    <userOffsetX>13.0</userOffsetX>
+                    <userOffsetY>4.0</userOffsetY>
+                    <attached>ContactToRelationship::WayPoint::0</attached>
+                    <offset_x>8</offset_x>
+                    <offset_y>8</offset_y>
+                    <placement>TOP</placement>
+                </strategy>
+                <hidden>false</hidden>
+            </edgeproperty>
+            <edgeproperty
+                id="ContactToRelationship::source::multiplicity"
+                sizeCalculated="true" type="multiplicity"
+                userDefined="true" visible="true">
+                <name>1</name>
+                <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyRelativeToAttached">
+                    <userOffsetX>32.0</userOffsetX>
+                    <userOffsetY>32.0</userOffsetY>
+                    <attached>ContactToRelationship::WayPoint::0</attached>
+                    <offset_x>8</offset_x>
+                    <offset_y>8</offset_y>
+                    <placement>BOTTOM</placement>
+                </strategy>
+                <hidden>false</hidden>
+            </edgeproperty>
+            <edgeproperty id="ContactToRelationship::AssociationName"
+                sizeCalculated="true" type="associationName"
+                userDefined="false" visible="true">
+                <name>ContactToRelationship</name>
+                <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyInBetween">
+                    <userOffsetX>0.0</userOffsetX>
+                    <userOffsetY>0.0</userOffsetY>
+                    <offsetX>0.0</offsetX>
+                    <offsetY>-10.0</offsetY>
+                    <related length="2">
+                        <related0>ContactToRelationship::WayPoint::0</related0>
+                        <related1>ContactToRelationship::WayPoint::1</related1>
+                    </related>
+                </strategy>
+                <hidden>false</hidden>
+            </edgeproperty>
+        </properties>
+        <waypoints>
+            <edgeproperty id="ContactToRelationship::WayPoint::0"
+                sizeCalculated="true" type="WayPoint"
+                userDefined="false" visible="true">
+                <name>0</name>
+                <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyAttachedIntersection">
+                    <userOffsetX>0.0</userOffsetX>
+                    <userOffsetY>0.0</userOffsetY>
+                </strategy>
+                <id>0</id>
+                <specialid>1</specialid>
+                <hidden>false</hidden>
+            </edgeproperty>
+            <edgeproperty id="ContactToRelationship::WayPoint::1"
+                sizeCalculated="true" type="WayPoint"
+                userDefined="false" visible="true">
+                <name>1</name>
+                <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyAttachedIntersection">
+                    <userOffsetX>0.0</userOffsetX>
+                    <userOffsetY>0.0</userOffsetY>
+                </strategy>
+                <id>1</id>
+                <specialid>2</specialid>
+                <hidden>false</hidden>
+            </edgeproperty>
+        </waypoints>
+        <hidden>false</hidden>
+    </edge>
+    <edge type="Generalization">
+        <source>Person</source>
+        <target>Contact</target>
+        <name>Inheritance</name>
+        <properties/>
+        <waypoints>
+            <edgeproperty
+                id="Generalization::Person::Contact::WayPoint::0"
+                sizeCalculated="true" type="WayPoint"
+                userDefined="false" visible="true">
+                <name>0</name>
+                <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyAttachedIntersection">
+                    <userOffsetX>0.0</userOffsetX>
+                    <userOffsetY>0.0</userOffsetY>
+                </strategy>
+                <id>0</id>
+                <specialid>1</specialid>
+                <hidden>false</hidden>
+            </edgeproperty>
+            <edgeproperty
+                id="Generalization::Person::Contact::WayPoint::1"
+                sizeCalculated="true" type="WayPoint"
+                userDefined="false" visible="true">
+                <name>1</name>
+                <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyAttachedIntersection">
+                    <userOffsetX>0.0</userOffsetX>
+                    <userOffsetY>0.0</userOffsetY>
+                </strategy>
+                <id>1</id>
+                <specialid>2</specialid>
+                <hidden>false</hidden>
+            </edgeproperty>
+        </waypoints>
+        <hidden>false</hidden>
+    </edge>
+    <edge type="Generalization">
+        <source>Company</source>
+        <target>Contact</target>
+        <name>Inheritance</name>
+        <properties/>
+        <waypoints>
+            <edgeproperty
+                id="Generalization::Company::Contact::WayPoint::0"
+                sizeCalculated="true" type="WayPoint"
+                userDefined="false" visible="true">
+                <name>0</name>
+                <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyAttachedIntersection">
+                    <userOffsetX>0.0</userOffsetX>
+                    <userOffsetY>0.0</userOffsetY>
+                </strategy>
+                <id>0</id>
+                <specialid>1</specialid>
+                <hidden>false</hidden>
+            </edgeproperty>
+            <edgeproperty
+                id="Generalization::Company::Contact::WayPoint::1"
+                sizeCalculated="true" type="WayPoint"
+                userDefined="false" visible="true">
                 <name>1</name>
                 <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyAttachedIntersection">
                     <userOffsetX>0.0</userOffsetX>

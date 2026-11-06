@@ -1,0 +1,67 @@
+model StateMachine
+
+abstract class NamedElement
+attributes
+    name : String
+end
+
+class State < NamedElement
+end
+
+class StateMachine < NamedElement
+end
+
+class Transition < NamedElement
+end
+
+class TimeEvent
+attributes
+    time : Integer
+end
+
+composition StateMachineContainsStates between
+    StateMachine [1]
+    State [0..*] role containsStates
+end
+
+association StateMachineStartsStates between
+    StateMachine [0..1] role isStartStateOf
+    State [1] role start
+end
+
+
+composition StateMachineContainsTransitions between
+    StateMachine [1]
+    Transition [0..*] role containsTransitions
+end
+
+composition TransitionContainsEvents between
+    Transition [1] 
+    TimeEvent [1] role timer
+end
+
+association StateTransition between
+    State [1] role source
+    Transition [0..*] role outgoing
+end
+
+association TransitionState between
+    Transition [0..*] role incoming
+    State [1] role target
+end
+
+constraints
+context TimeEvent inv TimeIsPositive:
+    self.time > 0
+
+context StateMachine inv FirstCharLowerCase:
+    self.containsStates -> forAll(s : State | s.name.at(1) = s.name.at(1).toLowerCase())
+
+context State inv NotEmptyState : 
+   self.incoming->size() > 0 or self.outgoing->size() > 0
+
+context StateMachine inv StartStateIsContained:
+   self.containsStates->exists(s | self.start = s)
+
+context StateMachine inv NonEmptyStateMachine:
+   self.containsStates->size() > 0

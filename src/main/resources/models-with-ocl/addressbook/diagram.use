@@ -1,0 +1,129 @@
+model AddressBook
+
+enum NoteType {
+    MEETING,
+    CALL,
+    EMAIL
+}
+
+enum RelationshipType {
+    BOSS,
+    EMPLOYEE,
+    SUBDIVISION,
+    COWORKER
+}
+
+dataType Date
+operations
+    Date(date : String)
+end
+
+class AddressBook
+end
+
+abstract class Contact
+attributes
+    name : String
+    phone : String
+    website : String
+    email : String
+end
+
+class Note
+attributes
+    author : String
+    time : Date
+    type : NoteType
+    comment : String
+end
+
+class Company < Contact
+attributes
+    industry : String
+end
+
+class Person < Contact
+attributes
+    title : String
+operations
+    employerCompanies() : Bag(Company) =
+        self.relates->select(r |
+            r.target.oclIsTypeOf(Company)
+            and (r.type = #SUBDIVISION or r.type = #BOSS or r.type = #EMPLOYEE)
+        )->collect(r | r.target.oclAsType(Company))->union(
+        Relationship.allInstances->select(r |
+            r.target = self
+            and r.type = #EMPLOYEE
+            and r.sourceContact().oclIsTypeOf(Company)
+        )->collect(r | r.sourceContact().oclAsType(Company)))
+end
+
+class Address
+attributes
+    city : String
+    houseNr : String
+    street : String
+end
+
+class Relationship
+attributes
+    type : RelationshipType
+operations
+    sourceContact() : Contact =
+        Contact.allInstances->select(c | c.relates->includes(self))->asSequence()->first()
+end
+
+composition AddressBookMadeOfContact between
+    AddressBook[1]
+    Contact[*]
+end
+
+composition ContactContainsNote between
+    Contact[1]
+    Note[*]
+end
+
+association RelationshipToContact between
+    Relationship[*] role isRelated
+    Contact[1] role target
+end
+
+composition ContactToRelationship between
+    Contact[1]
+    Relationship[*] role relates
+end
+
+composition ContactContainsAddress between
+    Contact[1] role source
+    Address[*] role address
+end
+
+
+constraints
+context Contact inv DifferentSourceTarget:
+    self.relates->forAll(r | r.target<>self)
+
+context Relationship inv CoworkerOnlyBetweenPersons:
+    self.type = #COWORKER implies
+        self.sourceContact().oclIsTypeOf(Person)
+        and self.target.oclIsTypeOf(Person)
+
+context Relationship inv BossOnlyBetweenPersons:
+    self.type = #BOSS implies
+        self.sourceContact().oclIsTypeOf(Person)
+        and self.target.oclIsTypeOf(Person)
+
+context Relationship inv EmployeeNotBetweenCompanies:
+    self.type = #EMPLOYEE implies
+        not (self.sourceContact().oclIsTypeOf(Company)
+            and self.target.oclIsTypeOf(Company))
+
+context Relationship inv SubdivisionBetweenCompanies:
+    self.type = #SUBDIVISION implies
+        self.sourceContact().oclIsTypeOf(Company)
+        and self.target.oclIsTypeOf(Company)
+
+context Relationship inv CoworkerSameCompany:
+    self.type = #COWORKER implies
+        self.target.oclAsType(Person).employerCompanies()->exists(c |
+            self.sourceContact().oclAsType(Person).employerCompanies()->includes(c))

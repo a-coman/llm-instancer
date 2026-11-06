@@ -1,0 +1,137 @@
+%%%
+
+TO BE COMPLETED
+
+%%%
+
+-- This is a comment example
+-- VideoClub 1 example
+
+!new Client('client1')
+!client1.clientId := 1
+!client1.isSuspended := false
+
+!new Client('client2')
+!client2.clientId := 2
+!client2.isSuspended := true
+
+!new Client('client3')
+!client3.clientId := 7
+!client3.isSuspended := false
+
+!new Rental('rental1')
+!rental1.date := Date('1983-04-14')
+
+!new Rental('rental2')
+!rental2.date := Date('1978-08-27')
+
+!new Rental('rental3')
+!rental3.date := Date('1994-11-03')
+
+!new Rental('rental4')
+!rental4.date := Date('2001-07-15')
+
+!new Rental('rental5')
+!rental5.date := Date('2003-02-05')
+
+!new Cassette('cassette1')
+!cassette1.title := 'The Matrix'
+!cassette1.availableCopies := 12
+
+!new Cassette('cassette2')
+!cassette2.title := 'Airplane!'
+!cassette2.availableCopies := 5
+
+!new Cassette('cassette3')
+!cassette3.title := 'Mrs. Doubtfire'
+!cassette3.availableCopies := 0
+
+!new Cassette('cassette4')
+!cassette4.title := 'Dumb and Dumber'
+!cassette4.availableCopies := 9
+
+!new Cassette('cassette5')
+!cassette5.title := 'Jurassic Park'
+!cassette5.availableCopies := 4
+
+!new Serie('serie1')
+!serie1.serialNumber := 1578
+
+!new Serie('serie2')
+!serie2.serialNumber := 141
+
+!new Serie('serie3')
+!serie3.serialNumber := 9731
+
+!new Serie('serie4')
+!serie4.serialNumber := 986767
+
+!new Serie('serie5')
+!serie5.serialNumber := 77114
+
+!new Film('film1')
+!film1.genre := Genre.Action
+
+!new Film('film2')
+!film2.genre := Genre.Comedy
+
+!new Film('film3')
+!film3.genre := Genre.Comedy
+
+!new Film('film4')
+!film4.genre := Genre.Comedy
+
+!new Film('film5')
+!film5.genre := Genre.Action
+
+!new Actor('actor1')
+!actor1.name := 'Keanu Reeves'
+!new Actor('actor2')
+!actor2.name := 'Laurence Fishburne'
+
+!new Actor('actor3')
+!actor3.name := 'Robert Hays'
+!new Actor('actor4')
+!actor4.name := 'Julie Hagerty'
+!new Actor('actor5')
+!actor5.name := 'Leslie Nielsen'
+
+!new Actor('actor6')
+!actor6.name := 'Robin Williams'
+
+!new Actor('actor7')
+!actor7.name := 'Jim Carrey'
+
+!new Actor('actor8')
+!actor8.name := 'Sam Neill'
+!new Actor('actor9')
+!actor9.name := 'Laura Dern'
+!new Actor('actor10')
+!actor10.name := 'Jeff Goldblum'
+
+!insert (client1, rental1) into ClientRental
+!insert (client1, rental2) into ClientRental
+!insert (client2, rental3) into ClientRental
+!insert (client3, rental4) into ClientRental
+!insert (client3, rental5) into ClientRental
+
+!insert (rental1, cassette2) into RentalCassette
+!insert (rental2, cassette1) into RentalCassette
+!insert (rental5, cassette5) into RentalCassette
+!insert (rental4, cassette5) into RentalCassette
+!insert (rental3, cassette4) into RentalCassette
+
+!insert (cassette1, actor1) into CassetteActor
+!insert (cassette1, actor2) into CassetteActor
+
+!insert (cassette2, actor3) into CassetteActor
+!insert (cassette2, actor4) into CassetteActor
+!insert (cassette2, actor5) into CassetteActor
+
+!insert (cassette4, actor6) into CassetteActor
+
+!insert (cassette5, actor7) into CassetteActor
+
+!insert (cassette5, actor8) into CassetteActor
+!insert (cassette5, actor9) into CassetteActor
+!insert (cassette5, actor10) into CassetteActor

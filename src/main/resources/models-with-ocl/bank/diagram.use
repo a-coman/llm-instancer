@@ -1,0 +1,106 @@
+model BankAccount
+
+class Bank
+attributes
+    country:String
+    name:String
+    bic:String
+end
+
+class Account
+attributes
+    iban: String
+    balance : Integer
+operations
+    ibanCountryCode() : String =
+        self.iban.substring(1, 2)
+    -- 88 codes from the SWIFT IBAN Registry ISO 13616 (Release 101, Dec 2025), in alphabetical order
+    validIbanCountryCode() : Boolean =
+        self.ibanCountryCode() = 'AD' or self.ibanCountryCode() = 'AE' or
+        self.ibanCountryCode() = 'AL' or self.ibanCountryCode() = 'AT' or
+        self.ibanCountryCode() = 'AZ' or self.ibanCountryCode() = 'BA' or
+        self.ibanCountryCode() = 'BE' or self.ibanCountryCode() = 'BG' or
+        self.ibanCountryCode() = 'BH' or self.ibanCountryCode() = 'BI' or
+        self.ibanCountryCode() = 'BR' or self.ibanCountryCode() = 'BY' or
+        self.ibanCountryCode() = 'CH' or self.ibanCountryCode() = 'CR' or
+        self.ibanCountryCode() = 'CY' or self.ibanCountryCode() = 'CZ' or
+        self.ibanCountryCode() = 'DE' or self.ibanCountryCode() = 'DJ' or
+        self.ibanCountryCode() = 'DK' or self.ibanCountryCode() = 'DO' or
+        self.ibanCountryCode() = 'EE' or self.ibanCountryCode() = 'EG' or
+        self.ibanCountryCode() = 'ES' or self.ibanCountryCode() = 'FI' or
+        self.ibanCountryCode() = 'FK' or self.ibanCountryCode() = 'FO' or
+        self.ibanCountryCode() = 'FR' or self.ibanCountryCode() = 'GB' or
+        self.ibanCountryCode() = 'GE' or self.ibanCountryCode() = 'GI' or
+        self.ibanCountryCode() = 'GL' or self.ibanCountryCode() = 'GR' or
+        self.ibanCountryCode() = 'GT' or self.ibanCountryCode() = 'HN' or
+        self.ibanCountryCode() = 'HR' or self.ibanCountryCode() = 'HU' or
+        self.ibanCountryCode() = 'IE' or self.ibanCountryCode() = 'IL' or
+        self.ibanCountryCode() = 'IQ' or self.ibanCountryCode() = 'IS' or
+        self.ibanCountryCode() = 'IT' or self.ibanCountryCode() = 'JO' or
+        self.ibanCountryCode() = 'KW' or self.ibanCountryCode() = 'KZ' or
+        self.ibanCountryCode() = 'LB' or self.ibanCountryCode() = 'LC' or
+        self.ibanCountryCode() = 'LI' or self.ibanCountryCode() = 'LT' or
+        self.ibanCountryCode() = 'LU' or self.ibanCountryCode() = 'LV' or
+        self.ibanCountryCode() = 'LY' or self.ibanCountryCode() = 'MC' or
+        self.ibanCountryCode() = 'MD' or self.ibanCountryCode() = 'ME' or
+        self.ibanCountryCode() = 'MK' or self.ibanCountryCode() = 'MN' or
+        self.ibanCountryCode() = 'MR' or self.ibanCountryCode() = 'MT' or
+        self.ibanCountryCode() = 'MU' or self.ibanCountryCode() = 'NI' or
+        self.ibanCountryCode() = 'NL' or self.ibanCountryCode() = 'NO' or
+        self.ibanCountryCode() = 'OM' or self.ibanCountryCode() = 'PK' or
+        self.ibanCountryCode() = 'PL' or self.ibanCountryCode() = 'PS' or
+        self.ibanCountryCode() = 'PT' or self.ibanCountryCode() = 'QA' or
+        self.ibanCountryCode() = 'RO' or self.ibanCountryCode() = 'RS' or
+        self.ibanCountryCode() = 'RU' or self.ibanCountryCode() = 'SA' or
+        self.ibanCountryCode() = 'SC' or self.ibanCountryCode() = 'SD' or
+        self.ibanCountryCode() = 'SE' or self.ibanCountryCode() = 'SI' or
+        self.ibanCountryCode() = 'SK' or self.ibanCountryCode() = 'SM' or
+        self.ibanCountryCode() = 'SO' or self.ibanCountryCode() = 'ST' or
+        self.ibanCountryCode() = 'SV' or self.ibanCountryCode() = 'TL' or
+        self.ibanCountryCode() = 'TN' or self.ibanCountryCode() = 'TR' or
+        self.ibanCountryCode() = 'UA' or self.ibanCountryCode() = 'VA' or
+        self.ibanCountryCode() = 'VG' or self.ibanCountryCode() = 'XK'
+    validIbanLength() : Boolean =
+        self.iban.size() > 14 and self.iban.size() <= 34
+end
+
+class Person
+attributes
+    firstName:String
+    lastName:String
+    age : Integer
+end
+
+association Ownership between
+    Person [1..2] role owner
+    Account [*] role accounts
+end
+
+association Use between
+    Person [*] role user
+    Account [*]
+end
+
+composition AccountOfBanks between
+    Bank [1] role bank
+    Account [*] role accounts
+end
+
+constraints
+context Account inv AdultOwners:
+    self.owner->forAll(p | p.age >= 18)
+
+context Account inv positiveBalance:
+    self.balance >= 0
+
+context Person inv RealisticAge:
+    self.age > -1 and self.age < 150
+
+context Bank inv RealisticBic:
+    self.bic.size() > 0 and self.bic.size() < 12
+
+context Account inv ValidIbanCountry:
+    self.validIbanCountryCode()
+
+context Account inv ValidIbanLength:
+    self.validIbanLength()

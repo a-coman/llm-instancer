@@ -1,0 +1,106 @@
+model MyExpenses
+
+dataType Date
+operations
+    Date(date : String)
+    year() : Integer =
+        self.date.substring(1, 4).toInteger()
+    month() : Integer =
+        self.date.substring(6, 7).toInteger()
+    day() : Integer =
+        self.date.substring(9, 10).toInteger()
+    dayIndex() : Integer =
+        let a = if self.month() <= 2 then 1 else 0 endif in
+        let y = self.year() + 4800 - a in
+        let m = self.month() + 12 * a - 3 in
+        self.day() + ((153 * m + 2) / 5).floor() + 365 * y + (y / 4).floor() - (y / 100).floor() + (y / 400).floor() - 32045
+end
+
+enum PaymentMethod {
+    CREDIT_CARD,
+    CHECK,
+    CASH
+}
+
+enum BillStatus {
+    DRAFT,
+    PENDING,
+    VERIFIED,
+    VALIDATED,
+    REFUSED,
+    REFUNDED
+}
+
+class Expense
+attributes
+    amount : Real
+    startDate : Date
+    endDate : Date
+operations
+    billsShareCurrency() : Boolean =
+        self.bills->forAll(b1, b2 | b1 = b2 or b1.currency = b2.currency)
+    billAmountSum() : Real =
+        self.bills->collect(b : Bill | b.amount)->sum()
+end
+
+class Bill
+attributes
+    amount : Real
+    category : String
+    date : Date
+    paymentMethod : PaymentMethod
+    status : BillStatus
+end
+
+class Comment
+attributes
+    text : String
+end
+
+class Currency
+attributes
+    name : String
+    abbreviation : String
+end
+
+
+composition ExpenseContainsBills between
+    Expense [1]
+    Bill [*] role bills
+end
+
+association ExpenseComment between
+    Expense [1]
+    Comment [*] role comments
+end
+
+association BillCurrency between
+    Bill [1..*]
+    Currency [1] role currency
+end
+
+constraints
+context Expense inv positiveAmount:
+    self.amount >= 0
+
+context Expense inv SumOfBillsWithCurrencies:
+    self.billsShareCurrency() implies self.amount = self.billAmountSum()
+
+context Expense inv CrossCurrencySumOfBills:
+    not self.billsShareCurrency() implies self.amount <> self.billAmountSum()
+
+context Expense inv RealisticDates:
+    self.startDate.year() >= 1900 and self.startDate.year() <= 3000
+    and self.startDate.month() >= 1 and self.startDate.month() <= 12
+    and self.startDate.day() >= 1 and self.startDate.day() <= 31
+    and self.endDate.year() >= 1900 and self.endDate.year() <= 3000
+    and self.endDate.month() >= 1 and self.endDate.month() <= 12
+    and self.endDate.day() >= 1 and self.endDate.day() <= 31
+
+context Expense inv EndDateAfterStartDate:
+    self.endDate.dayIndex() >= self.startDate.dayIndex()
+
+context Bill inv RealisticDates:
+    self.date.year() >= 1900 and self.date.year() <= 3000
+    and self.date.month() >= 1 and self.date.month() <= 12
+    and self.date.day() >= 1 and self.date.day() <= 31

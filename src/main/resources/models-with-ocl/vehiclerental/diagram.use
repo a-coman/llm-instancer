@@ -1,0 +1,164 @@
+model VehicleRental
+
+dataType Date
+operations
+    Date(date : String)
+    year() : Integer =
+        self.date.substring(1, 4).toInteger()
+    month() : Integer =
+        self.date.substring(6, 7).toInteger()
+    day() : Integer =
+        self.date.substring(9, 10).toInteger()
+    dayIndex() : Integer =
+        let a = if self.month() <= 2 then 1 else 0 endif in
+        let y = self.year() + 4800 - a in
+        let m = self.month() + 12 * a - 3 in
+        self.day() + ((153 * m + 2) / 5).floor() + 365 * y + (y / 4).floor() - (y / 100).floor() + (y / 400).floor() - 32045
+    daysUntil(other : Date) : Integer =
+        other.dayIndex() - self.dayIndex()
+end
+
+enum State {
+    AL,
+    AK,
+    AZ,
+    CA,
+    CO,
+    CT,
+    DE,
+    FL
+}
+
+enum VehicleTypeCode {
+    TRUCK,
+    TRUCK24,
+    TRUCK10,
+    COVERED_TRAILER,
+    OPEN_TRAILER
+}
+
+class RentalOffice
+attributes
+    name : String
+    number : Integer
+    address : String
+end
+
+class Vehicle
+attributes
+    id : Integer
+    registrationState : State
+    licensePlateNumber : String 
+    vehicleTypeCode : VehicleTypeCode
+    registrationLastMaintenanceDate : Date
+    expirationDate : Date
+end
+
+class RentalAgreement
+attributes
+    number : Integer
+    rentalDate : Date
+    anticipatedDuration : Integer
+    depositPaid : Real
+    quotedDailyRate : Real
+    quotedRatePerMile : Real
+operations
+    rentalStartDay() : Integer =
+        self.rentalDate.dayIndex()
+    rentalEndDay() : Integer =
+        self.rentalDate.dayIndex() + self.anticipatedDuration
+    overlaps(other : RentalAgreement) : Boolean =
+        self.rentalStartDay() < other.rentalEndDay()
+        and other.rentalStartDay() < self.rentalEndDay()
+end
+
+class Truck < Vehicle
+attributes
+    odometerReading : Integer
+    gasTankCapacity : Real
+    workingRadio : Boolean
+    mileage : Integer
+operations
+    rentalAgreements() : Set(RentalAgreement) =
+        RentalAgreement.allInstances->select(ra | ra.vehicle = self)
+end
+
+abstract class Customer
+attributes
+    name : String
+    address : String
+    poorRisk : Boolean
+end
+
+class Individual < Customer
+attributes
+    homePhone : String
+    driverLicenseState : State
+    driverLicenseNumber : Integer
+    driverLicenseExpirationDate : Date
+end
+
+class Company < Customer
+attributes
+    idNumber : Integer
+end
+
+
+association RentalOfficeVehicle between
+    RentalOffice [1] role homeOffice
+    Vehicle [*] 
+end
+
+association RentalOfficeRentalAgreementOrigin between
+    RentalOffice [1] role originatingRentalOffice
+    RentalAgreement [*] role originatingAgreement
+end
+
+association RentalOfficeRentalAgreementDrop between
+    RentalOffice [1] role droppoffRentalOffice
+    RentalAgreement [*] role dropoffAgreement
+end
+
+association RentalAgreementVehicle between
+    RentalAgreement [*]
+    Vehicle [1]
+end
+
+association RentalAgreementCustomer between
+    RentalAgreement [*]
+    Customer [1]
+end
+
+constraints
+context Truck inv positiveMileage:
+    self.mileage >= 0
+
+context Truck inv RealisticGasTankCapacity:
+    self.gasTankCapacity > 0 and self.gasTankCapacity <= 500
+
+context Truck inv RealisticDistances:
+    self.odometerReading > 0 and self.odometerReading <= 999999
+    and self.mileage >= 0 and self.mileage <= 999999
+
+context Vehicle inv PositiveNumberId:
+    self.id > 0
+
+context RentalOffice inv PositiveNumberId:
+    self.number > 0
+
+context RentalAgreement inv PositiveNumberId:
+    self.number > 0
+
+context RentalAgreement inv PositiveAnticipatedDuration:
+    self.anticipatedDuration > 0 and self.anticipatedDuration <= 365
+
+context RentalAgreement inv RealisticDepositPaid:
+    self.depositPaid >= 0 and self.depositPaid <= 50000
+
+context RentalAgreement inv RealisticPricing:
+    self.quotedDailyRate > 0 and self.quotedDailyRate <= 1000
+    and self.quotedRatePerMile >= 0 and self.quotedRatePerMile <= 100
+
+context Truck inv NonOverlappingRentalDatesForVehicle:
+    self.rentalAgreements()->forAll(ra1, ra2 |
+        ra1 = ra2 or not ra1.overlaps(ra2))

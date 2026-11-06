@@ -1,0 +1,76 @@
+model VideoClub
+
+dataType Date
+operations
+    Date(date : String)
+    year() : Integer =
+        self.date.substring(1, 4).toInteger()
+end
+
+enum Genre { 
+    Action, 
+    Comedy
+}
+
+class Client
+attributes
+    clientId : Integer
+    isSuspended : Boolean
+end
+
+class Rental
+attributes
+    date : Date
+end
+
+class Cassette
+attributes
+    title : String
+    availableCopies : Integer
+end
+
+class Movie < Cassette
+attributes
+    genre : Genre
+end
+
+class Series < Cassette
+attributes
+    episode : Integer
+end
+
+class Actor
+attributes
+    name : String
+end
+
+association ClientRental between
+    Client [1] role assigned
+    Rental [*] role gets
+end
+
+association RentalCassette between
+    Rental [*] role borrowed
+    Cassette [1..*] role borrows
+end
+
+association CassetteActor between
+    Cassette [*] role actsIn
+    Actor [1..*] role has
+end
+
+constraints
+context Client inv positiveClientId:
+    self.clientId > 0
+
+context Cassette inv postiveAvailableCopies:
+    self.availableCopies >= 0
+
+context Series inv positiveEpisode:
+    self.episode > 0
+
+context Rental inv RealisticRentalDate:
+    self.date.year() >= 1977
+
+context Cassette inv RealisticAvailableCopies:
+    self.availableCopies <= 50

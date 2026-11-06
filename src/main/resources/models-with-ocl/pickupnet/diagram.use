@@ -1,0 +1,100 @@
+model PickupNet
+
+enum ShipmentStatus {
+    NEW,
+    ASSIGNED,
+    UNDERWAY,
+    DELIVERED
+}
+
+class Driver
+attributes
+    id : String
+    name : String
+end
+
+class Shipment
+attributes
+    id : String
+    status : ShipmentStatus
+end
+
+class Address
+attributes
+    text : String
+end
+
+class GeoLocation
+attributes
+    latitude : Real
+    longitude : Real
+end
+
+class Station
+end
+
+class Customer
+attributes
+    id : String
+    name : String
+    twitterUserName : String
+end
+
+association DriverShipment between
+    Driver [0..1] role driver
+    Shipment [0..*] role assignments
+end
+
+association ShipmentContainsPickUpAddress between
+    Shipment [0..*] role hasPickUpShipment
+    Address [1] role pickUpAddress
+end
+
+association ShipmentContainsDeliveryAddress between
+    Shipment [0..*] role hasDeliveryShipment
+    Address [1] role shipToAddress
+end
+
+composition AddressContainsGeoLocation between
+    Address [1] 
+    GeoLocation [1] role geoLocation
+end
+
+composition CustomerConsistsOfShipment between
+    Customer [1] role orderer
+    Shipment [0..*] role orders
+end
+
+composition StationContainsCustomer between
+    Station [1]
+    Customer [0..*] role customers 
+end
+
+association StationShipment between
+    Station [1]
+    Shipment [0..*] role shipments
+end
+
+composition StationContainsDriver between
+    Station [1]
+    Driver [0..*] role drivers
+end
+
+constraints
+context Shipment inv uniqueShipmentId:
+    Shipment.allInstances->isUnique(s | s.id)
+
+context Driver inv uniqueDriverId:
+    Driver.allInstances->isUnique(d | d.id)
+
+context Customer inv uniqueCustomerId:
+    Customer.allInstances->isUnique(c | c.id)
+
+context Shipment inv differentPickupAndDeliveryAddress:
+    self.pickUpAddress <> self.shipToAddress
+
+context Shipment inv AssignedShouldHaveDriver:
+    self.status = #ASSIGNED implies not self.driver.isUndefined()
+
+context Shipment inv NewShouldntHaveDriver:
+    self.status = #NEW implies self.driver.isUndefined()

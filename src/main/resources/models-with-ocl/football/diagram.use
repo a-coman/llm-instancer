@@ -1,0 +1,299 @@
+model Football
+
+dataType CalendarDate
+operations
+    CalendarDate(s : String)
+    isSlashFormat() : Boolean =
+        self.s.size() = 10 and self.s.substring(3, 3) = '/'
+    year() : Integer =
+        if self.isSlashFormat() then
+            self.s.substring(7, 10).toInteger()
+        else
+            self.s.substring(1, 4).toInteger()
+        endif
+    month() : Integer =
+        if self.isSlashFormat() then
+            self.s.substring(4, 5).toInteger()
+        else
+            self.s.substring(6, 7).toInteger()
+        endif
+    day() : Integer =
+        if self.isSlashFormat() then
+            self.s.substring(1, 2).toInteger()
+        else
+            self.s.substring(9, 10).toInteger()
+        endif
+    dayIndex() : Integer =
+        let a = if self.month() <= 2 then 1 else 0 endif in
+        let y = self.year() + 4800 - a in
+        let m = self.month() + 12 * a - 3 in
+        self.day() + ((153 * m + 2) / 5).floor() + 365 * y + (y / 4).floor() - (y / 100).floor() + (y / 400).floor() - 32045
+end
+
+enum EventType {
+    GOAL,
+    FOUL,
+    OFFSIDE,
+    CORNER,
+    PENALTY
+}
+
+enum BestFoot {
+    LEFT,
+    RIGHT,
+    BOTH
+}
+
+enum PlayerPosition {
+    GOALKEEPER,
+    DEFENDER,
+    MIDFIELDER,
+    FORWARD
+}
+
+class Club
+attributes
+    name : String
+    homeGround : String
+    chairman : String
+end
+
+class Team
+attributes
+    name : String
+end
+
+class Competition
+attributes
+    name : String
+    type : String
+end
+
+class TrainingSession
+attributes
+	date : String
+	location : String
+	purpose : String
+end
+
+class TrainingNotes
+attributes
+	note : String
+	date : String
+end
+
+class MatchEvent
+attributes
+	eventType : EventType
+    time : Integer
+end
+
+class Match
+attributes
+    date : String
+    homeAway : Boolean
+end
+
+class TrainingFailedToAttend
+attributes
+	reason : String
+end
+
+class Player
+attributes
+	name : String
+    age : Integer
+    bestFoot : BestFoot
+    phoneNumber : String
+end
+
+class MatchReport
+attributes
+	duration : Integer
+    scoreVisitor : Integer
+    scoreLocal : Integer
+operations
+    totalGoals() : Integer =
+        self.scoreVisitor + self.scoreLocal
+    playerGoalsSum() : Integer =
+        self.match.matchPlayer->collect(mp : MatchPlayer | mp.goals)->sum()
+end
+
+class MatchNote
+attributes
+	note : String
+	date : String
+end
+
+class TrainingObjective
+attributes
+	areaToImprove : String
+    startDate : String
+	endDate : String
+    success : Boolean
+end
+
+class Position
+attributes
+    positionName : PlayerPosition
+end
+
+class PlayerNotes
+attributes
+    note : String
+    date : String
+end
+
+class MatchPlayer
+attributes
+	booked : Boolean
+    goals : Integer
+    rating : Integer
+end
+
+class MatchPlayerPosition
+attributes
+    positionName : PlayerPosition
+    number : Integer
+end
+
+association ClubTeam between
+    Club [1]
+    Team [1..*]
+end
+
+association TeamTraining between
+    Team [1]
+    TrainingSession [1..*]
+end
+
+association CompetitionMatch between
+    Competition [1]
+    Match [1..*]
+end
+
+association TeamPlayer between
+    Team [1]
+    Player [1..*]
+end
+
+association TrainingTrainingNotes between
+    TrainingSession [1]
+    TrainingNotes [1..*]
+end
+
+association TrainingFailded between
+    TrainingSession [1]
+    TrainingFailedToAttend [0..*]
+end
+
+association FailedPlayer between
+    TrainingFailedToAttend [0..*]
+    Player [1]
+end
+
+association TrainingObjectivePlayer between
+    TrainingObjective [1..*]
+    Player [1]
+end
+
+association PlayerPositions between
+    Player [1]
+    Position [1..3]
+end
+
+association PlayerPlayerNotes between
+    Player [1]
+    PlayerNotes [0..*]
+end
+
+association PlayerMatch between
+    Player [1]
+    MatchPlayer [0..*]
+end
+
+association MatchMatchReport between
+    Match [1]
+    MatchReport [1]
+end
+
+association MatchPlayerMatchPlayerPosition between
+    MatchPlayer [1]
+    MatchPlayerPosition [1]
+end
+
+association MatchMatchPlayer between
+    Match [1]
+    MatchPlayer [1..*]
+end
+
+association MatchMatchEvent between
+    Match [1]
+    MatchEvent [0..*]
+end
+
+association MatchMatchNote between
+    Match [1]
+    MatchNote [0..*]
+end
+
+association LocalMatch between
+    Team [1] role local
+    Match [0..1] role localMatch
+end
+
+association VisitorMatch between
+    Team [1] role visitor
+    Match [0..1] role visitorMatch
+end
+
+
+constraints
+context Match inv DifferentTeams:
+    self.local <> self.visitor
+
+context Match inv TeamsFromDifferentClubs:
+    self.local.club <> self.visitor.club
+
+context MatchReport inv PositiveScore:
+    self.scoreVisitor >= 0 and self.scoreLocal >= 0
+
+context MatchReport inv SumOfScoresEqualsGoals:
+    self.match.matchEvent->select(event | event.eventType = #GOAL)->size() = self.totalGoals()
+
+context MatchReport inv RealisticMatchDuration:
+    self.duration > 0 and self.duration <= 180
+
+context MatchReport inv EventTimeInMatch:
+    self.match.matchEvent->forAll(e | e.time > 0 and e.time <= self.duration)
+
+context MatchReport inv SumOfGoals:
+    self.playerGoalsSum() = self.totalGoals()
+
+context MatchEvent inv RealisticTimeEvent:
+    self.time > 0
+
+context MatchPlayerPosition inv RealisticPlayerPositions:
+    self.number > 0
+
+-- Allowed: different Player (any numbers); same Player listed twice with the same number
+-- Forbidden: different MatchPlayer, same Player, different shirt numbers on this match
+context Match inv SameMatchDuplicatedPlayers:
+    self.matchPlayer->forAll(mp1, mp2 |
+        mp1 = mp2 or mp1.player <> mp2.player
+        or mp1.matchPlayerPosition.number = mp2.matchPlayerPosition.number)
+
+-- Per team (via Player.team): same Player may repeat with the same number;
+-- local #10 and visitor #10 are allowed; same team cannot share a number across different Players
+context Match inv UniqueShirtNumbers:
+    self.matchPlayer->forAll(mp1, mp2 |
+        mp1 = mp2 or mp1.player = mp2.player
+        or mp1.player.team <> mp2.player.team
+        or mp1.matchPlayerPosition.number <> mp2.matchPlayerPosition.number)
+
+context TrainingObjective inv RealisticDates:
+    CalendarDate(self.endDate).dayIndex() > CalendarDate(self.startDate).dayIndex()
+    and CalendarDate(self.startDate).year() >= 1900
+    and CalendarDate(self.startDate).year() <= 3000
+    and CalendarDate(self.endDate).year() >= 1900
+    and CalendarDate(self.endDate).year() <= 3000
